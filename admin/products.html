@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proizvodi — Optimus Admin</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
+    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
+    <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
+    <div class="form-group"><label>Korisnicko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
+    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()"><i class="fa fa-sign-in mr-1"></i> Prijavi se</button>
+  </div>
+</div>
+
+<div id="app" class="d-none">
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
+    <div class="navbar-actions">
+      <button class="nav-icon-btn" title="Obavestenja"><i class="fa fa-bell"></i></button>
+      <div class="nav-divider"></div>
+      <div class="nav-avatar" id="nav-username" title="Odjavi se" onclick="logout()">A</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-layout">
+    <aside class="sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+      </ul>
+      <p class="nav-section-label">Katalog</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active" href="products.html"><i class="fa fa-cube"></i>Proizvodi</a></li>
+        <li class="nav-item"><a class="nav-link" href="product-form.html"><i class="fa fa-plus-square"></i>Novi proizvod</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fa fa-sitemap"></i>Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link" href="brands.html"><i class="fa fa-tag"></i>Brendovi</a></li>
+      </ul>
+      <p class="nav-section-label">Prodaja</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudzbine</a></li>
+      </ul>
+      <p class="nav-section-label">Sistem</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="import.html"><i class="fa fa-upload"></i>Import</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div><h4>Proizvodi</h4><div class="page-header-meta">Upravljanje katalogom proizvoda</div></div>
+        <a href="product-form.html" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-1"></i> Novi proizvod</a>
+      </div>
+
+      <div class="filter-bar">
+        <div class="row" style="align-items:center">
+          <div class="col-md-5">
+            <input type="text" id="search-input" class="form-control form-control-sm" placeholder="Pretrazi po nazivu, SKU, EAN...">
+          </div>
+          <div class="col-md-3">
+            <select id="category-filter" class="form-control form-control-sm">
+              <option value="">-- Sve kategorije --</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <select id="active-filter" class="form-control form-control-sm">
+              <option value="">-- Status --</option>
+              <option value="true">Aktivni</option>
+              <option value="false">Neaktivni</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary btn-sm btn-block" onclick="loadProducts(0)">
+              <i class="fa fa-search mr-1"></i> Trazi
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th style="width:48px"></th>
+                <th>Naziv</th>
+                <th>SKU / EAN</th>
+                <th>Kategorija</th>
+                <th>Brend</th>
+                <th>Dobavljaci</th>
+                <th>Na stanju</th>
+                <th>Status</th>
+                <th style="width:80px"></th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <tr><td colspan="9" class="text-center text-muted py-4">Ucitavanje...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <small id="pagination-info" class="text-muted"></small>
+          <div id="pagination-controls"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="admin.js"></script>
+<script>
+  initPage();
+  let currentPage = 0;
+  const IMG_PH = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23eff2f6'/%3E%3Cpath d='M10 28l7-9 5 6 3-4 5 7z' fill='%23cbd0dd'/%3E%3C/svg%3E";
+
+  function loadProducts(page) {
+    currentPage = page || 0;
+    const search = $('#search-input').val().trim();
+    const category = $('#category-filter').val();
+    const activeFilter = $('#active-filter').val();
+    const params = new URLSearchParams({ page: currentPage, size: 20, sort: 'name' });
+    if (search) params.set('search', search);
+    if (category) params.set('category', category);
+    if (activeFilter) params.set('active', activeFilter);
+
+    api('/api/admin/products?' + params).then(data => {
+      const content = data.content || [];
+      const totalPages = data.totalPages || 1;
+      const totalElements = data.totalElements || 0;
+      const pageNumber = data.number || 0;
+
+      const rows = content.map(p => {
+        const sps = p.supplierProducts || [];
+        const inStock = p.inStock;
+        const stock = sps.filter(s => s.active).reduce((sum, s) => sum + (s.stockQuantity || 0), 0);
+        const supplierBadges = sps.length
+          ? sps.map(s => '<span class="badge badge-confirmed mr-1" title="SKU: ' + s.supplierSku + '">' + s.supplierCode + '</span>').join('')
+          : '<span class="text-muted">-</span>';
+        return '<tr>' +
+          '<td><img src="' + (p.mainImageUrl || IMG_PH) + '" class="img-preview" onerror="this.src=\'' + IMG_PH + '\'"></td>' +
+          '<td><div style="font-weight:600;font-size:.875rem">' + p.name + '</div><small class="text-muted">' + (p.slug || '') + '</small></td>' +
+          '<td><code style="font-size:.75rem;background:var(--bg-alt);padding:.1em .4em;border-radius:4px">' + (p.sku || '-') + '</code>' + (p.ean ? '<br><small class="text-muted">' + p.ean + '</small>' : '') + '</td>' +
+          '<td><small>' + (p.categoryName || '-') + '</small></td>' +
+          '<td><small>' + (p.brandName || '-') + '</small></td>' +
+          '<td>' + supplierBadges + '</td>' +
+          '<td><span class="' + (inStock ? 'text-success' : 'text-muted') + '" style="font-size:.8rem;font-weight:600">' + (inStock ? (stock > 0 ? stock + ' kom' : 'Da') : 'Ne') + '</span></td>' +
+          '<td><span class="badge ' + (p.active ? 'badge-active' : 'badge-inactive') + ' cursor-pointer" onclick="toggleStatus(' + p.id + ',' + p.active + ')">' + (p.active ? 'Aktivan' : 'Neaktivan') + '</span></td>' +
+          '<td class="text-right">' +
+            '<a href="product-form.html?id=' + p.id + '" class="btn btn-xs btn-outline-primary mr-1" title="Uredi"><i class="fa fa-edit"></i></a>' +
+            '<button class="btn btn-xs btn-outline-danger" onclick="deleteProduct(' + p.id + ',\'' + escHtml(p.name) + '\')" title="Obrisi"><i class="fa fa-trash"></i></button>' +
+          '</td></tr>';
+      }).join('');
+
+      $('#products-tbody').html(rows || '<tr><td colspan="9" class="text-center text-muted py-5">Nema proizvoda</td></tr>');
+      $('#pagination-info').text('Strana ' + (pageNumber + 1) + ' od ' + totalPages + ' (' + totalElements + ' ukupno)');
+      renderPagination(pageNumber, totalPages);
+    });
+  }
+
+  function renderPagination(page, total) {
+    if (total <= 1) { $('#pagination-controls').html(''); return; }
+    let html = '<ul class="pagination pagination-sm mb-0">';
+    html += '<li class="page-item ' + (page === 0 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadProducts(' + (page - 1) + ');return false">«</a></li>';
+    const from = Math.max(0, page - 2), to = Math.min(total - 1, page + 2);
+    for (let i = from; i <= to; i++) {
+      html += '<li class="page-item ' + (i === page ? 'active' : '') + '"><a class="page-link" href="#" onclick="loadProducts(' + i + ');return false">' + (i + 1) + '</a></li>';
+    }
+    html += '<li class="page-item ' + (page === total - 1 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadProducts(' + (page + 1) + ');return false">»</a></li></ul>';
+    $('#pagination-controls').html(html);
+  }
+
+  function toggleStatus(id, currentActive) {
+    apiPatch('/api/admin/products/' + id + '/status', { active: !currentActive })
+      .then(() => { showToast('Status azuriran'); loadProducts(currentPage); });
+  }
+
+  function deleteProduct(id, name) {
+    confirmDelete(name, () => {
+      apiDelete('/api/admin/products/' + id)
+        .then(() => { showToast('Proizvod obrisan'); loadProducts(currentPage); });
+    });
+  }
+
+  function escHtml(str) { return (str || '').replace(/'/g, "\\'"); }
+
+  $(document).ready(function() {
+    if (!getAuth()) return;
+    api('/api/categories').then(cats => {
+      flattenCategories(cats).forEach(c => $('#category-filter').append('<option value="' + c.slug + '">' + c.name + '</option>'));
+    });
+    loadProducts(0);
+    $('#search-input').on('keypress', e => { if (e.which === 13) loadProducts(0); });
+  });
+</script>
+</body>
+</html>

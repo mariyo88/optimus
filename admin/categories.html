@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kategorije — Optimus Admin</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
+    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
+    <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
+    <div class="form-group"><label>Korisnicko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
+    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()"><i class="fa fa-sign-in mr-1"></i> Prijavi se</button>
+  </div>
+</div>
+
+<div id="app" class="d-none">
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
+    <div class="navbar-actions">
+      <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
+      <div class="nav-divider"></div>
+      <div class="nav-avatar" id="nav-username" onclick="logout()">A</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-layout">
+    <aside class="sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+      </ul>
+      <p class="nav-section-label">Katalog</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="products.html"><i class="fa fa-cube"></i>Proizvodi</a></li>
+        <li class="nav-item"><a class="nav-link" href="product-form.html"><i class="fa fa-plus-square"></i>Novi proizvod</a></li>
+        <li class="nav-item"><a class="nav-link active" href="categories.html"><i class="fa fa-sitemap"></i>Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link" href="brands.html"><i class="fa fa-tag"></i>Brendovi</a></li>
+      </ul>
+      <p class="nav-section-label">Prodaja</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudzbine</a></li>
+      </ul>
+      <p class="nav-section-label">Sistem</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="import.html"><i class="fa fa-upload"></i>Import</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div><h4>Kategorije</h4><div class="page-header-meta">Upravljanje stablom kategorija</div></div>
+        <button class="btn btn-primary btn-sm" onclick="resetForm()">
+          <i class="fa fa-plus mr-1"></i> Nova kategorija
+        </button>
+      </div>
+
+      <div class="row">
+        <div class="col-md-7">
+          <div class="card">
+            <div class="card-header"><i class="fa fa-sitemap mr-2 text-muted"></i>Stablo kategorija</div>
+            <div class="card-body">
+              <div id="category-tree" class="category-tree"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-header" id="form-title"><i class="fa fa-folder-o mr-2 text-muted"></i>Nova kategorija</div>
+            <div class="card-body">
+              <div id="form-alert" class="alert d-none"></div>
+              <div class="form-group">
+                <label>Naziv *</label>
+                <input type="text" id="f-name" class="form-control" placeholder="Npr. Laptopovi">
+              </div>
+              <div class="form-group">
+                <label>Slug <small class="text-muted">(auto)</small></label>
+                <input type="text" id="f-slug" class="form-control" placeholder="auto-generisan">
+              </div>
+              <div class="form-group">
+                <label>Nadredjena kategorija</label>
+                <select id="f-parent" class="form-control">
+                  <option value="">-- Koren --</option>
+                </select>
+              </div>
+              <div class="d-flex" style="gap:.5rem">
+                <button class="btn btn-primary" onclick="saveCategory()"><i class="fa fa-save mr-1"></i> Sacuvaj</button>
+                <button class="btn btn-outline-secondary" onclick="resetForm()">Otkazi</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="admin.js"></script>
+<script>
+  initPage();
+  let editingId = null;
+  let allCategories = [];
+
+  function loadCategories() {
+    api('/api/categories').then(data => {
+      allCategories = data;
+      renderTree(data, $('#category-tree'));
+      populateParentSelect(data);
+    });
+  }
+
+  function renderTree(nodes, container) {
+    if (!nodes || nodes.length === 0) {
+      container.html('<p class="text-muted">Nema kategorija</p>');
+      return;
+    }
+    const ul = $('<ul>');
+    nodes.forEach(cat => {
+      const li = $('<li>');
+      const item = $('<div class="cat-item">' +
+        '<i class="fa fa-folder-o mr-1 text-muted"></i>' +
+        '<span class="cat-name">' + cat.name + '</span>' +
+        '<small class="cat-slug">(' + cat.slug + ')</small>' +
+        '<button class="btn btn-xs btn-outline-primary ml-auto" onclick="editCategory(' + cat.id + ')"><i class="fa fa-edit"></i></button>' +
+        '<button class="btn btn-xs btn-outline-danger ml-1" onclick="deleteCategory(' + cat.id + ',\'' + cat.name.replace(/'/g, "\\'") + '\')"><i class="fa fa-trash"></i></button>' +
+      '</div>');
+      li.append(item);
+      if (cat.children && cat.children.length) {
+        const sub = $('<div>');
+        renderTree(cat.children, sub);
+        li.append(sub);
+      }
+      ul.append(li);
+    });
+    container.html(ul);
+  }
+
+  function populateParentSelect(tree) {
+    const flat = flattenCategories(tree);
+    $('#f-parent').html('<option value="">-- Koren --</option>');
+    flat.forEach(c => $('#f-parent').append('<option value="' + c.id + '">' + c.name + '</option>'));
+  }
+
+  function editCategory(id) {
+    editingId = id;
+    api('/api/categories').then(data => {
+      const found = findInTree(data, id);
+      if (!found) return;
+      $('#form-title').html('<i class="fa fa-folder-open-o mr-2 text-muted"></i>Uredi: ' + found.name);
+      $('#f-name').val(found.name);
+      $('#f-slug').val(found.slug);
+      $('#f-parent').val(found.parentId || '');
+    });
+  }
+
+  function findInTree(nodes, id) {
+    for (const n of nodes) {
+      if (n.id === id) return n;
+      if (n.children) { const r = findInTree(n.children, id); if (r) return r; }
+    }
+    return null;
+  }
+
+  function resetForm() {
+    editingId = null;
+    $('#form-title').html('<i class="fa fa-folder-o mr-2 text-muted"></i>Nova kategorija');
+    $('#f-name').val(''); $('#f-slug').val(''); $('#f-parent').val('');
+    $('#form-alert').addClass('d-none');
+  }
+
+  function saveCategory() {
+    const name = $('#f-name').val().trim();
+    if (!name) { showFormAlert('Naziv je obavezan'); return; }
+    const payload = {
+      name,
+      slug: $('#f-slug').val().trim() || null,
+      parentId: $('#f-parent').val() ? parseInt($('#f-parent').val()) : null
+    };
+    const promise = editingId ? apiPut('/api/admin/categories/' + editingId, payload) : apiPost('/api/admin/categories', payload);
+    promise.then(() => { showToast('Kategorija sacuvana'); resetForm(); loadCategories(); });
+  }
+
+  function deleteCategory(id, name) {
+    confirmDelete(name, () => {
+      apiDelete('/api/admin/categories/' + id).then(() => { showToast('Kategorija obrisana'); loadCategories(); });
+    });
+  }
+
+  function showFormAlert(msg) {
+    $('#form-alert').removeClass('d-none alert-success').addClass('alert-danger').text(msg);
+  }
+
+  $(document).ready(function() { if (getAuth()) loadCategories(); });
+</script>
+</body>
+</html>

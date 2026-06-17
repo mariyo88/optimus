@@ -2141,6 +2141,36 @@ textarea.input {
   margin: 15px 0px;
 }
 
+/* Out of Stock Styles */
+.product .out-of-stock {
+  display: inline-block;
+  background-color: #ccc;
+  color: #666;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin-top: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.product .add-to-cart-btn.out-of-stock-disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.product .add-to-cart-btn.out-of-stock-disabled:hover {
+  background-color: #ccc;
+  color: #666;
+  border-color: #ccc;
+  padding: 0px 30px;
+}
+
+.product .add-to-cart-btn:disabled {
+  pointer-events: none;
+}
+
 /*=========================================================
 	13 -> RESPONSIVE
 ===========================================================*/

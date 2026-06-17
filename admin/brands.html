@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brendovi — Optimus Admin</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
+    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
+    <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
+    <div class="form-group"><label>Korisnicko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
+    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()"><i class="fa fa-sign-in mr-1"></i> Prijavi se</button>
+  </div>
+</div>
+
+<div id="app" class="d-none">
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
+    <div class="navbar-actions">
+      <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
+      <div class="nav-divider"></div>
+      <div class="nav-avatar" id="nav-username" onclick="logout()">A</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-layout">
+    <aside class="sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+      </ul>
+      <p class="nav-section-label">Katalog</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="products.html"><i class="fa fa-cube"></i>Proizvodi</a></li>
+        <li class="nav-item"><a class="nav-link" href="product-form.html"><i class="fa fa-plus-square"></i>Novi proizvod</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fa fa-sitemap"></i>Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link active" href="brands.html"><i class="fa fa-tag"></i>Brendovi</a></li>
+      </ul>
+      <p class="nav-section-label">Prodaja</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudzbine</a></li>
+      </ul>
+      <p class="nav-section-label">Sistem</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="import.html"><i class="fa fa-upload"></i>Import</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div><h4>Brendovi</h4><div class="page-header-meta">Upravljanje brendovima proizvoda</div></div>
+        <button class="btn btn-primary btn-sm" onclick="resetForm()">
+          <i class="fa fa-plus mr-1"></i> Novi brend
+        </button>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header"><i class="fa fa-tag mr-2 text-muted"></i>Lista brendova</div>
+            <div class="card-body p-0">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th style="width:60px">Logo</th>
+                    <th>Naziv</th>
+                    <th>Logo URL</th>
+                    <th style="width:80px"></th>
+                  </tr>
+                </thead>
+                <tbody id="brands-tbody">
+                  <tr><td colspan="4" class="text-center text-muted py-4">Ucitavanje...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header" id="form-title"><i class="fa fa-tag mr-2 text-muted"></i>Novi brend</div>
+            <div class="card-body">
+              <div id="form-alert" class="alert d-none"></div>
+              <div class="form-group">
+                <label>Naziv *</label>
+                <input type="text" id="f-name" class="form-control" placeholder="Npr. Samsung">
+              </div>
+              <div class="form-group">
+                <label>Logo URL</label>
+                <input type="text" id="f-logo" class="form-control" placeholder="https://...">
+              </div>
+              <div id="logo-preview" class="mb-3" style="min-height:60px"></div>
+              <div class="d-flex" style="gap:.5rem">
+                <button class="btn btn-primary" onclick="saveBrand()"><i class="fa fa-save mr-1"></i> Sacuvaj</button>
+                <button class="btn btn-outline-secondary" onclick="resetForm()">Otkazi</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="admin.js"></script>
+<script>
+  initPage();
+  let editingId = null;
+
+  function loadBrands() {
+    api('/api/brands').then(brands => {
+      const rows = brands.map(b =>
+        '<tr>' +
+          '<td>' + (b.logoUrl ? '<img src="' + b.logoUrl + '" class="img-preview" onerror="this.style.display=\'none\'">' : '<span class="text-muted">-</span>') + '</td>' +
+          '<td style="font-weight:600">' + b.name + '</td>' +
+          '<td><small class="text-muted text-truncate-200 d-block">' + (b.logoUrl || '-') + '</small></td>' +
+          '<td class="text-right">' +
+            '<button class="btn btn-xs btn-outline-primary mr-1" onclick="editBrand(' + b.id + ',\'' + esc(b.name) + '\',\'' + esc(b.logoUrl || '') + '\')"><i class="fa fa-edit"></i></button>' +
+            '<button class="btn btn-xs btn-outline-danger" onclick="deleteBrand(' + b.id + ',\'' + esc(b.name) + '\')"><i class="fa fa-trash"></i></button>' +
+          '</td>' +
+        '</tr>'
+      ).join('');
+      $('#brands-tbody').html(rows || '<tr><td colspan="4" class="text-center text-muted py-4">Nema brendova</td></tr>');
+    });
+  }
+
+  function editBrand(id, name, logo) {
+    editingId = id;
+    $('#form-title').html('<i class="fa fa-pencil mr-2 text-muted"></i>Uredi brend');
+    $('#f-name').val(name); $('#f-logo').val(logo);
+    updateLogoPreview(logo);
+  }
+
+  function resetForm() {
+    editingId = null;
+    $('#form-title').html('<i class="fa fa-tag mr-2 text-muted"></i>Novi brend');
+    $('#f-name').val(''); $('#f-logo').val('');
+    $('#logo-preview').html(''); $('#form-alert').addClass('d-none');
+  }
+
+  function saveBrand() {
+    const name = $('#f-name').val().trim();
+    if (!name) { showFormAlert('Naziv je obavezan'); return; }
+    const payload = { name, logoUrl: $('#f-logo').val().trim() || null };
+    const promise = editingId ? apiPut('/api/admin/brands/' + editingId, payload) : apiPost('/api/admin/brands', payload);
+    promise.then(() => { showToast('Brend sacuvan'); resetForm(); loadBrands(); });
+  }
+
+  function deleteBrand(id, name) {
+    confirmDelete(name, () => {
+      apiDelete('/api/admin/brands/' + id).then(() => { showToast('Brend obrisan'); loadBrands(); });
+    });
+  }
+
+  function updateLogoPreview(url) {
+    $('#logo-preview').html(url ? '<img src="' + url + '" style="max-height:56px;max-width:100%;border-radius:6px;border:1px solid var(--border-light)" onerror="$(this).hide()">' : '');
+  }
+
+  function showFormAlert(msg) {
+    $('#form-alert').removeClass('d-none alert-success').addClass('alert-danger').text(msg);
+  }
+
+  function esc(str) { return (str || '').replace(/'/g, "\\'"); }
+
+  $('#f-logo').on('input', function() { updateLogoPreview($(this).val().trim()); });
+
+  $(document).ready(function() { if (getAuth()) loadBrands(); });
+</script>
+</body>
+</html>

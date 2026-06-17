@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Porudzbine — Optimus Admin</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
+    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
+    <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
+    <div class="form-group"><label>Korisnicko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
+    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()"><i class="fa fa-sign-in mr-1"></i> Prijavi se</button>
+  </div>
+</div>
+
+<div id="app" class="d-none">
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
+    <div class="navbar-actions">
+      <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
+      <div class="nav-divider"></div>
+      <div class="nav-avatar" id="nav-username" onclick="logout()">A</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-layout">
+    <aside class="sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+      </ul>
+      <p class="nav-section-label">Katalog</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="products.html"><i class="fa fa-cube"></i>Proizvodi</a></li>
+        <li class="nav-item"><a class="nav-link" href="product-form.html"><i class="fa fa-plus-square"></i>Novi proizvod</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fa fa-sitemap"></i>Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link" href="brands.html"><i class="fa fa-tag"></i>Brendovi</a></li>
+      </ul>
+      <p class="nav-section-label">Prodaja</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudzbine</a></li>
+      </ul>
+      <p class="nav-section-label">Sistem</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="import.html"><i class="fa fa-upload"></i>Import</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div><h4>Porudzbine</h4><div class="page-header-meta">Upravljanje prodajnim nalozima</div></div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="row" style="align-items:center">
+          <div class="col-md-4">
+            <select id="status-filter" class="form-control form-control-sm">
+              <option value="">-- Svi statusi --</option>
+              <option>CREATED</option><option>CONFIRMED</option>
+              <option>PROCESSING</option><option>SHIPPED</option>
+              <option>DELIVERED</option><option>CANCELLED</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary btn-sm btn-block" onclick="loadOrders(0)">
+              <i class="fa fa-filter mr-1"></i> Filtriraj
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Broj porudzbine</th>
+                <th>Kupac</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Iznos</th>
+                <th>Status</th>
+                <th>Datum</th>
+                <th style="width:50px"></th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr><td colspan="8" class="text-center text-muted py-4">Ucitavanje...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <small id="pagination-info" class="text-muted"></small>
+          <div id="pagination-controls"></div>
+        </div>
+      </div>
+
+      <!-- Order detail panel -->
+      <div id="order-detail" class="card mt-4 d-none">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span><i class="fa fa-file-text-o mr-2 text-muted"></i><span id="detail-order-number">Detalji porudzbine</span></span>
+          <button class="btn btn-xs btn-outline-secondary" onclick="$('#order-detail').addClass('d-none')">
+            <i class="fa fa-times mr-1"></i> Zatvori
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="form-section" style="margin-bottom:0">
+                <h6>Podaci o kupcu</h6>
+                <p class="mb-1"><span class="text-muted" style="font-size:.8rem">Ime i prezime</span><br><strong id="detail-name"></strong></p>
+                <p class="mb-1"><span class="text-muted" style="font-size:.8rem">Email</span><br><span id="detail-email"></span></p>
+                <p class="mb-1"><span class="text-muted" style="font-size:.8rem">Telefon</span><br><span id="detail-phone"></span></p>
+                <p class="mb-0"><span class="text-muted" style="font-size:.8rem">Adresa dostave</span><br><span id="detail-address"></span></p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-section" style="margin-bottom:0">
+                <h6>Status porudzbine</h6>
+                <select id="detail-status" class="form-control form-control-sm mb-2"></select>
+                <button class="btn btn-sm btn-primary btn-block" onclick="updateStatus()">
+                  <i class="fa fa-check mr-1"></i> Azuriraj status
+                </button>
+              </div>
+            </div>
+          </div>
+          <table class="table table-sm">
+            <thead>
+              <tr><th>Proizvod</th><th>Cena</th><th>Kol.</th><th class="text-right">Ukupno</th></tr>
+            </thead>
+            <tbody id="detail-items"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="text-right"><strong>Ukupno:</strong></td>
+                <td class="text-right"><strong id="detail-total"></strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="admin.js"></script>
+<script>
+  initPage();
+  let currentPage = 0;
+  let selectedOrderId = null;
+  const ORDER_STATUSES = ['CREATED','CONFIRMED','PROCESSING','SHIPPED','DELIVERED','CANCELLED'];
+  ORDER_STATUSES.forEach(s => $('#detail-status').append('<option value="' + s + '">' + s + '</option>'));
+
+  function loadOrders(page) {
+    currentPage = page || 0;
+    const status = $('#status-filter').val();
+    const params = new URLSearchParams({ page: currentPage, size: 20, sort: 'createdAt,desc' });
+    if (status) params.set('status', status);
+    api('/api/admin/orders?' + params).then(data => {
+      const rows = data.content.map(o =>
+        '<tr class="cursor-pointer" onclick="showOrderDetail(' + o.id + ')">' +
+          '<td><strong>' + o.orderNumber + '</strong></td>' +
+          '<td>' + o.customerName + '</td>' +
+          '<td>' + o.customerEmail + '</td>' +
+          '<td>' + (o.customerPhone || '-') + '</td>' +
+          '<td style="font-weight:600">' + formatPrice(o.totalPrice) + '</td>' +
+          '<td><span class="badge ' + statusBadge(o.orderStatus) + '">' + o.orderStatus + '</span></td>' +
+          '<td><small>' + formatDate(o.createdAt) + '</small></td>' +
+          '<td><button class="btn btn-xs btn-outline-primary" onclick="event.stopPropagation();showOrderDetail(' + o.id + ')"><i class="fa fa-eye"></i></button></td>' +
+        '</tr>'
+      ).join('');
+      $('#orders-tbody').html(rows || '<tr><td colspan="8" class="text-center text-muted py-4">Nema porudzbina</td></tr>');
+      $('#pagination-info').text('Strana ' + (data.page + 1) + ' od ' + data.totalPages + ' (' + data.totalElements + ' ukupno)');
+      renderPagination(data.page, data.totalPages);
+    });
+  }
+
+  function renderPagination(page, total) {
+    if (total <= 1) { $('#pagination-controls').html(''); return; }
+    let html = '<ul class="pagination pagination-sm mb-0">';
+    html += '<li class="page-item ' + (page === 0 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + (page - 1) + ');return false">«</a></li>';
+    const from = Math.max(0, page - 2), to = Math.min(total - 1, page + 2);
+    for (let i = from; i <= to; i++) {
+      html += '<li class="page-item ' + (i === page ? 'active' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + i + ');return false">' + (i + 1) + '</a></li>';
+    }
+    html += '<li class="page-item ' + (page === total - 1 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + (page + 1) + ');return false">»</a></li></ul>';
+    $('#pagination-controls').html(html);
+  }
+
+  function showOrderDetail(id) {
+    selectedOrderId = id;
+    api('/api/orders/' + id).then(o => {
+      $('#detail-order-number').text(o.orderNumber);
+      $('#detail-name').text(o.customerName);
+      $('#detail-email').text(o.customerEmail);
+      $('#detail-phone').text(o.customerPhone || '-');
+      $('#detail-address').text(o.deliveryAddress);
+      $('#detail-status').val(o.orderStatus);
+      $('#detail-total').text(formatPrice(o.totalPrice));
+      const rows = (o.items || []).map(i =>
+        '<tr><td>' + i.productName + '</td><td>' + formatPrice(i.productPrice) + '</td><td>' + i.quantity + '</td><td class="text-right">' + formatPrice(i.totalPrice) + '</td></tr>'
+      ).join('');
+      $('#detail-items').html(rows);
+      $('#order-detail').removeClass('d-none');
+      $('html, body').animate({ scrollTop: $('#order-detail').offset().top - 20 }, 300);
+    });
+  }
+
+  function updateStatus() {
+    if (!selectedOrderId) return;
+    const status = $('#detail-status').val();
+    apiPatch('/api/admin/orders/' + selectedOrderId + '/status', { status }).then(() => {
+      showToast('Status azuriran');
+      loadOrders(currentPage);
+    });
+  }
+
+  function formatDate(dt) {
+    if (!dt) return '-';
+    return new Date(dt).toLocaleString('sr-RS');
+  }
+
+  $(document).ready(function() {
+    if (getAuth()) loadOrders(0);
+  });
+</script>
+</body>
+</html>

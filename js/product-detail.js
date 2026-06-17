@@ -5,27 +5,53 @@
 (function ($) {
     'use strict';
 
-    var API_BASE = 'https://webshop-backend-473383712022.europe-west1.run.app';
+    var API_BASE = window.APP_CONFIG.API_BASE;
 
     function getSlugFromUrl() {
         var params = new URLSearchParams(window.location.search);
         return params.get('slug');
     }
 
-    function renderStockStatus(qty) {
-        if (qty > 0) {
+    function getBestPrice(product) {
+        if (!product.supplierProducts || product.supplierProducts.length === 0) {
+            return { price: null, inStock: false };
+        }
+        
+        var suppliers = product.supplierProducts.filter(sp => sp.active === true);
+        if (suppliers.length === 0) {
+            return { price: null, inStock: false };
+        }
+
+        var bestPrice = suppliers.reduce(function (best, sp) {
+            var price = sp.webPrice || sp.retailPrice;
+            if (!price) return best;
+            if (!best.price || price < best.price) {
+                return { price: price, inStock: sp.inStock === true };
+            }
+            return best;
+        }, { price: null, inStock: false });
+
+        var inStock = suppliers.some(sp => sp.inStock === true);
+        return { price: bestPrice.price, inStock: inStock };
+    }
+
+    function renderStockStatus(product) {
+        var priceInfo = getBestPrice(product);
+        if (priceInfo.inStock) {
             return '<span class="product-available">In Stock</span>';
         }
         return '<span class="product-available" style="color:#999;">Out of Stock</span>';
     }
 
-    function renderPrice(price, oldPrice) {
-        var html = '<h3 class="product-price">$' + parseFloat(price).toFixed(2);
-        if (oldPrice) {
-            html += ' <del class="product-old-price">$' + parseFloat(oldPrice).toFixed(2) + '</del>';
+    function renderPrice(product) {
+        var priceInfo = getBestPrice(product);
+        var price = priceInfo.price;
+        
+        if (!price) {
+            return '<h3 class="product-price"><span class="text-muted">Price Not Available</span></h3>';
         }
-        html += '</h3>';
-        return html;
+        
+        return '<h3 class="product-price">' + parseFloat(price).toFixed(2) + '</h3>';
     }
 
     function renderDetails(product) {
@@ -36,7 +62,7 @@
 
         // Price + stock
         $('#product-price-stock').html(
-            renderPrice(product.price, product.oldPrice) + renderStockStatus(product.stockQuantity)
+            renderPrice(product) + renderStockStatus(product)
         );
 
         // Short description

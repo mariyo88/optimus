@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Optimus Admin</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ── Login overlay ──────────────────────────────────────────────────────── -->
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-icon"><i class="fa fa-bolt"></i></div>
+    </div>
+    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
+    <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
+    <div class="form-group">
+      <label>Korisničko ime</label>
+      <input type="text" id="login-username" class="form-control" placeholder="admin">
+    </div>
+    <div class="form-group">
+      <label>Lozinka</label>
+      <input type="password" id="login-password" class="form-control" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()">
+      <i class="fa fa-sign-in mr-1"></i> Prijavi se
+    </button>
+  </div>
+</div>
+
+<!-- ── App ────────────────────────────────────────────────────────────────── -->
+<div id="app" class="d-none">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="index.html">
+      <div class="brand-icon"><i class="fa fa-bolt"></i></div>
+      Optimus Admin
+    </a>
+    <div class="navbar-search">
+      <div class="search-wrap">
+        <i class="fa fa-search"></i>
+        <input type="text" placeholder="Pretraži...">
+      </div>
+    </div>
+    <div class="navbar-actions">
+      <button class="nav-icon-btn" title="Obaveštenja"><i class="fa fa-bell"></i></button>
+      <div class="nav-divider"></div>
+      <div class="nav-avatar" id="nav-username" title="Odjavi se" onclick="logout()">A</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">
+            <i class="fa fa-tachometer"></i>Dashboard
+          </a>
+        </li>
+      </ul>
+      <p class="nav-section-label">Katalog</p>
+      <hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="products.html"><i class="fa fa-cube"></i>Proizvodi</a></li>
+        <li class="nav-item"><a class="nav-link" href="product-form.html"><i class="fa fa-plus-square"></i>Novi proizvod</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fa fa-sitemap"></i>Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link" href="brands.html"><i class="fa fa-tag"></i>Brendovi</a></li>
+      </ul>
+      <p class="nav-section-label">Prodaja</p>
+      <hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudžbine</a></li>
+      </ul>
+      <p class="nav-section-label">Sistem</p>
+      <hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="import.html"><i class="fa fa-upload"></i>Import</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h4>Dashboard</h4>
+          <div class="page-header-meta">Pregled celokupnog stanja</div>
+        </div>
+      </div>
+
+      <!-- Stat cards -->
+      <div class="row" id="stats-row">
+        <div class="col-md-3 mb-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="stat-icon-wrap purple"><i class="fa fa-cube"></i></div>
+              <div class="stat-text">
+                <div class="stat-value" id="stat-products">—</div>
+                <div class="stat-label">Proizvoda</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="stat-icon-wrap blue"><i class="fa fa-sitemap"></i></div>
+              <div class="stat-text">
+                <div class="stat-value" id="stat-categories">—</div>
+                <div class="stat-label">Kategorija</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="stat-icon-wrap green"><i class="fa fa-tag"></i></div>
+              <div class="stat-text">
+                <div class="stat-value" id="stat-brands">—</div>
+                <div class="stat-label">Brendova</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="stat-icon-wrap orange"><i class="fa fa-shopping-cart"></i></div>
+              <div class="stat-text">
+                <div class="stat-value" id="stat-orders">—</div>
+                <div class="stat-label">Porudžbina</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent orders + Quick actions -->
+      <div class="row mt-2">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span><i class="fa fa-shopping-cart mr-2 text-muted"></i>Poslednje porudžbine</span>
+              <a href="orders.html" class="btn btn-xs btn-outline-primary">Sve porudžbine</a>
+            </div>
+            <div class="card-body p-0">
+              <table class="table table-sm mb-0">
+                <thead>
+                  <tr>
+                    <th>Broj</th>
+                    <th>Kupac</th>
+                    <th>Iznos</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-orders">
+                  <tr><td colspan="4" class="text-center text-muted py-3">Učitavanje...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-bolt mr-2 text-muted"></i>Brze akcije
+            </div>
+            <div class="card-body">
+              <a href="product-form.html" class="btn btn-primary btn-block mb-2">
+                <i class="fa fa-plus mr-2"></i>Novi proizvod
+              </a>
+              <a href="categories.html" class="btn btn-outline-secondary btn-block mb-2">
+                <i class="fa fa-sitemap mr-2"></i>Upravljaj kategorijama
+              </a>
+              <a href="import.html" class="btn btn-outline-secondary btn-block">
+                <i class="fa fa-upload mr-2"></i>DSC Import
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="admin.js"></script>
+<script>
+  initPage();
+
+  function loadDashboard() {
+    api('/api/products?size=1').then(r => $('#stat-products').text(r.totalElements));
+    api('/api/categories').then(r => $('#stat-categories').text(countCategories(r)));
+    api('/api/brands').then(r => $('#stat-brands').text(r.length));
+    api('/api/admin/orders?size=5&sort=createdAt,desc').then(r => {
+      $('#stat-orders').text(r.totalElements);
+      const rows = r.content.map(o => `
+        <tr>
+          <td><a href="orders.html" class="fw-semibold">${o.orderNumber}</a></td>
+          <td>${o.customerName}</td>
+          <td class="fw-semibold">${formatPrice(o.totalPrice)}</td>
+          <td><span class="badge ${statusBadge(o.orderStatus)}">${o.orderStatus}</span></td>
+        </tr>`).join('');
+      $('#recent-orders').html(rows || '<tr><td colspan="4" class="text-center text-muted py-3">Nema porudžbina</td></tr>');
+    });
+  }
+
+  function countCategories(tree) {
+    return tree.reduce((acc, c) => acc + 1 + (c.children ? countCategories(c.children) : 0), 0);
+  }
+
+  $(document).ready(function() {
+    if (getAuth()) loadDashboard();
+  });
+</script>
+</body>
+</html>

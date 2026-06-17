@@ -1,10 +1,21 @@
 /**
- * Store page — dynamic product loading from backend API
+ * Store page - dynamic product loading from backend API
  */
 (function ($) {
     'use strict';
 
-    var API_BASE = 'https://webshop-backend-473383712022.europe-west1.run.app';
+    var API_BASE = window.APP_CONFIG.API_BASE;
+
+    var CATEGORIES = [
+        { label: 'All',                   slug: ''                      },
+        { label: 'Laptops',               slug: 'laptops'               },
+        { label: 'Smartphones',           slug: 'smartphones'           },
+        { label: 'Cameras',               slug: 'cameras'               },
+        { label: 'Accessories',           slug: 'accessories'           },
+        { label: 'Slushalice i mikrofoni', slug: 'slusalice-i-mikrofoni' },
+        { label: 'Web kamere',            slug: 'web-kamere'            },
+        { label: 'Brend racunari',        slug: 'brend-racunari'        }
+    ];
 
     var state = {
         category: getParam('category') || '',
@@ -18,20 +29,14 @@
         return new URLSearchParams(window.location.search).get(name) || '';
     }
 
-    function calcDiscount(price, oldPrice) {
-        if (!oldPrice || parseFloat(oldPrice) <= parseFloat(price)) return '';
-        return '-' + Math.round((1 - price / oldPrice) * 100) + '%';
-    }
-
     function buildProductCard(p) {
         var imgSrc   = p.mainImageUrl ? p.mainImageUrl : './img/product01.png';
-        var discount = calcDiscount(p.price, p.oldPrice);
+        var price    = p.bestWebPrice || p.bestRetailPrice;
         var labels   = '';
-        if (discount) labels += '<span class="sale">' + discount + '</span>';
         if (p.isNew)  labels += '<span class="new">NEW</span>';
-        var oldPriceHtml = p.oldPrice
-            ? '<del class="product-old-price">$' + parseFloat(p.oldPrice).toFixed(2) + '</del>'
-            : '';
+        var priceHtml = price ? '<span class="product-price-value">' + parseFloat(price).toFixed(2) + '</span>' : '<span class="text-muted">N/A</span>';
+        var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
+        var inStockBadge = !p.inStock ? '<div class="out-of-stock">Out of Stock</div>' : '';
 
         return [
             '<div class="col-md-4 col-xs-6">',
@@ -43,7 +48,8 @@
             '    <div class="product-body">',
             '      <p class="product-category">' + (p.brandName || '') + '</p>',
             '      <h3 class="product-name"><a href="product.html?slug=' + p.slug + '">' + p.name + '</a></h3>',
-            '      <h4 class="product-price">$' + parseFloat(p.price).toFixed(2) + ' ' + oldPriceHtml + '</h4>',
+            '      <h4 class="product-price">' + priceHtml + '</h4>',
+            '      ' + inStockBadge,
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
             '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>',
@@ -52,7 +58,7 @@
             '      </div>',
             '    </div>',
             '    <div class="add-to-cart">',
-            '      <button class="add-to-cart-btn" data-id="' + p.id + '"><i class="fa fa-shopping-cart"></i> add to cart</button>',
+            '      <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> add to cart</button>',
             '    </div>',
             '  </div>',
             '</div>'
@@ -76,6 +82,32 @@
             html += '<li><a href="#" data-page="' + (current + 1) + '"><i class="fa fa-angle-right"></i></a></li>';
         }
         return html;
+    }
+
+    function buildCategoryFilter() {
+        var $filter = $('#category-filter');
+        if (!$filter.length) return;
+
+        $filter.empty();
+        $.each(CATEGORIES, function (i, cat) {
+            var isActive = (state.category === cat.slug);
+            var $div = $('<div class="input-checkbox">');
+            var $input = $('<input type="radio" name="cat-filter">')
+                .attr('id', 'cat-' + i)
+                .val(cat.slug)
+                .prop('checked', isActive);
+            var $label = $('<label>')
+                .attr('for', 'cat-' + i)
+                .html('<span></span>' + cat.label);
+            $div.append($input).append($label);
+            $filter.append($div);
+        });
+
+        $filter.on('change', 'input[type="radio"]', function () {
+            state.category = $(this).val();
+            state.page = 0;
+            loadProducts();
+        });
     }
 
     function loadProducts() {
@@ -115,6 +147,8 @@
     }
 
     $(document).ready(function () {
+
+        buildCategoryFilter();
 
         // Sort change
         $('#sort-select').on('change', function () {
