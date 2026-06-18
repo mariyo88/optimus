@@ -66,7 +66,9 @@
         
         if (retailPrice) {
             priceHtml += '<div class="price-row">';
-            priceHtml += '<span class="price-label">Retail Cijena:</span>';
+            // Use different label depending on whether we have web price
+            var label = webPrice ? 'Retail Cijena:' : 'Cijena:';
+            priceHtml += '<span class="price-label">' + label + '</span>';
             priceHtml += '<span class="product-price-value">' + parseFloat(retailPrice).toFixed(2) + '</span>';
             priceHtml += '</div>';
         }

@@ -39,7 +39,7 @@
         if (p.bestWebPrice || p.bestRetailPrice) {
             priceHtml = '<div class="product-price-container">';
             
-            // B2B cijena (Web price)
+            // B2B cijena (Web price) - show if available
             if (p.bestWebPrice) {
                 priceHtml += '<div class="price-row">';
                 priceHtml += '<span class="price-label">B2B:</span>';
@@ -47,10 +47,12 @@
                 priceHtml += '</div>';
             }
             
-            // Retail cijena
+            // Retail cijena - always show if available
             if (p.bestRetailPrice) {
                 priceHtml += '<div class="price-row">';
-                priceHtml += '<span class="price-label">Retail:</span>';
+                // Use different label depending on whether we have web price
+                var label = p.bestWebPrice ? 'Retail:' : 'Cijena:';
+                priceHtml += '<span class="price-label">' + label + '</span>';
                 priceHtml += '<span class="product-price-value">' + parseFloat(p.bestRetailPrice).toFixed(2) + '</span>';
                 priceHtml += '</div>';
             }
