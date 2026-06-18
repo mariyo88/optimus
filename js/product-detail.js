@@ -12,31 +12,34 @@
         return params.get('slug');
     }
 
-    function getBestPrice(product) {
+    function getBestPrices(product) {
         if (!product.supplierProducts || product.supplierProducts.length === 0) {
-            return { price: null, inStock: false };
+            return { webPrice: null, retailPrice: null, inStock: false };
         }
         
         var suppliers = product.supplierProducts.filter(sp => sp.active === true);
         if (suppliers.length === 0) {
-            return { price: null, inStock: false };
+            return { webPrice: null, retailPrice: null, inStock: false };
         }
 
-        var bestPrice = suppliers.reduce(function (best, sp) {
-            var price = sp.webPrice || sp.retailPrice;
-            if (!price) return best;
-            if (!best.price || price < best.price) {
-                return { price: price, inStock: sp.inStock === true };
+        var bestWebPrice = null;
+        var bestRetailPrice = null;
+
+        suppliers.forEach(function (sp) {
+            if (sp.webPrice && (!bestWebPrice || sp.webPrice < bestWebPrice)) {
+                bestWebPrice = sp.webPrice;
             }
-            return best;
-        }, { price: null, inStock: false });
+            if (sp.retailPrice && (!bestRetailPrice || sp.retailPrice < bestRetailPrice)) {
+                bestRetailPrice = sp.retailPrice;
+            }
+        });
 
         var inStock = suppliers.some(sp => sp.inStock === true);
-        return { price: bestPrice.price, inStock: inStock };
+        return { webPrice: bestWebPrice, retailPrice: bestRetailPrice, inStock: inStock };
     }
 
     function renderStockStatus(product) {
-        var priceInfo = getBestPrice(product);
+        var priceInfo = getBestPrices(product);
         if (priceInfo.inStock) {
             return '<span class="product-available">In Stock</span>';
         }
@@ -44,14 +47,33 @@
     }
 
     function renderPrice(product) {
-        var priceInfo = getBestPrice(product);
-        var price = priceInfo.price;
+        var priceInfo = getBestPrices(product);
+        var webPrice = priceInfo.webPrice;
+        var retailPrice = priceInfo.retailPrice;
         
-        if (!price) {
+        if (!webPrice && !retailPrice) {
             return '<h3 class="product-price"><span class="text-muted">Price Not Available</span></h3>';
         }
         
-        return '<h3 class="product-price">' + parseFloat(price).toFixed(2) + '</h3>';
+        var priceHtml = '<h3 class="product-price"><div class="product-price-detail-container">';
+        
+        if (webPrice) {
+            priceHtml += '<div class="price-row">';
+            priceHtml += '<span class="price-label">B2B Cijena:</span>';
+            priceHtml += '<span class="product-price-value">' + parseFloat(webPrice).toFixed(2) + '</span>';
+            priceHtml += '</div>';
+        }
+        
+        if (retailPrice) {
+            priceHtml += '<div class="price-row">';
+            priceHtml += '<span class="price-label">Retail Cijena:</span>';
+            priceHtml += '<span class="product-price-value">' + parseFloat(retailPrice).toFixed(2) + '</span>';
+            priceHtml += '</div>';
+        }
+        
+        priceHtml += '</div></h3>';
+        
+        return priceHtml;
     }
 
     function renderDetails(product) {

@@ -48,10 +48,35 @@
 
     function buildProductCard(p) {
         var imgSrc = p.mainImageUrl ? p.mainImageUrl : './img/product01.png';
-        var price = p.bestWebPrice || p.bestRetailPrice;
         var labels = '';
         if (p.isNew) labels += '<span class="new">NEW</span>';
-        var priceHtml = price ? '<span class="product-price-value">' + parseFloat(price).toFixed(2) + '</span>' : '<span class="text-muted">N/A</span>';
+        
+        // Build price display with both B2B (web price) and retail price
+        var priceHtml = '';
+        if (p.bestWebPrice || p.bestRetailPrice) {
+            priceHtml = '<div class="product-price-container">';
+            
+            // B2B cijena (Web price)
+            if (p.bestWebPrice) {
+                priceHtml += '<div class="price-row">';
+                priceHtml += '<span class="price-label">B2B:</span>';
+                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestWebPrice).toFixed(2) + '</span>';
+                priceHtml += '</div>';
+            }
+            
+            // Retail cijena
+            if (p.bestRetailPrice) {
+                priceHtml += '<div class="price-row">';
+                priceHtml += '<span class="price-label">Retail:</span>';
+                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestRetailPrice).toFixed(2) + '</span>';
+                priceHtml += '</div>';
+            }
+            
+            priceHtml += '</div>';
+        } else {
+            priceHtml = '<span class="text-muted">N/A</span>';
+        }
+        
         var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
         var inStockBadge = !p.inStock ? '<span class="out-of-stock">Out of Stock</span>' : '';
 
