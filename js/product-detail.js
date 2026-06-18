@@ -14,20 +14,20 @@
 
     function getBestPrices(product) {
         if (!product.supplierProducts || product.supplierProducts.length === 0) {
-            return { webPrice: null, retailPrice: null, inStock: false };
+            return { b2bPrice: null, retailPrice: null, inStock: false };
         }
         
         var suppliers = product.supplierProducts.filter(sp => sp.active === true);
         if (suppliers.length === 0) {
-            return { webPrice: null, retailPrice: null, inStock: false };
+            return { b2bPrice: null, retailPrice: null, inStock: false };
         }
 
-        var bestWebPrice = null;
+        var bestB2bPrice = null;
         var bestRetailPrice = null;
 
         suppliers.forEach(function (sp) {
-            if (sp.webPrice && (!bestWebPrice || sp.webPrice < bestWebPrice)) {
-                bestWebPrice = sp.webPrice;
+            if (sp.b2bPrice && (!bestB2bPrice || sp.b2bPrice < bestB2bPrice)) {
+                bestB2bPrice = sp.b2bPrice;
             }
             if (sp.retailPrice && (!bestRetailPrice || sp.retailPrice < bestRetailPrice)) {
                 bestRetailPrice = sp.retailPrice;
@@ -35,7 +35,7 @@
         });
 
         var inStock = suppliers.some(sp => sp.inStock === true);
-        return { webPrice: bestWebPrice, retailPrice: bestRetailPrice, inStock: inStock };
+        return { b2bPrice: bestB2bPrice, retailPrice: bestRetailPrice, inStock: inStock };
     }
 
     function renderStockStatus(product) {
@@ -48,27 +48,25 @@
 
     function renderPrice(product) {
         var priceInfo = getBestPrices(product);
-        var webPrice = priceInfo.webPrice;
+        var b2bPrice = priceInfo.b2bPrice;
         var retailPrice = priceInfo.retailPrice;
         
-        if (!webPrice && !retailPrice) {
+        if (!b2bPrice && !retailPrice) {
             return '<h3 class="product-price"><span class="text-muted">Price Not Available</span></h3>';
         }
         
         var priceHtml = '<h3 class="product-price"><div class="product-price-detail-container">';
         
-        if (webPrice) {
+        if (b2bPrice) {
             priceHtml += '<div class="price-row">';
-            priceHtml += '<span class="price-label">B2B Cijena:</span>';
-            priceHtml += '<span class="product-price-value">' + parseFloat(webPrice).toFixed(2) + '</span>';
+            priceHtml += '<span class="price-label">B2B Cena:</span>';
+            priceHtml += '<span class="product-price-value">' + parseFloat(b2bPrice).toFixed(2) + '</span>';
             priceHtml += '</div>';
         }
         
         if (retailPrice) {
             priceHtml += '<div class="price-row">';
-            // Use different label depending on whether we have web price
-            var label = webPrice ? 'Retail Cijena:' : 'Cijena:';
-            priceHtml += '<span class="price-label">' + label + '</span>';
+            priceHtml += '<span class="price-label">Retail Cena:</span>';
             priceHtml += '<span class="product-price-value">' + parseFloat(retailPrice).toFixed(2) + '</span>';
             priceHtml += '</div>';
         }
