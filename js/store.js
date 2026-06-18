@@ -174,7 +174,7 @@
                 var from = state.page * state.size + 1;
                 var to   = Math.min(from + products.length - 1, data.totalElements);
                 $('#store-qty').text('Showing ' + from + '-' + to + ' of ' + data.totalElements + ' products');
-                $('#store-pagination').html(buildPagination(data.currentPage, data.totalPages));
+                $('#store-pagination').html(buildPagination(data.page, data.totalPages));
             },
             error: function () {
                 $grid.html('<div class="col-md-12 text-center" style="padding:40px;"><p>Could not load products. Is the backend running?</p></div>');
