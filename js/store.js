@@ -67,20 +67,56 @@
 
     function buildPagination(current, totalPages) {
         if (totalPages <= 1) return '';
+        
         var html = '';
+        var maxVisible = 7; // Show max 7 page numbers at a time
+        var startPage = Math.max(0, current - Math.floor(maxVisible / 2));
+        var endPage = Math.min(totalPages - 1, startPage + maxVisible - 1);
+        
+        // Adjust startPage if we're near the end
+        if (endPage - startPage + 1 < maxVisible) {
+            startPage = Math.max(0, endPage - maxVisible + 1);
+        }
+        
+        // Previous button
         if (current > 0) {
             html += '<li><a href="#" data-page="' + (current - 1) + '"><i class="fa fa-angle-left"></i></a></li>';
         }
-        for (var i = 0; i < totalPages; i++) {
+        
+        // First page
+        if (startPage > 0) {
+            html += '<li><a href="#" data-page="0">1</a></li>';
+        }
+        
+        // Ellipsis before
+        if (startPage > 1) {
+            html += '<li class="disabled"><span>...</span></li>';
+        }
+        
+        // Page numbers
+        for (var i = startPage; i <= endPage; i++) {
             if (i === current) {
-                html += '<li class="active">' + (i + 1) + '</li>';
+                html += '<li class="active"><span>' + (i + 1) + '</span></li>';
             } else {
                 html += '<li><a href="#" data-page="' + i + '">' + (i + 1) + '</a></li>';
             }
         }
+        
+        // Ellipsis after
+        if (endPage < totalPages - 2) {
+            html += '<li class="disabled"><span>...</span></li>';
+        }
+        
+        // Last page
+        if (endPage < totalPages - 1) {
+            html += '<li><a href="#" data-page="' + (totalPages - 1) + '">' + totalPages + '</a></li>';
+        }
+        
+        // Next button
         if (current < totalPages - 1) {
             html += '<li><a href="#" data-page="' + (current + 1) + '"><i class="fa fa-angle-right"></i></a></li>';
         }
+        
         return html;
     }
 

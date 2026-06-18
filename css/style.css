@@ -1376,6 +1376,18 @@ textarea.input {
   display: block;
 }
 
+.store-pagination li.disabled {
+  background-color: #FFF;
+  border: 1px solid #E4E7ED;
+  cursor: default;
+  color: #999;
+}
+
+.store-pagination li.disabled:hover {
+  background-color: #FFF;
+  color: #999;
+}
+
 .store-qty {
   margin-right: 30px;
   font-weight: 500;
