@@ -6,17 +6,6 @@
 
     var API_BASE = window.APP_CONFIG.API_BASE;
 
-    var CATEGORIES = [
-        { label: 'All',                   slug: ''                      },
-        { label: 'Laptops',               slug: 'laptops'               },
-        { label: 'Smartphones',           slug: 'smartphones'           },
-        { label: 'Cameras',               slug: 'cameras'               },
-        { label: 'Accessories',           slug: 'accessories'           },
-        { label: 'Slushalice i mikrofoni', slug: 'slusalice-i-mikrofoni' },
-        { label: 'Web kamere',            slug: 'web-kamere'            },
-        { label: 'Brend racunari',        slug: 'brend-racunari'        }
-    ];
-
     var state = {
         category: getParam('category') || '',
         search:   getParam('search')   || '',
@@ -29,8 +18,43 @@
         return new URLSearchParams(window.location.search).get(name) || '';
     }
 
+    function updateBreadcrumb() {
+        var categoryName = '';
+        
+        // Get active categories to find the name for the selected slug
+        if (state.category) {
+            // For now, we'll load categories to find the matching name
+            $.ajax({
+                url: API_BASE + '/api/categories/public',
+                success: function (categories) {
+                    function findCategoryBySlug(cats, slug) {
+                        for (var i = 0; i < cats.length; i++) {
+                            if (cats[i].slug === slug) return cats[i];
+                            if (cats[i].children && cats[i].children.length > 0) {
+                                var found = findCategoryBySlug(cats[i].children, slug);
+                                if (found) return found;
+                            }
+                        }
+                        return null;
+                    }
+                    
+                    var cat = findCategoryBySlug(categories, state.category);
+                    if (cat) {
+                        $('#breadcrumb-category').text(cat.name);
+                    }
+                },
+                error: function () {
+                    $('#breadcrumb-category').text('Products');
+                }
+            });
+        } else {
+            $('#breadcrumb-category').text('All Products');
+        }
+    }
+
     function buildProductCard(p) {
-        var imgSrc   = p.mainImageUrl ? p.mainImageUrl : './img/product01.png';
+        var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ENo image available%3C/text%3E%3C/svg%3E";
+        var imgSrc   = p.mainImageUrl ? p.mainImageUrl : IMG_PLACEHOLDER;
         var labels   = '';
         if (p.isNew)  labels += '<span class="new">NEW</span>';
         
@@ -67,7 +91,7 @@
             '<div class="col-md-4 col-xs-6">',
             '  <div class="product">',
             '    <div class="product-img">',
-            '      <img src="' + imgSrc + '" alt="' + p.name + '">',
+            '      <img src="' + imgSrc + '" alt="' + p.name + '" onerror="this.src=\'' + IMG_PLACEHOLDER + '\'">',
             '      <div class="product-label">' + labels + '</div>',
             '    </div>',
             '    <div class="product-body">',
@@ -149,25 +173,102 @@
         var $filter = $('#category-filter');
         if (!$filter.length) return;
 
-        $filter.empty();
-        $.each(CATEGORIES, function (i, cat) {
-            var isActive = (state.category === cat.slug);
-            var $div = $('<div class="input-checkbox">');
-            var $input = $('<input type="radio" name="cat-filter">')
-                .attr('id', 'cat-' + i)
-                .val(cat.slug)
-                .prop('checked', isActive);
-            var $label = $('<label>')
-                .attr('for', 'cat-' + i)
-                .html('<span></span>' + cat.label);
-            $div.append($input).append($label);
-            $filter.append($div);
-        });
+        // Load categories from API - use /public endpoint for active categories only
+        $.ajax({
+            url: API_BASE + '/api/categories/public',
+            success: function (categories) {
+                $filter.empty();
 
-        $filter.on('change', 'input[type="radio"]', function () {
-            state.category = $(this).val();
-            state.page = 0;
-            loadProducts();
+                // Add separator
+                $filter.append($('<div class="category-separator">'));
+
+                // Recursively add categories with expandable structure
+                function addCategoryOptions(cats) {
+                    $.each(cats, function (i, cat) {
+                        $filter.append(buildCategoryItem(cat, 0));
+                    });
+                }
+                
+                function buildCategoryItem(cat, level) {
+                    var hasChildren = cat.children && cat.children.length > 0;
+                    var $item = $('<div class="category-item" data-level="' + level + '">');
+                    var $line = $('<div class="category-line">');
+                    
+                    if (hasChildren) {
+                        // Parent category - only for expand/collapse
+                        $line.append(
+                            $('<span class="category-toggle">')
+                                .html('<i class="fa fa-chevron-right"></i>')
+                        );
+                        $line.append(
+                            $('<span class="category-name category-parent">')
+                                .text(cat.name)
+                        );
+                    } else {
+                        // Leaf category - use checkbox style like Brand filter
+                        var $checkDiv = $('<div class="input-checkbox">');
+                        $checkDiv.append(
+                            $('<input type="checkbox" name="cat-filter" id="cat-' + cat.id + '">')
+                                .val(cat.slug)
+                        );
+                        var $label = $('<label for="cat-' + cat.id + '">')
+                            .html('<span></span>' + cat.name);
+                        $checkDiv.append($label);
+                        $line.append($checkDiv);
+                    }
+                    
+                    $item.append($line);
+                    
+                    if (hasChildren) {
+                        var $children = $('<div class="category-children" style="display: none;">');
+                        cat.children.forEach(function(child) {
+                            $children.append(buildCategoryItem(child, level + 1));
+                        });
+                        $item.append($children);
+                    }
+                    
+                    return $item;
+                }
+                
+                addCategoryOptions(categories);
+                
+                // Toggle expand/collapse on chevron click
+                $filter.on('click', '.category-toggle', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var $item = $(this).closest('.category-item');
+                    var $children = $item.find('> .category-children');
+                    var $icon = $(this).find('i');
+                    
+                    $children.slideToggle(200, function() {
+                        $icon.toggleClass('fa-chevron-right fa-chevron-down');
+                    });
+                });
+                
+                // Toggle expand/collapse on parent category name click
+                $filter.on('click', '.category-parent', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var $item = $(this).closest('.category-item');
+                    var $toggle = $item.find('.category-toggle');
+                    $toggle.click();
+                });
+                
+                // Category selection
+                $filter.on('change', 'input[type="checkbox"]', function () {
+                    // Uncheck other checkboxes (make it radio-like behavior)
+                    $filter.find('input[type="checkbox"]').not(this).prop('checked', false);
+                    
+                    state.category = $(this).is(':checked') ? $(this).val() : '';
+                    state.page = 0;
+                    updateBreadcrumb();
+                    loadProducts();
+                });
+            },
+            error: function () {
+                var $filter = $('#category-filter');
+                $filter.html('<p class="text-danger">Could not load categories</p>');
+            }
         });
     }
 
@@ -210,6 +311,7 @@
     $(document).ready(function () {
 
         buildCategoryFilter();
+        updateBreadcrumb();
 
         // Sort change
         $('#sort-select').on('change', function () {

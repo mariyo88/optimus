@@ -7,6 +7,265 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
+  <style>
+    .dashboard-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .dashboard-header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    .dashboard-header p {
+      margin: 0.5rem 0 0 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--stat-color), var(--stat-color-light));
+    }
+
+    .stat-card.products { --stat-color: #667eea; --stat-color-light: #8b9bff; }
+    .stat-card.categories { --stat-color: #0ea5e9; --stat-color-light: #38bdf8; }
+    .stat-card.brands { --stat-color: #10b981; --stat-color-light: #34d399; }
+    .stat-card.orders { --stat-color: #f59e0b; --stat-color-light: #fbbf24; }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card.products .stat-icon { background: rgba(102, 126, 234, 0.1); color: #667eea; }
+    .stat-card.categories .stat-icon { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+    .stat-card.brands .stat-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .stat-card.orders .stat-icon { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      margin-top: 2rem;
+    }
+    .section-header:first-child {
+      margin-top: 0;
+    }
+    .section-header h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #333;
+      font-weight: 600;
+    }
+    .section-header-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f3ff;
+      border-radius: 8px;
+      color: #667eea;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .action-btn {
+      padding: 1.5rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .action-btn:hover {
+      border-color: #667eea;
+      background: #f8f9ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .action-btn-icon {
+      font-size: 2rem;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: #f0f3ff;
+      color: #667eea;
+    }
+
+    .action-btn.category .action-btn-icon { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+    .action-btn.brand .action-btn-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .action-btn.import .action-btn-icon { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+    .action-btn.product .action-btn-icon { background: rgba(102, 126, 234, 0.1); color: #667eea; }
+
+    .action-btn-text {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .recent-orders {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+    }
+
+    .recent-orders-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .recent-orders-table {
+      width: 100%;
+    }
+    .recent-orders-table thead tr {
+      background: #f8f9fa;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .recent-orders-table th {
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      color: #666;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    .recent-orders-table tbody tr {
+      border-bottom: 1px solid #e0e0e0;
+      transition: background 0.2s ease;
+    }
+    .recent-orders-table tbody tr:hover {
+      background: #f8f9fa;
+    }
+    .recent-orders-table td {
+      padding: 1rem 1.5rem;
+      color: #333;
+    }
+
+    .order-number {
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .order-status {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+    }
+
+    .alert-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+      animation: slideIn 0.3s ease;
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-weight: 500;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .alert-notification.success {
+      background: #10b981;
+      color: white;
+    }
+    .alert-notification.error {
+      background: #ef4444;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
@@ -88,104 +347,84 @@
 
     <!-- Main -->
     <main class="main-content">
-      <div class="page-header">
-        <div>
-          <h4>Dashboard</h4>
-          <div class="page-header-meta">Pregled celokupnog stanja</div>
+      <div class="dashboard-header">
+        <h2><i class="fa fa-tachometer" style="margin-right: 0.8rem;"></i>Dashboard</h2>
+        <p>Pregled celokupnog stanja vašeg kataloga i prodaje</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card products">
+          <div class="stat-icon"><i class="fa fa-cube"></i></div>
+          <div class="stat-value" id="stat-products">—</div>
+          <div class="stat-label">Proizvoda</div>
+        </div>
+        <div class="stat-card categories">
+          <div class="stat-icon"><i class="fa fa-sitemap"></i></div>
+          <div class="stat-value" id="stat-categories">—</div>
+          <div class="stat-label">Kategorija</div>
+        </div>
+        <div class="stat-card brands">
+          <div class="stat-icon"><i class="fa fa-tag"></i></div>
+          <div class="stat-value" id="stat-brands">—</div>
+          <div class="stat-label">Brendova</div>
+        </div>
+        <div class="stat-card orders">
+          <div class="stat-icon"><i class="fa fa-shopping-cart"></i></div>
+          <div class="stat-value" id="stat-orders">—</div>
+          <div class="stat-label">Porudžbina</div>
         </div>
       </div>
 
-      <!-- Stat cards -->
-      <div class="row" id="stats-row">
-        <div class="col-md-3 mb-3">
-          <div class="card stat-card">
-            <div class="card-body">
-              <div class="stat-icon-wrap purple"><i class="fa fa-cube"></i></div>
-              <div class="stat-text">
-                <div class="stat-value" id="stat-products">—</div>
-                <div class="stat-label">Proizvoda</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="card stat-card">
-            <div class="card-body">
-              <div class="stat-icon-wrap blue"><i class="fa fa-sitemap"></i></div>
-              <div class="stat-text">
-                <div class="stat-value" id="stat-categories">—</div>
-                <div class="stat-label">Kategorija</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="card stat-card">
-            <div class="card-body">
-              <div class="stat-icon-wrap green"><i class="fa fa-tag"></i></div>
-              <div class="stat-text">
-                <div class="stat-value" id="stat-brands">—</div>
-                <div class="stat-label">Brendova</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="card stat-card">
-            <div class="card-body">
-              <div class="stat-icon-wrap orange"><i class="fa fa-shopping-cart"></i></div>
-              <div class="stat-text">
-                <div class="stat-value" id="stat-orders">—</div>
-                <div class="stat-label">Porudžbina</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Quick Actions -->
+      <div class="section-header">
+        <div class="section-header-icon"><i class="fa fa-bolt"></i></div>
+        <h3>Brze akcije</h3>
+      </div>
+      <div class="quick-actions">
+        <a href="product-form.html" class="action-btn product">
+          <div class="action-btn-icon"><i class="fa fa-plus"></i></div>
+          <div class="action-btn-text">Novi proizvod</div>
+        </a>
+        <a href="categories.html" class="action-btn category">
+          <div class="action-btn-icon"><i class="fa fa-sitemap"></i></div>
+          <div class="action-btn-text">Upravljaj kategorijama</div>
+        </a>
+        <a href="brands.html" class="action-btn brand">
+          <div class="action-btn-icon"><i class="fa fa-tag"></i></div>
+          <div class="action-btn-text">Upravljaj brendovima</div>
+        </a>
+        <a href="import.html" class="action-btn import">
+          <div class="action-btn-icon"><i class="fa fa-upload"></i></div>
+          <div class="action-btn-text">Uvezi proizvode</div>
+        </a>
       </div>
 
-      <!-- Recent orders + Quick actions -->
-      <div class="row mt-2">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <span><i class="fa fa-shopping-cart mr-2 text-muted"></i>Poslednje porudžbine</span>
-              <a href="orders.html" class="btn btn-xs btn-outline-primary">Sve porudžbine</a>
-            </div>
-            <div class="card-body p-0">
-              <table class="table table-sm mb-0">
-                <thead>
-                  <tr>
-                    <th>Broj</th>
-                    <th>Kupac</th>
-                    <th>Iznos</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="recent-orders">
-                  <tr><td colspan="4" class="text-center text-muted py-3">Učitavanje...</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+      <!-- Recent Orders -->
+      <div class="section-header">
+        <div class="section-header-icon"><i class="fa fa-history"></i></div>
+        <h3>Poslednje porudžbine</h3>
+      </div>
+      <div class="recent-orders">
+        <div class="recent-orders-header">
+          <span><strong>Zadnjih 5 porudžbina</strong></span>
+          <a href="orders.html" class="btn btn-sm btn-outline-primary">
+            <i class="fa fa-arrow-right mr-1"></i>Sve porudžbine
+          </a>
         </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-header">
-              <i class="fa fa-bolt mr-2 text-muted"></i>Brze akcije
-            </div>
-            <div class="card-body">
-              <a href="product-form.html" class="btn btn-primary btn-block mb-2">
-                <i class="fa fa-plus mr-2"></i>Novi proizvod
-              </a>
-              <a href="categories.html" class="btn btn-outline-secondary btn-block mb-2">
-                <i class="fa fa-sitemap mr-2"></i>Upravljaj kategorijama
-              </a>
-              <a href="import.html" class="btn btn-outline-secondary btn-block">
-                <i class="fa fa-upload mr-2"></i>DSC Import
-              </a>
-            </div>
-          </div>
-        </div>
+        <table class="recent-orders-table">
+          <thead>
+            <tr>
+              <th>Broj porudžbine</th>
+              <th>Kupac</th>
+              <th>Iznos</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recent-orders">
+            <tr><td colspan="4" class="text-center text-muted py-4"><i class="fa fa-spinner fa-spin mr-2"></i>Učitavanje...</td></tr>
+          </tbody>
+        </table>
       </div>
     </main>
   </div>
@@ -205,12 +444,12 @@
       $('#stat-orders').text(r.totalElements);
       const rows = r.content.map(o => `
         <tr>
-          <td><a href="orders.html" class="fw-semibold">${o.orderNumber}</a></td>
+          <td><span class="order-number">${o.orderNumber}</span></td>
           <td>${o.customerName}</td>
-          <td class="fw-semibold">${formatPrice(o.totalPrice)}</td>
-          <td><span class="badge ${statusBadge(o.orderStatus)}">${o.orderStatus}</span></td>
+          <td><strong>${formatPrice(o.totalPrice)}</strong></td>
+          <td><span class="order-status ${statusBadge(o.orderStatus)}">${o.orderStatus}</span></td>
         </tr>`).join('');
-      $('#recent-orders').html(rows || '<tr><td colspan="4" class="text-center text-muted py-3">Nema porudžbina</td></tr>');
+      $('#recent-orders').html(rows || '<tr><td colspan="4" class="empty-state">Nema porudžbina</td></tr>');
     });
   }
 

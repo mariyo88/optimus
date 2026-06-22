@@ -7,6 +7,318 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
+  <style>
+    .page-header-custom {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .page-header-custom h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f3ff;
+    }
+
+    .form-card-title-icon {
+      font-size: 1.3rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f3ff;
+      border-radius: 8px;
+      color: #667eea;
+    }
+
+    .form-card-title h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .checkbox-item input {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+
+    .checkbox-item label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .add-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #667eea;
+      background: #f0f3ff;
+      color: #667eea;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .add-button:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    .dynamic-row {
+      display: grid;
+      grid-template-columns: 1fr 120px auto auto;
+      gap: 0.75rem;
+      align-items: end;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .dynamic-row input {
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      font-size: 0.9rem;
+    }
+
+    .dynamic-row input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+    }
+
+    .remove-button {
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #ef4444;
+      background: white;
+      color: #ef4444;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+    .remove-button:hover {
+      background: #fee2e2;
+    }
+
+    .supplier-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .supplier-card {
+      background: #f8f9fa;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+    }
+    .supplier-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .supplier-name {
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .supplier-info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 0.85rem;
+    }
+    .supplier-info-row:last-child {
+      border-bottom: none;
+    }
+
+    .supplier-label {
+      color: #666;
+      font-weight: 500;
+    }
+
+    .supplier-value {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .btn-save {
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      border: none;
+      background: #667eea;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-save:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-cancel {
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      background: white;
+      color: #666;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-cancel:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .alert-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+      animation: slideIn 0.3s ease;
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-weight: 500;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .alert-notification.success {
+      background: #10b981;
+      color: white;
+    }
+    .alert-notification.error {
+      background: #ef4444;
+      color: white;
+    }
+
+    .required::after {
+      content: " *";
+      color: #ef4444;
+    }
+  </style>
 </head>
 <body>
 
@@ -15,17 +327,17 @@
     <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
     <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
-    <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
-    <div class="form-group"><label>Korisnicko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
-    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+    <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
+    <div class="form-group"><label>Korisničko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
+    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="••••••••"></div>
     <button class="btn btn-primary btn-block" onclick="doLogin()"><i class="fa fa-sign-in mr-1"></i> Prijavi se</button>
   </div>
 </div>
 
-<div id="app" class="d-none">
+<div id="app">
   <nav class="navbar navbar-dark">
     <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
-    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
+    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretraži..."></div></div>
     <div class="navbar-actions">
       <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
       <div class="nav-divider"></div>
@@ -47,7 +359,7 @@
       </ul>
       <p class="nav-section-label">Prodaja</p><hr class="nav-section-divider">
       <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudzbine</a></li>
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudžbine</a></li>
       </ul>
       <p class="nav-section-label">Sistem</p><hr class="nav-section-divider">
       <ul class="nav flex-column">
@@ -56,129 +368,119 @@
     </aside>
 
     <main class="main-content">
-      <div class="page-header">
-        <div>
-          <h4 id="page-title">Novi proizvod</h4>
-          <div class="breadcrumb-bar" style="margin-bottom:0">
-            <a href="products.html">Proizvodi</a><span>/</span><span id="breadcrumb-current">Novi</span>
-          </div>
-        </div>
-        <a href="products.html" class="btn btn-sm btn-outline-secondary">
-          <i class="fa fa-arrow-left mr-1"></i> Nazad
-        </a>
+      <div class="page-header-custom">
+        <h2><i class="fa fa-cube" style="margin-right: 0.8rem;"></i><span id="page-title">Novi proizvod</span></h2>
+        <a href="products.html" class="btn btn-light" style="color: #000;"><i class="fa fa-arrow-left mr-2"></i> Nazad</a>
       </div>
 
       <div id="alert-box" class="alert d-none mb-3"></div>
 
-      <!-- Supplier panel (only on edit) -->
-      <div id="supplier-panel" class="form-section d-none" style="margin-bottom:1rem">
-        <h6><i class="fa fa-truck mr-1"></i> Dobavljaci i cene</h6>
-        <div id="supplier-rows" class="supplier-row"></div>
+      <!-- Dobavljači -->
+      <div id="supplier-panel" class="form-card d-none">
+        <div class="form-card-title">
+          <div class="form-card-title-icon"><i class="fa fa-truck"></i></div>
+          <h3>Dobavljači i cene</h3>
+        </div>
+        <div class="supplier-cards" id="supplier-rows"></div>
       </div>
 
       <form id="product-form">
-        <!-- Basic info -->
-        <div class="form-section">
-          <h6><i class="fa fa-info-circle mr-1"></i> Osnovne informacije</h6>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Naziv *</label>
-                <input type="text" id="f-name" class="form-control" required>
-              </div>
+        <!-- Osnovne informacije -->
+        <div class="form-card">
+          <div class="form-card-title">
+            <div class="form-card-title-icon"><i class="fa fa-info-circle"></i></div>
+            <h3>Osnovne informacije</h3>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Naziv</label>
+              <input type="text" id="f-name" required>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>SKU *</label>
-                <input type="text" id="f-sku" class="form-control" required>
-              </div>
+            <div class="form-group">
+              <label class="required">SKU</label>
+              <input type="text" id="f-sku" required>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>EAN / Barkod</label>
-                <input type="text" id="f-ean" class="form-control">
-              </div>
+            <div class="form-group">
+              <label>EAN / Barkod</label>
+              <input type="text" id="f-ean">
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Sifra proizvodjaca</label>
-                <input type="text" id="f-manufacturer-code" class="form-control">
-              </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Brend</label>
+              <select id="f-brand" required></select>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Slug <small class="text-muted">(auto)</small></label>
-                <input type="text" id="f-slug" class="form-control" placeholder="auto-generisan">
-              </div>
+            <div class="form-group">
+              <label class="required">Kategorija</label>
+              <select id="f-category" required></select>
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Jedinica mere</label>
-                <input type="text" id="f-unit" class="form-control" placeholder="KOM">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Brend *</label>
-                <select id="f-brand" class="form-control" required></select>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Kategorija *</label>
-                <select id="f-category" class="form-control" required></select>
-              </div>
+            <div class="form-group">
+              <label>Jedinica mere</label>
+              <input type="text" id="f-unit" placeholder="KOM">
             </div>
           </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Šifra proizvođača</label>
+              <input type="text" id="f-manufacturer-code">
+            </div>
+            <div class="form-group">
+              <label>Slug <small style="color: #999;">(auto-generisan)</small></label>
+              <input type="text" id="f-slug">
+            </div>
+          </div>
+
           <div class="form-group">
             <label>Kratak opis</label>
-            <input type="text" id="f-short-description" class="form-control">
+            <input type="text" id="f-short-description">
           </div>
+
           <div class="form-group">
-            <label>Opis</label>
-            <textarea id="f-description" class="form-control" rows="5"></textarea>
+            <label>Detaljni opis</label>
+            <textarea id="f-description"></textarea>
           </div>
-          <div class="d-flex" style="gap:1.5rem">
-            <div class="form-check">
-              <input type="checkbox" id="f-active" class="form-check-input" checked>
-              <label class="form-check-label" for="f-active">Aktivan</label>
+
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="f-active" checked>
+              <label for="f-active">Aktivna stavka</label>
             </div>
-            <div class="form-check">
-              <input type="checkbox" id="f-is-new" class="form-check-input">
-              <label class="form-check-label" for="f-is-new">Novo</label>
+            <div class="checkbox-item">
+              <input type="checkbox" id="f-is-new">
+              <label for="f-is-new">Novo</label>
             </div>
           </div>
         </div>
 
-        <!-- Images -->
-        <div class="form-section">
-          <h6>
-            <i class="fa fa-picture-o mr-1"></i> Slike
-            <button type="button" class="btn btn-xs btn-outline-secondary ml-2" onclick="addImageRow()">
-              <i class="fa fa-plus mr-1"></i> Dodaj
-            </button>
-          </h6>
+        <!-- Slike -->
+        <div class="form-card">
+          <div class="form-card-title">
+            <div class="form-card-title-icon"><i class="fa fa-picture-o"></i></div>
+            <h3>Slike</h3>
+            <button type="button" class="add-button ml-2" onclick="addImageRow()"><i class="fa fa-plus"></i> Dodaj</button>
+          </div>
           <div id="images-container"></div>
         </div>
 
-        <!-- Specs -->
-        <div class="form-section">
-          <h6>
-            <i class="fa fa-list mr-1"></i> Specifikacije
-            <button type="button" class="btn btn-xs btn-outline-secondary ml-2" onclick="addSpecRow()">
-              <i class="fa fa-plus mr-1"></i> Dodaj
-            </button>
-          </h6>
+        <!-- Specifikacije -->
+        <div class="form-card">
+          <div class="form-card-title">
+            <div class="form-card-title-icon"><i class="fa fa-list"></i></div>
+            <h3>Specifikacije</h3>
+            <button type="button" class="add-button ml-2" onclick="addSpecRow()"><i class="fa fa-plus"></i> Dodaj</button>
+          </div>
           <div id="specs-container"></div>
         </div>
 
-        <div class="d-flex" style="gap:.5rem">
-          <button type="submit" class="btn btn-primary">
-            <i class="fa fa-save mr-1"></i> Sacuvaj proizvod
-          </button>
-          <a href="products.html" class="btn btn-outline-secondary">Otkazi</a>
+        <!-- Akcije -->
+        <div class="form-card">
+          <div class="form-actions">
+            <button type="submit" class="btn-save"><i class="fa fa-save"></i> Sačuvaj</button>
+            <a href="products.html" class="btn-cancel"><i class="fa fa-times"></i> Otkaži</a>
+          </div>
         </div>
       </form>
     </main>
@@ -189,19 +491,19 @@
 <script src="../js/bootstrap.min.js"></script>
 <script src="admin.js"></script>
 <script>
+  // Initialize page first
   initPage();
+
   const editId = new URLSearchParams(window.location.search).get('id');
 
   function addImageRow(data) {
     data = data || {};
     $('#images-container').append(
-      '<div class="image-row">' +
-        '<input type="text" class="form-control form-control-sm img-url" placeholder="URL slike" value="' + (data.imageUrl || '') + '">' +
-        '<input type="number" class="form-control form-control-sm img-sort" style="width:72px" placeholder="Red" value="' + (data.sortOrder != null ? data.sortOrder : 0) + '">' +
-        '<label class="mb-0 ml-2 d-flex align-items-center" style="gap:.35rem;white-space:nowrap;font-size:.85rem;font-weight:600;color:var(--text-secondary)">' +
-          '<input type="checkbox" class="img-main" ' + (data.isMain ? 'checked' : '') + '> Glavna' +
-        '</label>' +
-        '<button type="button" class="btn btn-xs btn-outline-danger ml-1" onclick="$(this).closest(\'.image-row\').remove()"><i class="fa fa-times"></i></button>' +
+      '<div class="dynamic-row image-row">' +
+        '<input type="text" class="img-url" placeholder="URL slike" value="' + (data.imageUrl || '') + '">' +
+        '<input type="number" class="img-sort" placeholder="Red" value="' + (data.sortOrder != null ? data.sortOrder : 0) + '">' +
+        '<div class="checkbox-item"><input type="checkbox" class="img-main" ' + (data.isMain ? 'checked' : '') + '><label style="margin: 0;">Glavna</label></div>' +
+        '<button type="button" class="remove-button" onclick="$(this).closest(\'.image-row\').remove()"><i class="fa fa-trash"></i></button>' +
       '</div>'
     );
   }
@@ -209,29 +511,26 @@
   function addSpecRow(data) {
     data = data || {};
     $('#specs-container').append(
-      '<div class="spec-row">' +
-        '<input type="text" class="form-control form-control-sm spec-name" placeholder="Naziv (npr. CPU)" value="' + (data.name || data.specificationName || '') + '">' +
-        '<input type="text" class="form-control form-control-sm spec-value" placeholder="Vrednost (npr. Intel i7)" value="' + (data.value || data.specificationValue || '') + '">' +
-        '<button type="button" class="btn btn-xs btn-outline-danger ml-1" onclick="$(this).closest(\'.spec-row\').remove()"><i class="fa fa-times"></i></button>' +
+      '<div class="dynamic-row spec-row">' +
+        '<input type="text" class="spec-name" placeholder="Naziv (npr. CPU)" value="' + (data.name || data.specificationName || '') + '">' +
+        '<input type="text" class="spec-value" placeholder="Vrednost" value="' + (data.value || data.specificationValue || '') + '" style="grid-column: span 2;">' +
+        '<button type="button" class="remove-button" onclick="$(this).closest(\'.spec-row\').remove()"><i class="fa fa-trash"></i></button>' +
       '</div>'
     );
   }
 
   function renderSupplierPanel(sps) {
     if (!sps || !sps.length) { $('#supplier-panel').addClass('d-none'); return; }
-    const cards = sps.map(function(s) {
+    const cards = sps.map(s => {
       const syncDate = s.lastSyncedAt ? new Date(s.lastSyncedAt).toLocaleString('sr-RS') : '-';
-      return '<div class="supplier-card' + (s.active ? '' : ' inactive-supplier') + '">' +
-        '<div class="supplier-name"><i class="fa fa-truck mr-1"></i>' + s.supplierCode + ' — ' + (s.supplierName || '') + (s.active ? '' : ' <span class="badge badge-inactive ml-1">Neaktivan</span>') + '</div>' +
-        '<div class="price-row"><span>SKU dobavljaca</span><span><code style="font-size:.75rem">' + (s.supplierSku || '-') + '</code></span></div>' +
-        '<div class="price-row"><span>B2B (bez PDV)</span><span>' + (s.b2bPrice != null ? formatPrice(s.b2bPrice) : '-') + '</span></div>' +
-        '<div class="price-row"><span>Web cena</span><span>' + (s.webPrice != null ? formatPrice(s.webPrice) : '-') + '</span></div>' +
-        '<div class="price-row"><span>MP cena</span><span style="color:#16a34a;font-weight:700">' + (s.retailPrice != null ? formatPrice(s.retailPrice) : '-') + '</span></div>' +
-        '<div class="price-row"><span>PDV</span><span>' + (s.vatRate != null ? s.vatRate + '%' : '-') + '</span></div>' +
-        '<div class="price-row"><span>Na stanju</span><span class="' + (s.inStock ? 'text-success' : 'text-muted') + '">' + (s.inStock ? (s.stockQuantity > 0 ? s.stockQuantity + ' kom' : 'Da') : 'Nema') + '</span></div>' +
-        '<div class="price-row"><span>Akcija</span><span>' + (s.isPromo ? '<span class="badge badge-processing">DA</span>' : 'Ne') + '</span></div>' +
-        '<div class="price-row"><span>Poslednja sinhronizacija</span><span class="text-muted" style="font-size:.7rem">' + syncDate + '</span></div>' +
-      '</div>';
+      return '<div class="supplier-card"><div class="supplier-name"><i class="fa fa-truck mr-1"></i>' + s.supplierCode + ' — ' + (s.supplierName || '') + (s.active ? '' : ' <span class="badge badge-danger">Neaktivan</span>') + '</div>' +
+        '<div class="supplier-info-row"><span class="supplier-label">SKU:</span><span class="supplier-value"><code style="font-size: 0.8rem;">' + (s.supplierSku || '-') + '</code></span></div>' +
+        '<div class="supplier-info-row"><span class="supplier-label">B2B:</span><span class="supplier-value">' + (s.b2bPrice != null ? formatPrice(s.b2bPrice) : '-') + '</span></div>' +
+        '<div class="supplier-info-row"><span class="supplier-label">Web:</span><span class="supplier-value">' + (s.webPrice != null ? formatPrice(s.webPrice) : '-') + '</span></div>' +
+        '<div class="supplier-info-row"><span class="supplier-label">MP:</span><span class="supplier-value" style="color: #16a34a;">' + (s.retailPrice != null ? formatPrice(s.retailPrice) : '-') + '</span></div>' +
+        '<div class="supplier-info-row"><span class="supplier-label">PDV:</span><span class="supplier-value">' + (s.vatRate != null ? s.vatRate + '%' : '-') + '</span></div>' +
+        '<div class="supplier-info-row"><span class="supplier-label">Stanje:</span><span class="supplier-value ' + (s.inStock ? 'text-success' : 'text-muted') + '">' + (s.inStock ? (s.stockQuantity > 0 ? s.stockQuantity + ' kom' : 'Da') : 'Nema') + '</span></div>' +
+        '</div>';
     }).join('');
     $('#supplier-rows').html(cards);
     $('#supplier-panel').removeClass('d-none');
@@ -243,11 +542,10 @@
       var url = $(this).find('.img-url').val().trim();
       if (url) images.push({ imageUrl: url, sortOrder: parseInt($(this).find('.img-sort').val()) || 0, isMain: $(this).find('.img-main').is(':checked') });
     });
-    var specifications = [];
+    var specs = [];
     $('#specs-container .spec-row').each(function() {
-      var name = $(this).find('.spec-name').val().trim();
-      var value = $(this).find('.spec-value').val().trim();
-      if (name && value) specifications.push({ name: name, value: value });
+      var name = $(this).find('.spec-name').val().trim(), value = $(this).find('.spec-value').val().trim();
+      if (name && value) specs.push({ name: name, value: value });
     });
     return {
       sku: $('#f-sku').val().trim(), ean: $('#f-ean').val().trim() || null,
@@ -258,55 +556,55 @@
       unit: $('#f-unit').val().trim() || null,
       brandId: parseInt($('#f-brand').val()), categoryId: parseInt($('#f-category').val()),
       active: $('#f-active').is(':checked'), isNew: $('#f-is-new').is(':checked'),
-      images: images, specifications: specifications
+      images: images, specifications: specs
     };
   }
 
   function fillForm(p) {
-    $('#f-name').val(p.name || ''); $('#f-sku').val(p.sku || '');
-    $('#f-ean').val(p.ean || ''); $('#f-manufacturer-code').val(p.manufacturerCode || '');
-    $('#f-slug').val(p.slug || ''); $('#f-unit').val(p.unit || '');
-    $('#f-short-description').val(p.shortDescription || '');
-    $('#f-description').val(p.description || '');
-    $('#f-active').prop('checked', p.active !== false);
+    $('#f-name').val(p.name || ''); $('#f-sku').val(p.sku || ''); $('#f-ean').val(p.ean || '');
+    $('#f-manufacturer-code').val(p.manufacturerCode || ''); $('#f-slug').val(p.slug || '');
+    $('#f-unit').val(p.unit || ''); $('#f-short-description').val(p.shortDescription || '');
+    $('#f-description').val(p.description || ''); $('#f-active').prop('checked', p.active !== false);
     $('#f-is-new').prop('checked', !!p.isNew);
     if (p.brand && p.brand.id) $('#f-brand').val(p.brand.id);
     if (p.category && p.category.id) $('#f-category').val(p.category.id);
-    (p.images || []).forEach(function(img) { addImageRow(img); });
-    (p.specifications || []).forEach(function(s) { addSpecRow(s); });
+    (p.images || []).forEach(img => addImageRow(img));
+    (p.specifications || []).forEach(s => addSpecRow(s));
     renderSupplierPanel(p.supplierProducts || []);
   }
 
-  $('#product-form').on('submit', function(e) {
+  function showNotif(msg, type) {
+    $('<div class="alert-notification ' + type + '"><i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + msg + '</div>')
+      .appendTo('body').delay(2700).fadeOut(300, function() { $(this).remove(); });
+  }
+
+  $('#product-form').on('submit', e => {
     e.preventDefault();
-    var data = collectForm();
-    var promise = editId ? apiPut('/api/admin/products/' + editId, data) : apiPost('/api/admin/products', data);
-    promise.then(function() {
-      showToast('Proizvod sacuvan');
-      setTimeout(function() { window.location.href = 'products.html'; }, 800);
-    }).catch(function(xhr) {
-      var msg = (xhr.responseJSON && xhr.responseJSON.message) || 'Greska pri cuvanju';
-      $('#alert-box').removeClass('d-none alert-success').addClass('alert-danger').text(msg);
-    });
+    const data = collectForm();
+    const promise = editId ? apiPut('/api/admin/products/' + editId, data) : apiPost('/api/admin/products', data);
+    promise.then(() => {
+      showNotif('Proizvod sačuvan', 'success');
+      // Clear filters only for new products, keep them for edits
+      if (!editId) {
+        localStorage.removeItem('admin_products_filters');
+      }
+      setTimeout(() => location.href = 'products.html', 800);
+    }).catch(xhr => showNotif((xhr.responseJSON && xhr.responseJSON.message) || 'Greška', 'error'));
   });
 
   $(document).ready(function() {
     if (!getAuth()) return;
-    Promise.all([api('/api/brands'), api('/api/categories')]).then(function(res) {
-      var brands = res[0], cats = res[1];
-      $('#f-brand').append('<option value="">-- Izaberi brend --</option>');
-      brands.forEach(function(b) { $('#f-brand').append('<option value="' + b.id + '">' + b.name + '</option>'); });
-      $('#f-category').append('<option value="">-- Izaberi kategoriju --</option>');
-      flattenCategories(cats).forEach(function(c) { $('#f-category').append('<option value="' + c.id + '">' + c.name + '</option>'); });
-
+    Promise.all([api('/api/brands'), api('/api/categories')]).then(res => {
+      const [brands, cats] = res;
+      $('#f-brand').append('<option value="">-- Izaberi --</option>');
+      brands.forEach(b => $('#f-brand').append('<option value="' + b.id + '">' + b.name + '</option>'));
+      $('#f-category').append('<option value="">-- Izaberi --</option>');
+      flattenCategories(cats).forEach(c => $('#f-category').append('<option value="' + c.id + '">' + c.name + '</option>'));
       if (editId) {
         $('#page-title').text('Uredi proizvod');
-        $('#breadcrumb-current').text('Uredi');
-        api('/api/admin/products/' + editId).then(function(p) {
-          fillForm(p);
-        }).catch(function() {
-          $('#alert-box').removeClass('d-none').addClass('alert-danger').text('Proizvod nije pronadjen.');
-        });
+        api('/api/admin/products/' + editId).then(p => fillForm(p)).catch(() => showNotif('Proizvod nije pronađen', 'error'));
+      } else {
+        $('#page-title').text('Novi proizvod');
       }
     });
   });

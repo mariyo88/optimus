@@ -3,9 +3,12 @@
 // Resolve API_BASE same way as frontend config.js
 var API_BASE = (function() {
   var host = window.location.hostname;
-  var isLocal = host === 'localhost' || host === '127.0.0.1' || host === '';
+  var isLocal = host === 'localhost' 
+    || host === '127.0.0.1' 
+    || host.startsWith('127.')
+    || host === '';
   return isLocal
-    ? 'http://localhost:8080'
+    ? 'http://' + host + ':8080'
     : 'https://webshop-backend-473383712022.europe-west1.run.app';
 })();
 
@@ -65,6 +68,7 @@ function initPage() {
 
 function api(path, options = {}) {
   const auth = getAuth();
+  console.log('API call:', path, 'Auth token:', auth ? 'present' : 'missing');
   const defaults = {
     url: API_BASE + path,
     headers: { 'Authorization': 'Basic ' + auth, 'Content-Type': 'application/json' },
@@ -72,8 +76,12 @@ function api(path, options = {}) {
   };
   return new Promise((resolve, reject) => {
     $.ajax(Object.assign(defaults, options))
-      .done(resolve)
+      .done(function(data) {
+        console.log('API response:', path, data);
+        resolve(data);
+      })
       .fail(function(xhr) {
+        console.error('API error:', path, xhr.status, xhr.responseJSON);
         if (xhr.status === 401) { logout(); return; }
         const msg = xhr.responseJSON?.message || xhr.responseText || 'Greška';
         showToast(msg, 'danger');

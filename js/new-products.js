@@ -6,15 +6,63 @@
 
     var API_BASE = window.APP_CONFIG.API_BASE;
 
-    var TABS = [
-        { label: 'Laptops',              category: 'laptops'               },
-        { label: 'Miševi',               category: 'misevi'                },
-        { label: 'Cameras',              category: 'cameras'               },
-        { label: 'Accessories',          category: 'accessories'           },
-        { label: 'Slušalice i mikrofoni', category: 'slusalice-i-mikrofoni' },
-        { label: 'Web kamere',            category: 'web-kamere'            },
-        { label: 'Brend racunari',        category: 'brend-racunari'        }
-    ];
+    var NEW_TABS = [];
+    var TOP_TABS = [];
+
+    // Load categories dynamically from backend
+    function loadNewProductsCategories(callback) {
+        $.ajax({
+            url: API_BASE + '/api/categories/public',
+            success: function (categories) {
+                // Get subcategories that have "New products category" flag checked
+                NEW_TABS = [];
+                $.each(categories, function(i, parentCat) {
+                    // If parent (root) is marked as new products (inherited from children)
+                    // get only those children that have newProductsCategory checked
+                    if (parentCat.newProductsCategory && parentCat.children && parentCat.children.length > 0) {
+                        $.each(parentCat.children, function(j, childCat) {
+                            // Only include children that have newProductsCategory flag
+                            if (childCat.newProductsCategory) {
+                                NEW_TABS.push({ label: childCat.name, category: childCat.slug });
+                            }
+                        });
+                    }
+                });
+                if (callback) callback();
+            },
+            error: function (err) {
+                console.error('Failed to load new products categories', err);
+                if (callback) callback();
+            }
+        });
+    }
+
+    function loadTopSellingCategories(callback) {
+        $.ajax({
+            url: API_BASE + '/api/categories/public',
+            success: function (categories) {
+                // Get subcategories that have "Top selling category" flag checked
+                TOP_TABS = [];
+                $.each(categories, function(i, parentCat) {
+                    // If parent (root) is marked as top selling (inherited from children)
+                    // get only those children that have topSellingCategory checked
+                    if (parentCat.topSellingCategory && parentCat.children && parentCat.children.length > 0) {
+                        $.each(parentCat.children, function(j, childCat) {
+                            // Only include children that have topSellingCategory flag
+                            if (childCat.topSellingCategory) {
+                                TOP_TABS.push({ label: childCat.name, category: childCat.slug });
+                            }
+                        });
+                    }
+                });
+                if (callback) callback();
+            },
+            error: function () {
+                console.error('Failed to load top selling categories');
+                if (callback) callback();
+            }
+        });
+    }
 
     var SLICK_CONFIG_NEW = {
         slidesToShow: 4,
@@ -104,35 +152,49 @@
     }
 
     function initSlick($container, config) {
-        if ($container.hasClass('slick-initialized')) {
-            $container.slick('unslick');
-        }
         $container.slick(config);
     }
 
     function loadProducts(category, $container, slickConfig, sort) {
         sort = sort || 'createdAt,desc';
+        console.log('Loading products with params:', { category: category, size: 10, sort: sort });
+        
+        // Destroy slick before clearing content
+        if ($container.hasClass('slick-initialized')) {
+            $container.slick('unslick');
+        }
+        
         $.ajax({
             url: API_BASE + '/api/products',
             data: { category: category, size: 10, sort: sort },
             success: function (data) {
+                console.log('Products response:', data);
                 var products = data.content || [];
                 if (products.length === 0) {
+                    console.log('No products found');
                     $container.html('<p class="text-center" style="padding:20px;">Nema proizvoda.</p>');
                     return;
                 }
+                console.log('Rendering', products.length, 'products');
                 $container.html(products.map(buildProductCard).join(''));
-                initSlick($container, slickConfig);
+                
+                // Adjust slick config based on number of products
+                var adjustedConfig = $.extend({}, slickConfig);
+                adjustedConfig.infinite = products.length > adjustedConfig.slidesToShow;
+                
+                initSlick($container, adjustedConfig);
             },
-            error: function () {
+            error: function (xhr, status, error) {
+                console.error('Error loading products:', error, xhr);
                 $container.html('<p class="text-center" style="padding:20px;">Greska pri ucitavanju proizvoda.</p>');
             }
         });
     }
 
-    function buildTabNav($nav, $container, slickConfig, sort) {
+    function buildTabNav(tabs, $nav, $container, slickConfig, sort) {
         $nav.empty();
-        $.each(TABS, function (i, tab) {
+        console.log('Building tab nav with tabs:', tabs);
+        $.each(tabs, function (i, tab) {
             var $li = $('<li>');
             if (i === 0) $li.addClass('active');
             var $a = $('<a href="#">').text(tab.label).data('category', tab.category);
@@ -144,19 +206,33 @@
             e.preventDefault();
             $nav.find('li').removeClass('active');
             $(this).parent().addClass('active');
-            loadProducts($(this).data('category'), $container, slickConfig, sort);
+            var category = $(this).data('category');
+            console.log('Loading products for category:', category);
+            loadProducts(category, $container, slickConfig, sort);
         });
+
+        // Load initial products if tabs exist
+        if (tabs.length > 0) {
+            console.log('Loading initial products for category:', tabs[0].category);
+            loadProducts(tabs[0].category, $container, slickConfig, sort);
+        } else {
+            console.warn('No tabs available for:', $nav.attr('id'));
+        }
     }
 
     $(document).ready(function () {
         if ($('#new-products-slick').length) {
-            buildTabNav($('#new-products-tab-nav'), $('#new-products-slick'), SLICK_CONFIG_NEW, 'createdAt,desc');
-            loadProducts(TABS[0].category, $('#new-products-slick'), SLICK_CONFIG_NEW, 'createdAt,desc');
+            loadNewProductsCategories(function() {
+                console.log('New products categories loaded, NEW_TABS:', NEW_TABS);
+                buildTabNav(NEW_TABS, $('#new-products-tab-nav'), $('#new-products-slick'), SLICK_CONFIG_NEW, 'createdAt,desc');
+            });
         }
 
         if ($('#top-selling-slick').length) {
-            buildTabNav($('#top-selling-tab-nav'), $('#top-selling-slick'), SLICK_CONFIG_TOP, 'createdAt,desc');
-            loadProducts(TABS[0].category, $('#top-selling-slick'), SLICK_CONFIG_TOP, 'createdAt,desc');
+            loadTopSellingCategories(function() {
+                console.log('Top selling categories loaded, TOP_TABS:', TOP_TABS);
+                buildTabNav(TOP_TABS, $('#top-selling-tab-nav'), $('#top-selling-slick'), SLICK_CONFIG_TOP, 'createdAt,desc');
+            });
         }
     });
 

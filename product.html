@@ -42,9 +42,9 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+						<li><a href="tel:+38163-85-58-708"><i class="fa fa-phone"></i> +38163-85-58-708</a></li>
+						<li><a href="mailto:mariyo88vp@gmail.com"><i class="fa fa-envelope-o"></i> mariyo88vp@gmail.com</a></li>
+						<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
@@ -63,7 +63,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo">
+								<a href="index.html" class="logo">
 									<img src="./img/logo.png" alt="">
 								</a>
 							</div>
@@ -194,11 +194,11 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">All Categories</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li><a href="#">Headphones</a></li>
-							<li class="active">Product name goes here</li>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="store.html">All Categories</a></li>
+							<!-- Category will be inserted here by product-detail.js -->
+							<li id="breadcrumb-category" style="display:none;"></li>
+							<li class="active" id="breadcrumb-product">Product name goes here</li>
 						</ul>
 					</div>
 				</div>
@@ -217,21 +217,21 @@
 					<!-- Product main img -->
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
-							<div class="product-preview">
-								<img src="./img/product01.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product01.png" alt="">-->
+<!--							</div>-->
 
-							<div class="product-preview">
-								<img src="./img/product03.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product03.png" alt="">-->
+<!--							</div>-->
 
-							<div class="product-preview">
-								<img src="./img/product06.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product06.png" alt="">-->
+<!--							</div>-->
 
-							<div class="product-preview">
-								<img src="./img/product08.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product08.png" alt="">-->
+<!--							</div>-->
 						</div>
 					</div>
 					<!-- /Product main img -->
@@ -239,21 +239,21 @@
 					<!-- Product thumb imgs -->
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
-							<div class="product-preview">
-								<img src="./img/product01.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product01.png" alt="">-->
+<!--							</div>-->
 
-							<div class="product-preview">
-								<img src="./img/product03.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product03.png" alt="">-->
+<!--							</div>-->
 
-							<div class="product-preview">
-								<img src="./img/product06.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product06.png" alt="">-->
+<!--							</div>-->
 
-							<div class="product-preview">
-								<img src="./img/product08.png" alt="">
-							</div>
+<!--							<div class="product-preview">-->
+<!--								<img src="./img/product08.png" alt="">-->
+<!--							</div>-->
 						</div>
 					</div>
 					<!-- /Product thumb imgs -->
@@ -261,7 +261,7 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name">product name goes here</h2>
+							<h2 class="product-name"></h2>
 							<div>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
@@ -273,10 +273,10 @@
 								<a class="review-link" href="#">10 Review(s) | Add your review</a>
 							</div>
 							<div id="product-price-stock">
-								<h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
-								<span class="product-available">In Stock</span>
+								<h3 class="product-price"><del class="product-old-price"></del></h3>
+								<span class="product-available"></span>
 							</div>
-							<p id="product-short-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p id="product-short-desc"></p>
 
 							<div class="product-options">
 								<label>
@@ -562,123 +562,8 @@
 						</div>
 					</div>
 
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="./img/product01.png" alt="">
-								<div class="product-label">
-									<span class="sale">-30%</span>
-								</div>
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="./img/product02.png" alt="">
-								<div class="product-label">
-									<span class="new">NEW</span>
-								</div>
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<div class="clearfix visible-sm visible-xs"></div>
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="./img/product03.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="./img/product04.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
+					<!-- Related products will be loaded here by product-detail.js -->
+					<div id="related-products-container"></div>
 
 				</div>
 				<!-- /row -->
@@ -734,11 +619,11 @@
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">About Us</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+								<p>Optimus je vodeći distributor elektronskih proizvoda i tehnologije sa sjedištem u Velikoj Plani, Srbija. Pružamo kvalitetne proizvode po konkurentnim cijenama sa odličnom podrškom kupacima. Naš tim je posvećen pružanju best-in-class servisa i zadovoljstvu kupaca.</p>
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+									<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
+									<li><a href="tel:+38163-85-58-708"><i class="fa fa-phone"></i>+38163-85-58-708</a></li>
+									<li><a href="mailto:mariyo88vp@gmail.com"><i class="fa fa-envelope-o"></i>mariyo88vp@gmail.com</a></li>
 								</ul>
 							</div>
 						</div>
@@ -805,9 +690,7 @@
 								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 							</ul>
 							<span class="copyright">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								© 2026 FirstCode. Sva prava zadržana.
 							</span>
 						</div>
 					</div>
@@ -827,6 +710,7 @@
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/config.js"></script>
+		<script src="js/main-nav.js"></script>
 		<script src="js/product-detail.js"></script>
 
 	</body>

@@ -7,6 +7,208 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
+  <style>
+    .categories-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .categories-header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    .categories-header p {
+      margin: 0.5rem 0 0 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .category-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .category-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+      background: white;
+      transition: all 0.3s ease;
+      gap: 1rem;
+    }
+    .category-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: #667eea;
+      transform: translateX(4px);
+    }
+
+    .category-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f3ff;
+      border-radius: 6px;
+      color: #667eea;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .category-info {
+      flex-grow: 1;
+    }
+    .category-name {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .category-slug {
+      font-size: 0.85rem;
+      color: #999;
+      display: block;
+    }
+
+    .category-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-category {
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      border: 1px solid #e0e0e0;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+    }
+    .btn-category:hover {
+      background: #f5f5f5;
+    }
+    .btn-category.edit {
+      color: #667eea;
+      border-color: #667eea;
+    }
+    .btn-category.edit:hover {
+      background: #f0f3ff;
+    }
+    .btn-category.delete {
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+    .btn-category.delete:hover {
+      background: #fee2e2;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #999;
+    }
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .modal-header-custom {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+    }
+    .modal-header-custom .close {
+      color: white;
+      opacity: 0.8;
+    }
+    .modal-header-custom .close:hover {
+      opacity: 1;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .alert-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+      animation: slideIn 0.3s ease;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .alert-notification.success {
+      background: #10b981;
+      color: white;
+    }
+    .alert-notification.error {
+      background: #ef4444;
+      color: white;
+    }
+
+    .category-tree-level {
+      margin-left: 2rem;
+      border-left: 2px solid #e0e0e0;
+      padding-left: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .search-box {
+      margin-bottom: 1.5rem;
+    }
+    .search-box input {
+      border-radius: 6px;
+      border: 2px solid #e0e0e0;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .custom-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .custom-control-label {
+      margin-bottom: 0 !important;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
@@ -56,50 +258,124 @@
     </aside>
 
     <main class="main-content">
-      <div class="page-header">
-        <div><h4>Kategorije</h4><div class="page-header-meta">Upravljanje stablom kategorija</div></div>
-        <button class="btn btn-primary btn-sm" onclick="resetForm()">
-          <i class="fa fa-plus mr-1"></i> Nova kategorija
+      <div class="categories-header">
+        <div>
+          <h2><i class="fa fa-sitemap" style="margin-right: 0.8rem;"></i>Kategorije</h2>
+          <p>Upravljanje stablom proizvoda i kategorija</p>
+        </div>
+        <button class="btn btn-light" onclick="openCategoryModal()" style="color: #000;">
+          <i class="fa fa-plus mr-2"></i> Nova kategorija
         </button>
       </div>
 
-      <div class="row">
-        <div class="col-md-7">
-          <div class="card">
-            <div class="card-header"><i class="fa fa-sitemap mr-2 text-muted"></i>Stablo kategorija</div>
-            <div class="card-body">
-              <div id="category-tree" class="category-tree"></div>
-            </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="search-box">
+            <input type="text" id="search-categories" class="form-control" placeholder="Pretraga kategorija...">
           </div>
-        </div>
-        <div class="col-md-5">
-          <div class="card">
-            <div class="card-header" id="form-title"><i class="fa fa-folder-o mr-2 text-muted"></i>Nova kategorija</div>
-            <div class="card-body">
-              <div id="form-alert" class="alert d-none"></div>
-              <div class="form-group">
-                <label>Naziv *</label>
-                <input type="text" id="f-name" class="form-control" placeholder="Npr. Laptopovi">
-              </div>
-              <div class="form-group">
-                <label>Slug <small class="text-muted">(auto)</small></label>
-                <input type="text" id="f-slug" class="form-control" placeholder="auto-generisan">
-              </div>
-              <div class="form-group">
-                <label>Nadredjena kategorija</label>
-                <select id="f-parent" class="form-control">
-                  <option value="">-- Koren --</option>
-                </select>
-              </div>
-              <div class="d-flex" style="gap:.5rem">
-                <button class="btn btn-primary" onclick="saveCategory()"><i class="fa fa-save mr-1"></i> Sacuvaj</button>
-                <button class="btn btn-outline-secondary" onclick="resetForm()">Otkazi</button>
-              </div>
-            </div>
-          </div>
+          <div id="categories-container"></div>
         </div>
       </div>
     </main>
+  </div>
+</div>
+
+<!-- Category Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title" id="modal-title"><i class="fa fa-folder-o mr-2"></i>Nova kategorija</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="form-alert" class="alert d-none" role="alert"></div>
+        <form id="categoryForm">
+          <div class="form-group">
+            <label for="f-name">Naziv *</label>
+            <input type="text" id="f-name" class="form-control" placeholder="Npr. Laptopovi">
+          </div>
+          <div class="form-group">
+            <label for="f-slug">Slug <small class="text-muted">(auto-generiše)</small></label>
+            <input type="text" id="f-slug" class="form-control" placeholder="auto-generisan">
+          </div>
+          <div class="form-group">
+            <label for="f-parent">Nadredjena kategorija</label>
+            <select id="f-parent" class="form-control">
+              <option value="">-- Koren --</option>
+            </select>
+          </div>
+          <div id="category-flags-section">
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="f-show-in-nav">
+                <label class="custom-control-label" for="f-show-in-nav">
+                  Prikaži u navigaciji
+                </label>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group">
+              <label style="margin-bottom: 1rem; display: block;">Dodatne opcije:</label>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="f-is-active">
+                <label class="custom-control-label" for="f-is-active">
+                  Aktivna kategorija (šalje se na webshop)
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="f-is-new-products">
+                <label class="custom-control-label" for="f-is-new-products">
+                  New products category
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="f-is-top-selling">
+                <label class="custom-control-label" for="f-is-top-selling">
+                  Top selling category
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-primary" onclick="saveCategory()">
+          <i class="fa fa-save mr-2"></i>Sačuvaj
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title"><i class="fa fa-exclamation-triangle mr-2"></i>Potvrdi brisanje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Da li ste sigurni da želite da obrišete kategoriju <strong id="delete-category-name"></strong>?</p>
+        <p class="text-muted small">Ova akcija se ne može opozvati.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-danger" onclick="confirmDelete()">
+          <i class="fa fa-trash mr-2"></i>Obriši
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -114,41 +390,108 @@
   function loadCategories() {
     api('/api/categories').then(data => {
       allCategories = data;
-      renderTree(data, $('#category-tree'));
+      saveCategoriesList(data);
       populateParentSelect(data);
+      
+      // Apply filter if it exists, otherwise show all
+      const savedFilter = getSearchFilter();
+      if (savedFilter) {
+        $('#search-categories').val(savedFilter).trigger('keyup');
+      } else {
+        renderCategories(data);
+      }
     });
   }
 
-  function renderTree(nodes, container) {
+  function renderCategories(nodes, level = 0) {
     if (!nodes || nodes.length === 0) {
-      container.html('<p class="text-muted">Nema kategorija</p>');
-      return;
-    }
-    const ul = $('<ul>');
-    nodes.forEach(cat => {
-      const li = $('<li>');
-      const item = $('<div class="cat-item">' +
-        '<i class="fa fa-folder-o mr-1 text-muted"></i>' +
-        '<span class="cat-name">' + cat.name + '</span>' +
-        '<small class="cat-slug">(' + cat.slug + ')</small>' +
-        '<button class="btn btn-xs btn-outline-primary ml-auto" onclick="editCategory(' + cat.id + ')"><i class="fa fa-edit"></i></button>' +
-        '<button class="btn btn-xs btn-outline-danger ml-1" onclick="deleteCategory(' + cat.id + ',\'' + cat.name.replace(/'/g, "\\'") + '\')"><i class="fa fa-trash"></i></button>' +
-      '</div>');
-      li.append(item);
-      if (cat.children && cat.children.length) {
-        const sub = $('<div>');
-        renderTree(cat.children, sub);
-        li.append(sub);
+      if (level === 0) {
+        $('#categories-container').html(
+          '<div class="empty-state">' +
+          '<div class="empty-state-icon"><i class="fa fa-folder-open"></i></div>' +
+          '<p>Nema kategorija. Kreirajte novu!</p>' +
+          '</div>'
+        );
       }
-      ul.append(li);
+      return '';
+    }
+
+    let html = level === 0 ? '<ul class="category-list">' : '<div class="category-tree-level"><ul class="category-list">';
+
+    nodes.forEach(cat => {
+      html += '<li class="category-item">' +
+        '<div class="category-icon"><i class="fa fa-folder"></i></div>' +
+        '<div class="category-info">' +
+        '<span class="category-name">' + escapeHtml(cat.name) + '</span>' +
+        '<span class="category-slug">' + escapeHtml(cat.slug) + '</span>' +
+        '</div>' +
+        '<div class="category-actions">' +
+        '<button class="btn-category edit" onclick="editCategory(' + cat.id + ')" title="Uredi"><i class="fa fa-edit"></i></button>' +
+        '<button class="btn-category delete" onclick="deleteCategory(' + cat.id + ', \'' + escapeHtml(cat.name).replace(/'/g, "\\'") + '\')" title="Obriši"><i class="fa fa-trash"></i></button>' +
+        '</div>' +
+        '</li>';
+
+      if (cat.children && cat.children.length > 0) {
+        const childHtml = renderCategoriesHtml(cat.children, level + 1);
+        html += childHtml;
+      }
     });
-    container.html(ul);
+
+    html += level === 0 ? '</ul>' : '</ul></div>';
+    
+    if (level === 0) {
+      $('#categories-container').html(html);
+    }
+    return html;
+  }
+
+  function renderCategoriesHtml(nodes, level) {
+    if (!nodes || nodes.length === 0) return '';
+
+    let html = '<div class="category-tree-level"><ul class="category-list">';
+    nodes.forEach(cat => {
+      html += '<li class="category-item">' +
+        '<div class="category-icon"><i class="fa fa-folder"></i></div>' +
+        '<div class="category-info">' +
+        '<span class="category-name">' + escapeHtml(cat.name) + '</span>' +
+        '<span class="category-slug">' + escapeHtml(cat.slug) + '</span>' +
+        '</div>' +
+        '<div class="category-actions">' +
+        '<button class="btn-category edit" onclick="editCategory(' + cat.id + ')" title="Uredi"><i class="fa fa-edit"></i></button>' +
+        '<button class="btn-category delete" onclick="deleteCategory(' + cat.id + ', \'' + escapeHtml(cat.name).replace(/'/g, "\\'") + '\')" title="Obriši"><i class="fa fa-trash"></i></button>' +
+        '</div>' +
+        '</li>';
+
+      if (cat.children && cat.children.length > 0) {
+        html += renderCategoriesHtml(cat.children, level + 1);
+      }
+    });
+    html += '</ul></div>';
+    return html;
+  }
+
+  function escapeHtml(text) {
+    const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
+    return text.replace(/[&<>"']/g, m => map[m]);
   }
 
   function populateParentSelect(tree) {
     const flat = flattenCategories(tree);
     $('#f-parent').html('<option value="">-- Koren --</option>');
-    flat.forEach(c => $('#f-parent').append('<option value="' + c.id + '">' + c.name + '</option>'));
+    flat.forEach(c => {
+      if (!editingId || c.id !== editingId) {
+        $('#f-parent').append('<option value="' + c.id + '">' + escapeHtml(c.name) + '</option>');
+      }
+    });
+  }
+
+  function openCategoryModal() {
+    editingId = null;
+    resetForm();
+    $('#modal-title').html('<i class="fa fa-folder-o mr-2"></i>Nova kategorija');
+    // Show all checkboxes for new category
+    updateCheckboxVisibility(null);
+    $('#categoryModal').modal('show');
   }
 
   function editCategory(id) {
@@ -156,10 +499,25 @@
     api('/api/categories').then(data => {
       const found = findInTree(data, id);
       if (!found) return;
-      $('#form-title').html('<i class="fa fa-folder-open-o mr-2 text-muted"></i>Uredi: ' + found.name);
+      
+      // Populate parent select FIRST
+      populateParentSelect(data);
+      
+      // Then fill form values
+      $('#modal-title').html('<i class="fa fa-folder-open-o mr-2"></i>Uredi: ' + escapeHtml(found.name));
       $('#f-name').val(found.name);
       $('#f-slug').val(found.slug);
       $('#f-parent').val(found.parentId || '');
+      $('#f-show-in-nav').prop('checked', found.showInNav === true);
+      $('#f-is-active').prop('checked', found.isActive === true);
+      // Use 'newProductsCategory' instead of 'isNewProductsCategory' since Jackson removes 'is' prefix
+      $('#f-is-new-products').prop('checked', found.newProductsCategory === true);
+      $('#f-is-top-selling').prop('checked', found.topSellingCategory === true);
+      
+      // Show/hide checkboxes based on whether this is a root category
+      updateCheckboxVisibility(found.parentId);
+      
+      $('#categoryModal').modal('show');
     });
   }
 
@@ -171,36 +529,213 @@
     return null;
   }
 
+  function flattenCategories(tree) {
+    let result = [];
+    function traverse(nodes) {
+      if (!nodes) return;
+      nodes.forEach(n => {
+        result.push({id: n.id, name: n.name});
+        if (n.children) traverse(n.children);
+      });
+    }
+    traverse(tree);
+    return result;
+  }
+
   function resetForm() {
-    editingId = null;
-    $('#form-title').html('<i class="fa fa-folder-o mr-2 text-muted"></i>Nova kategorija');
-    $('#f-name').val(''); $('#f-slug').val(''); $('#f-parent').val('');
+    $('#categoryForm')[0].reset();
     $('#form-alert').addClass('d-none');
+  }
+
+  function updateCheckboxVisibility(parentId) {
+    // If parentId is null or empty, this is a root category - hide the checkboxes
+    const isRootCategory = !parentId;
+    
+    if (isRootCategory) {
+      $('#category-flags-section').hide();
+      // Uncheck all checkboxes for root category
+      $('#f-show-in-nav').prop('checked', false);
+      $('#f-is-active').prop('checked', false);
+      $('#f-is-new-products').prop('checked', false);
+      $('#f-is-top-selling').prop('checked', false);
+    } else {
+      $('#category-flags-section').show();
+    }
+  }
+
+  // Update visibility when parent changes
+  $('#f-parent').on('change', function() {
+    updateCheckboxVisibility($(this).val());
+  });
+
+  function showFormAlert(msg, type) {
+    const alert = $('#form-alert');
+    alert.removeClass('d-none alert-success alert-danger')
+      .addClass('alert-' + type)
+      .text(msg);
+  }
+
+  function showNotification(message, type) {
+    const notification = $('<div></div>')
+      .addClass('alert-notification ' + type)
+      .html('<i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + message)
+      .appendTo('body');
+
+    setTimeout(() => {
+      notification.fadeOut(300, function() {
+        $(this).remove();
+      });
+    }, 3000);
   }
 
   function saveCategory() {
     const name = $('#f-name').val().trim();
-    if (!name) { showFormAlert('Naziv je obavezan'); return; }
+    if (!name) {
+      showFormAlert('Naziv je obavezan', 'danger');
+      return;
+    }
+
     const payload = {
       name,
       slug: $('#f-slug').val().trim() || null,
-      parentId: $('#f-parent').val() ? parseInt($('#f-parent').val()) : null
+      parentId: $('#f-parent').val() ? parseInt($('#f-parent').val()) : null,
+      showInNav: $('#f-show-in-nav').is(':checked'),
+      isActive: $('#f-is-active').is(':checked'),
+      isNewProductsCategory: $('#f-is-new-products').is(':checked'),
+      isTopSellingCategory: $('#f-is-top-selling').is(':checked')
     };
-    const promise = editingId ? apiPut('/api/admin/categories/' + editingId, payload) : apiPost('/api/admin/categories', payload);
-    promise.then(() => { showToast('Kategorija sacuvana'); resetForm(); loadCategories(); });
-  }
 
-  function deleteCategory(id, name) {
-    confirmDelete(name, () => {
-      apiDelete('/api/admin/categories/' + id).then(() => { showToast('Kategorija obrisana'); loadCategories(); });
+    console.log('Saving category with payload:', payload);
+
+    const promise = editingId ? apiPut('/api/admin/categories/' + editingId, payload) : apiPost('/api/admin/categories', payload);
+    promise.then(() => {
+      showNotification(editingId ? 'Kategorija ažurirana' : 'Kategorija kreirana', 'success');
+      $('#categoryModal').modal('hide');
+      // Clear cache after modification but keep filter
+      clearCategoriesList();
+      loadCategories();
+    }).catch(err => {
+      console.error('Error saving category:', err);
+      showFormAlert('Greška: ' + (err.message || 'Nepoznata greška'), 'danger');
     });
   }
 
-  function showFormAlert(msg) {
-    $('#form-alert').removeClass('d-none alert-success').addClass('alert-danger').text(msg);
+  function deleteCategory(id, name) {
+    // Postavi ID i ime za modal
+    window.deleteConfirmId = id;
+    $('#delete-category-name').text(name);
+    $('#deleteConfirmModal').modal('show');
   }
 
-  $(document).ready(function() { if (getAuth()) loadCategories(); });
+  function confirmDelete() {
+    const id = window.deleteConfirmId;
+    if (!id) return;
+    
+    $('#deleteConfirmModal').modal('hide');
+    
+    apiDelete('/api/admin/categories/' + id).then(() => {
+      showNotification('Kategorija obrisana', 'success');
+      // Clear cache after modification but keep filter
+      clearCategoriesList();
+      loadCategories();
+    }).catch(err => {
+      showNotification('Greška pri brisanju: ' + (err.message || 'Nepoznata greška'), 'error');
+    });
+  }
+
+  // Search with filter persistence
+  function saveSearchFilter(query) {
+    localStorage.setItem('admin_categories_filter', query);
+  }
+
+  function getSearchFilter() {
+    return localStorage.getItem('admin_categories_filter') || '';
+  }
+
+  // Categories list cache
+  function saveCategoriesList(data) {
+    localStorage.setItem('admin_categories_list', JSON.stringify(data));
+  }
+
+  function getCategoriesList() {
+    const saved = localStorage.getItem('admin_categories_list');
+    return saved ? JSON.parse(saved) : null;
+  }
+
+  function clearCategoriesList() {
+    localStorage.removeItem('admin_categories_list');
+  }
+
+  $('#search-categories').on('keyup', function() {
+    const query = $(this).val().toLowerCase();
+    saveSearchFilter($(this).val());
+    
+    if (!query) {
+      renderCategories(allCategories);
+      return;
+    }
+
+    const filtered = filterCategories(allCategories, query);
+    if (filtered.length === 0) {
+      $('#categories-container').html(
+        '<div class="empty-state">' +
+        '<div class="empty-state-icon"><i class="fa fa-search"></i></div>' +
+        '<p>Nema rezultata za: "' + escapeHtml(query) + '"</p>' +
+        '</div>'
+      );
+    } else {
+      renderCategories(filtered);
+    }
+  });
+
+  function filterCategories(nodes, query) {
+    if (!nodes) return [];
+    return nodes.filter(n => {
+      const matches = n.name.toLowerCase().includes(query) || n.slug.toLowerCase().includes(query);
+      const childMatches = n.children ? filterCategories(n.children, query) : [];
+      if (matches || childMatches.length > 0) {
+        return {
+          ...n,
+          children: childMatches.length > 0 ? childMatches : (n.children || [])
+        };
+      }
+      return null;
+    }).filter(n => n !== null);
+  }
+
+  $(document).ready(function() {
+    if (getAuth()) {
+      // Try to restore from cache first
+      const cachedList = getCategoriesList();
+      if (cachedList) {
+        allCategories = cachedList;
+        populateParentSelect(cachedList);
+        
+        // Restore filter with cached list
+        const savedFilter = getSearchFilter();
+        if (savedFilter) {
+          $('#search-categories').val(savedFilter).trigger('keyup');
+        } else {
+          renderCategories(cachedList);
+        }
+      }
+      
+      // Load fresh data from server
+      api('/api/categories').then(data => {
+        allCategories = data;
+        saveCategoriesList(data);
+        populateParentSelect(data);
+        
+        // Refresh with fresh data and same filter
+        const savedFilter = getSearchFilter();
+        if (savedFilter) {
+          $('#search-categories').val(savedFilter).trigger('keyup');
+        } else {
+          renderCategories(data);
+        }
+      });
+    }
+  });
 </script>
 </body>
 </html>

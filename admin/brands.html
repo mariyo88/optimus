@@ -7,6 +7,233 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
+  <style>
+    .brands-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .brands-header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    .brands-header p {
+      margin: 0.5rem 0 0 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .brand-card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding-bottom: 1rem;
+    }
+    .brand-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+
+    .brand-logo-container {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 1rem;
+    }
+    .brand-logo-container img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .brand-logo-container.empty {
+      color: #ccc;
+      font-size: 3rem;
+    }
+
+    .brand-info {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+      word-break: break-word;
+    }
+
+    .brand-url {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 1rem;
+      word-break: break-all;
+      flex-grow: 1;
+    }
+
+    .brand-actions {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1.5rem 1.5rem 0 1.5rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .btn-brand {
+      flex: 1;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      border: 2px solid;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      min-height: 36px;
+    }
+    .btn-brand:hover {
+      background: #f5f5f5;
+    }
+    .btn-brand.edit {
+      color: #667eea;
+      border-color: #667eea;
+    }
+    .btn-brand.edit:hover {
+      background: #f0f3ff;
+    }
+    .btn-brand.delete {
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+    .btn-brand.delete:hover {
+      background: #fee2e2;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #999;
+      grid-column: 1 / -1;
+    }
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .search-box {
+      margin-bottom: 1.5rem;
+    }
+    .search-box input {
+      border-radius: 6px;
+      border: 2px solid #e0e0e0;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .modal-header-custom {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+    }
+    .modal-header-custom .close {
+      color: white;
+      opacity: 0.8;
+    }
+    .modal-header-custom .close:hover {
+      opacity: 1;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .alert-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+      animation: slideIn 0.3s ease;
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-weight: 500;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .alert-notification.success {
+      background: #10b981;
+      color: white;
+    }
+    .alert-notification.error {
+      background: #ef4444;
+      color: white;
+    }
+
+    .logo-preview {
+      width: 100%;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      border: 2px dashed #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+    .logo-preview img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
 
@@ -56,57 +283,59 @@
     </aside>
 
     <main class="main-content">
-      <div class="page-header">
-        <div><h4>Brendovi</h4><div class="page-header-meta">Upravljanje brendovima proizvoda</div></div>
-        <button class="btn btn-primary btn-sm" onclick="resetForm()">
-          <i class="fa fa-plus mr-1"></i> Novi brend
+      <div class="brands-header">
+        <div>
+          <h2><i class="fa fa-tag" style="margin-right: 0.8rem;"></i>Brendovi</h2>
+          <p>Upravljanje brendovima proizvoda</p>
+        </div>
+        <button class="btn btn-light" onclick="openBrandModal()" style="color: #000;">
+          <i class="fa fa-plus mr-2"></i> Novi brend
         </button>
       </div>
 
-      <div class="row">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-header"><i class="fa fa-tag mr-2 text-muted"></i>Lista brendova</div>
-            <div class="card-body p-0">
-              <table class="table table-hover mb-0">
-                <thead>
-                  <tr>
-                    <th style="width:60px">Logo</th>
-                    <th>Naziv</th>
-                    <th>Logo URL</th>
-                    <th style="width:80px"></th>
-                  </tr>
-                </thead>
-                <tbody id="brands-tbody">
-                  <tr><td colspan="4" class="text-center text-muted py-4">Ucitavanje...</td></tr>
-                </tbody>
-              </table>
-            </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="search-box">
+            <input type="text" id="search-brands" class="form-control" placeholder="Pretraga brendova...">
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-header" id="form-title"><i class="fa fa-tag mr-2 text-muted"></i>Novi brend</div>
-            <div class="card-body">
-              <div id="form-alert" class="alert d-none"></div>
-              <div class="form-group">
-                <label>Naziv *</label>
-                <input type="text" id="f-name" class="form-control" placeholder="Npr. Samsung">
-              </div>
-              <div class="form-group">
-                <label>Logo URL</label>
-                <input type="text" id="f-logo" class="form-control" placeholder="https://...">
-              </div>
-              <div id="logo-preview" class="mb-3" style="min-height:60px"></div>
-              <div class="d-flex" style="gap:.5rem">
-                <button class="btn btn-primary" onclick="saveBrand()"><i class="fa fa-save mr-1"></i> Sacuvaj</button>
-                <button class="btn btn-outline-secondary" onclick="resetForm()">Otkazi</button>
-              </div>
-            </div>
-          </div>
+          <div class="brands-grid" id="brands-container"></div>
         </div>
       </div>
     </main>
+  </div>
+</div>
+
+<!-- Brand Modal -->
+<div class="modal fade" id="brandModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title" id="modal-title"><i class="fa fa-tag mr-2"></i>Novi brend</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="form-alert" class="alert d-none" role="alert"></div>
+        <form id="brandForm">
+          <div class="form-group">
+            <label for="f-name">Naziv *</label>
+            <input type="text" id="f-name" class="form-control" placeholder="Npr. Samsung">
+          </div>
+          <div class="form-group">
+            <label for="f-logo">Logo URL</label>
+            <input type="text" id="f-logo" class="form-control" placeholder="https://...">
+          </div>
+          <div class="logo-preview" id="logo-preview"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-primary" onclick="saveBrand()">
+          <i class="fa fa-save mr-2"></i>Sačuvaj
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -116,65 +345,169 @@
 <script>
   initPage();
   let editingId = null;
+  let allBrands = [];
 
   function loadBrands() {
-    api('/api/brands').then(brands => {
-      const rows = brands.map(b =>
-        '<tr>' +
-          '<td>' + (b.logoUrl ? '<img src="' + b.logoUrl + '" class="img-preview" onerror="this.style.display=\'none\'">' : '<span class="text-muted">-</span>') + '</td>' +
-          '<td style="font-weight:600">' + b.name + '</td>' +
-          '<td><small class="text-muted text-truncate-200 d-block">' + (b.logoUrl || '-') + '</small></td>' +
-          '<td class="text-right">' +
-            '<button class="btn btn-xs btn-outline-primary mr-1" onclick="editBrand(' + b.id + ',\'' + esc(b.name) + '\',\'' + esc(b.logoUrl || '') + '\')"><i class="fa fa-edit"></i></button>' +
-            '<button class="btn btn-xs btn-outline-danger" onclick="deleteBrand(' + b.id + ',\'' + esc(b.name) + '\')"><i class="fa fa-trash"></i></button>' +
-          '</td>' +
-        '</tr>'
-      ).join('');
-      $('#brands-tbody').html(rows || '<tr><td colspan="4" class="text-center text-muted py-4">Nema brendova</td></tr>');
+    api('/api/brands').then(data => {
+      allBrands = data;
+      renderBrands(data);
     });
   }
 
-  function editBrand(id, name, logo) {
+  function renderBrands(brands) {
+    if (!brands || brands.length === 0) {
+      $('#brands-container').html(
+        '<div class="empty-state">' +
+        '<div class="empty-state-icon"><i class="fa fa-tag"></i></div>' +
+        '<p>Nema brendova. Kreirajte novog!</p>' +
+        '</div>'
+      );
+      return;
+    }
+
+    let html = '';
+    brands.forEach(brand => {
+      html += '<div class="brand-card">' +
+        '<div class="brand-logo-container' + (!brand.logoUrl ? ' empty' : '') + '">' +
+          (brand.logoUrl ? '<img src="' + escapeHtml(brand.logoUrl) + '" alt="' + escapeHtml(brand.name) + '" onerror="this.parentElement.classList.add(\'empty\');this.style.display=\'none\';">' : '<i class="fa fa-tag"></i>') +
+        '</div>' +
+        '<div class="brand-info">' +
+          '<div class="brand-name">' + escapeHtml(brand.name) + '</div>' +
+          (brand.logoUrl ? '<div class="brand-url">' + escapeHtml(brand.logoUrl) + '</div>' : '') +
+        '</div>' +
+        '<div class="brand-actions">' +
+          '<button class="btn-brand edit" onclick="editBrand(' + brand.id + ')" title="Uredi"><i class="fa fa-edit"></i> Uredi</button>' +
+          '<button class="btn-brand delete" onclick="deleteBrand(' + brand.id + ', \'' + escapeHtml(brand.name).replace(/'/g, "\\'") + '\')" title="Obriši"><i class="fa fa-trash"></i> Obriši</button>' +
+        '</div>' +
+        '</div>';
+    });
+
+    $('#brands-container').html(html);
+  }
+
+  function escapeHtml(text) {
+    const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  function openBrandModal() {
+    editingId = null;
+    resetForm();
+    $('#modal-title').html('<i class="fa fa-tag mr-2"></i>Novi brend');
+    $('#brandModal').modal('show');
+  }
+
+  function editBrand(id) {
     editingId = id;
-    $('#form-title').html('<i class="fa fa-pencil mr-2 text-muted"></i>Uredi brend');
-    $('#f-name').val(name); $('#f-logo').val(logo);
-    updateLogoPreview(logo);
+    const brand = allBrands.find(b => b.id === id);
+    if (!brand) return;
+    
+    $('#modal-title').html('<i class="fa fa-pencil mr-2"></i>Uredi: ' + escapeHtml(brand.name));
+    $('#f-name').val(brand.name);
+    $('#f-logo').val(brand.logoUrl || '');
+    updateLogoPreview(brand.logoUrl);
+    $('#brandModal').modal('show');
   }
 
   function resetForm() {
-    editingId = null;
-    $('#form-title').html('<i class="fa fa-tag mr-2 text-muted"></i>Novi brend');
-    $('#f-name').val(''); $('#f-logo').val('');
-    $('#logo-preview').html(''); $('#form-alert').addClass('d-none');
+    $('#brandForm')[0].reset();
+    $('#logo-preview').html('');
+    $('#form-alert').addClass('d-none');
+  }
+
+  function showFormAlert(msg, type) {
+    const alert = $('#form-alert');
+    alert.removeClass('d-none alert-success alert-danger')
+      .addClass('alert-' + type)
+      .text(msg);
   }
 
   function saveBrand() {
     const name = $('#f-name').val().trim();
-    if (!name) { showFormAlert('Naziv je obavezan'); return; }
-    const payload = { name, logoUrl: $('#f-logo').val().trim() || null };
-    const promise = editingId ? apiPut('/api/admin/brands/' + editingId, payload) : apiPost('/api/admin/brands', payload);
-    promise.then(() => { showToast('Brend sacuvan'); resetForm(); loadBrands(); });
-  }
+    if (!name) {
+      showFormAlert('Naziv je obavezan', 'danger');
+      return;
+    }
 
-  function deleteBrand(id, name) {
-    confirmDelete(name, () => {
-      apiDelete('/api/admin/brands/' + id).then(() => { showToast('Brend obrisan'); loadBrands(); });
+    const payload = {
+      name,
+      logoUrl: $('#f-logo').val().trim() || null
+    };
+
+    const promise = editingId ? apiPut('/api/admin/brands/' + editingId, payload) : apiPost('/api/admin/brands', payload);
+    promise.then(() => {
+      showNotification(editingId ? 'Brend ažuriran' : 'Brend kreiran', 'success');
+      $('#brandModal').modal('hide');
+      loadBrands();
+    }).catch(err => {
+      showFormAlert('Greška: ' + (err.message || 'Nepoznata greška'), 'danger');
     });
   }
 
+  function deleteBrand(id, name) {
+    if (confirm('Da li ste sigurni da želite da obrišete brend "' + name + '"?')) {
+      apiDelete('/api/admin/brands/' + id).then(() => {
+        showNotification('Brend obrisan', 'success');
+        loadBrands();
+      }).catch(err => {
+        showNotification('Greška pri brisanju: ' + (err.message || 'Nepoznata greška'), 'error');
+      });
+    }
+  }
+
   function updateLogoPreview(url) {
-    $('#logo-preview').html(url ? '<img src="' + url + '" style="max-height:56px;max-width:100%;border-radius:6px;border:1px solid var(--border-light)" onerror="$(this).hide()">' : '');
+    if (!url) {
+      $('#logo-preview').html('');
+      return;
+    }
+    $('#logo-preview').html('<img src="' + escapeHtml(url) + '" alt="Logo preview" onerror="$(this).hide()">');
   }
 
-  function showFormAlert(msg) {
-    $('#form-alert').removeClass('d-none alert-success').addClass('alert-danger').text(msg);
+  function showNotification(message, type) {
+    const notification = $('<div></div>')
+      .addClass('alert-notification ' + type)
+      .html('<i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + message)
+      .appendTo('body');
+
+    setTimeout(() => {
+      notification.fadeOut(300, function() {
+        $(this).remove();
+      });
+    }, 3000);
   }
 
-  function esc(str) { return (str || '').replace(/'/g, "\\'"); }
+  // Search
+  $('#search-brands').on('keyup', function() {
+    const query = $(this).val().toLowerCase();
+    if (!query) {
+      renderBrands(allBrands);
+      return;
+    }
 
-  $('#f-logo').on('input', function() { updateLogoPreview($(this).val().trim()); });
+    const filtered = allBrands.filter(b =>
+      b.name.toLowerCase().includes(query)
+    );
 
-  $(document).ready(function() { if (getAuth()) loadBrands(); });
+    if (filtered.length === 0) {
+      $('#brands-container').html(
+        '<div class="empty-state">' +
+        '<div class="empty-state-icon"><i class="fa fa-search"></i></div>' +
+        '<p>Nema rezultata za: "' + escapeHtml(query) + '"</p>' +
+        '</div>'
+      );
+    } else {
+      renderBrands(filtered);
+    }
+  });
+
+  // Real-time logo preview
+  $('#f-logo').on('input', function() {
+    updateLogoPreview($(this).val().trim());
+  });
+
+  $(document).ready(function() {
+    if (getAuth()) loadBrands();
+  });
 </script>
 </body>
 </html>

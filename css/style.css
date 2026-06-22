@@ -1260,6 +1260,85 @@ textarea.input {
   color: #8D99AE;
 }
 
+/*-- Category Filter (Expandable) --*/
+
+#category-filter {
+  display: flex;
+  flex-direction: column;
+}
+
+.all-categories-item {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #E4E7ED;
+}
+
+.all-categories-item .category-line {
+  padding: 0;
+}
+
+.category-item {
+  margin-bottom: 0;
+}
+
+.category-line {
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+  user-select: none;
+}
+
+.category-line:hover {
+  opacity: 0.8;
+}
+
+.category-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  margin-top: 3px;
+  color: #D10024;
+  font-size: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.category-toggle i {
+  transition: transform 0.2s;
+}
+
+.category-name {
+  font-size: 13px;
+  color: #2C3E50;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0;
+  padding: 5px 0;
+}
+
+.category-parent {
+  cursor: pointer;
+  user-select: none;
+}
+
+.category-children {
+  margin-left: 0;
+  padding-left: 28px;
+  border-left: 0;
+}
+
+.category-children .category-item {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.category-children .category-line {
+  padding: 0;
+}
+
 /*-- Price Filter --*/
 
 #price-slider {

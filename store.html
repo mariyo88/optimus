@@ -42,9 +42,9 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+						<li><a href="tel:+38163-85-58-708"><i class="fa fa-phone"></i> +38163-85-58-708</a></li>
+						<li><a href="mailto:mariyo88vp@gmail.com"><i class="fa fa-envelope-o"></i> mariyo88vp@gmail.com</a></li>
+						<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
@@ -63,7 +63,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo">
+								<a href="index.html" class="logo">
 									<img src="./img/logo.png" alt="">
 								</a>
 							</div>
@@ -173,10 +173,10 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#">Hot Deals</a></li>
 						<li><a href="#">Categories</a></li>
-						<li><a href="#">Laptops</a></li>
-						<li><a href="#">Smartphones</a></li>
-						<li><a href="#">Cameras</a></li>
-						<li><a href="#">Accessories</a></li>
+<!--						<li><a href="#">Laptops</a></li>-->
+<!--						<li><a href="#">Smartphones</a></li>-->
+<!--						<li><a href="#">Cameras</a></li>-->
+<!--						<li><a href="#">Accessories</a></li>-->
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -194,10 +194,10 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">All Categories</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li class="active">Headphones (227,490 Results)</li>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="store.html">All Categories</a></li>
+							<!-- Category breadcrumb will be inserted here by store.js -->
+							<li class="active" id="breadcrumb-category">Store</li>
 						</ul>
 					</div>
 				</div>
@@ -350,9 +350,8 @@
 									<select id="sort-select" class="input-select">
 										<option value="name,asc">Name A-Z</option>
 										<option value="name,desc">Name Z-A</option>
-										<option value="price,asc">Price: Low to High</option>
-										<option value="price,desc">Price: High to Low</option>
-										<option value="createdAt,desc">Newest First</option>
+										<option value="id,desc">Newest</option>
+										<option value="createdAt,desc">Recently Added</option>
 									</select>
 								</label>
 							</div>
@@ -433,11 +432,11 @@
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">About Us</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+								<p>Optimus je vodeći distributor elektronskih proizvoda i tehnologije sa sjedištem u Velikoj Plani, Srbija. Pružamo kvalitetne proizvode po konkurentnim cijenama sa odličnom podrškom kupacima. Naš tim je posvećen pružanju best-in-class servisa i zadovoljstvu kupaca.</p>
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+									<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
+									<li><a href="tel:+38163-85-58-708"><i class="fa fa-phone"></i>+38163-85-58-708</a></li>
+									<li><a href="mailto:mariyo88vp@gmail.com"><i class="fa fa-envelope-o"></i>mariyo88vp@gmail.com</a></li>
 								</ul>
 							</div>
 						</div>
@@ -504,9 +503,7 @@
 								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 							</ul>
 							<span class="copyright">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								© 2026 FirstCode. Sva prava zadržana.
 							</span>
 						</div>
 					</div>
@@ -526,6 +523,7 @@
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/config.js"></script>
+		<script src="js/main-nav.js"></script>
 		<script src="js/store.js"></script>
 
 	</body>
