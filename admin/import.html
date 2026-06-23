@@ -420,6 +420,42 @@
           </div>
         </div>
       </div>
+
+      <!-- Job Executions History -->
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <span><i class="fa fa-tasks mr-2"></i> Istorija izvršavanja</span>
+              <button class="btn btn-sm btn-outline-primary" onclick="loadJobHistory()">
+                <i class="fa fa-refresh"></i> Osvežite
+              </button>
+            </div>
+            <div class="card-body p-0">
+              <div id="job-history-container">
+                <div style="text-align: center; padding: 2rem; color: #999;">
+                  <i class="fa fa-spinner fa-spin mr-2"></i> Učitavanje...
+                </div>
+              </div>
+            </div>
+            <div class="card-footer" style="background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 0.75rem 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 0.9rem; color: #666;">
+                  Stranica <span id="current-page">1</span> - Prikazano <span id="items-count">0</span> job-ova
+                </div>
+                <div class="btn-group btn-group-sm">
+                  <button class="btn btn-outline-secondary" onclick="prevPage()" id="btn-prev" disabled>
+                    <i class="fa fa-chevron-left"></i> Prethodna
+                  </button>
+                  <button class="btn btn-outline-secondary" onclick="nextPage()" id="btn-next">
+                    Sledeća <i class="fa fa-chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </div>
@@ -487,6 +523,7 @@
           : 'DSC import je pokrenut. Učitavanje će trajati 5-10 minuta.';
         showNotification(message, 'success');
         btn.prop('disabled', false).html('<i class="fa fa-play mr-2"></i> Pokreni');
+        loadJobHistory();
       },
       error: function(xhr) {
         if (xhr.status === 401) { logout(); return; }
@@ -514,6 +551,7 @@
           : 'USPON import je pokrenut. Učitavanje će trajati 5-10 minuta.';
         showNotification(message, 'success');
         btn.prop('disabled', false).html('<i class="fa fa-play mr-2"></i> Pokreni');
+        loadJobHistory();
       },
       error: function(xhr) {
         if (xhr.status === 401) { logout(); return; }
@@ -552,6 +590,7 @@
         $('#dsc-file').val('');
         $('#dsc-file-info').text('');
         btn.prop('disabled', true).html('<i class="fa fa-upload mr-2"></i> Učitaj');
+        loadJobHistory();
       },
       error: function(xhr) {
         if (xhr.status === 401) { logout(); return; }
@@ -590,6 +629,7 @@
         $('#uspon-file').val('');
         $('#uspon-file-info').text('');
         btn.prop('disabled', true).html('<i class="fa fa-upload mr-2"></i> Učitaj');
+        loadJobHistory();
       },
       error: function(xhr) {
         if (xhr.status === 401) { logout(); return; }
@@ -599,6 +639,135 @@
       }
     });
   }
+
+  // Pagination state
+  let currentPage = 0;
+  const pageSize = 10;
+
+  // Load Job History
+  function loadJobHistory(page) {
+    if (page !== undefined) {
+      currentPage = page;
+    }
+    
+    const container = $('#job-history-container');
+    
+    $.ajax({
+      url: API_BASE + '/api/admin/jobs/executions?page=' + currentPage + '&size=' + pageSize,
+      method: 'GET',
+      headers: { 'Authorization': 'Basic ' + getAuth() },
+      success: function(executions) {
+        if (!executions || executions.length === 0) {
+          container.html('<div style="padding: 1.5rem; text-align: center; color: #999;">Nema istorije izvršavanja</div>');
+          $('#items-count').text('0');
+          $('#btn-prev').prop('disabled', currentPage === 0);
+          $('#btn-next').prop('disabled', true);
+          return;
+        }
+
+        let html = '<table class="table table-sm mb-0"><thead><tr>' +
+          '<th>Distributer</th>' +
+          '<th>Status</th>' +
+          '<th>Početak</th>' +
+          '<th>Trajanje</th>' +
+          '<th style="text-align: right;">Pročitano / Napisano / Preskoči</th>' +
+          '</tr></thead><tbody>';
+
+        executions.forEach(exec => {
+          const statusBadge = getStatusBadge(exec.status);
+          const duration = exec.durationMs ? formatDuration(exec.durationMs) : '—';
+          const startTime = exec.startTime ? formatDateTime(exec.startTime) : '—';
+          const stats = `${exec.readCount || 0} / ${exec.writeCount || 0} / ${exec.skipCount || 0}`;
+          const supplier = exec.supplier || '—';
+          const supplierBadge = getSupplierBadge(supplier);
+
+          html += `<tr>
+            <td>${supplierBadge}</td>
+            <td>${statusBadge}</td>
+            <td style="font-size: 0.85rem; color: #666;">${startTime}</td>
+            <td><span class="badge badge-secondary">${duration}</span></td>
+            <td style="text-align: right; font-family: monospace; font-size: 0.9rem;">${stats}</td>
+          </tr>`;
+        });
+
+        html += '</tbody></table>';
+        container.html(html);
+        
+        // Update pagination controls
+        $('#current-page').text(currentPage + 1);
+        $('#items-count').text(executions.length);
+        $('#btn-prev').prop('disabled', currentPage === 0);
+        $('#btn-next').prop('disabled', executions.length < pageSize);
+      },
+      error: function(xhr) {
+        if (xhr.status === 401) { logout(); return; }
+        container.html('<div class="alert alert-danger m-3">Greška pri učitavanju</div>');
+      }
+    });
+  }
+
+  function nextPage() {
+    loadJobHistory(currentPage + 1);
+  }
+
+  function prevPage() {
+    if (currentPage > 0) {
+      loadJobHistory(currentPage - 1);
+    }
+  }
+
+  function getStatusBadge(status) {
+    const statusMap = {
+      'COMPLETED': '<span class="badge" style="background: #10b981; color: white;">COMPLETED</span>',
+      'FAILED': '<span class="badge" style="background: #ef4444; color: white;">FAILED</span>',
+      'STARTED': '<span class="badge" style="background: #3b82f6; color: white;">STARTED</span>',
+      'STOPPED': '<span class="badge" style="background: #f59e0b; color: white;">STOPPED</span>'
+    };
+    return statusMap[status] || '<span class="badge badge-secondary">' + status + '</span>';
+  }
+
+  function getSupplierBadge(supplier) {
+    if (supplier === 'DSC') {
+      return '<span class="badge" style="background: #e5edff; color: #667eea; font-weight: 700;">DSC</span>';
+    } else if (supplier === 'USPON') {
+      return '<span class="badge" style="background: #cffafe; color: #0e7490; font-weight: 700;">USPON</span>';
+    }
+    return '<span class="badge badge-secondary">' + supplier + '</span>';
+  }
+
+  function formatDuration(ms) {
+    if (ms < 1000) return ms + 'ms';
+    if (ms < 60000) return (ms / 1000).toFixed(1) + 's';
+    if (ms < 3600000) return (ms / 60000).toFixed(1) + 'min';
+    return (ms / 3600000).toFixed(1) + 'h';
+  }
+
+  function formatDateTime(dateStr) {
+    try {
+      const date = new Date(dateStr);
+      return date.toLocaleString('sr-RS', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch (e) {
+      return dateStr;
+    }
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Load job history on page load
+  setTimeout(loadJobHistory, 500);
+
+  // Auto-refresh every 30 seconds
+  setInterval(loadJobHistory, 30000);
 </script>
 </body>
 </html>
