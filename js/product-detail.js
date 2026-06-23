@@ -87,8 +87,8 @@
             renderPrice(product) + renderStockStatus(product)
         );
 
-        // Short description
-        $('#product-short-desc').text(product.shortDescription || product.description || '');
+        // Key Features - extract from specifications
+        renderKeyFeatures(product);
 
         // Category links
         var $catLinks = $details.find('.product-links').first();
@@ -103,6 +103,44 @@
         // Page title + breadcrumb
         document.title = product.name + ' — Electro';
         updateBreadcrumbs(product);
+    }
+
+    function renderKeyFeatures(product) {
+        // Get top 4 specifications for key features
+        var specs = product.specifications || [];
+        var features = specs.slice(0, 4);
+
+        // If less than 4 specs, add generic features
+        if (features.length === 0) {
+            // Use brand and category as fallback features
+            if (product.brand && product.brand.name) {
+                features.push({ name: 'Brand', value: product.brand.name });
+            }
+            if (product.category && product.category.name) {
+                features.push({ name: 'Category', value: product.category.name });
+            }
+            if (product.inStock !== undefined) {
+                features.push({ name: 'Availability', value: product.inStock ? 'In Stock' : 'Out of Stock' });
+            }
+        }
+
+        // Hide the container if no features
+        if (features.length === 0) {
+            $('#product-key-features').hide();
+            return;
+        }
+
+        // Show the container and populate features
+        $('#product-key-features').show();
+        for (var i = 0; i < 4; i++) {
+            var $feature = $('#feature-' + (i + 1));
+            if (features[i]) {
+                $feature.html('<strong>' + features[i].name + ':</strong> ' + features[i].value);
+                $feature.parent().show();
+            } else {
+                $feature.parent().hide();
+            }
+        }
     }
 
     function updateBreadcrumbs(product) {
@@ -194,8 +232,15 @@
     }
 
     function renderTabs(product) {
-        // Description tab
-        $('#tab1 .col-md-12 p').text(product.description || product.shortDescription || '');
+        // Description tab - render HTML if present, otherwise use plain text
+        var description = product.description || product.shortDescription || '';
+        if (description && description.includes('<ul class="SpecForm">')) {
+            // HTML format - render as HTML
+            $('#tab1 .col-md-12').html(description);
+        } else {
+            // Plain text format - render as text
+            $('#tab1 .col-md-12 p').text(description);
+        }
 
         // Details tab — specifications table
         if (product.specifications && product.specifications.length > 0) {
@@ -264,7 +309,7 @@
             url: API_BASE + '/api/products',
             data: {
                 category: product.category.slug,
-                size: 4,
+                size: 5,
                 sort: 'name,asc'
             },
             success: function (data) {

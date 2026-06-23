@@ -36,11 +36,12 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
     .supplier-card:hover {
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
       border-color: #667eea;
-      transform: translateY(-2px);
+      transform: translateY(-4px);
     }
     
     .supplier-badge {
@@ -127,7 +128,7 @@
       font-size: 0.85rem;
       color: #666;
       margin-bottom: 0.75rem;
-      line-height: 1.4;
+      line-height: 1.5;
     }
     
     .btn-group-vertical {
@@ -137,34 +138,41 @@
     
     .upload-zone {
       border: 2px dashed #d0d0d0;
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 1rem;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s ease;
       background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .upload-zone:hover {
       border-color: #667eea;
       background: #f0f3ff;
+      transform: translateY(-2px);
     }
     .upload-zone-icon {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: #667eea;
       margin-bottom: 0.5rem;
       display: block;
     }
     .upload-zone-text {
       font-size: 0.9rem;
-      color: #333;
+      color: #555;
       display: block;
+      font-weight: 500;
     }
     .upload-zone-name {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #666;
       margin-top: 0.5rem;
       font-weight: 500;
+      word-break: break-word;
     }
     
     .btn-import {
@@ -223,16 +231,22 @@
     }
     
     .info-box {
-      background: #f0f3ff;
+      background: #f8f9fa;
       border-left: 4px solid #667eea;
-      padding: 1rem;
-      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
       font-size: 0.9rem;
       color: #333;
-      margin-top: 1rem;
+      margin-top: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .info-box strong {
-      color: #667eea;
+      color: #333;
+      display: block;
+      font-size: 0.95rem;
+    }
+    .info-box p {
+      color: #666;
     }
   </style>
 </head>
@@ -289,134 +303,142 @@
         <p>Učitajte proizvode iz XML datoteka ili direktno sa distributera</p>
       </div>
 
+      <!-- Import Options Grid -->
       <div class="row">
-        <!-- DSC Remote -->
-        <div class="col-lg-6 mb-4">
+        <!-- Smart XML Upload Card -->
+        <div class="col-lg-4 mb-4">
           <div class="supplier-card">
-            <div class="supplier-header dsc">
-              <div class="icon"><i class="fa fa-globe"></i></div>
-              <h3>DSC</h3>
-              <p>Distributor proizvoda za IT</p>
+            <div class="supplier-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+              <div class="icon" style="background: rgba(255,255,255,0.2); color: white;">
+                <i class="fa fa-bolt"></i>
+              </div>
+              <h3 style="color: white; font-size: 1.2rem;">Smart Upload</h3>
+              <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem;">Auto-detekcija formata</p>
             </div>
             <div class="supplier-body">
-              <div class="import-option">
-                <div class="option-title">
-                  <i class="fa fa-cloud-download" style="color: #667eea;"></i>
-                  Remote Import
-                  <span class="badge badge-info" style="background: #667eea;">Preporučeno</span>
-                </div>
-                <div class="option-desc">Preuzmi i učitaj proizvode direktno sa DSC servera. Trajanje: 5-10 minuta.</div>
-                <div style="margin-bottom: 0.75rem;">
-                  <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="dsc-remote-update-only" checked>
-                    <span class="custom-control-label">Samo update (čuva kategorije)</span>
-                  </label>
-                  <div style="font-size: 0.8rem; color: #666; margin-left: 1.5rem; margin-top: 0.3rem;">
-                    Ako je označeno, bit će ažurirane samo cijene i zaliha, bez promjene kategorija, slika i opisa
-                  </div>
-                </div>
-                <button class="btn btn-import btn-primary w-100" onclick="startDscRemoteImport()" id="btn-dsc-remote">
-                  <i class="fa fa-play mr-2"></i> Pokreni
-                </button>
-              </div>
-
-              <hr style="margin: 1rem 0; border-color: #e0e0e0;">
-
               <div class="import-option">
                 <div class="option-title">
                   <i class="fa fa-file-code-o" style="color: #667eea;"></i>
-                  Upload XML
+                  XML Datoteka
+                  <span class="badge badge-success" style="background: #10b981; font-size: 0.65rem;">Preporučeno</span>
                 </div>
-                <div class="option-desc">Učitaj XML datoteku sa lokalnog računara.</div>
-                <label class="upload-zone" for="dsc-file">
+                <div class="option-desc">Učitaj XML fajl - sistem automatski prepoznaje DSC ili USPON format.</div>
+                <label class="upload-zone" for="smart-file" style="min-height: 100px;">
                   <i class="fa fa-cloud-upload upload-zone-icon"></i>
-                  <span class="upload-zone-text">Klikni ili prevuci XML</span>
-                  <span id="dsc-file-info" class="upload-zone-name"></span>
+                  <span class="upload-zone-text">Odaberi XML</span>
+                  <span id="smart-file-info" class="upload-zone-name"></span>
+                  <span id="smart-file-detected" style="display: none; margin-top: 0.5rem; font-weight: 600; font-size: 0.85rem;"></span>
                 </label>
-                <input type="file" id="dsc-file" accept=".xml" style="display:none">
+                <input type="file" id="smart-file" accept=".xml" style="display:none">
                 <div style="margin: 0.75rem 0;">
                   <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="dsc-file-update-only" checked>
-                    <span class="custom-control-label">Samo update (čuva kategorije)</span>
+                    <input type="checkbox" class="custom-control-input" id="smart-file-update-only" checked>
+                    <span class="custom-control-label" style="font-size: 0.9rem;">Samo update</span>
                   </label>
-                  <div style="font-size: 0.8rem; color: #666; margin-left: 1.5rem; margin-top: 0.3rem;">
-                    Ako je označeno, bit će ažurirane samo cijene i zaliha, bez promjene kategorija, slika i opisa
-                  </div>
                 </div>
-                <button class="btn btn-import btn-primary w-100 mt-2" onclick="uploadDscFile()" id="btn-dsc-upload" disabled>
+                <button class="btn btn-import w-100 mt-2" onclick="uploadSmartFile()" id="btn-smart-upload" disabled style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
                   <i class="fa fa-upload mr-2"></i> Učitaj
                 </button>
+              </div>
+              
+              <!-- Info box inside card -->
+              <div class="info-box" style="border-left-color: #667eea; margin-top: 1.5rem;">
+                <strong><i class="fa fa-info-circle mr-2"></i> Smart Upload</strong>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; line-height: 1.4;">
+                  Učitaj XML fajl i sistem automatski detektuje format (DSC ili USPON) na osnovu strukture.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- USPON Remote -->
-        <div class="col-lg-6 mb-4">
+        <!-- DSC Remote Import Card -->
+        <div class="col-lg-4 mb-4">
           <div class="supplier-card">
-            <div class="supplier-header uspon">
-              <div class="icon"><i class="fa fa-globe"></i></div>
-              <h3>USPON</h3>
-              <p>Distributor elektronike</p>
+            <div class="supplier-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+              <div class="icon" style="background: rgba(255,255,255,0.2); color: white;">
+                <i class="fa fa-globe"></i>
+              </div>
+              <h3 style="color: white; font-size: 1.2rem;">DSC Remote</h3>
+              <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem;">Distributor IT opreme</p>
             </div>
             <div class="supplier-body">
               <div class="import-option">
                 <div class="option-title">
-                  <i class="fa fa-cloud-download" style="color: #0e7490;"></i>
+                  <i class="fa fa-cloud-download" style="color: #10b981;"></i>
                   Remote Import
-                  <span class="badge badge-info" style="background: #0e7490;">Preporučeno</span>
                 </div>
-                <div class="option-desc">Preuzmi i učitaj proizvode direktno sa USPON servera. Trajanje: 5-10 minuta.</div>
-                <div style="margin-bottom: 0.75rem;">
-                  <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="uspon-remote-update-only" checked>
-                    <span class="custom-control-label">Samo update (čuva kategorije)</span>
-                  </label>
-                  <div style="font-size: 0.8rem; color: #666; margin-left: 1.5rem; margin-top: 0.3rem;">
-                    Ako je označeno, bit će ažurirane samo cijene i zaliha, bez promjene kategorija, slika i opisa
+                <div class="option-desc">Preuzmi i učitaj proizvode direktno sa DSC servera. Trajanje: 5-10 minuta.</div>
+                <div style="margin: 0.75rem 0; min-height: 100px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 6px; padding: 1rem;">
+                  <div style="text-align: center;">
+                    <i class="fa fa-server" style="font-size: 2rem; color: #10b981; margin-bottom: 0.5rem;"></i>
+                    <div style="font-size: 0.85rem; color: #666;">Server import</div>
                   </div>
                 </div>
-                <button class="btn btn-import btn-primary w-100" onclick="startUsponRemoteImport()" id="btn-uspon-remote" style="background: #0e7490; border-color: #0e7490;">
+                <div style="margin: 0.75rem 0;">
+                  <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="dsc-remote-update-only" checked>
+                    <span class="custom-control-label" style="font-size: 0.9rem;">Samo update</span>
+                  </label>
+                </div>
+                <button class="btn btn-import w-100 mt-2" onclick="startDscRemoteImport()" id="btn-dsc-remote" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none;">
                   <i class="fa fa-play mr-2"></i> Pokreni
                 </button>
               </div>
-
-              <hr style="margin: 1rem 0; border-color: #e0e0e0;">
-
-              <div class="import-option">
-                <div class="option-title">
-                  <i class="fa fa-file-code-o" style="color: #0e7490;"></i>
-                  Upload XML
-                </div>
-                <div class="option-desc">Učitaj XML datoteku sa lokalnog računara.</div>
-                <label class="upload-zone" for="uspon-file">
-                  <i class="fa fa-cloud-upload upload-zone-icon" style="color: #0e7490;"></i>
-                  <span class="upload-zone-text">Klikni ili prevuci XML</span>
-                  <span id="uspon-file-info" class="upload-zone-name"></span>
-                </label>
-                <input type="file" id="uspon-file" accept=".xml" style="display:none">
-                <div style="margin: 0.75rem 0;">
-                  <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="uspon-file-update-only" checked>
-                    <span class="custom-control-label">Samo update (čuva kategorije)</span>
-                  </label>
-                  <div style="font-size: 0.8rem; color: #666; margin-left: 1.5rem; margin-top: 0.3rem;">
-                    Ako je označeno, bit će ažurirane samo cijene i zaliha, bez promjene kategorija, slika i opisa
-                  </div>
-                </div>
-                <button class="btn btn-import btn-primary w-100 mt-2" onclick="uploadUsponFile()" id="btn-uspon-upload" disabled style="background: #0e7490; border-color: #0e7490;">
-                  <i class="fa fa-upload mr-2"></i> Učitaj
-                </button>
+              
+              <!-- Info box inside card -->
+              <div class="info-box" style="border-left-color: #10b981; margin-top: 1.5rem;">
+                <strong><i class="fa fa-info-circle mr-2"></i> Samo Update</strong>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; line-height: 1.4;">
+                  Kada je označeno, ažuriraju se samo cijene i zaliha - kategorije, slike i opisi ostaju nepromijenjeni.
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="info-box">
-            <strong><i class="fa fa-info-circle mr-2"></i> Napomena:</strong> Import proizvoda se procesira u pozadini. Nakon pokretanja, možete zatvoriti ovu stranicu. Učitavanje će nastaviti da se izvršava.
+        <!-- USPON Remote Import Card -->
+        <div class="col-lg-4 mb-4">
+          <div class="supplier-card">
+            <div class="supplier-header" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white;">
+              <div class="icon" style="background: rgba(255,255,255,0.2); color: white;">
+                <i class="fa fa-globe"></i>
+              </div>
+              <h3 style="color: white; font-size: 1.2rem;">USPON Remote</h3>
+              <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem;">Distributor elektronike</p>
+            </div>
+            <div class="supplier-body">
+              <div class="import-option">
+                <div class="option-title">
+                  <i class="fa fa-cloud-download" style="color: #0ea5e9;"></i>
+                  Remote Import
+                </div>
+                <div class="option-desc">Preuzmi i učitaj proizvode direktno sa USPON servera. Trajanje: 5-10 minuta.</div>
+                <div style="margin: 0.75rem 0; min-height: 100px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 6px; padding: 1rem;">
+                  <div style="text-align: center;">
+                    <i class="fa fa-server" style="font-size: 2rem; color: #0ea5e9; margin-bottom: 0.5rem;"></i>
+                    <div style="font-size: 0.85rem; color: #666;">Server import</div>
+                  </div>
+                </div>
+                <div style="margin: 0.75rem 0;">
+                  <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="uspon-remote-update-only" checked>
+                    <span class="custom-control-label" style="font-size: 0.9rem;">Samo update</span>
+                  </label>
+                </div>
+                <button class="btn btn-import w-100 mt-2" onclick="startUsponRemoteImport()" id="btn-uspon-remote" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border: none;">
+                  <i class="fa fa-play mr-2"></i> Pokreni
+                </button>
+              </div>
+              
+              <!-- Info box inside card -->
+              <div class="info-box" style="border-left-color: #0ea5e9; margin-top: 1.5rem;">
+                <strong><i class="fa fa-info-circle mr-2"></i> Pozadinski proces</strong>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; line-height: 1.4;">
+                  Import se izvršava u pozadini. Nakon pokretanja, možete zatvoriti stranicu - učitavanje će nastaviti.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -469,27 +491,50 @@
 <script>
   initPage();
 
-  // File upload handlers
-  $('#dsc-file').on('change', function() {
+  // Smart file upload handler with auto-detection
+  let detectedFormat = null;
+  
+  $('#smart-file').on('change', function() {
     const file = this.files[0];
-    if (file) {
-      $('#dsc-file-info').text(file.name + ' (' + (file.size/1024/1024).toFixed(2) + ' MB)');
-      $('#btn-dsc-upload').prop('disabled', false);
-    } else {
-      $('#dsc-file-info').text('');
-      $('#btn-dsc-upload').prop('disabled', true);
+    if (!file) {
+      $('#smart-file-info').text('');
+      $('#smart-file-detected').hide();
+      $('#btn-smart-upload').prop('disabled', true);
+      detectedFormat = null;
+      return;
     }
-  });
 
-  $('#uspon-file').on('change', function() {
-    const file = this.files[0];
-    if (file) {
-      $('#uspon-file-info').text(file.name + ' (' + (file.size/1024/1024).toFixed(2) + ' MB)');
-      $('#btn-uspon-upload').prop('disabled', false);
-    } else {
-      $('#uspon-file-info').text('');
-      $('#btn-uspon-upload').prop('disabled', true);
-    }
+    $('#smart-file-info').text(file.name + ' (' + (file.size/1024/1024).toFixed(2) + ' MB)');
+    $('#smart-file-detected').html('<i class="fa fa-spinner fa-spin"></i> Analiziram format...').show();
+    
+    // Read first few KB of the file to detect format
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const content = e.target.result;
+      
+      // Check for DSC format markers
+      const isDsc = content.includes('<cena>') && content.includes('<mpcena>') && !content.includes('<b2bcena>');
+      
+      // Check for USPON format markers
+      const isUspon = content.includes('<b2bcena>') && content.includes('<web_cena>');
+      
+      if (isDsc) {
+        detectedFormat = 'DSC';
+        $('#smart-file-detected').html('<i class="fa fa-check-circle" style="color: #10b981;"></i> Format prepoznat: <span style="color: #667eea; font-weight: 700;">DSC</span>').show();
+        $('#btn-smart-upload').prop('disabled', false);
+      } else if (isUspon) {
+        detectedFormat = 'USPON';
+        $('#smart-file-detected').html('<i class="fa fa-check-circle" style="color: #10b981;"></i> Format prepoznat: <span style="color: #0e7490; font-weight: 700;">USPON</span>').show();
+        $('#btn-smart-upload').prop('disabled', false);
+      } else {
+        detectedFormat = null;
+        $('#smart-file-detected').html('<i class="fa fa-exclamation-triangle" style="color: #f59e0b;"></i> Nepoznat format XML datoteke').show();
+        $('#btn-smart-upload').prop('disabled', true);
+      }
+    };
+    
+    // Read first 50KB to detect format
+    reader.readAsText(file.slice(0, 50000));
   });
 
   // Notification system
@@ -504,6 +549,52 @@
         $(this).remove();
       });
     }, 4000);
+  }
+
+  // Smart File Upload with auto-detection
+  function uploadSmartFile() {
+    const file = $('#smart-file')[0].files[0];
+    if (!file || !detectedFormat) return;
+
+    const btn = $('#btn-smart-upload');
+    const updateOnly = $('#smart-file-update-only').is(':checked');
+    btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-2"></i> Učitavanje...');
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const endpoint = detectedFormat === 'DSC' 
+      ? '/api/admin/import/dsc/file' 
+      : '/api/admin/import/uspon/file';
+
+    $.ajax({
+      url: API_BASE + endpoint + '?updateOnly=' + (updateOnly ? 'true' : 'false'),
+      method: 'POST',
+      headers: { 'Authorization': 'Basic ' + getAuth() },
+      data: formData,
+      processData: false,
+      contentType: false,
+      timeout: 600000,
+      success: function(r) {
+        const supplierName = detectedFormat;
+        const message = updateOnly 
+          ? supplierName + ' datoteka je učitana u UPDATE-ONLY modu. Samo cijene i zaliha će biti ažurirane.'
+          : supplierName + ' datoteka je učitana. Obrada je u toku.';
+        showNotification(message, 'success');
+        $('#smart-file').val('');
+        $('#smart-file-info').text('');
+        $('#smart-file-detected').hide();
+        detectedFormat = null;
+        btn.prop('disabled', true).html('<i class="fa fa-upload mr-2"></i> Učitaj');
+        loadJobHistory();
+      },
+      error: function(xhr) {
+        if (xhr.status === 401) { logout(); return; }
+        const errMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška pri učitavanju';
+        showNotification('Greška: ' + errMsg, 'error');
+        btn.prop('disabled', false).html('<i class="fa fa-upload mr-2"></i> Učitaj');
+      }
+    });
   }
 
   // DSC Remote Import
@@ -558,84 +649,6 @@
         const errMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška pri učitavanju';
         showNotification('Greška: ' + errMsg, 'error');
         btn.prop('disabled', false).html('<i class="fa fa-play mr-2"></i> Pokreni');
-      }
-    });
-  }
-
-  // DSC File Upload
-  function uploadDscFile() {
-    const file = $('#dsc-file')[0].files[0];
-    if (!file) return;
-
-    const btn = $('#btn-dsc-upload');
-    const updateOnly = $('#dsc-file-update-only').is(':checked');
-    btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-2"></i> Učitavanje...');
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    $.ajax({
-      url: API_BASE + '/api/admin/import/dsc/file?updateOnly=' + (updateOnly ? 'true' : 'false'),
-      method: 'POST',
-      headers: { 'Authorization': 'Basic ' + getAuth() },
-      data: formData,
-      processData: false,
-      contentType: false,
-      timeout: 600000,
-      success: function(r) {
-        const message = updateOnly 
-          ? 'DSC datoteka je učitana u UPDATE-ONLY modu. Samo cijene i zaliha će biti ažurirane.'
-          : 'DSC datoteka je učitana. Obrada je u toku.';
-        showNotification(message, 'success');
-        $('#dsc-file').val('');
-        $('#dsc-file-info').text('');
-        btn.prop('disabled', true).html('<i class="fa fa-upload mr-2"></i> Učitaj');
-        loadJobHistory();
-      },
-      error: function(xhr) {
-        if (xhr.status === 401) { logout(); return; }
-        const errMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška pri učitavanju';
-        showNotification('Greška: ' + errMsg, 'error');
-        btn.prop('disabled', false).html('<i class="fa fa-upload mr-2"></i> Učitaj');
-      }
-    });
-  }
-
-  // USPON File Upload
-  function uploadUsponFile() {
-    const file = $('#uspon-file')[0].files[0];
-    if (!file) return;
-
-    const btn = $('#btn-uspon-upload');
-    const updateOnly = $('#uspon-file-update-only').is(':checked');
-    btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-2"></i> Učitavanje...');
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    $.ajax({
-      url: API_BASE + '/api/admin/import/uspon/file?updateOnly=' + (updateOnly ? 'true' : 'false'),
-      method: 'POST',
-      headers: { 'Authorization': 'Basic ' + getAuth() },
-      data: formData,
-      processData: false,
-      contentType: false,
-      timeout: 600000,
-      success: function(r) {
-        const message = updateOnly 
-          ? 'USPON datoteka je učitana u UPDATE-ONLY modu. Samo cijene i zaliha će biti ažurirane.'
-          : 'USPON datoteka je učitana. Obrada je u toku.';
-        showNotification(message, 'success');
-        $('#uspon-file').val('');
-        $('#uspon-file-info').text('');
-        btn.prop('disabled', true).html('<i class="fa fa-upload mr-2"></i> Učitaj');
-        loadJobHistory();
-      },
-      error: function(xhr) {
-        if (xhr.status === 401) { logout(); return; }
-        const errMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška pri učitavanju';
-        showNotification('Greška: ' + errMsg, 'error');
-        btn.prop('disabled', false).html('<i class="fa fa-upload mr-2"></i> Učitaj');
       }
     });
   }
