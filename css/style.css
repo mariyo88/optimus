@@ -2437,3 +2437,162 @@ ul.SpecForm .Notice {
     margin-bottom: 5px;
   }
 }
+
+/*-------------------------------------------
+  List View Styles
+---------------------------------------------*/
+.product.product-list {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  border: 1px solid #E4E7ED;
+  transition: all 0.3s;
+  height: auto;
+}
+
+.product.product-list:hover {
+  border-color: #D10024;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.product.product-list .product-img {
+  width: 250px;
+  min-width: 250px;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.product.product-list .product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product.product-list .product-body {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.product.product-list .product-category {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #8D99AE;
+  margin-bottom: 10px;
+}
+
+.product.product-list .product-name {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.product.product-list .product-name a {
+  font-weight: 500;
+}
+
+.product.product-list .product-price {
+  margin-bottom: 15px;
+}
+
+.product.product-list .product-stock-status {
+  margin-bottom: 15px;
+}
+
+.product.product-list .in-stock-badge {
+  color: #28a745;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.product.product-list .out-of-stock-badge {
+  color: #dc3545;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.product.product-list .product-description {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.product.product-list .product-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.product.product-list .product-actions button {
+  padding: 10px 20px;
+  border: 1px solid #E4E7ED;
+  background-color: #fff;
+  color: #2B2D42;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.product.product-list .product-actions .add-to-cart-btn {
+  background-color: #D10024;
+  color: #fff;
+  border-color: #D10024;
+}
+
+.product.product-list .product-actions .add-to-cart-btn:hover:not(:disabled) {
+  background-color: #fff;
+  color: #D10024;
+}
+
+.product.product-list .product-actions button:not(.add-to-cart-btn):hover {
+  border-color: #D10024;
+  color: #D10024;
+}
+
+.product.product-list .product-actions .out-of-stock-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments for list view */
+@media only screen and (max-width: 991px) {
+  .product.product-list {
+    flex-direction: column;
+  }
+  
+  .product.product-list .product-img {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .product.product-list .product-img {
+    height: 250px;
+  }
+  
+  .product.product-list .product-actions {
+    flex-direction: column;
+  }
+  
+  .product.product-list .product-actions button {
+    width: 100%;
+  }
+}
+
+/* Store Grid View Toggle Enhancement */
+.store-grid li {
+  cursor: pointer;
+}
+
+.store-grid li i {
+  pointer-events: none;
+}

@@ -11,7 +11,8 @@
         search:   getParam('search')   || '',
         page:     parseInt(getParam('page') || '0', 10),
         size:     20,
-        sort:     'name,asc'
+        sort:     'name,asc',
+        viewMode: 'grid' // 'grid' or 'list'
     };
 
     function getParam(name) {
@@ -108,6 +109,69 @@
             '    </div>',
             '    <div class="add-to-cart">',
             '      <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> add to cart</button>',
+            '    </div>',
+            '  </div>',
+            '</div>'
+        ].join('\n');
+    }
+
+    function buildProductListItem(p) {
+        var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ENo image available%3C/text%3E%3C/svg%3E";
+        var imgSrc   = p.mainImageUrl ? p.mainImageUrl : IMG_PLACEHOLDER;
+        var labels   = '';
+        if (p.isNew)  labels += '<span class="new">NEW</span>';
+        
+        // Build price display with both B2B and Retail prices
+        var priceHtml = '';
+        if (p.bestB2bPrice || p.bestRetailPrice) {
+            priceHtml = '<div class="product-price-container">';
+            
+            // B2B cena
+            if (p.bestB2bPrice) {
+                priceHtml += '<div class="price-row">';
+                priceHtml += '<span class="price-label">B2B:</span>';
+                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestB2bPrice).toFixed(2) + '</span>';
+                priceHtml += '</div>';
+            }
+            
+            // Retail cena
+            if (p.bestRetailPrice) {
+                priceHtml += '<div class="price-row">';
+                priceHtml += '<span class="price-label">Retail:</span>';
+                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestRetailPrice).toFixed(2) + '</span>';
+                priceHtml += '</div>';
+            }
+            
+            priceHtml += '</div>';
+        } else {
+            priceHtml = '<span class="text-muted">N/A</span>';
+        }
+        
+        var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
+        var inStockBadge = !p.inStock ? '<span class="out-of-stock-badge">Out of Stock</span>' : '<span class="in-stock-badge">In Stock</span>';
+        
+        // Truncate description if exists
+        var description = p.description ? p.description.substring(0, 200) + '...' : 'No description available.';
+
+        return [
+            '<div class="col-md-12">',
+            '  <div class="product product-list">',
+            '    <div class="product-img">',
+            '      <img src="' + imgSrc + '" alt="' + p.name + '" onerror="this.src=\'' + IMG_PLACEHOLDER + '\'">',
+            '      <div class="product-label">' + labels + '</div>',
+            '    </div>',
+            '    <div class="product-body">',
+            '      <p class="product-category">' + (p.brandName || '') + '</p>',
+            '      <h3 class="product-name"><a href="product.html?slug=' + p.slug + '">' + p.name + '</a></h3>',
+            '      <h4 class="product-price">' + priceHtml + '</h4>',
+            '      <div class="product-stock-status">' + inStockBadge + '</div>',
+            '      <div class="product-rating"></div>',
+            '      <p class="product-description">' + description + '</p>',
+            '      <div class="product-actions">',
+            '        <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> Add to Cart</button>',
+            '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i> Wishlist</button>',
+            '        <button class="add-to-compare"><i class="fa fa-exchange"></i> Compare</button>',
+            '      </div>',
             '    </div>',
             '  </div>',
             '</div>'
@@ -295,7 +359,7 @@
                     return;
                 }
 
-                $grid.html(products.map(buildProductCard).join(''));
+                $grid.html(products.map(state.viewMode === 'list' ? buildProductListItem : buildProductCard).join(''));
 
                 var from = state.page * state.size + 1;
                 var to   = Math.min(from + products.length - 1, data.totalElements);
@@ -312,6 +376,25 @@
 
         buildCategoryFilter();
         updateBreadcrumb();
+
+        // View mode toggle (grid vs list)
+        $('.store-grid li').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            
+            // Update active state
+            $('.store-grid li').removeClass('active');
+            $this.addClass('active');
+            
+            // Set view mode based on icon
+            if ($this.find('i').hasClass('fa-th')) {
+                state.viewMode = 'grid';
+            } else if ($this.find('i').hasClass('fa-th-list')) {
+                state.viewMode = 'list';
+            }
+            
+            loadProducts();
+        });
 
         // Sort change
         $('#sort-select').on('change', function () {
