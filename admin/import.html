@@ -305,6 +305,128 @@
 
       <!-- Import Options Grid -->
       <div class="row">
+        <!-- Smart Price Update Card -->
+        <div class="col-lg-4 mb-4">
+          <div class="supplier-card">
+            <div class="supplier-header" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white;">
+              <div class="icon" style="background: rgba(255,255,255,0.2); color: white;">
+                <i class="fa fa-dollar"></i>
+              </div>
+              <h3 style="color: white; font-size: 1.2rem;">Smart Price Update</h3>
+              <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem;">Auto-detekcija i brzo ažuriranje cena</p>
+            </div>
+            <div class="supplier-body">
+              <div class="import-option">
+                <div class="option-title">
+                  <i class="fa fa-tags" style="color: #f59e0b;"></i>
+                  XML Cenovnik
+                  <span class="badge badge-warning" style="background: #fbbf24; color: #78350f; font-size: 0.65rem;">Samo cene</span>
+                </div>
+                <div class="option-desc">Učitaj XML fajl - sistem automatski prepoznaje DSC ili USPON format i ažurira samo cene.</div>
+                <label class="upload-zone" for="price-smart-file" style="min-height: 100px;">
+                  <i class="fa fa-cloud-upload upload-zone-icon" style="color: #f59e0b;"></i>
+                  <span class="upload-zone-text">Odaberi XML</span>
+                  <span id="price-smart-file-info" class="upload-zone-name"></span>
+                  <span id="price-smart-file-detected" style="display: none; margin-top: 0.5rem; font-weight: 600; font-size: 0.85rem;"></span>
+                </label>
+                <input type="file" id="price-smart-file" accept=".xml" style="display:none">
+                <button class="btn btn-import w-100 mt-2" onclick="uploadSmartPriceFile()" id="btn-price-smart-upload" disabled style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border: none;">
+                  <i class="fa fa-refresh mr-2"></i> Ažuriraj Cene
+                </button>
+              </div>
+              
+              <!-- Info box inside card -->
+              <div class="info-box" style="border-left-color: #f59e0b; margin-top: 1.5rem;">
+                <strong><i class="fa fa-bolt mr-2"></i> Brzo Ažuriranje Cena</strong>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; line-height: 1.4;">
+                  Price Update job ažurira <strong>samo cena polja</strong> za proizvode koji već postoje u bazi.
+                  Ne kreira nove proizvode i ne ažurira kategorije, slike ili opise.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DSC Remote Price Update Card -->
+        <div class="col-lg-4 mb-4">
+          <div class="supplier-card">
+            <div class="supplier-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+              <div class="icon" style="background: rgba(255,255,255,0.2); color: white;">
+                <i class="fa fa-cloud-download"></i>
+              </div>
+              <h3 style="color: white; font-size: 1.2rem;">DSC Remote Price</h3>
+              <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem;">Direktno sa DSC servera</p>
+            </div>
+            <div class="supplier-body">
+              <div class="import-option">
+                <div class="option-title">
+                  <i class="fa fa-cloud-download" style="color: #10b981;"></i>
+                  Remote Price Update
+                </div>
+                <div class="option-desc">Preuzmi i ažuriraj cene direktno sa DSC servera. Brzo i automatski.</div>
+                <div style="margin: 0.75rem 0; min-height: 100px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 6px; padding: 1rem;">
+                  <div style="text-align: center;">
+                    <i class="fa fa-tags" style="font-size: 2rem; color: #10b981; margin-bottom: 0.5rem;"></i>
+                    <div style="font-size: 0.85rem; color: #666;">Server price sync</div>
+                  </div>
+                </div>
+                <button class="btn btn-import w-100 mt-2" onclick="startDscRemotePriceUpdate()" id="btn-dsc-remote-price" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none;">
+                  <i class="fa fa-play mr-2"></i> Pokreni DSC Remote
+                </button>
+              </div>
+              
+              <!-- Info box inside card -->
+              <div class="info-box" style="border-left-color: #10b981; margin-top: 1.5rem;">
+                <strong><i class="fa fa-info-circle mr-2"></i> Zero-touch</strong>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; line-height: 1.4;">
+                  Automatski preuzima najnoviji cenovnik sa DSC servera i ažurira cene bez manuelne intervencije.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- USPON Remote Price Update Card -->
+        <div class="col-lg-4 mb-4">
+          <div class="supplier-card">
+            <div class="supplier-header" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white;">
+              <div class="icon" style="background: rgba(255,255,255,0.2); color: white;">
+                <i class="fa fa-cloud-download"></i>
+              </div>
+              <h3 style="color: white; font-size: 1.2rem;">USPON Remote Price</h3>
+              <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem;">Direktno sa USPON servera</p>
+            </div>
+            <div class="supplier-body">
+              <div class="import-option">
+                <div class="option-title">
+                  <i class="fa fa-cloud-download" style="color: #0ea5e9;"></i>
+                  Remote Price Update
+                </div>
+                <div class="option-desc">Preuzmi i ažuriraj cene direktno sa USPON servera. Brzo i automatski.</div>
+                <div style="margin: 0.75rem 0; min-height: 100px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 6px; padding: 1rem;">
+                  <div style="text-align: center;">
+                    <i class="fa fa-tags" style="font-size: 2rem; color: #0ea5e9; margin-bottom: 0.5rem;"></i>
+                    <div style="font-size: 0.85rem; color: #666;">Server price sync</div>
+                  </div>
+                </div>
+                <button class="btn btn-import w-100 mt-2" onclick="startUsponRemotePriceUpdate()" id="btn-uspon-remote-price" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border: none;">
+                  <i class="fa fa-play mr-2"></i> Pokreni USPON Remote
+                </button>
+              </div>
+              
+              <!-- Info box inside card -->
+              <div class="info-box" style="border-left-color: #0ea5e9; margin-top: 1.5rem;">
+                <strong><i class="fa fa-info-circle mr-2"></i> Pozadinski proces</strong>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; line-height: 1.4;">
+                  Price update se izvršava u pozadini. Nakon pokretanja, možete zatvoriti stranicu.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <!-- Smart XML Upload Card -->
         <div class="col-lg-4 mb-4">
           <div class="supplier-card">
@@ -493,6 +615,51 @@
 
   // Smart file upload handler with auto-detection
   let detectedFormat = null;
+  let priceDetectedFormat = null;  // For price update
+  
+  // Price Smart file upload handler with auto-detection
+  $('#price-smart-file').on('change', function() {
+    const file = this.files[0];
+    if (!file) {
+      $('#price-smart-file-info').text('');
+      $('#price-smart-file-detected').hide();
+      $('#btn-price-smart-upload').prop('disabled', true);
+      priceDetectedFormat = null;
+      return;
+    }
+
+    $('#price-smart-file-info').text(file.name + ' (' + (file.size/1024/1024).toFixed(2) + ' MB)');
+    $('#price-smart-file-detected').html('<i class="fa fa-spinner fa-spin"></i> Analiziram format...').show();
+    
+    // Read first few KB of the file to detect format
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const content = e.target.result;
+      
+      // Check for DSC format markers
+      const isDsc = content.includes('<cena>') && content.includes('<mpcena>') && !content.includes('<b2bcena>');
+      
+      // Check for USPON format markers
+      const isUspon = content.includes('<b2bcena>') && content.includes('<web_cena>');
+      
+      if (isDsc) {
+        priceDetectedFormat = 'DSC';
+        $('#price-smart-file-detected').html('<i class="fa fa-check-circle" style="color: #10b981;"></i> Format prepoznat: <span style="color: #f59e0b; font-weight: 700;">DSC</span>').show();
+        $('#btn-price-smart-upload').prop('disabled', false);
+      } else if (isUspon) {
+        priceDetectedFormat = 'USPON';
+        $('#price-smart-file-detected').html('<i class="fa fa-check-circle" style="color: #10b981;"></i> Format prepoznat: <span style="color: #f59e0b; font-weight: 700;">USPON</span>').show();
+        $('#btn-price-smart-upload').prop('disabled', false);
+      } else {
+        priceDetectedFormat = null;
+        $('#price-smart-file-detected').html('<i class="fa fa-exclamation-triangle" style="color: #f59e0b;"></i> Nepoznat format XML datoteke').show();
+        $('#btn-price-smart-upload').prop('disabled', true);
+      }
+    };
+    
+    // Read first 50KB to detect format
+    reader.readAsText(file.slice(0, 50000));
+  });
   
   $('#smart-file').on('change', function() {
     const file = this.files[0];
@@ -597,6 +764,97 @@
     });
   }
 
+  // Smart Price File Upload with auto-detection
+  function uploadSmartPriceFile() {
+    const file = $('#price-smart-file')[0].files[0];
+    if (!file || !priceDetectedFormat) return;
+
+    const btn = $('#btn-price-smart-upload');
+    btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-2"></i> Ažuriranje...');
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const endpoint = priceDetectedFormat === 'DSC' 
+      ? '/api/admin/import/dsc/update-prices' 
+      : '/api/admin/import/uspon/update-prices';
+
+    $.ajax({
+      url: API_BASE + endpoint,
+      method: 'POST',
+      headers: { 'Authorization': 'Basic ' + getAuth() },
+      data: formData,
+      processData: false,
+      contentType: false,
+      timeout: 600000,
+      success: function(r) {
+        const supplierName = priceDetectedFormat;
+        const message = supplierName + ' cene su ažurirane! Proces je u toku u pozadini. Proverite istoriju izvršavanja za detalje.';
+        showNotification(message, 'success');
+        $('#price-smart-file').val('');
+        $('#price-smart-file-info').text('');
+        $('#price-smart-file-detected').hide();
+        priceDetectedFormat = null;
+        btn.prop('disabled', true).html('<i class="fa fa-refresh mr-2"></i> Ažuriraj Cene');
+        loadJobHistory();
+      },
+      error: function(xhr) {
+        if (xhr.status === 401) { logout(); return; }
+        const errMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška pri ažuriranju cena';
+        showNotification('Greška: ' + errMsg, 'error');
+        btn.prop('disabled', false).html('<i class="fa fa-refresh mr-2"></i> Ažuriraj Cene');
+      }
+    });
+  }
+
+  // DSC Remote Price Update
+  function startDscRemotePriceUpdate() {
+    const btn = $('#btn-dsc-remote-price');
+    btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-2"></i> Ažuriranje...');
+
+    $.ajax({
+      url: API_BASE + '/api/admin/import/dsc/update-prices-remote',
+      method: 'POST',
+      headers: { 'Authorization': 'Basic ' + getAuth(), 'Content-Type': 'application/json' },
+      timeout: 600000,
+      success: function(r) {
+        showNotification('DSC remote price update je pokrenut. Proces je u toku u pozadini.', 'success');
+        btn.prop('disabled', false).html('<i class="fa fa-play mr-2"></i> Pokreni DSC Remote');
+        loadJobHistory();
+      },
+      error: function(xhr) {
+        if (xhr.status === 401) { logout(); return; }
+        const errMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška pri ažuriranju cena';
+        showNotification('Greška: ' + errMsg, 'error');
+        btn.prop('disabled', false).html('<i class="fa fa-play mr-2"></i> Pokreni DSC Remote');
+      }
+    });
+  }
+
+  // USPON Remote Price Update
+  function startUsponRemotePriceUpdate() {
+    const btn = $('#btn-uspon-remote-price');
+    btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-2"></i> Ažuriranje...');
+
+    $.ajax({
+      url: API_BASE + '/api/admin/import/uspon/update-prices-remote',
+      method: 'POST',
+      headers: { 'Authorization': 'Basic ' + getAuth(), 'Content-Type': 'application/json' },
+      timeout: 600000,
+      success: function(r) {
+        showNotification('USPON remote price update je pokrenut. Proces je u toku u pozadini.', 'success');
+        btn.prop('disabled', false).html('<i class="fa fa-play mr-2"></i> Pokreni USPON Remote');
+        loadJobHistory();
+      },
+      error: function(xhr) {
+        if (xhr.status === 401) { logout(); return; }
+        const errMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška pri ažuriranju cena';
+        showNotification('Greška: ' + errMsg, 'error');
+        btn.prop('disabled', false).html('<i class="fa fa-play mr-2"></i> Pokreni USPON Remote');
+      }
+    });
+  }
+
   // DSC Remote Import
   function startDscRemoteImport() {
     const btn = $('#btn-dsc-remote');
@@ -679,6 +937,7 @@
         }
 
         let html = '<table class="table table-sm mb-0"><thead><tr>' +
+          '<th>Job</th>' +
           '<th>Distributer</th>' +
           '<th>Status</th>' +
           '<th>Početak</th>' +
@@ -693,8 +952,11 @@
           const stats = `${exec.readCount || 0} / ${exec.writeCount || 0} / ${exec.skipCount || 0}`;
           const supplier = exec.supplier || '—';
           const supplierBadge = getSupplierBadge(supplier);
+          const jobName = exec.jobName || '—';
+          const jobBadge = getJobBadge(jobName);
 
           html += `<tr>
+            <td>${jobBadge}</td>
             <td>${supplierBadge}</td>
             <td>${statusBadge}</td>
             <td style="font-size: 0.85rem; color: #666;">${startTime}</td>
@@ -746,6 +1008,15 @@
       return '<span class="badge" style="background: #cffafe; color: #0e7490; font-weight: 700;">USPON</span>';
     }
     return '<span class="badge badge-secondary">' + supplier + '</span>';
+  }
+
+  function getJobBadge(jobName) {
+    if (jobName === 'importProductsJob') {
+      return '<span class="badge" style="background: #dbeafe; color: #1e40af; font-size: 0.75rem;">📦 Full Import</span>';
+    } else if (jobName === 'updatePricesJob') {
+      return '<span class="badge" style="background: #fed7aa; color: #92400e; font-size: 0.75rem;">💰 Price Update</span>';
+    }
+    return '<span class="badge badge-secondary" style="font-size: 0.75rem;">' + jobName + '</span>';
   }
 
   function formatDuration(ms) {

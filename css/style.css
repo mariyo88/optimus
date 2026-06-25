@@ -868,10 +868,19 @@ textarea.input {
 
 .product .product-img {
   position: relative;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
 }
 
 .product .product-img>img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .product .product-img .product-label {
@@ -915,6 +924,13 @@ textarea.input {
 .product .product-body .product-name {
   text-transform: uppercase;
   font-size: 14px;
+  min-height: 40px;
+  max-height: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.4;
 }
 
 .product .product-body .product-name>a {
@@ -1117,10 +1133,19 @@ textarea.input {
   left: 0px;
   top: 0px;
   width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #ffffff;
 }
 
 .product-widget .product-img>img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .product-widget .product-body {
@@ -1137,6 +1162,12 @@ textarea.input {
 .product-widget .product-body .product-name {
   text-transform: uppercase;
   font-size: 12px;
+  max-height: 32px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
 }
 
 .product-widget .product-body .product-name>a {
@@ -2462,12 +2493,17 @@ ul.SpecForm .Notice {
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
 }
 
 .product.product-list .product-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .product.product-list .product-body {
@@ -2488,6 +2524,12 @@ ul.SpecForm .Notice {
 .product.product-list .product-name {
   margin-bottom: 15px;
   font-size: 18px;
+  max-height: 80px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
 }
 
 .product.product-list .product-name a {
@@ -2572,6 +2614,11 @@ ul.SpecForm .Notice {
     width: 100%;
     height: 300px;
   }
+  
+  /* Tablet grid view */
+  .product .product-img {
+    height: 280px;
+  }
 }
 
 @media only screen and (max-width: 767px) {
@@ -2586,6 +2633,11 @@ ul.SpecForm .Notice {
   .product.product-list .product-actions button {
     width: 100%;
   }
+  
+  /* Fix grid view image height on mobile */
+  .product .product-img {
+    height: 250px;
+  }
 }
 
 /* Store Grid View Toggle Enhancement */
@@ -2595,4 +2647,105 @@ ul.SpecForm .Notice {
 
 .store-grid li i {
   pointer-events: none;
+}
+
+/* Cart notification */
+.cart-notification {
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Cart table styles */
+#cart-container .table {
+    margin-top: 20px;
+}
+
+#cart-container .table thead th {
+    background-color: #f5f5f5;
+    padding: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #333;
+}
+
+#cart-container .table tbody td {
+    padding: 20px 15px;
+    vertical-align: middle;
+    border-top: 1px solid #e4e7ed;
+}
+
+#cart-container .cart-product-img img {
+    border-radius: 4px;
+    border: 1px solid #e4e7ed;
+}
+
+#cart-container .cart-product-name h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+#cart-container .cart-product-name h4 a {
+    color: #2B2D42;
+}
+
+#cart-container .cart-product-name h4 a:hover {
+    color: #D10024;
+}
+
+#cart-container .cart-product-price,
+#cart-container .cart-product-subtotal {
+    font-weight: 600;
+    font-size: 16px;
+    color: #D10024;
+}
+
+#cart-container .cart-product-quantity .input-number {
+    display: inline-block;
+}
+
+#cart-container .cart-product-remove .delete {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#cart-container .cart-product-remove .delete:hover {
+    color: #D10024;
+}
+
+#cart-container .order-col {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+/* Cart dropdown improvements */
+.cart-dropdown .cart-list:empty::after {
+    content: 'Korpa je prazna';
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #999;
+}
+
+.cart-dropdown .product-widget .delete {
+    transition: color 0.2s;
+}
+
+.cart-dropdown .product-widget .delete:hover {
+    color: #D10024;
 }

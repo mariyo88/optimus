@@ -146,7 +146,7 @@
             '</div>' +
             '</div>' +
             '<div class="add-to-cart">' +
-            '<button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> add to cart</button>' +
+            '<button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> add to cart</button>' +
             '</div>' +
             '</div>';
     }
