@@ -95,8 +95,10 @@
         $catLinks.empty();
         $catLinks.append('<li>Category:</li>');
         if (product.category) {
+            // Koristi displayName ako postoji, inače fallback na name
+            var categoryName = product.category.displayName || product.category.name;
             $catLinks.append(
-                '<li><a href="store.html?category=' + product.category.slug + '">' + product.category.name + '</a></li>'
+                '<li><a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a></li>'
             );
         }
 
@@ -130,8 +132,10 @@
             if (product.brand && product.brand.name) {
                 features.push({ name: 'Brand', value: product.brand.name });
             }
-            if (product.category && product.category.name) {
-                features.push({ name: 'Category', value: product.category.name });
+            if (product.category) {
+                // Koristi displayName ako postoji, inače fallback na name
+                var categoryName = product.category.displayName || product.category.name;
+                features.push({ name: 'Category', value: categoryName });
             }
             if (product.inStock !== undefined) {
                 features.push({ name: 'Availability', value: product.inStock ? 'In Stock' : 'Out of Stock' });
@@ -163,8 +167,10 @@
 
         // Update category breadcrumb
         if (product.category) {
+            // Koristi displayName ako postoji, inače fallback na name
+            var categoryName = product.category.displayName || product.category.name;
             var $categoryBreadcrumb = $('#breadcrumb-category');
-            $categoryBreadcrumb.html('<a href="store.html?category=' + product.category.slug + '">' + product.category.name + '</a>')
+            $categoryBreadcrumb.html('<a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a>')
                 .show();
         } else {
             $('#breadcrumb-category').hide();

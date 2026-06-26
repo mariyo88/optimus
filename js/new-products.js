@@ -23,7 +23,9 @@
                         $.each(parentCat.children, function(j, childCat) {
                             // Only include children that have newProductsCategory flag
                             if (childCat.newProductsCategory) {
-                                NEW_TABS.push({ label: childCat.name, category: childCat.slug });
+                                // Koristi displayName ako postoji, inače fallback na name
+                                var categoryName = childCat.displayName || childCat.name;
+                                NEW_TABS.push({ label: categoryName, category: childCat.slug });
                             }
                         });
                     }
@@ -50,7 +52,9 @@
                         $.each(parentCat.children, function(j, childCat) {
                             // Only include children that have topSellingCategory flag
                             if (childCat.topSellingCategory) {
-                                TOP_TABS.push({ label: childCat.name, category: childCat.slug });
+                                // Koristi displayName ako postoji, inače fallback na name
+                                var categoryName = childCat.displayName || childCat.name;
+                                TOP_TABS.push({ label: categoryName, category: childCat.slug });
                             }
                         });
                     }

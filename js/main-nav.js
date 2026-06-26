@@ -31,7 +31,9 @@
                     '<li><a href="store.html">Categories</a></li>';
 
                 visibleCategories.forEach(function (cat) {
-                    navHtml += '<li><a href="store.html?category=' + cat.slug + '">' + cat.name + '</a></li>';
+                    // Koristi displayName ako postoji, inače fallback na name
+                    var categoryName = cat.displayName || cat.name;
+                    navHtml += '<li><a href="store.html?category=' + cat.slug + '">' + categoryName + '</a></li>';
                 });
 
                 // Update all navigation elements
@@ -65,7 +67,9 @@
         var footerHtml = '<li><a href="#">Hot deals</a></li>';
 
         categories.forEach(function (cat) {
-            footerHtml += '<li><a href="store.html?category=' + cat.slug + '">' + cat.name + '</a></li>';
+            // Koristi displayName ako postoji, inače fallback na name
+            var categoryName = cat.displayName || cat.name;
+            footerHtml += '<li><a href="store.html?category=' + cat.slug + '">' + categoryName + '</a></li>';
         });
 
         // Update only the categories section in footer (2nd footer-links)

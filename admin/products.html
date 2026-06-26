@@ -273,6 +273,191 @@
       background: #ef4444;
       color: white;
     }
+
+    /* Bulk actions styles */
+    .bulk-actions-toolbar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 1.2rem 2rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      display: none;
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+      animation: slideDown 0.3s ease;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .bulk-actions-toolbar.show {
+      display: block;
+    }
+
+    .bulk-selection-info {
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      display: inline-block;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .bulk-selection-info i {
+      font-size: 1.3rem;
+      vertical-align: middle;
+      margin-right: 0.8rem;
+    }
+
+    .bulk-selection-count {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 0.8rem;
+    }
+
+    .bulk-actions-buttons {
+      display: inline-block;
+      float: right;
+      white-space: nowrap;
+    }
+
+    .bulk-actions-buttons .btn {
+      font-weight: 600;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      white-space: nowrap;
+      margin-left: 0.8rem;
+    }
+
+    .bulk-actions-buttons .btn i {
+      margin-right: 0.5rem;
+    }
+
+    .bulk-actions-buttons .btn-light {
+      background: white;
+      color: #667eea;
+    }
+
+    .bulk-actions-buttons .btn-light:hover {
+      background: #f0f3ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+    }
+
+    .bulk-actions-buttons .btn-outline-light {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .bulk-actions-buttons .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .product-checkbox {
+      display: flex;
+      align-items: center;
+      padding-right: 0.5rem;
+    }
+
+    .product-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .select-all-container {
+      padding: 1rem 1.5rem;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-bottom: 2px solid #667eea;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .select-all-container label {
+      margin: 0;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+      color: #333;
+    }
+
+    .select-all-container input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    /* Page size selector */
+    .page-size-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .page-size-selector label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .page-size-selector select {
+      border-radius: 6px;
+      border: 2px solid #e0e0e0;
+      padding: 0.5rem 2rem 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+      background: white;
+      color: #333;
+    }
+
+    .page-size-selector select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .page-size-selector select:hover {
+      border-color: #667eea;
+    }
+
+    .list-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .list-info {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -361,6 +546,36 @@
         </div>
       </div>
 
+      <!-- Bulk Actions Toolbar -->
+      <div class="bulk-actions-toolbar" id="bulk-actions-toolbar" style="display: none;">
+        <div class="bulk-selection-info">
+          <i class="fa fa-check-square-o"></i>
+          <span class="bulk-selection-count"><span id="selected-count">0</span> selektovano</span>
+        </div>
+        <div class="bulk-actions-buttons">
+          <button class="btn btn-light" onclick="openBulkCategoryModal()">
+            <i class="fa fa-folder-o"></i> Promeni kategoriju
+          </button>
+          <button class="btn btn-outline-light" onclick="clearSelection()">
+            <i class="fa fa-times"></i> Poništi
+          </button>
+        </div>
+      </div>
+
+      <!-- List Controls -->
+      <div class="list-controls">
+        <div class="list-info" id="list-info">Učitavanje...</div>
+        <div class="page-size-selector">
+          <label for="page-size-select">Prikaži:</label>
+          <select id="page-size-select" onchange="changePageSize(this.value)">
+            <option value="20">20 artikala</option>
+            <option value="50">50 artikala</option>
+            <option value="100">100 artikala</option>
+            <option value="200">200 artikala</option>
+          </select>
+        </div>
+      </div>
+
       <div class="products-list" id="products-container"></div>
 
       <div class="pagination-container" id="pagination-container" style="display: none;">
@@ -371,12 +586,44 @@
   </div>
 </div>
 
+<!-- Bulk Category Update Modal -->
+<div class="modal fade" id="bulkCategoryModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+        <h5 class="modal-title"><i class="fa fa-folder-o mr-2"></i>Promena kategorije</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 0.8;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="bulk-modal-alert" class="alert d-none" role="alert"></div>
+        <p>Promenite kategoriju za <strong id="bulk-selected-count">0</strong> selektovanih proizvoda:</p>
+        <div class="form-group">
+          <label for="bulk-category-select">Nova kategorija *</label>
+          <select id="bulk-category-select" class="form-control">
+            <option value="">-- Izaberite kategoriju --</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-primary" onclick="executeBulkCategoryUpdate()">
+          <i class="fa fa-check mr-2"></i> Primeni
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="admin.js"></script>
 <script>
   initPage();
   let currentPage = 0;
+  let currentPageSize = 20;
+  let selectedProductIds = new Set();
   const IMG_PH = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='180' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' fill='%23eff2f6'/%3E%3Cpath d='M60 120l50-65 55 65' fill='%23cbd0dd'/%3E%3Ccircle cx='90' cy='60' r='12' fill='%23cbd0dd'/%3E%3C/svg%3E";
 
   // Filter persistence functions
@@ -414,7 +661,11 @@
     const search = $('#search-input').val().trim();
     const category = $('#category-filter').val();
     const activeFilter = $('#active-filter').val();
-    const params = new URLSearchParams({ page: currentPage, size: 20, sort: 'name' });
+    const params = new URLSearchParams({ 
+      page: currentPage, 
+      size: currentPageSize, 
+      sort: 'name' 
+    });
     if (search) params.set('search', search);
     if (category) params.set('category', category);
     if (activeFilter) params.set('active', activeFilter);
@@ -424,6 +675,12 @@
       const totalPages = data.totalPages || 1;
       const totalElements = data.totalElements || 0;
       const pageNumber = data.number || 0;
+      const pageSize = data.size || currentPageSize;
+
+      // Update list info
+      const from = pageNumber * pageSize + 1;
+      const to = Math.min((pageNumber + 1) * pageSize, totalElements);
+      $('#list-info').text('Prikazujem ' + from + '-' + to + ' od ' + totalElements + ' ukupno');
 
       if (content.length === 0) {
         $('#products-container').html(
@@ -436,13 +693,22 @@
         return;
       }
 
-      let html = '';
+      // Select All header
+      let html = '<div class="select-all-container">' +
+        '<input type="checkbox" id="select-all-checkbox" onchange="toggleSelectAll(this.checked)">' +
+        '<label for="select-all-checkbox">Selektuj sve na ovoj strani</label>' +
+        '</div>';
+      
       content.forEach(p => {
         const sps = p.supplierProducts || [];
         const inStock = p.inStock;
         const stock = sps.filter(s => s.active).reduce((sum, s) => sum + (s.stockQuantity || 0), 0);
+        const isChecked = selectedProductIds.has(p.id);
         
         html += '<div class="product-list-item">' +
+          '<div class="product-checkbox">' +
+          '<input type="checkbox" class="product-select-checkbox" data-product-id="' + p.id + '" ' + (isChecked ? 'checked' : '') + ' onchange="toggleProductSelection(' + p.id + ', this.checked)">' +
+          '</div>' +
           '<div class="product-image">' +
           '<img src="' + (p.mainImageUrl || IMG_PH) + '" alt="' + escapeHtml(p.name) + '" onerror="this.src=\'' + IMG_PH + '\'">' +
           '</div>' +
@@ -468,6 +734,8 @@
       });
 
       $('#products-container').html(html);
+      updateBulkActionsToolbar();
+      updateSelectAllCheckbox();
       
       if (totalPages > 1) {
         $('#pagination-container').show();
@@ -525,13 +793,136 @@
   $(document).ready(function() {
     if (!getAuth()) return;
     api('/api/categories').then(cats => {
-      flattenCategories(cats).forEach(c => $('#category-filter').append('<option value="' + c.slug + '">' + escapeHtml(c.name) + '</option>'));
+      const flattened = flattenCategories(cats);
+      flattened.forEach(c => {
+        $('#category-filter').append('<option value="' + c.slug + '">' + escapeHtml(c.name) + '</option>');
+        // Also populate bulk category select with displayName
+        const displayText = c.displayName || c.name;
+        $('#bulk-category-select').append('<option value="' + c.id + '">' + escapeHtml(displayText) + '</option>');
+      });
       // Restore filters after categories are loaded
       restoreFilters();
       loadProducts(0);
     });
     $('#search-input').on('keypress', e => { if (e.which === 13) loadProducts(0); });
   });
+
+  // Bulk selection functions
+  function changePageSize(newSize) {
+    currentPageSize = parseInt(newSize);
+    currentPage = 0; // Reset to first page
+    clearSelection(); // Clear selection when changing page size
+    loadProducts(0);
+  }
+
+  function toggleProductSelection(productId, checked) {
+    if (checked) {
+      selectedProductIds.add(productId);
+    } else {
+      selectedProductIds.delete(productId);
+    }
+    updateBulkActionsToolbar();
+    updateSelectAllCheckbox();
+  }
+
+  function toggleSelectAll(checked) {
+    $('.product-select-checkbox').each(function() {
+      const productId = parseInt($(this).data('product-id'));
+      $(this).prop('checked', checked);
+      if (checked) {
+        selectedProductIds.add(productId);
+      } else {
+        selectedProductIds.delete(productId);
+      }
+    });
+    updateBulkActionsToolbar();
+  }
+
+  function updateSelectAllCheckbox() {
+    const checkboxes = $('.product-select-checkbox');
+    const checkedCheckboxes = $('.product-select-checkbox:checked');
+    const selectAllCheckbox = $('#select-all-checkbox');
+    
+    if (checkboxes.length === 0) {
+      selectAllCheckbox.prop('checked', false);
+      selectAllCheckbox.prop('indeterminate', false);
+    } else if (checkedCheckboxes.length === 0) {
+      selectAllCheckbox.prop('checked', false);
+      selectAllCheckbox.prop('indeterminate', false);
+    } else if (checkedCheckboxes.length === checkboxes.length) {
+      selectAllCheckbox.prop('checked', true);
+      selectAllCheckbox.prop('indeterminate', false);
+    } else {
+      selectAllCheckbox.prop('checked', false);
+      selectAllCheckbox.prop('indeterminate', true);
+    }
+  }
+
+  function updateBulkActionsToolbar() {
+    const count = selectedProductIds.size;
+    $('#selected-count').text(count);
+    
+    if (count > 0) {
+      $('#bulk-actions-toolbar').css('display', 'block').addClass('show');
+    } else {
+      $('#bulk-actions-toolbar').css('display', 'none').removeClass('show');
+    }
+  }
+
+  function clearSelection() {
+    selectedProductIds.clear();
+    $('.product-select-checkbox').prop('checked', false);
+    $('#select-all-checkbox').prop('checked', false);
+    updateBulkActionsToolbar();
+  }
+
+  function openBulkCategoryModal() {
+    if (selectedProductIds.size === 0) {
+      showNotification('Niste selektovali nijedan proizvod', 'error');
+      return;
+    }
+    
+    $('#bulk-selected-count').text(selectedProductIds.size);
+    $('#bulk-category-select').val('');
+    $('#bulk-modal-alert').addClass('d-none');
+    $('#bulkCategoryModal').modal('show');
+  }
+
+  function showBulkModalAlert(msg, type) {
+    const alert = $('#bulk-modal-alert');
+    alert.removeClass('d-none alert-success alert-danger')
+      .addClass('alert-' + type)
+      .text(msg);
+  }
+
+  function executeBulkCategoryUpdate() {
+    const categoryId = $('#bulk-category-select').val();
+    
+    if (!categoryId) {
+      showBulkModalAlert('Morate izabrati kategoriju', 'danger');
+      return;
+    }
+    
+    const productIds = Array.from(selectedProductIds);
+    
+    console.log('Bulk updating products:', productIds, 'to category:', categoryId);
+    
+    // Send bulk update request
+    apiPut('/api/admin/products/bulk/category', {
+      productIds: productIds,
+      categoryId: parseInt(categoryId)
+    }).then(() => {
+      showNotification('Kategorija promenjena za ' + productIds.length + ' proizvoda', 'success');
+      $('#bulkCategoryModal').modal('hide');
+      clearSelection();
+      // Clear filters and reload
+      clearFilters();
+      loadProducts(0);
+    }).catch(err => {
+      console.error('Bulk category update error:', err);
+      showBulkModalAlert('Greška: ' + (err.message || 'Nepoznata greška'), 'danger');
+    });
+  }
 </script>
 </body>
 </html>

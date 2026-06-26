@@ -10,7 +10,7 @@
         category: getParam('category') || '',
         search:   getParam('search')   || '',
         page:     parseInt(getParam('page') || '0', 10),
-        size:     20,
+        size:     21,  // 3x7 grid (3 columns x 7 rows)
         sort:     'name,asc',
         viewMode: 'grid' // 'grid' or 'list'
     };
@@ -41,7 +41,9 @@
                     
                     var cat = findCategoryBySlug(categories, state.category);
                     if (cat) {
-                        $('#breadcrumb-category').text(cat.name);
+                        // Koristi displayName ako postoji, inače fallback na name
+                        var categoryName = cat.displayName || cat.name;
+                        $('#breadcrumb-category').text(categoryName);
                     }
                 },
                 error: function () {
@@ -258,6 +260,9 @@
                     var $item = $('<div class="category-item" data-level="' + level + '">');
                     var $line = $('<div class="category-line">');
                     
+                    // Koristi displayName ako postoji, inače fallback na name
+                    var categoryName = cat.displayName || cat.name;
+                    
                     if (hasChildren) {
                         // Parent category - only for expand/collapse
                         $line.append(
@@ -266,7 +271,7 @@
                         );
                         $line.append(
                             $('<span class="category-name category-parent">')
-                                .text(cat.name)
+                                .text(categoryName)
                         );
                     } else {
                         // Leaf category - use checkbox style like Brand filter
@@ -276,7 +281,7 @@
                                 .val(cat.slug)
                         );
                         var $label = $('<label for="cat-' + cat.id + '">')
-                            .html('<span></span>' + cat.name);
+                            .html('<span></span>' + categoryName);
                         $checkDiv.append($label);
                         $line.append($checkDiv);
                     }

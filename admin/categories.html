@@ -294,8 +294,12 @@
         <div id="form-alert" class="alert d-none" role="alert"></div>
         <form id="categoryForm">
           <div class="form-group">
-            <label for="f-name">Naziv *</label>
+            <label for="f-name">Naziv * <small class="text-muted">(interno ime iz importa)</small></label>
             <input type="text" id="f-name" class="form-control" placeholder="Npr. Laptopovi">
+          </div>
+          <div class="form-group">
+            <label for="f-display-name">Prikazno ime <small class="text-muted">(za prikaz klijentima)</small></label>
+            <input type="text" id="f-display-name" class="form-control" placeholder="Npr. Prijenosni računari">
           </div>
           <div class="form-group">
             <label for="f-slug">Slug <small class="text-muted">(auto-generiše)</small></label>
@@ -419,11 +423,14 @@
     let html = level === 0 ? '<ul class="category-list">' : '<div class="category-tree-level"><ul class="category-list">';
 
     nodes.forEach(cat => {
+      const displayText = cat.displayName || cat.name;
+      const secondaryText = cat.displayName ? cat.name + ' → ' + cat.slug : cat.slug;
+      
       html += '<li class="category-item">' +
         '<div class="category-icon"><i class="fa fa-folder"></i></div>' +
         '<div class="category-info">' +
-        '<span class="category-name">' + escapeHtml(cat.name) + '</span>' +
-        '<span class="category-slug">' + escapeHtml(cat.slug) + '</span>' +
+        '<span class="category-name">' + escapeHtml(displayText) + '</span>' +
+        '<span class="category-slug">' + escapeHtml(secondaryText) + '</span>' +
         '</div>' +
         '<div class="category-actions">' +
         '<button class="btn-category edit" onclick="editCategory(' + cat.id + ')" title="Uredi"><i class="fa fa-edit"></i></button>' +
@@ -450,11 +457,14 @@
 
     let html = '<div class="category-tree-level"><ul class="category-list">';
     nodes.forEach(cat => {
+      const displayText = cat.displayName || cat.name;
+      const secondaryText = cat.displayName ? cat.name + ' → ' + cat.slug : cat.slug;
+      
       html += '<li class="category-item">' +
         '<div class="category-icon"><i class="fa fa-folder"></i></div>' +
         '<div class="category-info">' +
-        '<span class="category-name">' + escapeHtml(cat.name) + '</span>' +
-        '<span class="category-slug">' + escapeHtml(cat.slug) + '</span>' +
+        '<span class="category-name">' + escapeHtml(displayText) + '</span>' +
+        '<span class="category-slug">' + escapeHtml(secondaryText) + '</span>' +
         '</div>' +
         '<div class="category-actions">' +
         '<button class="btn-category edit" onclick="editCategory(' + cat.id + ')" title="Uredi"><i class="fa fa-edit"></i></button>' +
@@ -489,8 +499,8 @@
     editingId = null;
     resetForm();
     $('#modal-title').html('<i class="fa fa-folder-o mr-2"></i>Nova kategorija');
-    // Show all checkboxes for new category
-    updateCheckboxVisibility(null);
+    // Prikaži checkboxove za sve kategorije (i root i subkategorije)
+    $('#category-flags-section').show();
     $('#categoryModal').modal('show');
   }
 
@@ -504,8 +514,9 @@
       populateParentSelect(data);
       
       // Then fill form values
-      $('#modal-title').html('<i class="fa fa-folder-open-o mr-2"></i>Uredi: ' + escapeHtml(found.name));
+      $('#modal-title').html('<i class="fa fa-folder-open-o mr-2"></i>Uredi: ' + escapeHtml(found.displayName || found.name));
       $('#f-name').val(found.name);
+      $('#f-display-name').val(found.displayName || '');
       $('#f-slug').val(found.slug);
       $('#f-parent').val(found.parentId || '');
       $('#f-show-in-nav').prop('checked', found.showInNav === true);
@@ -514,8 +525,8 @@
       $('#f-is-new-products').prop('checked', found.newProductsCategory === true);
       $('#f-is-top-selling').prop('checked', found.topSellingCategory === true);
       
-      // Show/hide checkboxes based on whether this is a root category
-      updateCheckboxVisibility(found.parentId);
+      // Prikaži checkboxove za sve kategorije (i root i subkategorije)
+      $('#category-flags-section').show();
       
       $('#categoryModal').modal('show');
     });
@@ -548,19 +559,8 @@
   }
 
   function updateCheckboxVisibility(parentId) {
-    // If parentId is null or empty, this is a root category - hide the checkboxes
-    const isRootCategory = !parentId;
-    
-    if (isRootCategory) {
-      $('#category-flags-section').hide();
-      // Uncheck all checkboxes for root category
-      $('#f-show-in-nav').prop('checked', false);
-      $('#f-is-active').prop('checked', false);
-      $('#f-is-new-products').prop('checked', false);
-      $('#f-is-top-selling').prop('checked', false);
-    } else {
-      $('#category-flags-section').show();
-    }
+    // Omogućeno za SVE kategorije (i root i subkategorije)
+    $('#category-flags-section').show();
   }
 
   // Update visibility when parent changes
@@ -595,8 +595,11 @@
       return;
     }
 
+    const displayName = $('#f-display-name').val().trim() || null;
+    
     const payload = {
       name,
+      displayName: displayName,
       slug: $('#f-slug').val().trim() || null,
       parentId: $('#f-parent').val() ? parseInt($('#f-parent').val()) : null,
       showInNav: $('#f-show-in-nav').is(':checked'),
