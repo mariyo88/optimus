@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Optimus - HTML Ecommerce Template</title>
+		<title>Optimus Store - Modern Categories</title>
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -23,9 +23,19 @@
 
  		<!-- Font Awesome Icon -->
  		<link rel="stylesheet" href="css/font-awesome.min.css">
+ 		
+ 		<!-- Favicon -->
+ 		<link rel="icon" type="image/x-icon" href="favicon.ico">
+ 		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+ 		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+ 		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+ 		<link rel="manifest" href="site.webmanifest">
 
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+ 		
+ 		<!-- GoD Categories stylesheet -->
+ 		<link type="text/css" rel="stylesheet" href="css/god-categories.css"/>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -173,10 +183,10 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#">Hot Deals</a></li>
 						<li><a href="#">Categories</a></li>
-						<li><a href="#">Laptops</a></li>
-						<li><a href="#">Smartphones</a></li>
-						<li><a href="#">Cameras</a></li>
-						<li><a href="#">Accessories</a></li>
+<!--						<li><a href="#">Laptops</a></li>-->
+<!--						<li><a href="#">Smartphones</a></li>-->
+<!--						<li><a href="#">Cameras</a></li>-->
+<!--						<li><a href="#">Accessories</a></li>-->
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -193,10 +203,11 @@
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
-						<h3 class="breadcrumb-header">Checkout</h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li class="active">Checkout</li>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="store-modern.html">All Categories</a></li>
+							<!-- Category breadcrumb will be inserted here by store.js -->
+							<li class="active" id="breadcrumb-category">Store</li>
 						</ul>
 					</div>
 				</div>
@@ -212,172 +223,172 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
+					<!-- ASIDE -->
+					<div id="aside" class="col-md-4">
+						<!-- aside Widget - GoD Categories or Modern Categories -->
+						<div class="aside">
+							<!-- Toggle between GoD and regular categories -->
+							<!-- Add class "god-enabled" for GoD categories or "modern-enabled" for regular -->
+							<div id="category-filter" class="god-enabled">
+								<!-- dynamically populated by store-god-categories.js or store-modern-categories.js -->
+							</div>
+						</div>
+						<!-- /aside Widget -->
 
-					<div class="col-md-7">
-						<!-- Billing Details -->
-						<div class="billing-details">
-							<div class="section-title">
-								<h3 class="title">Billing address</h3>
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Price</h3>
+							<div class="price-filter">
+								<div id="price-slider"></div>
+								<div class="input-number price-min">
+									<input id="price-min" type="number">
+									<span class="qty-up">+</span>
+									<span class="qty-down">-</span>
+								</div>
+								<span>-</span>
+								<div class="input-number price-max">
+									<input id="price-max" type="number">
+									<span class="qty-up">+</span>
+									<span class="qty-down">-</span>
+								</div>
 							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name">
-							</div>
-							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-							</div>
-							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telephone">
-							</div>
-							<div class="form-group">
+						</div>
+						<!-- /aside Widget -->
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Brand</h3>
+							<div class="checkbox-filter">
 								<div class="input-checkbox">
-									<input type="checkbox" id="create-account">
-									<label for="create-account">
+									<input type="checkbox" id="brand-1">
+									<label for="brand-1">
 										<span></span>
-										Create Account?
+										SAMSUNG
+										<small>(578)</small>
 									</label>
-									<div class="caption">
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-										<input class="input" type="password" name="password" placeholder="Enter Your Password">
-									</div>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-2">
+									<label for="brand-2">
+										<span></span>
+										LG
+										<small>(125)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-3">
+									<label for="brand-3">
+										<span></span>
+										SONY
+										<small>(755)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-4">
+									<label for="brand-4">
+										<span></span>
+										SAMSUNG
+										<small>(578)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-5">
+									<label for="brand-5">
+										<span></span>
+										LG
+										<small>(125)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-6">
+									<label for="brand-6">
+										<span></span>
+										SONY
+										<small>(755)</small>
+									</label>
 								</div>
 							</div>
 						</div>
-						<!-- /Billing Details -->
+						<!-- /aside Widget -->
 
-						<!-- Shiping Details -->
-						<div class="shiping-details">
-							<div class="section-title">
-								<h3 class="title">Shiping address</h3>
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Top selling</h3>
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="./img/product01.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
 							</div>
-							<div class="input-checkbox">
-								<input type="checkbox" id="shiping-address">
-								<label for="shiping-address">
-									<span></span>
-									Ship to a diffrent address?
-								</label>
-								<div class="caption">
-									<div class="form-group">
-										<input class="input" type="text" name="first-name" placeholder="First Name">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="last-name" placeholder="Last Name">
-									</div>
-									<div class="form-group">
-										<input class="input" type="email" name="email" placeholder="Email">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="address" placeholder="Address">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="city" placeholder="City">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="country" placeholder="Country">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-									</div>
-									<div class="form-group">
-										<input class="input" type="tel" name="tel" placeholder="Telephone">
-									</div>
+
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="./img/product02.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
+							</div>
+
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="./img/product03.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 								</div>
 							</div>
 						</div>
-						<!-- /Shiping Details -->
-
-						<!-- Order notes -->
-						<div class="order-notes">
-							<textarea class="input" placeholder="Order Notes"></textarea>
-						</div>
-						<!-- /Order notes -->
+						<!-- /aside Widget -->
 					</div>
+					<!-- /ASIDE -->
 
-					<!-- Order Details -->
-					<div class="col-md-5 order-details">
-						<div class="section-title text-center">
-							<h3 class="title">Your Order</h3>
-						</div>
-						<div class="order-summary">
-							<div class="order-col">
-								<div><strong>PRODUCT</strong></div>
-								<div><strong>TOTAL</strong></div>
-							</div>
-							<div class="order-products">
-								<div class="order-col">
-									<div>1x Product Name Goes Here</div>
-									<div>$980.00</div>
-								</div>
-								<div class="order-col">
-									<div>2x Product Name Goes Here</div>
-									<div>$980.00</div>
-								</div>
-							</div>
-							<div class="order-col">
-								<div>Shiping</div>
-								<div><strong>FREE</strong></div>
-							</div>
-							<div class="order-col">
-								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$2940.00</strong></div>
-							</div>
-						</div>
-						<div class="payment-method">
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
-								<label for="payment-1">
-									<span></span>
-									Direct Bank Transfer
+					<!-- STORE -->
+					<div id="store" class="col-md-8">
+						<!-- store top filter -->
+						<div class="store-filter clearfix">
+							<div class="store-sort">
+								<label>
+									Sort By:
+									<select id="sort-select" class="input-select">
+										<option value="name,asc">Name A-Z</option>
+										<option value="name,desc">Name Z-A</option>
+										<option value="id,desc">Newest</option>
+										<option value="createdAt,desc">Recently Added</option>
+									</select>
 								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
 							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2">
-								<label for="payment-2">
-									<span></span>
-									Cheque Payment
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
-								<label for="payment-3">
-									<span></span>
-									Paypal System
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
+							<ul class="store-grid">
+								<li class="active"><i class="fa fa-th"></i></li>
+								<li><i class="fa fa-th-list"></i></li>
+							</ul>
+						</div>
+						<!-- /store top filter -->
+
+						<!-- store products -->
+						<div id="store-products" class="row">
+							<div class="col-md-12 text-center" style="padding:40px;">
+								<i class="fa fa-spinner fa-spin fa-2x"></i>
 							</div>
 						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="terms">
-							<label for="terms">
-								<span></span>
-								I've read and accept the <a href="#">terms & conditions</a>
-							</label>
+						<!-- /store products -->
+
+						<!-- store bottom filter -->
+						<div class="store-filter clearfix">
+							<span id="store-qty" class="store-qty"></span>
+							<ul id="store-pagination" class="store-pagination"></ul>
 						</div>
-						<a href="#" class="primary-btn order-submit">Place order</a>
+						<!-- /store bottom filter -->
 					</div>
-					<!-- /Order Details -->
+					<!-- /STORE -->
 				</div>
 				<!-- /row -->
 			</div>
@@ -525,7 +536,14 @@
 		<script src="js/config.js"></script>
 		<script src="js/main-nav.js"></script>
 		<script src="js/cart.js"></script>
-		<script src="js/checkout.js"></script>
+		<script src="js/store.js"></script>
+		<!-- Category Filter: Use ONLY ONE of these -->
+		
+		<!-- Modern Category Filter (hierarchical categories) -->
+		<!-- <script src="js/store-modern-categories.js"></script> -->
+		
+		<!-- GoD Category Filter (Group of Departments) -->
+		<script src="js/store-god-categories.js"></script>
 
 	</body>
 </html>

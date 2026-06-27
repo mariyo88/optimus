@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modern Category Filter Demo</title>
+    
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    
+    <!-- Modern Category Filter Stylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/category-modern.css"/>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f5f5;
+            padding: 40px 0;
+        }
+        .demo-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .demo-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2B2D42;
+            margin-bottom: 10px;
+        }
+        .demo-subtitle {
+            color: #8D99AE;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="demo-container">
+                    <h1 class="demo-title">Modern Category Filter Demo</h1>
+                    <p class="demo-subtitle">Novi dizajn kategorija sa ikonama (bez checkboxova)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="demo-container">
+                    <h2 style="font-size: 18px; margin-bottom: 20px;">Kategorije</h2>
+                    <div id="category-filter"></div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="demo-container">
+                    <h2 style="font-size: 18px; margin-bottom: 20px;">Odabrana Kategorija</h2>
+                    <div id="selected-category" style="padding: 20px; background: #f8f9fa; border-radius: 4px; min-height: 100px;">
+                        <p style="color: #8D99AE;">Klikni na kategoriju da vidiš detalje...</p>
+                    </div>
+                </div>
+                
+                <div class="demo-container" style="margin-top: 20px;">
+                    <h2 style="font-size: 18px; margin-bottom: 15px;">Kako radi?</h2>
+                    <ul style="line-height: 2;">
+                        <li><strong>"All Departments"</strong> - Klik resetuje filter</li>
+                        <li><strong>Parent kategorije</strong> - Klik expand/collapse (sa chevron ikonom →)</li>
+                        <li><strong>Leaf kategorije</strong> - Klik selektuje kategoriju za filtriranje</li>
+                        <li><strong>Hover efekat</strong> - Prelazi kroz kategorije da vidiš animaciju</li>
+                        <li><strong>Ikone</strong> - Automatski mapirane na osnovu naziva kategorije</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/config.js"></script>
+    
+    <script>
+        // Demo script - creates sample categories with modern design
+        (function ($) {
+            'use strict';
+
+            var API_BASE = window.APP_CONFIG ? window.APP_CONFIG.API_BASE : 'http://localhost:8080';
+
+            // Icon mapping for categories
+            var CATEGORY_ICONS = {
+                'headphone': 'fa-headphones',
+                'headphones': 'fa-headphones',
+                'earbuds': 'fa-headphones',
+                'smartphone': 'fa-mobile',
+                'phone': 'fa-mobile',
+                'mobile': 'fa-mobile',
+                'camera': 'fa-camera',
+                'video': 'fa-video-camera',
+                'smartwatch': 'fa-clock-o',
+                'watch': 'fa-clock-o',
+                'storage': 'fa-hdd-o',
+                'digital': 'fa-hdd-o',
+                'gaming': 'fa-gamepad',
+                'game': 'fa-gamepad',
+                'furniture': 'fa-bed',
+                'server': 'fa-server',
+                'workstation': 'fa-desktop',
+                'screen': 'fa-desktop',
+                'tv': 'fa-television',
+                'computer': 'fa-laptop',
+                'laptop': 'fa-laptop',
+                'tablet': 'fa-tablet',
+                'audio': 'fa-volume-up',
+                'accessories': 'fa-plug',
+                'keyboard': 'fa-keyboard-o',
+                'mouse': 'fa-mouse-pointer',
+                'monitor': 'fa-desktop'
+            };
+
+            function getCategoryIcon(category) {
+                var slug = (category.slug || '').toLowerCase();
+                var name = (category.name || '').toLowerCase();
+                
+                for (var key in CATEGORY_ICONS) {
+                    if (slug.includes(key) || name.includes(key)) {
+                        return CATEGORY_ICONS[key];
+                    }
+                }
+                return 'fa-folder-o';
+            }
+
+            function buildCategoryItem(cat, level) {
+                var hasChildren = cat.children && cat.children.length > 0;
+                var categoryName = cat.displayName || cat.name;
+                var icon = getCategoryIcon(cat);
+                
+                var $item = $('<div class="modern-category-item">');
+                if (hasChildren) {
+                    $item.addClass('has-children');
+                }
+                $item.attr('data-slug', cat.slug);
+                $item.attr('data-level', level);
+                $item.attr('data-name', categoryName);
+                
+                var $link = $('<a class="category-link">');
+                
+                // Icon
+                $link.append('<span class="category-icon"><i class="fa ' + icon + '"></i></span>');
+                
+                // Name
+                $link.append('<span class="category-name-text">' + categoryName + '</span>');
+                
+                // Chevron for parent categories
+                if (hasChildren) {
+                    $link.append('<span class="category-chevron"><i class="fa fa-angle-right"></i></span>');
+                }
+                
+                $item.append($link);
+                
+                // Add children if any
+                if (hasChildren) {
+                    var $children = $('<div class="category-children">');
+                    cat.children.forEach(function(child) {
+                        $children.append(buildCategoryItem(child, level + 1));
+                    });
+                    $item.append($children);
+                }
+                
+                return $item;
+            }
+
+            function showSelectedCategory(name, slug) {
+                $('#selected-category').html(
+                    '<h3 style="color: #ef233c; margin-bottom: 15px;">' + name + '</h3>' +
+                    '<p style="color: #5a6c7d;"><strong>Slug:</strong> ' + slug + '</p>' +
+                    '<p style="color: #5a6c7d;">Ovde bi se učitali proizvodi iz ove kategorije.</p>'
+                );
+            }
+
+            function buildModernCategoryFilter() {
+                var $filter = $('#category-filter');
+                
+                $.ajax({
+                    url: API_BASE + '/api/categories/public',
+                    success: function (categories) {
+                        $filter.empty();
+                        
+                        var $modernFilter = $('<div class="modern-category-filter">');
+                        
+                        // Header with "All Departments"
+                        var $header = $('<div class="category-header">');
+                        var $headerIcon = $('<div class="category-header-icon">');
+                        $headerIcon.append('<i></i><i></i><i></i>');
+                        $header.append($headerIcon);
+                        $header.append('<div class="category-header-title">All Departments</div>');
+                        $modernFilter.append($header);
+                        
+                        // Category list
+                        var $list = $('<div class="category-list">');
+                        
+                        categories.forEach(function(cat) {
+                            $list.append(buildCategoryItem(cat, 0));
+                        });
+                        
+                        $modernFilter.append($list);
+                        $filter.append($modernFilter);
+                        
+                        // Event handlers
+                        
+                        // Header click - reset filter
+                        $header.on('click', function() {
+                            $('.modern-category-item').removeClass('selected');
+                            $('.category-link').removeClass('active');
+                            $('#selected-category').html(
+                                '<p style="color: #8D99AE;">Sve kategorije - prikazuju se svi proizvodi.</p>'
+                            );
+                        });
+                        
+                        // Category click
+                        $filter.on('click', '.category-link', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            var $this = $(this);
+                            var $item = $this.closest('.modern-category-item');
+                            var $children = $item.find('> .category-children');
+                            var hasChildren = $children.length > 0;
+                            
+                            if (hasChildren) {
+                                // Toggle expand/collapse
+                                var isExpanded = $children.hasClass('expanded');
+                                
+                                if (isExpanded) {
+                                    $children.removeClass('expanded').slideUp(200);
+                                    $this.find('.category-chevron i')
+                                        .removeClass('fa-angle-down')
+                                        .addClass('fa-angle-right');
+                                } else {
+                                    $children.addClass('expanded').slideDown(200);
+                                    $this.find('.category-chevron i')
+                                        .removeClass('fa-angle-right')
+                                        .addClass('fa-angle-down');
+                                }
+                            } else {
+                                // Select leaf category
+                                var slug = $item.data('slug');
+                                var name = $item.data('name');
+                                
+                                // Update UI
+                                $('.modern-category-item').removeClass('selected');
+                                $('.category-link').removeClass('active');
+                                $item.addClass('selected');
+                                $this.addClass('active');
+                                
+                                // Show selected category
+                                showSelectedCategory(name, slug);
+                            }
+                        });
+                    },
+                    error: function () {
+                        // Show sample data if API fails
+                        var sampleCategories = [
+                            {
+                                name: 'Audio Equipment',
+                                slug: 'audio-equipment',
+                                children: []
+                            },
+                            {
+                                name: 'Laptop & Tablet',
+                                slug: 'laptop-tablet',
+                                children: []
+                            },
+                            {
+                                name: 'Gaming Accessories',
+                                slug: 'gaming-accessories',
+                                children: []
+                            },
+                            {
+                                name: 'Headphone',
+                                slug: 'headphone',
+                                children: [
+                                    { name: 'Earbuds', slug: 'earbuds', children: [] },
+                                    { name: 'On Ear', slug: 'on-ear', children: [] },
+                                    { name: 'Over Ear', slug: 'over-ear', children: [] }
+                                ]
+                            },
+                            {
+                                name: 'Smartphone',
+                                slug: 'smartphone',
+                                children: []
+                            },
+                            {
+                                name: 'Camera & Video',
+                                slug: 'camera-video',
+                                children: []
+                            },
+                            {
+                                name: 'Smartwatch',
+                                slug: 'smartwatch',
+                                children: []
+                            },
+                            {
+                                name: 'Storage & Digital Devices',
+                                slug: 'storage-digital',
+                                children: []
+                            },
+                            {
+                                name: 'Game & Room Furniture',
+                                slug: 'game-furniture',
+                                children: []
+                            },
+                            {
+                                name: 'Server & Workstation',
+                                slug: 'server-workstation',
+                                children: []
+                            },
+                            {
+                                name: 'TV & Computer Screen',
+                                slug: 'tv-screen',
+                                children: []
+                            }
+                        ];
+                        
+                        $filter.empty();
+                        var $modernFilter = $('<div class="modern-category-filter">');
+                        
+                        var $header = $('<div class="category-header">');
+                        var $headerIcon = $('<div class="category-header-icon">');
+                        $headerIcon.append('<i></i><i></i><i></i>');
+                        $header.append($headerIcon);
+                        $header.append('<div class="category-header-title">All Departments</div>');
+                        $modernFilter.append($header);
+                        
+                        var $list = $('<div class="category-list">');
+                        sampleCategories.forEach(function(cat) {
+                            $list.append(buildCategoryItem(cat, 0));
+                        });
+                        
+                        $modernFilter.append($list);
+                        $filter.append($modernFilter);
+                        
+                        // Same event handlers as above
+                        $header.on('click', function() {
+                            $('.modern-category-item').removeClass('selected');
+                            $('.category-link').removeClass('active');
+                            $('#selected-category').html(
+                                '<p style="color: #8D99AE;">Sve kategorije - prikazuju se svi proizvodi.</p>'
+                            );
+                        });
+                        
+                        $filter.on('click', '.category-link', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            var $this = $(this);
+                            var $item = $this.closest('.modern-category-item');
+                            var $children = $item.find('> .category-children');
+                            var hasChildren = $children.length > 0;
+                            
+                            if (hasChildren) {
+                                var isExpanded = $children.hasClass('expanded');
+                                
+                                if (isExpanded) {
+                                    $children.removeClass('expanded').slideUp(200);
+                                    $this.find('.category-chevron i')
+                                        .removeClass('fa-angle-down')
+                                        .addClass('fa-angle-right');
+                                } else {
+                                    $children.addClass('expanded').slideDown(200);
+                                    $this.find('.category-chevron i')
+                                        .removeClass('fa-angle-right')
+                                        .addClass('fa-angle-down');
+                                }
+                            } else {
+                                var slug = $item.data('slug');
+                                var name = $item.data('name');
+                                
+                                $('.modern-category-item').removeClass('selected');
+                                $('.category-link').removeClass('active');
+                                $item.addClass('selected');
+                                $this.addClass('active');
+                                
+                                showSelectedCategory(name, slug);
+                            }
+                        });
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                buildModernCategoryFilter();
+            });
+
+        })(jQuery);
+    </script>
+</body>
+</html>

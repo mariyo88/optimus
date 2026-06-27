@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoD Kategorije — Optimus Admin</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="admin.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <style>
+  <style>
+    .god-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .god-header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    .god-header p {
+      margin: 0.5rem 0 0 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .god-category-item {
+      display: flex;
+      align-items: start;
+      padding: 1.25rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background: white;
+      transition: all 0.3s ease;
+      gap: 1rem;
+      border-left: 4px solid #667eea;
+    }
+    .god-category-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+
+    .god-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f3ff;
+      border-radius: 8px;
+      color: #667eea;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .god-info {
+      flex-grow: 1;
+    }
+    .god-name {
+      font-weight: 600;
+      color: #333;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    .god-meta {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+    .god-description {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.75rem;
+    }
+
+    .mapped-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .mapped-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: #e3f2fd;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #1976d2;
+    }
+
+    .god-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.35rem 0.7rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .status-active {
+      background: #d4edda;
+      color: #155724;
+    }
+    .status-inactive {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .count-badge {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 8px 8px 0 0;
+    }
+    .modal-header .close {
+      color: white;
+      opacity: 0.8;
+      text-shadow: none;
+    }
+    .modal-header .close:hover {
+      opacity: 1;
+    }
+
+    .mapping-panel {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+      background: #fafafa;
+    }
+
+    .category-mapping-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      transition: all 0.2s;
+    }
+    .category-mapping-item:hover {
+      border-color: #667eea;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Login overlay ──────────────────────────────────────────────────────── -->
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-icon"><i class="fa fa-bolt"></i></div>
+    </div>
+    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
+    <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
+    <div class="form-group">
+      <label>Korisničko ime</label>
+      <input type="text" id="login-username" class="form-control" placeholder="admin">
+    </div>
+    <div class="form-group">
+      <label>Lozinka</label>
+      <input type="password" id="login-password" class="form-control" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()">
+      <i class="fa fa-sign-in mr-1"></i> Prijavi se
+    </button>
+  </div>
+</div>
+
+<!-- ── App ────────────────────────────────────────────────────────────────── -->
+<div id="app" class="d-none">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="index.html">
+      <div class="brand-icon"><i class="fa fa-bolt"></i></div>
+      Optimus Admin
+    </a>
+    <div class="navbar-search">
+      <div class="search-wrap">
+        <i class="fa fa-search"></i>
+        <input type="text" placeholder="Pretraži...">
+      </div>
+    </div>
+    <div class="navbar-actions">
+      <button class="nav-icon-btn" title="Obaveštenja"><i class="fa fa-bell"></i></button>
+      <div class="nav-divider"></div>
+      <div class="nav-avatar" id="nav-username" title="Odjavi se" onclick="logout()">A</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
+            <i class="fa fa-tachometer"></i>Dashboard
+          </a>
+        </li>
+      </ul>
+      <p class="nav-section-label">Katalog</p>
+      <hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="products.html"><i class="fa fa-cube"></i>Proizvodi</a></li>
+        <li class="nav-item"><a class="nav-link" href="product-form.html"><i class="fa fa-plus-square"></i>Novi proizvod</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fa fa-sitemap"></i>Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link active" href="god-categories.html"><i class="fa fa-list"></i>GoD Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link" href="brands.html"><i class="fa fa-tag"></i>Brendovi</a></li>
+      </ul>
+      <p class="nav-section-label">Prodaja</p>
+      <hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudžbine</a></li>
+      </ul>
+      <p class="nav-section-label">Sistem</p>
+      <hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="import.html"><i class="fa fa-upload"></i>Import</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <div class="god-header">
+        <div>
+          <h2><i class="fa fa-list" style="margin-right: 0.8rem;"></i>GoD Kategorije</h2>
+          <p>Group of Departments - Grupišite root kategorije u logičke celine</p>
+        </div>
+        <button class="btn btn-light" onclick="showCreateModal()">
+          <i class="fa fa-plus mr-1"></i> Nova GoD Kategorija
+        </button>
+      </div>
+
+      <div id="god-categories-list">
+        <div class="text-center py-5">
+          <i class="fa fa-spinner fa-spin fa-2x text-primary"></i>
+          <p class="text-muted mt-2">Učitavanje...</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Create/Edit Modal -->
+<div class="modal fade" id="godCategoryModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Nova GoD Kategorija</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="godCategoryForm">
+          <input type="hidden" id="godCategoryId">
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Naziv *</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Prikazano ime</label>
+              <input type="text" class="form-control" id="displayName">
+              <small class="text-muted">Opciono - prikazuje se na frontendu</small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Slug *</label>
+              <input type="text" class="form-control" id="slug" required>
+              <small class="text-muted">URL format (lowercase, crtice)</small>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="form-label">Ikona</label>
+              <input type="text" class="form-control" id="iconClass" placeholder="fa-laptop">
+              <small class="text-muted">FontAwesome klasa</small>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="form-label">Redosled</label>
+              <input type="number" class="form-control" id="sortOrder" value="0">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Opis</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="isActive" checked>
+              <label class="form-check-label" for="isActive">
+                Aktivna
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-primary" onclick="saveGodCategory()">Sačuvaj</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mapping Modal -->
+<div class="modal fade" id="mappingModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upravljaj mapiranjima: <span id="mappingModalTitle"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="mappingGodCategoryId">
+        
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="mb-3"><i class="fa fa-list mr-2"></i>Dostupne Root Kategorije</h6>
+            <div id="unmappedCategoriesList" class="mapping-panel">
+              <div class="text-center py-4">
+                <i class="fa fa-spinner fa-spin"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h6 class="mb-3"><i class="fa fa-link mr-2"></i>Mapirane Kategorije</h6>
+            <div id="mappedCategoriesList" class="mapping-panel">
+              <div class="text-center py-4">
+                <i class="fa fa-spinner fa-spin"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="admin.js"></script>
+<script>
+  let godCategoriesData = [];
+  let unmappedCategories = [];
+
+  initPage();
+
+  $(document).ready(function() {
+    if (getAuth()) loadGodCategories();
+  });
+
+  function loadGodCategories() {
+    api('/api/admin/god-categories').then(data => {
+      godCategoriesData = data;
+      renderGodCategories(data);
+    }).catch(() => {
+      $('#god-categories-list').html('<div class="alert alert-danger">Greška pri učitavanju GoD kategorija</div>');
+    });
+  }
+
+  function renderGodCategories(categories) {
+    if (categories.length === 0) {
+      $('#god-categories-list').html('<div class="empty-state"><i class="fa fa-folder-open fa-3x mb-3"></i><p>Nema GoD kategorija. Kreirajte prvu da biste počeli.</p></div>');
+      return;
+    }
+
+    let html = '';
+    categories.forEach(cat => {
+      const iconClass = cat.iconClass || 'fa-folder';
+      const displayName = cat.displayName || cat.name;
+      const mappedCount = cat.mappedCategories ? cat.mappedCategories.length : 0;
+      const statusClass = cat.isActive ? 'status-active' : 'status-inactive';
+      const statusText = cat.isActive ? 'Aktivna' : 'Neaktivna';
+
+      html += `
+        <div class="god-category-item">
+          <div class="god-icon">
+            <i class="fa ${iconClass}"></i>
+          </div>
+          <div class="god-info">
+            <div class="god-name">
+              ${displayName}
+              <span class="status-badge ${statusClass}">${statusText}</span>
+              <span class="status-badge count-badge">${mappedCount} mapirano</span>
+            </div>
+            <div class="god-meta">
+              <code>${cat.slug}</code> | Redosled: ${cat.sortOrder}
+            </div>
+            ${cat.description ? '<div class="god-description">' + cat.description + '</div>' : ''}
+            ${renderMappedCategories(cat.mappedCategories)}
+          </div>
+          <div class="god-actions">
+            <button class="btn btn-sm btn-primary" onclick="showMappingModal(${cat.id})" title="Upravljaj mapiranjima">
+              <i class="fa fa-link"></i>
+            </button>
+            <button class="btn btn-sm btn-secondary" onclick="editGodCategory(${cat.id})" title="Izmeni">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="deleteGodCategory(${cat.id})" title="Obriši">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    $('#god-categories-list').html(html);
+  }
+
+  function renderMappedCategories(mappedCategories) {
+    if (!mappedCategories || mappedCategories.length === 0) {
+      return '<div class="text-muted" style="font-size: 0.85rem;"><i>Nema mapiranih kategorija</i></div>';
+    }
+
+    let html = '<div class="mapped-categories">';
+    mappedCategories.forEach(cat => {
+      html += `<span class="mapped-badge">${cat.displayName || cat.name}</span>`;
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function showCreateModal() {
+    $('#modalTitle').text('Nova GoD Kategorija');
+    $('#godCategoryForm')[0].reset();
+    $('#godCategoryId').val('');
+    $('#isActive').prop('checked', true);
+    $('#godCategoryModal').modal('show');
+  }
+
+  function editGodCategory(id) {
+    const cat = godCategoriesData.find(c => c.id === id);
+    if (!cat) return;
+
+    $('#modalTitle').text('Izmeni GoD Kategoriju');
+    $('#godCategoryId').val(cat.id);
+    $('#name').val(cat.name);
+    $('#displayName').val(cat.displayName || '');
+    $('#slug').val(cat.slug);
+    $('#iconClass').val(cat.iconClass || '');
+    $('#sortOrder').val(cat.sortOrder);
+    $('#description').val(cat.description || '');
+    $('#isActive').prop('checked', cat.isActive);
+
+    $('#godCategoryModal').modal('show');
+  }
+
+  function saveGodCategory() {
+    const id = $('#godCategoryId').val();
+    const data = {
+      name: $('#name').val().trim(),
+      displayName: $('#displayName').val().trim() || null,
+      slug: $('#slug').val().trim(),
+      iconClass: $('#iconClass').val().trim() || null,
+      sortOrder: parseInt($('#sortOrder').val()) || 0,
+      description: $('#description').val().trim() || null,
+      isActive: $('#isActive').is(':checked')
+    };
+
+    if (!data.name || !data.slug) {
+      showAlert('Naziv i slug su obavezni!', 'danger');
+      return;
+    }
+
+    const url = id ? `/api/admin/god-categories/${id}` : '/api/admin/god-categories';
+    const method = id ? 'PUT' : 'POST';
+
+    api(url, {
+      method: method,
+      data: JSON.stringify(data)
+    }).then(() => {
+      $('#godCategoryModal').modal('hide');
+      loadGodCategories();
+      showAlert(id ? 'GoD kategorija uspešno ažurirana!' : 'GoD kategorija uspešno kreirana!', 'success');
+    }).catch(err => {
+      showAlert('Greška: ' + (err.responseJSON?.message || 'Nije moguće sačuvati GoD kategoriju'), 'danger');
+    });
+  }
+
+  function deleteGodCategory(id) {
+    if (!confirm('Da li ste sigurni da želite da obrišete ovu GoD kategoriju? Sva mapiranja će biti uklonjena.')) return;
+
+    api('/api/admin/god-categories/' + id, { method: 'DELETE' }).then(() => {
+      loadGodCategories();
+      showAlert('GoD kategorija uspešno obrisana!', 'success');
+    }).catch(() => {
+      showAlert('Greška pri brisanju GoD kategorije', 'danger');
+    });
+  }
+
+  function showMappingModal(godCategoryId) {
+    const cat = godCategoriesData.find(c => c.id === godCategoryId);
+    if (!cat) return;
+
+    $('#mappingGodCategoryId').val(godCategoryId);
+    $('#mappingModalTitle').text(cat.displayName || cat.name);
+
+    $('#mappingModal').modal('show');
+
+    loadUnmappedCategories(godCategoryId);
+    loadMappedCategories(cat);
+  }
+
+  function loadUnmappedCategories(godCategoryId) {
+    api('/api/admin/god-categories/unmapped-categories').then(data => {
+      unmappedCategories = data;
+      renderUnmappedCategories(data, godCategoryId);
+    }).catch(() => {
+      $('#unmappedCategoriesList').html('<div class="alert alert-danger">Greška pri učitavanju kategorija</div>');
+    });
+  }
+
+  function renderUnmappedCategories(categories, godCategoryId) {
+    if (categories.length === 0) {
+      $('#unmappedCategoriesList').html('<div class="empty-state">Sve root kategorije su već mapirane</div>');
+      return;
+    }
+
+    let html = '';
+    categories.forEach(cat => {
+      html += `
+        <div class="category-mapping-item">
+          <span>${cat.displayName || cat.name}</span>
+          <button class="btn btn-sm btn-primary" onclick="addMapping(${godCategoryId}, ${cat.id})">
+            <i class="fa fa-plus"></i> Dodaj
+          </button>
+        </div>
+      `;
+    });
+    $('#unmappedCategoriesList').html(html);
+  }
+
+  function loadMappedCategories(godCategory) {
+    const mapped = godCategory.mappedCategories || [];
+    if (mapped.length === 0) {
+      $('#mappedCategoriesList').html('<div class="empty-state">Nema mapiranih kategorija</div>');
+      return;
+    }
+
+    let html = '';
+    mapped.forEach(cat => {
+      html += `
+        <div class="category-mapping-item">
+          <span>${cat.displayName || cat.name}</span>
+          <button class="btn btn-sm btn-danger" onclick="removeMapping(${godCategory.id}, ${cat.id})">
+            <i class="fa fa-times"></i> Ukloni
+          </button>
+        </div>
+      `;
+    });
+    $('#mappedCategoriesList').html(html);
+  }
+
+  function addMapping(godCategoryId, categoryId) {
+    api('/api/admin/god-categories/' + godCategoryId + '/mappings?categoryId=' + categoryId + '&sortOrder=0', {
+      method: 'POST'
+    }).then(() => {
+      showAlert('Mapiranje uspešno dodato!', 'success');
+      // Reload data and reopen modal
+      return api('/api/admin/god-categories');
+    }).then(data => {
+      godCategoriesData = data;
+      renderGodCategories(data);
+      showMappingModal(godCategoryId);
+    }).catch(err => {
+      showAlert('Greška: ' + (err.responseJSON?.message || 'Nije moguće dodati mapiranje'), 'danger');
+    });
+  }
+
+  function removeMapping(godCategoryId, categoryId) {
+    api('/api/admin/god-categories/' + godCategoryId + '/mappings/' + categoryId, {
+      method: 'DELETE'
+    }).then(() => {
+      showAlert('Mapiranje uspešno uklonjeno!', 'success');
+      // Reload data and reopen modal
+      return api('/api/admin/god-categories');
+    }).then(data => {
+      godCategoriesData = data;
+      renderGodCategories(data);
+      showMappingModal(godCategoryId);
+    }).catch(() => {
+      showAlert('Greška pri uklanjanju mapiranja', 'danger');
+    });
+  }
+
+  // Auto-generate slug from name
+  $('#name').on('input', function() {
+    if (!$('#godCategoryId').val()) { // Only for new categories
+      const slug = $(this).val().toLowerCase()
+        .replace(/ć/g, 'c').replace(/č/g, 'c').replace(/ž/g, 'z')
+        .replace(/š/g, 's').replace(/đ/g, 'd')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim();
+      $('#slug').val(slug);
+    }
+  });
+
+  function showAlert(message, type) {
+    const alertHtml = `
+      <div class="alert alert-${type} alert-dismissible fade show" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    `;
+    $('body').append(alertHtml);
+    setTimeout(() => {
+      $('.alert').fadeOut(() => $(this).remove());
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>

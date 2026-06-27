@@ -14,7 +14,7 @@
                     '  <i class="fa fa-shopping-cart" style="font-size:60px;color:#ddd;margin-bottom:20px;"></i>',
                     '  <h4>Vaša korpa je prazna</h4>',
                     '  <p style="color:#999;margin:20px 0;">Dodajte proizvode u korpu pre nego što nastavite na checkout.</p>',
-                    '  <a href="store.html" class="primary-btn">Idite u prodavnicu</a>',
+                    '  <a href="store-modern.html" class="primary-btn">Idite u prodavnicu</a>',
                     '</div>'
                 ].join(''));
                 return;

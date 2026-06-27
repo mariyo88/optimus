@@ -1,6 +1,6 @@
 /*
-Template Name: Electro - HTML Ecommerce Template
-Author: yaminncco
+Template Name: Optimus - HTML Ecommerce Web
+Author: mariyo
 
 Colors:
 	Body 		: #333
@@ -2748,4 +2748,266 @@ ul.SpecForm .Notice {
 
 .cart-dropdown .product-widget .delete:hover {
     color: #D10024;
+}
+
+
+/* ========================================
+   MODERN CATEGORY FILTER STYLES
+   ======================================== */
+
+/* Override any existing styles */
+#category-filter.modern-enabled {
+  padding: 0;
+  margin: 0;
+}
+
+#category-filter.modern-enabled .aside-title {
+  display: none;
+}
+
+#category-filter.modern-enabled .checkbox-filter {
+  display: none;
+}
+
+/* Main container with card-like appearance */
+.modern-category-filter {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Header with All Departments button */
+.category-header {
+  background: linear-gradient(135deg, #ef233c 0%, #d10024 100%);
+  padding: 16px 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-header:hover {
+  background: linear-gradient(135deg, #d10024 0%, #b30020 100%);
+}
+
+.category-header-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.category-header-icon i {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.category-header-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+
+/* Category list container */
+.category-list {
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual category items */
+.modern-category-item {
+  border-bottom: 1px solid #f5f5f5;
+  transition: all 0.2s ease;
+}
+
+.modern-category-item:last-child {
+  border-bottom: none;
+}
+
+.modern-category-item:hover {
+  background: #fafafa;
+}
+
+/* Category link styling */
+.category-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  color: #5a6c7d;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.category-link:hover {
+  color: #2B2D42;
+  text-decoration: none;
+  padding-left: 24px;
+}
+
+.category-link.active {
+  background: #fff5f6;
+  color: #ef233c;
+  font-weight: 600;
+  border-right: 3px solid #ef233c;
+}
+
+/* Category icon */
+.category-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 14px;
+  font-size: 16px;
+  color: #8D99AE;
+  flex-shrink: 0;
+}
+
+.category-link:hover .category-icon,
+.category-link.active .category-icon {
+  color: #ef233c;
+}
+
+/* Category name */
+.category-name-text {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Chevron for parent categories */
+.category-chevron {
+  color: #cbd0dd;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.category-link:hover .category-chevron,
+.category-link.active .category-chevron {
+  color: #ef233c;
+  transform: translateX(3px);
+}
+
+/* Parent category with children */
+.modern-category-item.has-children .category-link {
+  font-weight: 600;
+}
+
+/* Subcategory styling */
+.category-children {
+  background: #fafcfd;
+  border-top: 1px solid #f0f0f0;
+  display: none;
+}
+
+.category-children.expanded {
+  display: block;
+}
+
+.category-children .modern-category-item {
+  padding-left: 20px;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.category-children .category-link {
+  padding: 12px 20px;
+  font-size: 13px;
+}
+
+.category-children .category-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  margin-right: 12px;
+}
+
+/* Count badge (optional) */
+.category-count {
+  background: #e8ecf1;
+  color: #5a6c7d;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.category-link:hover .category-count,
+.category-link.active .category-count {
+  background: #ffeef1;
+  color: #ef233c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .category-header {
+    padding: 14px 16px;
+  }
+  
+  .category-header-title {
+    font-size: 14px;
+  }
+  
+  .category-link {
+    padding: 12px 16px;
+  }
+  
+  .category-name-text {
+    font-size: 13px;
+  }
+}
+
+/* Animation for expand/collapse */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    max-height: 500px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+.category-children.expanding {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+.category-children.collapsing {
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+/* Highlight selected category */
+.modern-category-item.selected > .category-link {
+  background: linear-gradient(90deg, #fff5f6 0%, #ffffff 100%);
+  color: #ef233c;
+  font-weight: 600;
+  border-right: 3px solid #ef233c;
+}
+
+.modern-category-item.selected > .category-link .category-icon {
+  color: #ef233c;
 }

@@ -16,7 +16,7 @@
                     '  <i class="fa fa-shopping-cart" style="font-size:80px;color:#ddd;margin-bottom:20px;"></i>',
                     '  <h3>Vaša korpa je prazna</h3>',
                     '  <p style="color:#999;margin-bottom:30px;">Dodajte proizvode u korpu da biste nastavili.</p>',
-                    '  <a href="store.html" class="primary-btn">Nastavite kupovinu</a>',
+                    '  <a href="store-modern.html" class="primary-btn">Nastavite kupovinu</a>',
                     '</div>'
                 ].join(''));
                 return;
@@ -79,7 +79,7 @@
                 '  </div>',
                 '  <div class="row" style="margin-top:30px;">',
                 '    <div class="col-md-6">',
-                '      <a href="store.html" class="primary-btn">Continue Shopping</a>',
+                '      <a href="store-modern.html" class="primary-btn">Continue Shopping</a>',
                 '    </div>',
                 '    <div class="col-md-6 text-right">',
                 '      <div class="order-col" style="margin-bottom:10px;">',

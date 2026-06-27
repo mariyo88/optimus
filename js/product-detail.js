@@ -98,7 +98,7 @@
             // Koristi displayName ako postoji, inače fallback na name
             var categoryName = product.category.displayName || product.category.name;
             $catLinks.append(
-                '<li><a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a></li>'
+                '<li><a href="store-modern.html?category=' + product.category.slug + '">' + categoryName + '</a></li>'
             );
         }
 
@@ -117,7 +117,7 @@
         $('.add-to-cart input[type="number"]').val(1);
 
         // Page title + breadcrumb
-        document.title = product.name + ' — Electro';
+        document.title = product.name + ' — Optimus';
         updateBreadcrumbs(product);
     }
 
@@ -170,7 +170,7 @@
             // Koristi displayName ako postoji, inače fallback na name
             var categoryName = product.category.displayName || product.category.name;
             var $categoryBreadcrumb = $('#breadcrumb-category');
-            $categoryBreadcrumb.html('<a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a>')
+            $categoryBreadcrumb.html('<a href="store-modern.html?category=' + product.category.slug + '">' + categoryName + '</a>')
                 .show();
         } else {
             $('#breadcrumb-category').hide();

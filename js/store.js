@@ -14,6 +14,9 @@
         sort:     'name,asc',
         viewMode: 'grid' // 'grid' or 'list'
     };
+    
+    // Expose state globally for modern category filter
+    window.storePageState = state;
 
     function getParam(name) {
         return new URLSearchParams(window.location.search).get(name) || '';
@@ -54,6 +57,9 @@
             $('#breadcrumb-category').text('All Products');
         }
     }
+    
+    // Expose functions globally for modern category filter
+    window.updateStoreBreadcrumb = updateBreadcrumb;
 
     function buildProductCard(p) {
         var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ENo image available%3C/text%3E%3C/svg%3E";
@@ -238,6 +244,11 @@
     function buildCategoryFilter() {
         var $filter = $('#category-filter');
         if (!$filter.length) return;
+        
+        // Check if modern filter is enabled - if so, skip this function
+        if ($filter.hasClass('modern-enabled')) {
+            return;
+        }
 
         // Load categories from API - use /public endpoint for active categories only
         $.ajax({
@@ -376,10 +387,28 @@
             }
         });
     }
+    
+    // Expose function globally for modern category filter
+    window.loadStoreProducts = loadProducts;
 
     $(document).ready(function () {
 
-        buildCategoryFilter();
+        // Check if modern or GoD category filter is enabled
+        var $filter = $('#category-filter');
+        var useModernCategories = $filter.hasClass('modern-enabled');
+        var useGodCategories = $filter.hasClass('god-enabled');
+        
+        if (useModernCategories) {
+            // Modern categories will be loaded by store-modern-categories.js
+            console.log('Modern category filter enabled');
+        } else if (useGodCategories) {
+            // GoD categories will be loaded by store-god-categories.js
+            console.log('GoD category filter enabled');
+        } else {
+            // Use traditional checkbox filter
+            buildCategoryFilter();
+        }
+        
         updateBreadcrumb();
 
         // View mode toggle (grid vs list)
