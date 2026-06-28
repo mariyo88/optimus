@@ -14,28 +14,24 @@
 
     function getBestPrices(product) {
         if (!product.supplierProducts || product.supplierProducts.length === 0) {
-            return { b2bPrice: null, retailPrice: null, inStock: false };
+            return { retailPrice: null, inStock: false };
         }
         
         var suppliers = product.supplierProducts.filter(sp => sp.active === true);
         if (suppliers.length === 0) {
-            return { b2bPrice: null, retailPrice: null, inStock: false };
+            return { retailPrice: null, inStock: false };
         }
 
-        var bestB2bPrice = null;
         var bestRetailPrice = null;
 
         suppliers.forEach(function (sp) {
-            if (sp.b2bPrice && (!bestB2bPrice || sp.b2bPrice < bestB2bPrice)) {
-                bestB2bPrice = sp.b2bPrice;
-            }
             if (sp.retailPrice && (!bestRetailPrice || sp.retailPrice < bestRetailPrice)) {
                 bestRetailPrice = sp.retailPrice;
             }
         });
 
         var inStock = suppliers.some(sp => sp.inStock === true);
-        return { b2bPrice: bestB2bPrice, retailPrice: bestRetailPrice, inStock: inStock };
+        return { retailPrice: bestRetailPrice, inStock: inStock };
     }
 
     function renderStockStatus(product) {
@@ -48,30 +44,15 @@
 
     function renderPrice(product) {
         var priceInfo = getBestPrices(product);
-        var b2bPrice = priceInfo.b2bPrice;
         var retailPrice = priceInfo.retailPrice;
         
-        if (!b2bPrice && !retailPrice) {
+        if (!retailPrice) {
             return '<h3 class="product-price"><span class="text-muted">Price Not Available</span></h3>';
         }
         
-        var priceHtml = '<h3 class="product-price"><div class="product-price-detail-container">';
-        
-        if (b2bPrice) {
-            priceHtml += '<div class="price-row">';
-            priceHtml += '<span class="price-label">B2B Cena:</span>';
-            priceHtml += '<span class="product-price-value">' + parseFloat(b2bPrice).toFixed(2) + '</span>';
-            priceHtml += '</div>';
-        }
-        
-        if (retailPrice) {
-            priceHtml += '<div class="price-row">';
-            priceHtml += '<span class="price-label">Retail Cena:</span>';
-            priceHtml += '<span class="product-price-value">' + parseFloat(retailPrice).toFixed(2) + '</span>';
-            priceHtml += '</div>';
-        }
-        
-        priceHtml += '</div></h3>';
+        var priceHtml = '<h3 class="product-price">';
+        priceHtml += formatPrice(retailPrice);
+        priceHtml += '</h3>';
         
         return priceHtml;
     }
@@ -279,15 +260,8 @@
 
         // Price display
         var priceHtml = '';
-        if (p.bestB2bPrice || p.bestRetailPrice) {
-            priceHtml = '<h4 class="product-price">';
-            if (p.bestB2bPrice) {
-                priceHtml += parseFloat(p.bestB2bPrice).toFixed(2) + ' ';
-            }
-            if (p.bestRetailPrice) {
-                priceHtml += '<del>' + parseFloat(p.bestRetailPrice).toFixed(2) + '</del>';
-            }
-            priceHtml += '</h4>';
+        if (p.bestRetailPrice) {
+            priceHtml = '<h4 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h4>';
         } else {
             priceHtml = '<h4 class="product-price"><span class="text-muted">N/A</span></h4>';
         }

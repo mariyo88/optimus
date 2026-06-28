@@ -104,7 +104,6 @@
 									<a href="#">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
-										<div class="qty">2</div>
 									</a>
 								</div>
 								<!-- /Wishlist -->
@@ -183,10 +182,6 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#">Hot Deals</a></li>
 						<li><a href="#">Categories</a></li>
-<!--						<li><a href="#">Laptops</a></li>-->
-<!--						<li><a href="#">Smartphones</a></li>-->
-<!--						<li><a href="#">Cameras</a></li>-->
-<!--						<li><a href="#">Accessories</a></li>-->
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -361,6 +356,8 @@
 									<select id="sort-select" class="input-select">
 										<option value="name,asc">Name A-Z</option>
 										<option value="name,desc">Name Z-A</option>
+										<option value="bestRetailPrice,asc">Price Low-High</option>
+										<option value="bestRetailPrice,desc">Price High-Low</option>
 										<option value="id,desc">Newest</option>
 										<option value="createdAt,desc">Recently Added</option>
 									</select>
@@ -396,33 +393,18 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- NEWSLETTER -->
-		<div id="newsletter" class="section">
+		<!-- BRANDS CAROUSEL -->
+		<div id="brands-section" class="section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="newsletter">
-							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-							<form>
-								<input class="input" type="email" placeholder="Enter Your Email">
-								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-							</form>
-							<ul class="newsletter-follow">
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-pinterest"></i></a>
-								</li>
-							</ul>
+						<div class="section-title">
+							<h3 class="title">Naši brendovi</h3>
+						</div>
+						<div class="brands-carousel" id="brands-carousel-container">
+							<!-- Brands will be loaded dynamically via AJAX -->
 						</div>
 					</div>
 				</div>
@@ -430,7 +412,7 @@
 			</div>
 			<!-- /container -->
 		</div>
-		<!-- /NEWSLETTER -->
+		<!-- /BRANDS CAROUSEL -->
 
 		<!-- FOOTER -->
 		<footer id="footer">
@@ -457,10 +439,6 @@
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
 									<li><a href="#">Hot deals</a></li>
-									<li><a href="#">Laptops</a></li>
-									<li><a href="#">Smartphones</a></li>
-									<li><a href="#">Cameras</a></li>
-									<li><a href="#">Accessories</a></li>
 								</ul>
 							</div>
 						</div>
@@ -544,6 +522,7 @@
 		
 		<!-- GoD Category Filter (Group of Departments) -->
 		<script src="js/store-god-categories.js"></script>
+		<script src="js/brands-carousel.js"></script>
 
 	</body>
 </html>

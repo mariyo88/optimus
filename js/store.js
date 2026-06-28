@@ -67,28 +67,10 @@
         var labels   = '';
         if (p.isNew)  labels += '<span class="new">NEW</span>';
         
-        // Build price display with both B2B and Retail prices
+        // Build retail price display
         var priceHtml = '';
-        if (p.bestB2bPrice || p.bestRetailPrice) {
-            priceHtml = '<div class="product-price-container">';
-            
-            // B2B cena
-            if (p.bestB2bPrice) {
-                priceHtml += '<div class="price-row">';
-                priceHtml += '<span class="price-label">B2B:</span>';
-                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestB2bPrice).toFixed(2) + '</span>';
-                priceHtml += '</div>';
-            }
-            
-            // Retail cena
-            if (p.bestRetailPrice) {
-                priceHtml += '<div class="price-row">';
-                priceHtml += '<span class="price-label">Retail:</span>';
-                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestRetailPrice).toFixed(2) + '</span>';
-                priceHtml += '</div>';
-            }
-            
-            priceHtml += '</div>';
+        if (p.bestRetailPrice) {
+            priceHtml = '<h3 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h3>';
         } else {
             priceHtml = '<span class="text-muted">N/A</span>';
         }
@@ -129,28 +111,10 @@
         var labels   = '';
         if (p.isNew)  labels += '<span class="new">NEW</span>';
         
-        // Build price display with both B2B and Retail prices
+        // Build retail price display
         var priceHtml = '';
-        if (p.bestB2bPrice || p.bestRetailPrice) {
-            priceHtml = '<div class="product-price-container">';
-            
-            // B2B cena
-            if (p.bestB2bPrice) {
-                priceHtml += '<div class="price-row">';
-                priceHtml += '<span class="price-label">B2B:</span>';
-                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestB2bPrice).toFixed(2) + '</span>';
-                priceHtml += '</div>';
-            }
-            
-            // Retail cena
-            if (p.bestRetailPrice) {
-                priceHtml += '<div class="price-row">';
-                priceHtml += '<span class="price-label">Retail:</span>';
-                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestRetailPrice).toFixed(2) + '</span>';
-                priceHtml += '</div>';
-            }
-            
-            priceHtml += '</div>';
+        if (p.bestRetailPrice) {
+            priceHtml = '<h3 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h3>';
         } else {
             priceHtml = '<span class="text-muted">N/A</span>';
         }
@@ -400,10 +364,8 @@
         
         if (useModernCategories) {
             // Modern categories will be loaded by store-modern-categories.js
-            console.log('Modern category filter enabled');
         } else if (useGodCategories) {
             // GoD categories will be loaded by store-god-categories.js
-            console.log('GoD category filter enabled');
         } else {
             // Use traditional checkbox filter
             buildCategoryFilter();

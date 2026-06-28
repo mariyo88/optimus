@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sort By - Visual Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2B2D42;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #D10024;
+        }
+        h2 {
+            color: #D10024;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .option-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #E4E7ED;
+            transition: all 0.3s ease;
+        }
+        .option-card:hover {
+            border-color: #D10024;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(209, 0, 36, 0.2);
+        }
+        .option-card.new {
+            border-color: #4caf50;
+            background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+        }
+        .option-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2B2D42;
+            margin-bottom: 8px;
+        }
+        .option-value {
+            font-family: 'Courier New', monospace;
+            background: #2B2D42;
+            color: #4caf50;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .option-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .visual-demo {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .sort-dropdown {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background: white;
+            border: 2px solid #E4E7ED;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .sort-dropdown:hover {
+            border-color: #D10024;
+            box-shadow: 0 2px 8px rgba(209, 0, 36, 0.1);
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #2B2D42;
+        }
+        .features {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #E4E7ED;
+            display: flex;
+            align-items: center;
+        }
+        .features li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        .code-block {
+            background: #2B2D42;
+            color: #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .highlight {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sort By Price Feature <span class="badge">NOVO</span></h1>
+        <p class="subtitle">Vizuelni vodič kroz novu funkcionalnost sortiranja po ceni</p>
+        
+        <div class="section">
+            <h2>🎯 Sve opcije sortiranja</h2>
+            
+            <div class="options-grid">
+                <div class="option-card">
+                    <div class="icon">🔤</div>
+                    <div class="option-title">Name A-Z</div>
+                    <div class="option-value">name,asc</div>
+                    <div class="option-desc">Proizvodi sortirani abecednim redom od A do Ž</div>
+                </div>
+                
+                <div class="option-card">
+                    <div class="icon">🔄</div>
+                    <div class="option-title">Name Z-A</div>
+                    <div class="option-value">name,desc</div>
+                    <div class="option-desc">Proizvodi sortirani obrnuto od Ž do A</div>
+                </div>
+                
+                <div class="option-card new">
+                    <div class="icon">💰</div>
+                    <div class="option-title">Price Low-High ⭐</div>
+                    <div class="option-value">bestRetailPrice,asc</div>
+                    <div class="option-desc">Od najjeftinije ka najskupljoj ceni</div>
+                </div>
+                
+                <div class="option-card new">
+                    <div class="icon">💎</div>
+                    <div class="option-title">Price High-Low ⭐</div>
+                    <div class="option-value">bestRetailPrice,desc</div>
+                    <div class="option-desc">Od najskuplje ka najjeftinijoj ceni</div>
+                </div>
+                
+                <div class="option-card">
+                    <div class="icon">🆕</div>
+                    <div class="option-title">Newest</div>
+                    <div class="option-value">id,desc</div>
+                    <div class="option-desc">Najnoviji proizvodi na vrhu liste</div>
+                </div>
+                
+                <div class="option-card">
+                    <div class="icon">⏰</div>
+                    <div class="option-title">Recently Added</div>
+                    <div class="option-value">createdAt,desc</div>
+                    <div class="option-desc">Proizvodi po datumu dodavanja</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎨 Dizajn poboljšanja</h2>
+            
+            <div class="visual-demo">
+                <p style="margin-bottom: 15px; color: #666;">Novi moderan dropdown dizajn:</p>
+                <div class="sort-dropdown">
+                    <strong>Sort By:</strong>
+                    <span style="color: #666;">Price Low-High</span>
+                    <div class="arrow"></div>
+                </div>
+            </div>
+            
+            <ul class="features">
+                <li>Minimum širina 180px za bolje čitanje</li>
+                <li>Custom SVG strelica umesto native browser kontrole</li>
+                <li>Hover efekat sa crvenom bojom brenda (#D10024)</li>
+                <li>Focus state sa shadow efektom za accessibility</li>
+                <li>Smooth transition animacije (0.3s)</li>
+                <li>Zaobljeni uglovi (4px border-radius)</li>
+                <li>Povećan padding za mobile-friendly touch targets</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>💻 Tehnička implementacija</h2>
+            
+            <h3 style="margin: 20px 0 10px 0; color: #2B2D42;">HTML struktura:</h3>
+            <div class="code-block">
+&lt;select id="sort-select" class="input-select"&gt;<br>
+&nbsp;&nbsp;&lt;option value="name,asc"&gt;Name A-Z&lt;/option&gt;<br>
+&nbsp;&nbsp;&lt;option value="name,desc"&gt;Name Z-A&lt;/option&gt;<br>
+&nbsp;&nbsp;<span class="highlight">&lt;option value="bestRetailPrice,asc"&gt;Price Low-High&lt;/option&gt;</span><br>
+&nbsp;&nbsp;<span class="highlight">&lt;option value="bestRetailPrice,desc"&gt;Price High-Low&lt;/option&gt;</span><br>
+&nbsp;&nbsp;&lt;option value="id,desc"&gt;Newest&lt;/option&gt;<br>
+&nbsp;&nbsp;&lt;option value="createdAt,desc"&gt;Recently Added&lt;/option&gt;<br>
+&lt;/select&gt;
+            </div>
+            
+            <h3 style="margin: 20px 0 10px 0; color: #2B2D42;">JavaScript event handler:</h3>
+            <div class="code-block">
+$('#sort-select').on('change', function () {<br>
+&nbsp;&nbsp;state.sort = $(this).val();&nbsp;&nbsp;<span class="highlight">// npr. "bestRetailPrice,asc"</span><br>
+&nbsp;&nbsp;state.page = 0;&nbsp;&nbsp;<span class="highlight">// resetuj na prvu stranicu</span><br>
+&nbsp;&nbsp;loadProducts();&nbsp;&nbsp;<span class="highlight">// učitaj proizvode sa novim sortiranjem</span><br>
+});
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Primer sortiranja</h2>
+            
+            <div style="display: flex; gap: 30px; margin-top: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <h3 style="color: #4caf50; margin-bottom: 15px;">💰 Price Low-High</h3>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong>Miš Logitech M185</strong><br>
+                        <span style="color: #D10024; font-size: 20px; font-weight: bold;">1,299 RSD</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong>Tastatura Genius KB-125</strong><br>
+                        <span style="color: #D10024; font-size: 20px; font-weight: bold;">2,499 RSD</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px;">
+                        <strong>Monitor Samsung 24"</strong><br>
+                        <span style="color: #D10024; font-size: 20px; font-weight: bold;">19,999 RSD</span>
+                    </div>
+                </div>
+                
+                <div style="flex: 1; min-width: 250px;">
+                    <h3 style="color: #764ba2; margin-bottom: 15px;">💎 Price High-Low</h3>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong>Monitor Samsung 24"</strong><br>
+                        <span style="color: #D10024; font-size: 20px; font-weight: bold;">19,999 RSD</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong>Tastatura Genius KB-125</strong><br>
+                        <span style="color: #D10024; font-size: 20px; font-weight: bold;">2,499 RSD</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px;">
+                        <strong>Miš Logitech M185</strong><br>
+                        <span style="color: #D10024; font-size: 20px; font-weight: bold;">1,299 RSD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 8px;">
+            <strong style="color: #1976d2;">ℹ️ Napomena:</strong><br>
+            <p style="margin-top: 10px; color: #555; line-height: 1.6;">
+                Sortiranje po ceni koristi <code style="background: #ccc; padding: 2px 6px; border-radius: 3px;">bestRetailPrice</code> polje koje sadrži jednu reprezentativnu cenu za svaki proizvod. Ovo obezbeđuje konzistentno korisničko iskustvo bez konfuzije oko više cena.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -7,7 +7,7 @@
     var Cart = window.OptimusCart;
 
     function renderOrderSummary() {
-        Cart.loadDetails(function(cartItems) {
+        Cart.recalculate(function(cartItems) {
             if (cartItems.length === 0) {
                 $('.order-details').html([
                     '<div class="text-center" style="padding:40px;">',
@@ -21,13 +21,13 @@
             }
 
             var productsHtml = cartItems.map(function(item) {
-                var price = item.product.bestRetailPrice || item.product.bestB2bPrice || 0;
+                var price = item.product.bestRetailPrice || 0;
                 var subtotal = price * item.quantity;
                 
                 return [
                     '<div class="order-col">',
                     '  <div>' + item.quantity + 'x ' + item.product.name + '</div>',
-                    '  <div>$' + subtotal.toFixed(2) + '</div>',
+                    '  <div>' + formatPrice(subtotal) + '</div>',
                     '</div>'
                 ].join('');
             }).join('');
@@ -52,7 +52,7 @@
                 '  </div>',
                 '  <div class="order-col">',
                 '    <div><strong>TOTAL</strong></div>',
-                '    <div><strong class="order-total">$' + total.toFixed(2) + '</strong></div>',
+                '    <div><strong class="order-total">' + formatPrice(total) + '</strong></div>',
                 '  </div>',
                 '</div>',
                 '<div class="payment-method">',

@@ -12,10 +12,6 @@
             console.error('Category filter element not found');
             return;
         }
-        
-        console.log('Building GoD category filter...');
-        console.log('Filter element:', $filter);
-        console.log('API_BASE:', API_BASE);
 
         // Load both GoD categories and full category tree
         $.when(
@@ -24,9 +20,6 @@
         ).done(function(godResponse, categoriesResponse) {
             var godCategories = godResponse[0];
             var allCategories = categoriesResponse[0];
-            
-            console.log('GoD Categories loaded:', godCategories.length, godCategories);
-            console.log('All Categories loaded:', allCategories.length, allCategories);
             
             // Build category lookup map
             var categoryMap = {};
@@ -131,9 +124,6 @@
                 
                 $modernFilter.append($list);
                 $filter.append($modernFilter);
-                
-                console.log('GoD category filter rendered successfully!');
-                console.log('Total GoD items appended:', godCategories.length);
                 
                 // Event handlers
                 
@@ -297,7 +287,6 @@
     $(document).ready(function() {
         var $filter = $('#category-filter');
         if ($filter.length && $filter.hasClass('god-enabled')) {
-            console.log('Initializing GoD category filter');
             buildGodCategoryFilter();
         }
     });

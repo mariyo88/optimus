@@ -99,32 +99,15 @@
     };
 
     function buildProductCard(p) {
-        var imgSrc = p.mainImageUrl ? p.mainImageUrl : './img/product01.png';
+        var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ENo image available%3C/text%3E%3C/svg%3E";
+        var imgSrc = p.mainImageUrl ? p.mainImageUrl : IMG_PLACEHOLDER;
         var labels = '';
         if (p.isNew) labels += '<span class="new">NEW</span>';
         
-        // Build price display with both B2B and Retail prices
+        // Build retail price display
         var priceHtml = '';
-        if (p.bestB2bPrice || p.bestRetailPrice) {
-            priceHtml = '<div class="product-price-container">';
-            
-            // B2B cena
-            if (p.bestB2bPrice) {
-                priceHtml += '<div class="price-row">';
-                priceHtml += '<span class="price-label">B2B:</span>';
-                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestB2bPrice).toFixed(2) + '</span>';
-                priceHtml += '</div>';
-            }
-            
-            // Retail cena
-            if (p.bestRetailPrice) {
-                priceHtml += '<div class="price-row">';
-                priceHtml += '<span class="price-label">Retail:</span>';
-                priceHtml += '<span class="product-price-value">' + parseFloat(p.bestRetailPrice).toFixed(2) + '</span>';
-                priceHtml += '</div>';
-            }
-            
-            priceHtml += '</div>';
+        if (p.bestRetailPrice) {
+            priceHtml = '<h3 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h3>';
         } else {
             priceHtml = '<span class="text-muted">N/A</span>';
         }
@@ -161,7 +144,6 @@
 
     function loadProducts(category, $container, slickConfig, sort) {
         sort = sort || 'createdAt,desc';
-        console.log('Loading products with params:', { category: category, size: 10, sort: sort });
         
         // Destroy slick before clearing content
         if ($container.hasClass('slick-initialized')) {
@@ -172,14 +154,11 @@
             url: API_BASE + '/api/products',
             data: { category: category, size: 10, sort: sort },
             success: function (data) {
-                console.log('Products response:', data);
                 var products = data.content || [];
                 if (products.length === 0) {
-                    console.log('No products found');
                     $container.html('<p class="text-center" style="padding:20px;">Nema proizvoda.</p>');
                     return;
                 }
-                console.log('Rendering', products.length, 'products');
                 $container.html(products.map(buildProductCard).join(''));
                 
                 // Adjust slick config based on number of products
@@ -197,7 +176,6 @@
 
     function buildTabNav(tabs, $nav, $container, slickConfig, sort) {
         $nav.empty();
-        console.log('Building tab nav with tabs:', tabs);
         $.each(tabs, function (i, tab) {
             var $li = $('<li>');
             if (i === 0) $li.addClass('active');
@@ -211,13 +189,11 @@
             $nav.find('li').removeClass('active');
             $(this).parent().addClass('active');
             var category = $(this).data('category');
-            console.log('Loading products for category:', category);
             loadProducts(category, $container, slickConfig, sort);
         });
 
         // Load initial products if tabs exist
         if (tabs.length > 0) {
-            console.log('Loading initial products for category:', tabs[0].category);
             loadProducts(tabs[0].category, $container, slickConfig, sort);
         } else {
             console.warn('No tabs available for:', $nav.attr('id'));
@@ -227,14 +203,12 @@
     $(document).ready(function () {
         if ($('#new-products-slick').length) {
             loadNewProductsCategories(function() {
-                console.log('New products categories loaded, NEW_TABS:', NEW_TABS);
                 buildTabNav(NEW_TABS, $('#new-products-tab-nav'), $('#new-products-slick'), SLICK_CONFIG_NEW, 'createdAt,desc');
             });
         }
 
         if ($('#top-selling-slick').length) {
             loadTopSellingCategories(function() {
-                console.log('Top selling categories loaded, TOP_TABS:', TOP_TABS);
                 buildTabNav(TOP_TABS, $('#top-selling-tab-nav'), $('#top-selling-slick'), SLICK_CONFIG_TOP, 'createdAt,desc');
             });
         }

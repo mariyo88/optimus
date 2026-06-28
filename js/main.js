@@ -1,3 +1,9 @@
+// Global price formatting function
+function formatPrice(val) {
+	if (val == null) return '—';
+	return Number(val).toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' RSD';
+}
+
 (function($) {
 	"use strict"
 
@@ -140,10 +146,8 @@
 
 	function updatePriceSlider(elem , value) {
 		if ( elem.hasClass('price-min') ) {
-			console.log('min')
 			priceSlider.noUiSlider.set([value, null]);
 		} else if ( elem.hasClass('price-max')) {
-			console.log('max')
 			priceSlider.noUiSlider.set([null, value]);
 		}
 	}

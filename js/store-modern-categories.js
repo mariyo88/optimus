@@ -58,13 +58,10 @@
             console.error('Category filter element not found');
             return;
         }
-        
-        console.log('Building modern category filter...');
 
         $.ajax({
             url: API_BASE + '/api/categories/public',
             success: function (categories) {
-                console.log('Categories loaded:', categories.length);
                 $filter.empty();
                 
                 // Add modern category filter structure
@@ -125,8 +122,6 @@
                 
                 $modernFilter.append($list);
                 $filter.append($modernFilter);
-                
-                console.log('Modern category filter rendered');
                 
                 // Event handlers
                 
@@ -217,7 +212,6 @@
     $(document).ready(function() {
         var $filter = $('#category-filter');
         if ($filter.length && $filter.hasClass('modern-enabled')) {
-            console.log('Initializing modern category filter');
             buildModernCategoryFilter();
         }
     });

@@ -23,6 +23,13 @@
 
  		<!-- Font Awesome Icon -->
  		<link rel="stylesheet" href="css/font-awesome.min.css">
+ 		
+		<!-- Favicon -->
+		<link rel="icon" type="image/x-icon" href="favicon.ico">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+		<link rel="manifest" href="site.webmanifest">
 
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/style.css"/>
@@ -94,7 +101,6 @@
 									<a href="#">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
-										<div class="qty">2</div>
 									</a>
 								</div>
 								<!-- /Wishlist -->
@@ -173,10 +179,6 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#">Hot Deals</a></li>
 						<li><a href="#">Categories</a></li>
-						<li><a href="#">Laptops</a></li>
-						<li><a href="#">Smartphones</a></li>
-						<li><a href="#">Cameras</a></li>
-						<li><a href="#">Accessories</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -188,21 +190,17 @@
 
 		<!-- BREADCRUMB -->
 		<div id="breadcrumb" class="section">
-			<!-- container -->
 			<div class="container">
-				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="breadcrumb-header">Checkout</h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
+							<li><a href="index.html">Home</a></li>
 							<li class="active">Checkout</li>
 						</ul>
 					</div>
 				</div>
-				<!-- /row -->
 			</div>
-			<!-- /container -->
 		</div>
 		<!-- /BREADCRUMB -->
 
@@ -385,33 +383,18 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- NEWSLETTER -->
-		<div id="newsletter" class="section">
+		<!-- BRANDS CAROUSEL -->
+		<div id="brands-section" class="section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="newsletter">
-							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-							<form>
-								<input class="input" type="email" placeholder="Enter Your Email">
-								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-							</form>
-							<ul class="newsletter-follow">
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-pinterest"></i></a>
-								</li>
-							</ul>
+						<div class="section-title">
+							<h3 class="title">Naši brendovi</h3>
+						</div>
+						<div class="brands-carousel" id="brands-carousel-container">
+							<!-- Brands will be loaded dynamically via AJAX -->
 						</div>
 					</div>
 				</div>
@@ -419,7 +402,7 @@
 			</div>
 			<!-- /container -->
 		</div>
-		<!-- /NEWSLETTER -->
+		<!-- /BRANDS CAROUSEL -->
 
 		<!-- FOOTER -->
 		<footer id="footer">
@@ -447,9 +430,6 @@
 								<ul class="footer-links">
 									<li><a href="#">Hot deals</a></li>
 									<li><a href="#">Laptops</a></li>
-									<li><a href="#">Smartphones</a></li>
-									<li><a href="#">Cameras</a></li>
-									<li><a href="#">Accessories</a></li>
 								</ul>
 							</div>
 						</div>
@@ -526,6 +506,7 @@
 		<script src="js/main-nav.js"></script>
 		<script src="js/cart.js"></script>
 		<script src="js/checkout.js"></script>
+		<script src="js/brands-carousel.js"></script>
 
 	</body>
 </html>

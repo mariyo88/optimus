@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Test - Fixed</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        button { padding: 8px 15px; margin: 5px; cursor: pointer; }
+        #log { background: #f5f5f5; padding: 10px; margin-top: 20px; max-height: 400px; overflow-y: auto; font-size: 12px; }
+        .log-entry { margin: 3px 0; }
+        .log-info { color: blue; }
+        .log-warn { color: orange; }
+        .log-error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Cart API Test - Fix Verification</h1>
+    
+    <div class="test-section">
+        <h3>Test Controls</h3>
+        <button onclick="addTestProduct()">Add Test Product to Cart</button>
+        <button onclick="testRecalculate()">Test Recalculate (should make 1 call per product)</button>
+        <button onclick="testLoadDetails()">Test LoadDetails</button>
+        <button onclick="clearCart()">Clear Cart</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Cart State</h3>
+        <div id="cart-state">Loading...</div>
+    </div>
+
+    <div class="test-section">
+        <h3>API Call Log</h3>
+        <div id="log"></div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        // Intercept AJAX calls for logging
+        var originalAjax = $.ajax;
+        var ajaxCallCount = {};
+        
+        $.ajax = function(options) {
+            var url = options.url;
+            log('info', 'API Call: ' + url);
+            
+            // Count calls
+            ajaxCallCount[url] = (ajaxCallCount[url] || 0) + 1;
+            if (ajaxCallCount[url] > 1) {
+                log('warn', 'DUPLICATE call #' + ajaxCallCount[url] + ' to: ' + url);
+            }
+            
+            var originalSuccess = options.success;
+            options.success = function(data) {
+                log('info', 'API Success: ' + url);
+                if (originalSuccess) originalSuccess(data);
+            };
+            
+            var originalError = options.error;
+            options.error = function(xhr, status, error) {
+                log('error', 'API Error: ' + url + ' - ' + error);
+                if (originalError) originalError(xhr, status, error);
+            };
+            
+            return originalAjax.call(this, options);
+        };
+
+        function log(type, message) {
+            var $log = $('#log');
+            var timestamp = new Date().toLocaleTimeString();
+            $log.append('<div class="log-entry log-' + type + '">[' + timestamp + '] ' + message + '</div>');
+            $log.scrollTop($log[0].scrollHeight);
+        }
+
+        function clearLog() {
+            $('#log').empty();
+            ajaxCallCount = {};
+            log('info', 'Log cleared');
+        }
+
+        function updateCartState() {
+            var cart = localStorage.getItem('optimus_cart');
+            var cartData = cart ? JSON.parse(cart) : [];
+            $('#cart-state').html('<pre>' + JSON.stringify(cartData, null, 2) + '</pre>');
+        }
+
+        function addTestProduct() {
+            log('info', '=== Adding test product to cart ===');
+            // Add a known product ID
+            var testCart = [
+                { productId: 854, productSlug: "10-100-1000-5-port-reyee-rg-es205gc-l2-upravljiv-cloud-svic", quantity: 1, addedAt: new Date().toISOString() }
+            ];
+            localStorage.setItem('optimus_cart', JSON.stringify(testCart));
+            updateCartState();
+            log('info', 'Test product added to cart');
+        }
+
+        function testRecalculate() {
+            log('info', '=== Testing Cart.recalculate() ===');
+            ajaxCallCount = {};
+            
+            if (typeof window.OptimusCart === 'undefined') {
+                log('error', 'OptimusCart not loaded yet, loading cart.js...');
+                $.getScript('js/cart.js', function() {
+                    log('info', 'cart.js loaded, retrying...');
+                    testRecalculate();
+                });
+                return;
+            }
+            
+            window.OptimusCart.recalculate(function(cartItems) {
+                log('info', 'Recalculate complete, items received: ' + cartItems.length);
+                cartItems.forEach(function(item) {
+                    log('info', 'Product: ' + item.product.name + ' | Price: ' + (item.product.bestRetailPrice || 'N/A'));
+                });
+                
+                // Show call counts
+                var callSummary = Object.keys(ajaxCallCount).map(function(url) {
+                    return url + ' (' + ajaxCallCount[url] + ' calls)';
+                }).join('<br>');
+                log('info', '=== Call Summary ===<br>' + callSummary);
+            });
+        }
+
+        function testLoadDetails() {
+            log('info', '=== Testing Cart.loadDetails() ===');
+            ajaxCallCount = {};
+            
+            if (typeof window.OptimusCart === 'undefined') {
+                log('error', 'OptimusCart not loaded yet');
+                return;
+            }
+            
+            window.OptimusCart.loadDetails(function(cartItems) {
+                log('info', 'LoadDetails complete, items received: ' + cartItems.length);
+                cartItems.forEach(function(item) {
+                    log('info', 'Product: ' + item.product.name + ' | Price: ' + (item.product.bestRetailPrice || 'N/A'));
+                });
+            });
+        }
+
+        function clearCart() {
+            localStorage.removeItem('optimus_cart');
+            updateCartState();
+            log('info', 'Cart cleared');
+        }
+
+        // Load cart.js
+        $.getScript('js/cart.js', function() {
+            log('info', 'cart.js loaded successfully');
+            updateCartState();
+        });
+    </script>
+</body>
+</html>

@@ -15,15 +15,12 @@
         $.ajax({
             url: API_BASE + '/api/categories',
             success: function (categories) {
-                console.log('Categories loaded:', categories);
                 
                 // Flatten all categories and filter those marked to show in nav
                 var allCats = flattenCategories(categories);
                 var visibleCategories = allCats.filter(function (cat) {
                     return cat.showInNav === true || (cat.showInNav === undefined);
                 });
-
-                console.log('Categories to display:', visibleCategories);
 
                 // Build navigation items
                 var navHtml = '<li class="active"><a href="index.html">Home</a></li>' +
@@ -43,7 +40,7 @@
                 updateFooterNav(visibleCategories);
             },
             error: function () {
-                console.log('Could not load categories for navigation');
+                // Could not load categories for navigation
             }
         });
     }

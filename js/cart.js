@@ -33,6 +33,7 @@
 
         // Add item to cart
         add: function(productId, quantity, productSlug) {
+            var self = this;
             quantity = quantity || 1;
             var cart = this.get();
             
@@ -42,23 +43,41 @@
             if (existingItem) {
                 existingItem.quantity += quantity;
             } else {
+                // Get the highest order number and increment
+                var maxOrderNumber = cart.reduce(function(max, item) {
+                    return Math.max(max, item.orderNumber || 0);
+                }, 0);
+                
                 cart.push({
                     productId: productId,
                     productSlug: productSlug || null,
                     quantity: quantity,
-                    addedAt: new Date().toISOString()
+                    addedAt: new Date().toISOString(),
+                    orderNumber: maxOrderNumber + 1
                 });
             }
             
             this.save(cart);
             this.showNotification('Proizvod dodat u korpu');
+            
+            // Recalculate cart to get latest product data
+            setTimeout(function() {
+                self.recalculate();
+            }, 100);
         },
 
         // Remove item from cart
         remove: function(productId) {
             var cart = this.get();
-            cart = cart.filter(function(item) { return item.productId !== productId; });
-            this.save(cart);
+            var initialLength = cart.length;
+            
+            cart = cart.filter(function(item) { 
+                return item.productId !== productId; 
+            });
+            
+            if (initialLength !== cart.length) {
+                this.save(cart);
+            }
         },
 
         // Update item quantity
@@ -95,8 +114,7 @@
                 callback([]);
                 return;
             }
-
-            // Load products by slug (backend uses slug for product lookup)
+            
             var loadedCount = 0;
             var cartItems = [];
             
@@ -111,7 +129,8 @@
                         cartItems.push({
                             product: product,
                             quantity: cartItem.quantity,
-                            addedAt: cartItem.addedAt
+                            addedAt: cartItem.addedAt,
+                            orderNumber: cartItem.orderNumber || 0
                         });
                     },
                     error: function() {
@@ -120,6 +139,10 @@
                     complete: function() {
                         loadedCount++;
                         if (loadedCount === cart.length) {
+                            // Sort by order number before returning
+                            cartItems.sort(function(a, b) {
+                                return (a.orderNumber || 0) - (b.orderNumber || 0);
+                            });
                             callback(cartItems);
                         }
                     }
@@ -128,24 +151,82 @@
         },
 
         // Calculate cart total
-        calculateTotal: function(cartItems, priceType) {
-            priceType = priceType || 'retail'; // 'retail' or 'b2b'
-            
+        calculateTotal: function(cartItems) {
             return cartItems.reduce(function(total, item) {
                 var price = 0;
-                if (priceType === 'b2b' && item.product.bestB2bPrice) {
-                    price = parseFloat(item.product.bestB2bPrice);
-                } else if (item.product.bestRetailPrice) {
+                if (item.product.bestRetailPrice) {
                     price = parseFloat(item.product.bestRetailPrice);
                 }
                 return total + (price * item.quantity);
             }, 0);
         },
 
+        // Recalculate cart - refresh product data from server
+        recalculate: function(callback) {
+            var self = this;
+            var cart = this.get();
+            
+            if (cart.length === 0) {
+                if (callback) callback([]);
+                return;
+            }
+            
+            var loadedCount = 0;
+            var cartItemsWithProducts = [];
+            var hasChanges = false;
+            
+            cart.forEach(function(cartItem) {
+                var identifier = cartItem.productSlug || cartItem.productId;
+                
+                $.ajax({
+                    url: API_BASE + '/api/products/' + identifier,
+                    method: 'GET',
+                    success: function(product) {
+                        // Store full product details for callback
+                        cartItemsWithProducts.push({
+                            product: product,
+                            quantity: cartItem.quantity,
+                            addedAt: cartItem.addedAt,
+                            orderNumber: cartItem.orderNumber || 0
+                        });
+                        
+                        // Check if product data changed
+                        if (!cartItem._cached || 
+                            cartItem.productSlug !== product.slug) {
+                            hasChanges = true;
+                        }
+                    },
+                    error: function() {
+                        // Product not found or error - keep item but mark as unavailable
+                        console.warn('Product not found during recalculation:', identifier);
+                        hasChanges = true;
+                    },
+                    complete: function() {
+                        loadedCount++;
+                        
+                        if (loadedCount === cart.length) {
+                            // Sort by order number before callback
+                            cartItemsWithProducts.sort(function(a, b) {
+                                return (a.orderNumber || 0) - (b.orderNumber || 0);
+                            });
+                            
+                            // All products loaded
+                            self.updateUI();
+                            
+                            if (callback) {
+                                callback(cartItemsWithProducts);
+                            }
+                        }
+                    }
+                });
+            });
+        },
+
         // Update cart UI in header
         updateUI: function() {
             var count = this.getCount();
-            $('.header-ctn .qty').text(count);
+            // Update only cart badge, not wishlist badge
+            $('.header-ctn .dropdown .qty').text(count);
             
             // Update cart dropdown
             this.updateDropdown();
@@ -158,7 +239,33 @@
                 var $cartList = $('.cart-dropdown .cart-list');
                 
                 if (cartItems.length === 0) {
-                    $cartList.html('<p style="padding:20px;text-align:center;color:#999;">Korpa je prazna</p>');
+                    $cartList.html(`
+                        <div style="
+                            padding: 50px 20px;
+                            text-align: center;
+                        ">
+                            <div style="
+                                width: 70px;
+                                height: 70px;
+                                margin: 0 auto 20px;
+                                background: #f8f9fa;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            ">
+                                <i class="fa fa-shopping-cart" style="
+                                    font-size: 32px;
+                                    color: #ccc;
+                                "></i>
+                            </div>
+                            <p style="
+                                color: #999;
+                                font-size: 14px;
+                                margin: 0;
+                            ">Korpa je prazna</p>
+                        </div>
+                    `);
                     $('.cart-summary').hide();
                     $('.cart-btns').hide();
                     return;
@@ -171,7 +278,7 @@
                 
                 var html = cartItems.map(function(item) {
                     var imgSrc = item.product.mainImageUrl || IMG_PLACEHOLDER;
-                    var price = item.product.bestRetailPrice || item.product.bestB2bPrice || 0;
+                    var price = item.product.bestRetailPrice || 0;
                     
                     return [
                         '<div class="product-widget" data-product-id="' + item.product.id + '">',
@@ -180,9 +287,9 @@
                         '  </div>',
                         '  <div class="product-body">',
                         '    <h3 class="product-name"><a href="product.html?slug=' + item.product.slug + '">' + item.product.name + '</a></h3>',
-                        '    <h4 class="product-price"><span class="qty">' + item.quantity + 'x</span>$' + parseFloat(price).toFixed(2) + '</h4>',
+                        '    <h4 class="product-price"><span class="qty">' + item.quantity + 'x</span>' + formatPrice(price) + '</h4>',
                         '  </div>',
-                        '  <button class="delete" data-product-id="' + item.product.id + '"><i class="fa fa-close"></i></button>',
+                        '  <button class="delete" data-product-id="' + item.product.id + '" onclick="window.OptimusCart.remove(' + item.product.id + '); return false;"><i class="fa fa-close"></i></button>',
                         '</div>'
                     ].join('');
                 }).join('');
@@ -190,9 +297,9 @@
                 $cartList.html(html);
                 
                 // Update totals
-                var total = self.calculateTotal(cartItems, 'retail');
+                var total = self.calculateTotal(cartItems);
                 $('.cart-summary small').text(cartItems.length + ' Item(s) selected');
-                $('.cart-summary h5').text('SUBTOTAL: $' + total.toFixed(2));
+                $('.cart-summary h5').text('SUBTOTAL: ' + formatPrice(total));
             });
         },
 
@@ -244,12 +351,16 @@
             Cart.add(productId, quantity, productSlug);
         });
 
-        // Remove from cart (in dropdown)
+        // Remove from cart (in dropdown) - kept for backward compatibility
         $(document).on('click', '.cart-dropdown .delete', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var productId = parseInt($(this).data('product-id'));
-            Cart.remove(productId);
+            
+            var productId = parseInt($(this).attr('data-product-id'));
+            
+            if (productId && !isNaN(productId)) {
+                Cart.remove(productId);
+            }
         });
 
         // Prevent dropdown from closing when clicking inside
