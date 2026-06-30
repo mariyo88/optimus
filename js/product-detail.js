@@ -13,25 +13,10 @@
     }
 
     function getBestPrices(product) {
-        if (!product.supplierProducts || product.supplierProducts.length === 0) {
-            return { retailPrice: null, inStock: false };
-        }
-        
-        var suppliers = product.supplierProducts.filter(sp => sp.active === true);
-        if (suppliers.length === 0) {
-            return { retailPrice: null, inStock: false };
-        }
-
-        var bestRetailPrice = null;
-
-        suppliers.forEach(function (sp) {
-            if (sp.retailPrice && (!bestRetailPrice || sp.retailPrice < bestRetailPrice)) {
-                bestRetailPrice = sp.retailPrice;
-            }
-        });
-
-        var inStock = suppliers.some(sp => sp.inStock === true);
-        return { retailPrice: bestRetailPrice, inStock: inStock };
+        return {
+            retailPrice: product.bestRetailPrice || null,
+            inStock: (product.stock != null && product.stock > 0)
+        };
     }
 
     function renderStockStatus(product) {
@@ -159,7 +144,7 @@
     }
 
     function renderImages(product) {
-        var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Crect width='600' height='600' fill='%23eff2f6'/%3E%3Cpath d='M150 420l150-210 180 210' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='225' cy='150' r='45' fill='%23cbd0dd'/%3E%3Ctext x='300' y='570' font-family='Arial' font-size='24' fill='%23999' text-anchor='middle'%3ENo image available%3C/text%3E%3C/svg%3E";
+        var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Crect width='600' height='600' fill='%23eff2f6'/%3E%3Cpath d='M150 420l150-210 180 210' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='225' cy='150' r='45' fill='%23cbd0dd'/%3E%3Ctext x='300' y='570' font-family='Arial' font-size='24' fill='%23999' text-anchor='middle'%3ESlika nije dostupna%3C/text%3E%3C/svg%3E";
         var images = product.images && product.images.length > 0
             ? product.images
             : [{ imageUrl: IMG_PLACEHOLDER, isMain: true }];
@@ -253,7 +238,7 @@
     }
 
     function buildRelatedProductCard(p) {
-        var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ENo image available%3C/text%3E%3C/svg%3E";
+        var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ESlika nije dostupna%3C/text%3E%3C/svg%3E";
         var imgSrc   = p.mainImageUrl ? p.mainImageUrl : IMG_PLACEHOLDER;
         var labels   = '';
         if (p.isNew) labels += '<span class="new">NEW</span>';

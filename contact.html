@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="sr">
 <head>
 	<meta charset="utf-8">
@@ -148,16 +148,59 @@
 			font-weight: 600;
 			margin-bottom: 10px;
 		}
-		.map-container {
-			margin-top: 50px;
-			border-radius: 5px;
-			overflow: hidden;
-			box-shadow: 0 0 15px rgba(0,0,0,0.1);
+		.map-section {
+			margin-top: 60px;
 		}
-		.map-container iframe {
+		.map-section-title {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		.map-section-title h3 {
+			font-size: 24px;
+			font-weight: 700;
+			color: #2B2D42;
+			margin-bottom: 8px;
+		}
+		.map-section-title p {
+			color: #777;
+			font-size: 14px;
+		}
+		.map-wrapper {
+			position: relative;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+			border: 3px solid #fff;
+		}
+		.map-wrapper iframe {
 			width: 100%;
-			height: 450px;
+			height: 500px;
 			border: 0;
+			display: block;
+		}
+		.map-open-btn {
+			display: inline-block;
+			margin-top: 16px;
+			background: #D10024;
+			color: #fff;
+			padding: 10px 24px;
+			border-radius: 3px;
+			font-size: 14px;
+			font-weight: 600;
+			text-decoration: none;
+			transition: background 0.3s;
+		}
+		.map-open-btn:hover {
+			background: #a00a1f;
+			color: #fff;
+			text-decoration: none;
+		}
+		.map-open-btn i {
+			margin-right: 7px;
+		}
+		.map-cta {
+			text-align: center;
+			margin-top: 20px;
 		}
 	</style>
 </head>
@@ -168,8 +211,8 @@
 		<div id="top-header">
 			<div class="container">
 				<ul class="header-links pull-left">
-					<li><a href="tel:+38163-85-58-708"><i class="fa fa-phone"></i> +38163-85-58-708</a></li>
-					<li><a href="mailto:mariyo88vp@gmail.com"><i class="fa fa-envelope-o"></i> mariyo88vp@gmail.com</a></li>
+					<li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
+					<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
 					<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
 				</ul>
 				<ul class="header-links pull-right">
@@ -342,7 +385,7 @@
 							<i class="fa fa-phone"></i>
 							<div>
 								<strong>Telefon</strong>
-								<p><a href="tel:+381632431 23">+381 (0)63 243123</a></p>
+								<p><a href="tel:+38163243123">+381 (0)63 243123</a></p>
 							</div>
 						</div>
 						<div class="contact-info-item">
@@ -370,7 +413,7 @@
 							<i class="fa fa-phone"></i>
 							<div>
 								<strong>Telefon</strong>
-								<p><a href="tel:+38163-85-58-708">+381 63-85-58-708</a></p>
+								<p><a href="tel:+38163243123">+381 (0)63 243123</a></p>
 							</div>
 						</div>
 						<div class="contact-info-item">
@@ -431,15 +474,25 @@
 			</div>
 
 			<!-- Map -->
-			<div class="row">
+			<div class="row map-section">
 				<div class="col-md-12">
-					<div class="map-container">
+					<div class="map-section-title">
+						<h3><i class="fa fa-map-marker" style="color:#D10024; margin-right:8px;"></i>Pronađite nas</h3>
+						<p>Momira Gajića 38, 11320 Velika Plana, Srbija</p>
+					</div>
+					<div class="map-wrapper">
 						<iframe 
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.5!2d21.1084!3d44.3397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDTCsDIwJzIzLjAiTiAyMcKwMDYnMzAuMiJF!5e0!3m2!1ssr!2srs!4v1234567890" 
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2853.8032086626954!2d21.072270499999995!3d44.3345486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4750d11ad8533d1f%3A0x21080ad3413149bc!2sOptimus%20Systems%20Djuric%20centar!5e0!3m2!1sen!2srs!4v1782833885842!5m2!1sen!2srs" 
 							allowfullscreen="" 
 							loading="lazy" 
-							referrerpolicy="no-referrer-when-downgrade">
+							referrerpolicy="strict-origin-when-cross-origin"
+							title="Optimus Systems lokacija">
 						</iframe>
+					</div>
+					<div class="map-cta">
+						<a href="https://maps.google.com/?q=Optimus+Systems+Djuric+centar,+Momira+Gajića+38,+Velika+Plana" target="_blank" class="map-open-btn">
+							<i class="fa fa-external-link"></i> Otvori u Google Maps
+						</a>
 					</div>
 				</div>
 			</div>
@@ -475,8 +528,8 @@
 							<p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
 							<ul class="footer-links">
 								<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
-								<li><a href="tel:+38163-85-58-708"><i class="fa fa-phone"></i>+38163-85-58-708</a></li>
-								<li><a href="mailto:mariyo88vp@gmail.com"><i class="fa fa-envelope-o"></i>mariyo88vp@gmail.com</a></li>
+								<li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
+								<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
 							</ul>
 						</div>
 					</div>
