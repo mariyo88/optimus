@@ -13,7 +13,9 @@
         page:     parseInt(getParam('page') || '0', 10),
         size:     21,  // 3x7 grid (3 columns x 7 rows)
         sort:     'name,asc',
-        viewMode: 'grid' // 'grid' or 'list'
+        viewMode: 'grid', // 'grid' or 'list'
+        minPrice: null,
+        maxPrice: null
     };
     
     // Expose state globally for modern category filter
@@ -77,20 +79,20 @@
         }
         
         var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
-        var inStockBadge = !p.inStock ? '<div class="out-of-stock">Out of Stock</div>' : '';
+        var inStockBadge = !p.inStock ? '<div class="out-of-stock-overlay">Nema na stanju</div>' : '';
 
         return [
             '<div class="col-md-4 col-xs-6">',
-            '  <div class="product">',
+            '  <div class="product' + (p.inStock ? '' : ' product-unavailable') + '">',
             '    <div class="product-img">',
             '      <img src="' + imgSrc + '" alt="' + p.name + '" onerror="this.src=\'' + IMG_PLACEHOLDER + '\'">',
             '      <div class="product-label">' + labels + '</div>',
+            '      ' + inStockBadge,
             '    </div>',
             '    <div class="product-body">',
             '      <p class="product-category">' + (p.brandName || '') + '</p>',
             '      <h3 class="product-name"><a href="product.html?slug=' + p.slug + '">' + p.name + '</a></h3>',
             '      <h4 class="product-price">' + priceHtml + '</h4>',
-            '      ' + inStockBadge,
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
             '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>',
@@ -327,6 +329,8 @@
                 category: state.category || undefined,
                 brand:    state.brand    || undefined,
                 search:   state.search   || undefined,
+                minPrice: state.minPrice != null ? state.minPrice : undefined,
+                maxPrice: state.maxPrice != null ? state.maxPrice : undefined,
                 page:     state.page,
                 size:     state.size,
                 sort:     state.sort

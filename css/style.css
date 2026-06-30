@@ -2442,6 +2442,33 @@ textarea.input {
   font-weight: 600;
 }
 
+/* Out of stock overlay — positioned over image, no impact on card height */
+.product .out-of-stock-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  text-align: center;
+  padding: 6px 0;
+  pointer-events: none;
+}
+
+/* Slightly fade the image for unavailable products */
+.product.product-unavailable .product-img img {
+  opacity: 0.6;
+}
+
+/* Ensure product-img has relative positioning for overlay */
+.product .product-img {
+  position: relative;
+}
+
 .product .add-to-cart-btn.out-of-stock-disabled {
   background-color: #ccc;
   color: #666;

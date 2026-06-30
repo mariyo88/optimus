@@ -40,6 +40,9 @@
  		<!-- Modern Brand Filter stylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/brand-modern.css"/>
 
+ 		<!-- Modern Price Filter stylesheet -->
+ 		<link type="text/css" rel="stylesheet" href="css/price-modern.css"/>
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -245,22 +248,10 @@
 						</div>
 						<!-- /aside Widget -->
 
-						<!-- aside Widget -->
+						<!-- aside Widget - Modern Price Filter -->
 						<div class="aside">
-							<h3 class="aside-title">Price</h3>
-							<div class="price-filter">
-								<div id="price-slider"></div>
-								<div class="input-number price-min">
-									<input id="price-min" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-								<span>-</span>
-								<div class="input-number price-max">
-									<input id="price-max" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
+							<div id="price-filter-modern">
+								<!-- dynamically populated by store-modern-price.js -->
 							</div>
 						</div>
 						<!-- /aside Widget -->
@@ -484,6 +475,9 @@
 		
 		<!-- Modern Brand Filter -->
 		<script src="js/store-modern-brands.js"></script>
+		
+		<!-- Modern Price Filter -->
+		<script src="js/store-modern-price.js"></script>
 		
 		<script src="js/brands-carousel.js"></script>
 
