@@ -8,6 +8,7 @@
 
     var state = {
         category: getParam('category') || '',
+        brand:    getParam('brand')    || '',
         search:   getParam('search')   || '',
         page:     parseInt(getParam('page') || '0', 10),
         size:     21,  // 3x7 grid (3 columns x 7 rows)
@@ -324,6 +325,7 @@
             url: API_BASE + '/api/products',
             data: {
                 category: state.category || undefined,
+                brand:    state.brand    || undefined,
                 search:   state.search   || undefined,
                 page:     state.page,
                 size:     state.size,

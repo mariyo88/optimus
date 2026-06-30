@@ -135,8 +135,10 @@
                     
                     if (window.storePageState) {
                         window.storePageState.category = '';
+                        window.storePageState.brand = '';
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });
@@ -211,8 +213,10 @@
                         // Update state and reload products
                         if (window.storePageState) {
                             window.storePageState.category = slug;
+                            window.storePageState.brand = '';
                             window.storePageState.page = 0;
                             if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
+                            if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug);
                             if (window.loadStoreProducts) window.loadStoreProducts();
                         }
                     }
@@ -234,8 +238,10 @@
                     // Update state and reload products
                     if (window.storePageState) {
                         window.storePageState.category = slug;
+                        window.storePageState.brand = '';
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug);
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });
