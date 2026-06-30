@@ -298,8 +298,8 @@
                 
                 // Update totals
                 var total = self.calculateTotal(cartItems);
-                $('.cart-summary small').text(cartItems.length + ' Item(s) selected');
-                $('.cart-summary h5').text('SUBTOTAL: ' + formatPrice(total));
+                $('.cart-summary small').text(cartItems.length + ' stavki izabrano');
+                $('.cart-summary h5').text('MEĐUZBIR: ' + formatPrice(total));
             });
         },
 

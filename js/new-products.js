@@ -102,18 +102,18 @@
         var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ESlika nije dostupna%3C/text%3E%3C/svg%3E";
         var imgSrc = p.mainImageUrl ? p.mainImageUrl : IMG_PLACEHOLDER;
         var labels = '';
-        if (p.isNew) labels += '<span class="new">NEW</span>';
+        if (p.isNew) labels += '<span class="new">NOVO</span>';
         
         // Build retail price display
         var priceHtml = '';
         if (p.bestRetailPrice) {
             priceHtml = '<h3 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h3>';
         } else {
-            priceHtml = '<span class="text-muted">N/A</span>';
+            priceHtml = '<span class="text-muted">Nije dostupno</span>';
         }
         
         var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
-        var inStockBadge = !p.inStock ? '<span class="out-of-stock">Out of Stock</span>' : '';
+        var inStockBadge = !p.inStock ? '<span class="out-of-stock">Nema na stanju</span>' : '';
 
         return '<div class="product">' +
             '<div class="product-img">' +
@@ -127,13 +127,13 @@
             inStockBadge +
             '<div class="product-rating"></div>' +
             '<div class="product-btns">' +
-            '<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>' +
-            '<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>' +
-            '<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>' +
+            '<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">dodaj u listu želja</span></button>' +
+            '<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>' +
+            '<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>' +
             '</div>' +
             '</div>' +
             '<div class="add-to-cart">' +
-            '<button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> add to cart</button>' +
+            '<button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> dodaj u korpu</button>' +
             '</div>' +
             '</div>';
     }

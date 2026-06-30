@@ -23,14 +23,14 @@
                 });
 
                 // Build navigation items
-                var navHtml = '<li class="active"><a href="index.html">Home</a></li>' +
-                    '<li><a href="#">Hot Deals</a></li>' +
-                    '<li><a href="store-modern.html">Categories</a></li>';
+                var navHtml = '<li class="active"><a href="index.html">Početna</a></li>' +
+                    '<li><a href="#">Akcije</a></li>' +
+                    '<li><a href="store.html">Kategorije</a></li>';
 
                 visibleCategories.forEach(function (cat) {
                     // Koristi displayName ako postoji, inače fallback na name
                     var categoryName = cat.displayName || cat.name;
-                    navHtml += '<li><a href="store-modern.html?category=' + cat.slug + '">' + categoryName + '</a></li>';
+                    navHtml += '<li><a href="store.html?category=' + cat.slug + '">' + categoryName + '</a></li>';
                 });
 
                 // Update all navigation elements
@@ -61,12 +61,12 @@
     }
 
     function updateFooterNav(categories) {
-        var footerHtml = '<li><a href="#">Hot deals</a></li>';
+        var footerHtml = '<li><a href="#">Akcije</a></li>';
 
         categories.forEach(function (cat) {
             // Koristi displayName ako postoji, inače fallback na name
             var categoryName = cat.displayName || cat.name;
-            footerHtml += '<li><a href="store-modern.html?category=' + cat.slug + '">' + categoryName + '</a></li>';
+            footerHtml += '<li><a href="store.html?category=' + cat.slug + '">' + categoryName + '</a></li>';
         });
 
         // Update only the categories section in footer (2nd footer-links)

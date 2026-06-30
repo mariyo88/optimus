@@ -22,9 +22,9 @@
     function renderStockStatus(product) {
         var priceInfo = getBestPrices(product);
         if (priceInfo.inStock) {
-            return '<span class="product-available">In Stock</span>';
+            return '<span class="product-available">Na stanju</span>';
         }
-        return '<span class="product-available" style="color:#999;">Out of Stock</span>';
+        return '<span class="product-available" style="color:#999;">Nema na stanju</span>';
     }
 
     function renderPrice(product) {
@@ -32,7 +32,7 @@
         var retailPrice = priceInfo.retailPrice;
         
         if (!retailPrice) {
-            return '<h3 class="product-price"><span class="text-muted">Price Not Available</span></h3>';
+            return '<h3 class="product-price"><span class="text-muted">Cena nije dostupna</span></h3>';
         }
         
         var priceHtml = '<h3 class="product-price">';
@@ -59,12 +59,12 @@
         // Category links
         var $catLinks = $details.find('.product-links').first();
         $catLinks.empty();
-        $catLinks.append('<li>Category:</li>');
+        $catLinks.append('<li>Kategorija:</li>');
         if (product.category) {
             // Koristi displayName ako postoji, inače fallback na name
             var categoryName = product.category.displayName || product.category.name;
             $catLinks.append(
-                '<li><a href="store-modern.html?category=' + product.category.slug + '">' + categoryName + '</a></li>'
+                '<li><a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a></li>'
             );
         }
 
@@ -96,15 +96,15 @@
         if (features.length === 0) {
             // Use brand and category as fallback features
             if (product.brand && product.brand.name) {
-                features.push({ name: 'Brand', value: product.brand.name });
+                features.push({ name: 'Brend', value: product.brand.name });
             }
             if (product.category) {
                 // Koristi displayName ako postoji, inače fallback na name
                 var categoryName = product.category.displayName || product.category.name;
-                features.push({ name: 'Category', value: categoryName });
+                features.push({ name: 'Kategorija', value: categoryName });
             }
             if (product.inStock !== undefined) {
-                features.push({ name: 'Availability', value: product.inStock ? 'In Stock' : 'Out of Stock' });
+                features.push({ name: 'Dostupnost', value: product.inStock ? 'Na stanju' : 'Nema na stanju' });
             }
         }
 
@@ -136,7 +136,7 @@
             // Koristi displayName ako postoji, inače fallback na name
             var categoryName = product.category.displayName || product.category.name;
             var $categoryBreadcrumb = $('#breadcrumb-category');
-            $categoryBreadcrumb.html('<a href="store-modern.html?category=' + product.category.slug + '">' + categoryName + '</a>')
+            $categoryBreadcrumb.html('<a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a>')
                 .show();
         } else {
             $('#breadcrumb-category').hide();
@@ -241,18 +241,18 @@
         var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ESlika nije dostupna%3C/text%3E%3C/svg%3E";
         var imgSrc   = p.mainImageUrl ? p.mainImageUrl : IMG_PLACEHOLDER;
         var labels   = '';
-        if (p.isNew) labels += '<span class="new">NEW</span>';
+        if (p.isNew) labels += '<span class="new">NOVO</span>';
 
         // Price display
         var priceHtml = '';
         if (p.bestRetailPrice) {
             priceHtml = '<h4 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h4>';
         } else {
-            priceHtml = '<h4 class="product-price"><span class="text-muted">N/A</span></h4>';
+            priceHtml = '<h4 class="product-price"><span class="text-muted">Nije dostupno</span></h4>';
         }
 
         var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
-        var inStockBadge = !p.inStock ? '<div class="out-of-stock">Out of Stock</div>' : '';
+        var inStockBadge = !p.inStock ? '<div class="out-of-stock">Nema na stanju</div>' : '';
 
         return [
             '<div class="col-md-3 col-xs-6">',
@@ -268,13 +268,13 @@
             '      ' + inStockBadge,
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
-            '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>',
-            '        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>',
-            '        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>',
+            '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">dodaj u listu želja</span></button>',
+            '        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
+            '        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>',
             '      </div>',
             '    </div>',
             '    <div class="add-to-cart">',
-            '      <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> add to cart</button>',
+            '      <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> dodaj u korpu</button>',
             '    </div>',
             '  </div>',
             '</div>'
@@ -310,8 +310,22 @@
     }
 
     function showError() {
+        // Sakrij kolonu sa slikama, tabove i slične proizvode
+        $('.product-details').closest('.row').find('.col-md-7').hide();
+        $('.product-details').closest('.col-md-5').removeClass('col-md-5').addClass('col-md-12');
+        $('#product-tab').closest('.col-md-12').hide();
+        $('#related-products-section').hide();
+
         $('.product-details').html(
-            '<div class="alert alert-danger" style="margin-top:20px;">Product not found.</div>'
+            '<div style="text-align:center; padding: 80px 20px;">' +
+                '<div style="font-size: 80px; margin-bottom: 20px;">🔍</div>' +
+                '<h2 style="font-size: 28px; font-weight: 700; color: #222; margin-bottom: 12px;">Proizvod nije pronađen</h2>' +
+                '<p style="color: #888; font-size: 15px; max-width: 400px; margin: 0 auto 32px auto; line-height: 1.6;">Traženi proizvod ne postoji ili je uklonjen iz ponude. Pokušajte da pretražite nešto drugo.</p>' +
+                '<div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">' +
+                    '<a href="index.html" style="display:inline-block; background:#D10024; color:#fff; padding:12px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Početna</a>' +
+                    '<a href="store.html" style="display:inline-block; background:#fff; color:#D10024; border:2px solid #D10024; padding:10px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Pregledaj prodavnicu</a>' +
+                '</div>' +
+            '</div>'
         );
     }
 

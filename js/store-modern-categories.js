@@ -70,7 +70,7 @@
                 // Header with "All Departments"
                 var $header = $('<div class="category-header">');
                 $header.append('<div class="category-header-icon"><i></i><i></i><i></i></div>');
-                $header.append('<div class="category-header-title">All Departments</div>');
+                $header.append('<div class="category-header-title">Sve kategorije/div>');
                 $modernFilter.append($header);
                 
                 // Category list
@@ -204,7 +204,7 @@
                 }
             },
             error: function () {
-                $filter.html('<p class="text-danger">Could not load categories</p>');
+                $filter.html('<p class="text-danger">Nije moguće učitati kategorije</p>');
             }
         });
     }

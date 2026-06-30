@@ -41,7 +41,7 @@
                 // Header with "All Departments"
                 var $header = $('<div class="category-header">');
                 $header.append('<div class="category-header-icon"><i></i><i></i><i></i></div>');
-                $header.append('<div class="category-header-title">All Departments</div>');
+                $header.append('<div class="category-header-title">Sve kategorije</div>');
                 $modernFilter.append($header);
                 
                 // GoD Category list
@@ -282,7 +282,7 @@
                 }
         }).fail(function() {
             console.error('Failed to load category data');
-            $filter.html('<p class="text-danger">Could not load categories. Check console for details.</p>');
+            $filter.html('<p class="text-danger">Nije moguće učitati kategorije. Proverite konzolu za detalje.</p>');
         });
     }
 

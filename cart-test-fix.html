@@ -115,7 +115,7 @@
             window.OptimusCart.recalculate(function(cartItems) {
                 log('info', 'Recalculate complete, items received: ' + cartItems.length);
                 cartItems.forEach(function(item) {
-                    log('info', 'Product: ' + item.product.name + ' | Price: ' + (item.product.bestRetailPrice || 'N/A'));
+                    log('info', 'Product: ' + item.product.name + ' | Price: ' + (item.product.bestRetailPrice || 'Nije dostupno'));
                 });
                 
                 // Show call counts
@@ -138,7 +138,7 @@
             window.OptimusCart.loadDetails(function(cartItems) {
                 log('info', 'LoadDetails complete, items received: ' + cartItems.length);
                 cartItems.forEach(function(item) {
-                    log('info', 'Product: ' + item.product.name + ' | Price: ' + (item.product.bestRetailPrice || 'N/A'));
+                    log('info', 'Product: ' + item.product.name + ' | Price: ' + (item.product.bestRetailPrice || 'Nije dostupno'));
                 });
             });
         }

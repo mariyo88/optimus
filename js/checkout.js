@@ -14,7 +14,7 @@
                     '  <i class="fa fa-shopping-cart" style="font-size:60px;color:#ddd;margin-bottom:20px;"></i>',
                     '  <h4>Vaša korpa je prazna</h4>',
                     '  <p style="color:#999;margin:20px 0;">Dodajte proizvode u korpu pre nego što nastavite na checkout.</p>',
-                    '  <a href="store-modern.html" class="primary-btn">Idite u prodavnicu</a>',
+                    '  <a href="store.html" class="primary-btn">Idite u prodavnicu</a>',
                     '</div>'
                 ].join(''));
                 return;
@@ -36,22 +36,22 @@
             
             var html = [
                 '<div class="section-title text-center">',
-                '  <h3 class="title">Your Order</h3>',
+                '  <h3 class="title">Vaša porudžbina</h3>',
                 '</div>',
                 '<div class="order-summary">',
                 '  <div class="order-col">',
-                '    <div><strong>PRODUCT</strong></div>',
-                '    <div><strong>TOTAL</strong></div>',
+                '    <div><strong>PROIZVOD</strong></div>',
+                '    <div><strong>UKUPNO</strong></div>',
                 '  </div>',
                 '  <div class="order-products">',
                 productsHtml,
                 '  </div>',
                 '  <div class="order-col">',
-                '    <div>Shipping</div>',
-                '    <div><strong>FREE</strong></div>',
+                '    <div>Isporuka</div>',
+                '    <div><strong>BESPLATNO</strong></div>',
                 '  </div>',
                 '  <div class="order-col">',
-                '    <div><strong>TOTAL</strong></div>',
+                '    <div><strong>UKUPNO</strong></div>',
                 '    <div><strong class="order-total">' + formatPrice(total) + '</strong></div>',
                 '  </div>',
                 '</div>',
@@ -60,7 +60,7 @@
                 '    <input type="radio" name="payment" id="payment-1" checked>',
                 '    <label for="payment-1">',
                 '      <span></span>',
-                '      Direct Bank Transfer',
+                '      Direktna bankarska uplata',
                 '    </label>',
                 '    <div class="caption">',
                 '      <p>Izvršite uplatu direktno na naš bankovni račun. Koristite ID porudžbine kao referencu za plaćanje.</p>',
@@ -70,7 +70,7 @@
                 '    <input type="radio" name="payment" id="payment-2">',
                 '    <label for="payment-2">',
                 '      <span></span>',
-                '      Cash on Delivery',
+                '      Plaćanje pouzećem',
                 '    </label>',
                 '    <div class="caption">',
                 '      <p>Platite gotovinom pri isporuci proizvoda.</p>',
@@ -80,7 +80,7 @@
                 '    <input type="radio" name="payment" id="payment-3">',
                 '    <label for="payment-3">',
                 '      <span></span>',
-                '      PayPal System',
+                '      PayPal',
                 '    </label>',
                 '    <div class="caption">',
                 '      <p>Platite putem PayPal-a brzo i sigurno.</p>',
@@ -91,10 +91,10 @@
                 '  <input type="checkbox" id="terms">',
                 '  <label for="terms">',
                 '    <span></span>',
-                '    I\'ve read and accept the <a href="#">terms & conditions</a>',
+                '    Pročitao/la sam i prihvatam <a href="#">uslove korišćenja</a>',
                 '  </label>',
                 '</div>',
-                '<a href="#" class="primary-btn order-submit">Place order</a>'
+                '<a href="#" class="primary-btn order-submit">Pošalji porudžbinu</a>'
             ].join('');
             
             $('.order-details').html(html);
