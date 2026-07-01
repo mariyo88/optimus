@@ -65,6 +65,19 @@
         // Key Features - extract from specifications
         renderKeyFeatures(product);
 
+        // SKU / EAN info
+        var $skuEan = $('#product-sku-ean');
+        $skuEan.empty().hide();
+        if (product.sku) {
+            $skuEan.append('<li>SKU: <strong>' + product.sku + '</strong></li>');
+        }
+        if (product.ean) {
+            $skuEan.append('<li' + (product.sku ? ' style="margin-left:16px;"' : '') + '>EAN: <strong>' + product.ean + '</strong></li>');
+        }
+        if (product.sku || product.ean) {
+            $skuEan.show();
+        }
+
         // Category links
         var $catLinks = $details.find('.product-links').first();
         $catLinks.empty();
@@ -242,7 +255,13 @@
             var rows = product.specifications.map(function (s) {
                 return '<tr><td><strong>' + s.name + '</strong></td><td>' + s.value + '</td></tr>';
             }).join('');
-            $('#tab2 .col-md-12').html('<table class="table table-bordered">' + rows + '</table>');
+            // Prepend EAN row if available
+            var eanRow = product.ean ? '<tr><td><strong>EAN / Barkod</strong></td><td>' + product.ean + '</td></tr>' : '';
+            $('#tab2 .col-md-12').html('<table class="table table-bordered">' + eanRow + rows + '</table>');
+        } else if (product.ean) {
+            $('#tab2 .col-md-12').html(
+                '<table class="table table-bordered"><tr><td><strong>EAN / Barkod</strong></td><td>' + product.ean + '</td></tr></table>'
+            );
         }
     }
 

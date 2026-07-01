@@ -8,6 +8,7 @@
 
     var state = {
         category: getParam('category') || '',
+        godCategory: getParam('godCategory') || '',
         brand:    getParam('brand')    || '',
         search:   getParam('search')   || '',
         page:     parseInt(getParam('page') || '0', 10),
@@ -337,9 +338,10 @@
         $.ajax({
             url: API_BASE + '/api/products',
             data: {
-                category: state.category || undefined,
-                brand:    state.brand    || undefined,
-                search:   state.search   || undefined,
+                category:    state.category    || undefined,
+                godCategory: state.godCategory || undefined,
+                brand:       state.brand       || undefined,
+                search:      state.search      || undefined,
                 minPrice: state.minPrice != null ? state.minPrice : undefined,
                 maxPrice: state.maxPrice != null ? state.maxPrice : undefined,
                 page:     state.page,
@@ -424,13 +426,8 @@
             $('html, body').animate({ scrollTop: $('#store').offset().top - 20 }, 300);
         });
 
-        // Search form in header
-        $('.header-search form').on('submit', function (e) {
-            e.preventDefault();
-            state.search = $(this).find('.input').val().trim();
-            state.page   = 0;
-            loadProducts();
-        });
+        // Search form in header is handled by header-search.js
+        // which updates window.storePageState and calls window.loadStoreProducts()
 
         loadProducts();
     });
