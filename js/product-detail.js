@@ -346,6 +346,10 @@
                 renderImages(product);
                 renderTabs(product);
                 loadRelatedProducts(product);
+                // Init share buttons (Facebook, WhatsApp, Copy Link, QR Code)
+                if (typeof window.initQrShare === 'function') {
+                    window.initQrShare(product.slug);
+                }
             },
             error: showError
         });

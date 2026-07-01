@@ -298,11 +298,13 @@
 
 							<ul class="product-links">
 								<li>Podeli:</li>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
+								<li><a href="#" id="share-facebook" title="Podeli na Facebook"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#" id="share-whatsapp" title="Podeli na WhatsApp"><i class="fa fa-whatsapp"></i></a></li>
+								<li><a href="#" id="share-copy-link" title="Kopiraj link"><i class="fa fa-link"></i></a></li>
+								<li><a href="#" id="share-qr-btn" title="QR Kod"><i class="fa fa-qrcode"></i></a></li>
 							</ul>
+
+
 
 						</div>
 					</div>
@@ -674,7 +676,24 @@
 		<script src="js/main-nav.js"></script>
 		<script src="js/cart.js"></script>
 		<script src="js/product-detail.js"></script>
+		<script src="js/qr-share.js"></script>
 		<script src="js/brands-carousel.js"></script>
+
+		<!-- QR Code Modal — must be a direct child of body for position:fixed to work correctly -->
+		<div id="qr-modal" class="qr-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
+			<div class="qr-modal-card">
+				<button class="qr-modal-close" id="qr-modal-close" aria-label="Zatvori">&times;</button>
+				<h3 id="qr-modal-title" class="qr-modal-title">QR kod</h3>
+				<div class="qr-modal-img-wrap">
+					<div id="qr-loading" class="qr-loading-spinner" aria-label="Učitavanje..."></div>
+					<img id="qr-img" class="qr-modal-img" alt="QR kod proizvoda" style="display:none;" />
+				</div>
+				<p class="qr-modal-desc">Skeniraj da otvoriš ovaj proizvod</p>
+				<button id="qr-download-btn" class="qr-download-btn">
+					<i class="fa fa-download"></i> Preuzmi QR kod
+				</button>
+			</div>
+		</div>
 
 	</body>
 </html>

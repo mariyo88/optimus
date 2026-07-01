@@ -3182,3 +3182,157 @@ ul.SpecForm .Notice {
 .modern-category-item.selected > .category-link .category-icon {
   color: #ef233c;
 }
+
+/* =============================================
+   QR Code Share — Modal & Share Button
+   ============================================= */
+
+/* Modal overlay */
+.qr-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: qrFadeIn 0.2s ease;
+}
+.qr-modal-overlay.qr-modal-open {
+    display: flex;
+}
+.qr-modal-overlay.qr-modal-hiding {
+    animation: qrFadeOut 0.18s ease forwards;
+}
+
+@keyframes qrFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes qrFadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Modal card */
+.qr-modal-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    width: 100%;
+    max-width: 460px;
+    padding: 32px 28px 28px;
+    position: relative;
+    text-align: center;
+    animation: qrSlideUp 0.22s ease;
+}
+@keyframes qrSlideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Close button */
+.qr-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    color: #888;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+}
+.qr-modal-close:hover {
+    color: #D10024;
+    background: #f5f5f5;
+}
+
+/* Title */
+.qr-modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2B2D42;
+    margin: 0 0 20px;
+    letter-spacing: 0.2px;
+}
+
+/* QR image wrapper */
+.qr-modal-img-wrap {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    width: 100%;
+    max-width: 300px;
+    min-height: 200px;
+    padding: 12px;
+}
+
+/* QR image */
+.qr-modal-img {
+    width: 100%;
+    height: auto;
+    max-width: 280px;
+    border-radius: 4px;
+    display: block;
+}
+
+/* Loading spinner */
+.qr-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #eee;
+    border-top-color: #2B2D42;
+    border-radius: 50%;
+    animation: qrSpin 0.7s linear infinite;
+}
+@keyframes qrSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Description */
+.qr-modal-desc {
+    color: #888;
+    font-size: 13px;
+    margin: 0 0 20px;
+}
+
+/* Download button */
+.qr-download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #2B2D42;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+}
+.qr-download-btn:hover {
+    background: #D10024;
+}
+
+@media (max-width: 480px) {
+    .qr-modal-card {
+        padding: 24px 16px 20px;
+        border-radius: 10px;
+    }
+    .qr-modal-img-wrap {
+        max-width: 100%;
+    }
+}

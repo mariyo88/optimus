@@ -434,9 +434,6 @@
               <span>Porudžbina <strong id="detail-order-number"></strong></span>
             </h3>
           </div>
-          <button class="btn btn-light" onclick="closeOrderDetail()" style="color: #000;">
-            <i class="fa fa-times mr-1"></i> Zatvori
-          </button>
         </div>
         <div class="order-detail-body">
           <!-- Customer Info -->
@@ -562,7 +559,6 @@
           '</div>' +
           '<div class="order-status ' + o.orderStatus + '">' + STATUS_LABELS[o.orderStatus] + '</div>' +
           '<div class="order-amount">' + formatPrice(o.totalPrice) + '</div>' +
-          '<button class="order-action" onclick="event.stopPropagation();showOrderDetail(' + o.id + ')"><i class="fa fa-eye mr-1"></i> Detalji</button>' +
         '</div>';
       });
 
@@ -614,10 +610,6 @@
     });
   }
 
-  function closeOrderDetail() {
-    $('#order-detail').addClass('d-none');
-    selectedOrderId = null;
-  }
 
   function updateStatus() {
     if (!selectedOrderId) return;
@@ -625,7 +617,6 @@
     apiPatch('/api/admin/orders/' + selectedOrderId + '/status', { status }).then(() => {
       showNotification('Status ažuriran', 'success');
       loadOrders(currentPage);
-      closeOrderDetail();
     }).catch(err => {
       showNotification('Greška pri ažuriranju: ' + (err.message || 'Nepoznata greška'), 'error');
     });
