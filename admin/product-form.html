@@ -533,6 +533,7 @@
         '<div class="supplier-info-row"><span class="supplier-label">SKU:</span><span class="supplier-value"><code style="font-size: 0.8rem;">' + (s.supplierSku || '-') + '</code></span></div>' +
         '<div class="supplier-info-row"><span class="supplier-label">B2B:</span><span class="supplier-value">' + (s.b2bPrice != null ? formatPrice(s.b2bPrice) : '-') + '</span></div>' +
         '<div class="supplier-info-row"><span class="supplier-label">Web:</span><span class="supplier-value">' + (s.webPrice != null ? formatPrice(s.webPrice) : '-') + '</span></div>' +
+        '<div class="supplier-info-row"><span class="supplier-label">Naša web cena:</span><span class="supplier-value" style="color: #7c3aed; font-weight: 700;">' + (s.ourWebPrice != null ? formatPrice(s.ourWebPrice) : '-') + '</span></div>' +
         '<div class="supplier-info-row"><span class="supplier-label">MP:</span><span class="supplier-value" style="color: #16a34a;">' + (s.retailPrice != null ? formatPrice(s.retailPrice) : '-') + '</span></div>' +
         '<div class="supplier-info-row"><span class="supplier-label">PDV:</span><span class="supplier-value">' + (s.vatRate != null ? s.vatRate + '%' : '-') + '</span></div>' +
         '<div class="supplier-info-row"><span class="supplier-label">Stanje:</span><span class="supplier-value ' + (s.inStock ? 'text-success' : 'text-muted') + '">' + (s.inStock ? (s.stockQuantity > 0 ? s.stockQuantity + ' kom' : 'Da') : 'Nema') + '</span></div>' +

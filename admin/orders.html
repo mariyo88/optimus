@@ -592,7 +592,7 @@
 
   function showOrderDetail(id) {
     selectedOrderId = id;
-    api('/api/orders/' + id).then(o => {
+    api('/api/admin/orders/' + id).then(o => {
       $('#detail-order-number').text(o.orderNumber);
       $('#detail-name').text(o.customerName);
       $('#detail-email').text(o.customerEmail);
@@ -602,9 +602,12 @@
       $('#detail-date').text(formatDate(o.createdAt));
       $('#detail-total').text(formatPrice(o.totalPrice));
 
-      const rows = (o.items || []).map(i =>
-        '<tr><td>' + escapeHtml(i.productName) + '</td><td style="text-align: right;">' + formatPrice(i.productPrice) + '</td><td style="text-align: center;">' + i.quantity + '</td><td style="text-align: right;">' + formatPrice(i.totalPrice) + '</td></tr>'
-      ).join('');
+      const rows = (o.items || []).map(i => {
+        const nameCell = i.productId
+          ? '<a href="product-form.html?id=' + i.productId + '" title="Otvori proizvod u adminu" style="color:#667eea;text-decoration:none;font-weight:500;">' + escapeHtml(i.productName) + ' <i class="fa fa-external-link" style="font-size:11px;opacity:0.7;"></i></a>'
+          : escapeHtml(i.productName);
+        return '<tr><td>' + nameCell + '</td><td style="text-align: right;">' + formatPrice(i.productPrice) + '</td><td style="text-align: center;">' + i.quantity + '</td><td style="text-align: right;">' + formatPrice(i.totalPrice) + '</td></tr>';
+      }).join('');
       $('#detail-items').html(rows);
       $('#order-detail').removeClass('d-none');
       $('html, body').animate({ scrollTop: $('#order-detail').offset().top - 20 }, 300);

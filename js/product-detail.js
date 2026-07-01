@@ -15,6 +15,7 @@
     function getBestPrices(product) {
         return {
             retailPrice: product.bestRetailPrice || null,
+            ourWebPrice: product.bestOurWebPrice  || null,
             inStock: (product.stock != null && product.stock > 0)
         };
     }
@@ -28,17 +29,25 @@
     }
 
     function renderPrice(product) {
-        var priceInfo = getBestPrices(product);
+        var priceInfo   = getBestPrices(product);
+        var ourPrice    = priceInfo.ourWebPrice;
         var retailPrice = priceInfo.retailPrice;
-        
-        if (!retailPrice) {
+
+        if (!ourPrice && !retailPrice) {
             return '<h3 class="product-price"><span class="text-muted">Cena nije dostupna</span></h3>';
         }
-        
+
         var priceHtml = '<h3 class="product-price">';
-        priceHtml += formatPrice(retailPrice);
+        if (ourPrice) {
+            priceHtml += formatPrice(ourPrice);
+            if (retailPrice && retailPrice > ourPrice) {
+                priceHtml += ' <del class="product-old-price">' + formatPrice(retailPrice) + '</del>';
+            }
+        } else {
+            priceHtml += formatPrice(retailPrice);
+        }
         priceHtml += '</h3>';
-        
+
         return priceHtml;
     }
 

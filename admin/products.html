@@ -192,6 +192,45 @@
       gap: 0.5rem;
     }
 
+    .product-price-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      min-width: 130px;
+      text-align: right;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+    }
+
+    .price-label {
+      color: #999;
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .price-val {
+      font-weight: 700;
+      color: #333;
+    }
+
+    .price-row.our-web .price-val {
+      color: #7c3aed;
+      font-size: 0.95rem;
+    }
+
+    .price-val.muted {
+      color: #999;
+      font-weight: 500;
+    }
+
     .btn-product {
       padding: 0.5rem 0.8rem;
       border-radius: 6px;
@@ -761,6 +800,11 @@
               (p.categoryName ? '<div class="product-detail-item"><i class="fa fa-folder-o"></i> ' + escapeHtml(p.categoryName) + '</div>' : '') +
               (p.brandName ? '<div class="product-detail-item"><i class="fa fa-tag"></i> ' + escapeHtml(p.brandName) + '</div>' : '') +
             '</div>' +
+          '</div>' +
+          '<div class="product-price-info">' +
+            (p.bestB2bPrice != null ? '<div class="price-row"><span class="price-label">B2B</span><span class="price-val">' + formatPrice(p.bestB2bPrice) + '</span></div>' : '') +
+            (p.bestOurWebPrice != null ? '<div class="price-row our-web"><span class="price-label">Naša</span><span class="price-val">' + formatPrice(p.bestOurWebPrice) + '</span></div>' : '') +
+            (p.bestRetailPrice != null ? '<div class="price-row"><span class="price-label">MP</span><span class="price-val muted">' + formatPrice(p.bestRetailPrice) + '</span></div>' : '') +
           '</div>' +
           '<div class="product-status-info">' +
             '<span class="product-badge ' + (p.active ? 'active' : 'inactive') + '">' + (p.active ? '✓ Aktivan' : '✗ Neaktivan') + '</span>' +

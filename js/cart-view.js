@@ -28,7 +28,7 @@
             // Build cart table
             var rows = cartItems.map(function(item) {
                 var imgSrc = item.product.mainImageUrl || IMG_PLACEHOLDER;
-                var price = item.product.bestRetailPrice || 0;
+                var price = item.product.bestOurWebPrice || item.product.bestRetailPrice || 0;
                 var subtotal = price * item.quantity;
                 var orderNumber = item.orderNumber || 0;
                 

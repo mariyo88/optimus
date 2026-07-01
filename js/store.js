@@ -72,8 +72,14 @@
         
         // Build retail price display
         var priceHtml = '';
-        if (p.bestRetailPrice) {
-            priceHtml = '<h3 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h3>';
+        if (p.bestOurWebPrice) {
+            // Naša cena kao glavna + retailPrice kao stara prekrižena
+            priceHtml = '<span class="product-price">' + formatPrice(p.bestOurWebPrice) + '</span>';
+            if (p.bestRetailPrice && p.bestRetailPrice > p.bestOurWebPrice) {
+                priceHtml += ' <del class="product-old-price">' + formatPrice(p.bestRetailPrice) + '</del>';
+            }
+        } else if (p.bestRetailPrice) {
+            priceHtml = '<span class="product-price">' + formatPrice(p.bestRetailPrice) + '</span>';
         } else {
             priceHtml = '<span class="text-muted">Nije dostupno</span>';
         }
@@ -116,8 +122,13 @@
         
         // Build retail price display
         var priceHtml = '';
-        if (p.bestRetailPrice) {
-            priceHtml = '<h3 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h3>';
+        if (p.bestOurWebPrice) {
+            priceHtml = '<span class="product-price">' + formatPrice(p.bestOurWebPrice) + '</span>';
+            if (p.bestRetailPrice && p.bestRetailPrice > p.bestOurWebPrice) {
+                priceHtml += ' <del class="product-old-price">' + formatPrice(p.bestRetailPrice) + '</del>';
+            }
+        } else if (p.bestRetailPrice) {
+            priceHtml = '<span class="product-price">' + formatPrice(p.bestRetailPrice) + '</span>';
         } else {
             priceHtml = '<span class="text-muted">Nije dostupno</span>';
         }

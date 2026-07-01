@@ -117,6 +117,14 @@
       background: #fee2e2;
     }
 
+    .btn-category.recalc {
+      color: #7c3aed;
+      border-color: #7c3aed;
+    }
+    .btn-category.recalc:hover {
+      background: #f5f3ff;
+    }
+
     .empty-state {
       text-align: center;
       padding: 3rem 1rem;
@@ -389,6 +397,41 @@
   </div>
 </div>
 
+<!-- Recalculate Prices Modal -->
+<div class="modal fade" id="recalcModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white; border: none;">
+        <h5 class="modal-title"><i class="fa fa-calculator mr-2"></i>Preračunaj cene</h5>
+        <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.8;">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #555; margin-bottom: 1rem;">Kategorija: <strong id="recalc-category-name"></strong></p>
+        <p style="font-size: 0.85rem; color: #777; margin-bottom: 1.5rem;">
+          Nova naša web cena = B2B × (1 + markup%) × (1 + PDV%)
+        </p>
+        <div class="form-group">
+          <label for="recalc-markup" style="font-weight: 600;">Markup procenat *</label>
+          <div class="input-group" style="width: 160px;">
+            <input type="number" id="recalc-markup" class="form-control" min="1" max="500" value="30" placeholder="30">
+            <span class="input-group-addon">%</span>
+          </div>
+        </div>
+        <div id="recalc-result" class="alert d-none" style="margin-top: 1rem;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+        <button type="button" class="btn" id="recalc-btn" onclick="executeRecalc()"
+          style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white; border: none;">
+          <i class="fa fa-calculator mr-1"></i> Pokreni
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="admin.js"></script>
@@ -473,6 +516,7 @@
         '<span class="category-slug">' + escapeHtml(secondaryText) + '</span>' +
         '</div>' +
         '<div class="category-actions">' +
+        '<button class="btn-category recalc" onclick="openRecalcModal(' + cat.id + ', \'' + escapeHtml(displayText).replace(/'/g, "\\'") + '\')" title="Preračunaj naše web cene"><i class="fa fa-calculator"></i></button>' +
         '<button class="btn-category edit" onclick="editCategory(' + cat.id + ')" title="Uredi"><i class="fa fa-edit"></i></button>' +
         '<button class="btn-category delete" onclick="deleteCategory(' + cat.id + ', \'' + escapeHtml(cat.name).replace(/'/g, "\\'") + '\')" title="Obriši"><i class="fa fa-trash"></i></button>' +
         '</div>' +
@@ -745,6 +789,45 @@
       });
     }
   });
+
+  // --- Recalculate prices ---
+  let recalcCategoryId = null;
+
+  function openRecalcModal(id, name) {
+    recalcCategoryId = id;
+    $('#recalc-category-name').text(name);
+    $('#recalc-markup').val(30);
+    $('#recalc-result').addClass('d-none').text('');
+    $('#recalc-btn').prop('disabled', false).html('<i class="fa fa-calculator mr-1"></i> Pokreni');
+    $('#recalcModal').modal('show');
+  }
+
+  function executeRecalc() {
+    const markup = parseInt($('#recalc-markup').val());
+    if (!markup || markup < 1 || markup > 500) {
+      $('#recalc-result').removeClass('d-none alert-success').addClass('alert alert-danger').text('Unesite markup između 1 i 500.');
+      return;
+    }
+
+    $('#recalc-btn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Čekaj...');
+    $('#recalc-result').addClass('d-none');
+
+    api('/api/admin/categories/' + recalcCategoryId + '/recalculate-prices?markupPercent=' + markup, { method: 'POST' })
+      .then(res => {
+        $('#recalc-result')
+          .removeClass('d-none alert-danger')
+          .addClass('alert alert-success')
+          .html('<i class="fa fa-check-circle mr-1"></i> Ažurirano <strong>' + res.updatedCount + '</strong> artikala za kategoriju <strong>' + escapeHtml(res.categoryName) + '</strong> sa markupom <strong>' + markup + '%</strong>.');
+        $('#recalc-btn').prop('disabled', false).html('<i class="fa fa-calculator mr-1"></i> Pokreni ponovo');
+      })
+      .catch(err => {
+        $('#recalc-result')
+          .removeClass('d-none alert-success')
+          .addClass('alert alert-danger')
+          .text('Greška: ' + (err.message || 'Nepoznata greška'));
+        $('#recalc-btn').prop('disabled', false).html('<i class="fa fa-calculator mr-1"></i> Pokreni');
+      });
+  }
 </script>
 </body>
 </html>
