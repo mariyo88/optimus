@@ -545,6 +545,14 @@
             </select>
           </div>
           <div class="filter-group">
+            <label for="stock-filter">Stanje</label>
+            <select id="stock-filter">
+              <option value="">-- Svi --</option>
+              <option value="true">Na stanju</option>
+              <option value="false">Nema na stanju</option>
+            </select>
+          </div>
+          <div class="filter-group">
             <button class="btn btn-primary" onclick="loadProducts(0)" style="width: 100%;">
               <i class="fa fa-search mr-1"></i> Pretraži
             </button>
@@ -592,12 +600,36 @@
   </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #ef4444; color: white; border: none;">
+        <h5 class="modal-title"><i class="fa fa-trash mr-2"></i> Brisanje proizvoda</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 0.8;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem;">
+        <p style="margin: 0; color: #555;">Da li ste sigurni da želite da obrišete:</p>
+        <p id="delete-product-name" style="margin: 0.8rem 0 0; font-weight: 700; color: #222; font-size: 0.95rem; word-break: break-word;"></p>
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-danger btn-sm" id="confirm-delete-btn" onclick="confirmDeleteProduct()">
+          <i class="fa fa-trash mr-1"></i> Obriši
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Bulk Category Update Modal -->
 <div class="modal fade" id="bulkCategoryModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
-        <h5 class="modal-title"><i class="fa fa-folder-o mr-2"></i>Promena kategorije</h5>
+        <h5 class="modal-title"><i class="fa fa-folder-o mr-2"></i> Promena kategorije</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 0.8;">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -637,7 +669,8 @@
     const filters = {
       search: $('#search-input').val().trim(),
       category: $('#category-filter').val(),
-      active: $('#active-filter').val()
+      active: $('#active-filter').val(),
+      stock: $('#stock-filter').val()
     };
     localStorage.setItem('admin_products_filters', JSON.stringify(filters));
   }
@@ -652,6 +685,7 @@
     if (filters.search) $('#search-input').val(filters.search);
     if (filters.category) $('#category-filter').val(filters.category);
     if (filters.active) $('#active-filter').val(filters.active);
+    if (filters.stock) $('#stock-filter').val(filters.stock);
   }
 
   function clearFilters() {
@@ -667,6 +701,7 @@
     const search = $('#search-input').val().trim();
     const category = $('#category-filter').val();
     const activeFilter = $('#active-filter').val();
+    const stockFilter = $('#stock-filter').val();
     const params = new URLSearchParams({ 
       page: currentPage, 
       size: currentPageSize, 
@@ -675,6 +710,7 @@
     if (search) params.set('search', search);
     if (category) params.set('category', category);
     if (activeFilter) params.set('active', activeFilter);
+    if (stockFilter) params.set('inStock', stockFilter);
 
     api('/api/admin/products?' + params).then(data => {
       const content = data.content || [];
@@ -765,17 +801,26 @@
     $('#pagination-controls').html(html);
   }
 
+  let pendingDeleteId = null;
+
   function deleteProduct(id, name) {
-    if (confirm('Da li ste sigurni da želite da obrišete proizvod "' + name + '"?')) {
-      apiDelete('/api/admin/products/' + id).then(() => {
-        showNotification('Proizvod obrisan', 'success');
-        // Clear filters after modification
-        clearFilters();
-        loadProducts(0);
-      }).catch(err => {
-        showNotification('Greška pri brisanju: ' + (err.message || 'Nepoznata greška'), 'error');
-      });
-    }
+    pendingDeleteId = id;
+    $('#delete-product-name').text(name);
+    $('#deleteProductModal').modal('show');
+  }
+
+  function confirmDeleteProduct() {
+    if (!pendingDeleteId) return;
+    const id = pendingDeleteId;
+    pendingDeleteId = null;
+    $('#deleteProductModal').modal('hide');
+    apiDelete('/api/admin/products/' + id).then(() => {
+      showNotification('Proizvod obrisan', 'success');
+      clearFilters();
+      loadProducts(0);
+    }).catch(err => {
+      showNotification('Greška pri brisanju: ' + (err.message || 'Nepoznata greška'), 'error');
+    });
   }
 
   function escapeHtml(text) {
