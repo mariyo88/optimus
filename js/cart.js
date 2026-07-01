@@ -182,7 +182,7 @@
             
             var loadedCount = 0;
             var cartItemsWithProducts = [];
-            var hasChanges = false;
+            var removedProductNames = [];
             
             cart.forEach(function(cartItem) {
                 var identifier = cartItem.productSlug || cartItem.productId;
@@ -191,35 +191,40 @@
                     url: API_BASE + '/api/products/' + identifier,
                     method: 'GET',
                     success: function(product) {
-                        // Store full product details for callback
+                        // Remove inactive products from cart
+                        if (product.active === false) {
+                            removedProductNames.push(product.name || identifier);
+                            self.remove(cartItem.productId);
+                            return;
+                        }
+
                         cartItemsWithProducts.push({
                             product: product,
                             quantity: cartItem.quantity,
                             addedAt: cartItem.addedAt,
                             orderNumber: cartItem.orderNumber || 0
                         });
-                        
-                        // Check if product data changed
-                        if (!cartItem._cached || 
-                            cartItem.productSlug !== product.slug) {
-                            hasChanges = true;
-                        }
                     },
                     error: function() {
-                        // Product not found or error - keep item but mark as unavailable
-                        console.warn('Product not found during recalculation:', identifier);
-                        hasChanges = true;
+                        // Product not found (404) - remove from cart
+                        console.warn('Product not found during recalculation, removing:', identifier);
+                        removedProductNames.push(String(identifier));
+                        self.remove(cartItem.productId);
                     },
                     complete: function() {
                         loadedCount++;
                         
                         if (loadedCount === cart.length) {
+                            // Notify user about removed items
+                            if (removedProductNames.length > 0) {
+                                self.showRemovedItemsNotification(removedProductNames);
+                            }
+
                             // Sort by order number before callback
                             cartItemsWithProducts.sort(function(a, b) {
                                 return (a.orderNumber || 0) - (b.orderNumber || 0);
                             });
                             
-                            // All products loaded
                             self.updateUI();
                             
                             if (callback) {
@@ -229,6 +234,37 @@
                     }
                 });
             });
+        },
+
+        // Show notification for removed inactive items
+        showRemovedItemsNotification: function(productNames) {
+            var message = productNames.length === 1
+                ? 'Artikal "' + productNames[0] + '" je uklonjen iz korpe jer više nije dostupan.'
+                : productNames.length + ' artikla su uklonjena iz korpe jer više nisu dostupna.';
+
+            var $notification = $('<div class="cart-notification cart-notification--warning">')
+                .text(message)
+                .css({
+                    position: 'fixed',
+                    top: '80px',
+                    right: '20px',
+                    background: '#e67e22',
+                    color: '#fff',
+                    padding: '15px 25px',
+                    borderRadius: '3px',
+                    zIndex: 9999,
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                    maxWidth: '360px',
+                    lineHeight: '1.4'
+                });
+
+            $('body').append($notification);
+
+            setTimeout(function() {
+                $notification.fadeOut(function() {
+                    $(this).remove();
+                });
+            }, 5000);
         },
 
         // Update cart UI in header

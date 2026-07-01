@@ -221,6 +221,39 @@
       margin-bottom: 0 !important;
       cursor: pointer;
     }
+
+    /* Compact category form styles */
+    .cat-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 3px;
+    }
+    .cat-label small {
+      font-weight: 400;
+      color: #999;
+    }
+    .cat-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      color: #444;
+      cursor: pointer;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .cat-check input[type=checkbox] {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .cat-check-primary {
+      color: #667eea;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -304,69 +337,66 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="padding: 1.5rem 2rem;">
         <div id="form-alert" class="alert d-none" role="alert"></div>
         <form id="categoryForm">
-          <div class="form-group">
-            <label for="f-name">Naziv * <small class="text-muted">(interno ime iz importa)</small></label>
-            <input type="text" id="f-name" class="form-control" placeholder="Npr. Laptopovi">
-          </div>
-          <div class="form-group">
-            <label for="f-display-name">Prikazno ime <small class="text-muted">(za prikaz klijentima)</small></label>
-            <input type="text" id="f-display-name" class="form-control" placeholder="Npr. Prijenosni računari">
-          </div>
-          <div class="form-group">
-            <label for="f-slug">Slug <small class="text-muted">(auto-generiše)</small></label>
-            <input type="text" id="f-slug" class="form-control" placeholder="auto-generisan">
-          </div>
-          <div class="form-group">
-            <label for="f-parent">Nadredjena kategorija</label>
-            <select id="f-parent" class="form-control">
-              <option value="">-- Koren --</option>
-            </select>
-          </div>
-          <div id="category-flags-section">
-            <div class="form-group">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="f-show-in-nav">
-                <label class="custom-control-label" for="f-show-in-nav">
-                  Prikaži u navigaciji
-                </label>
-              </div>
+          <!-- Naziv + Prikazno ime u 2 kolone -->
+          <div class="row" style="margin-bottom: 0.75rem;">
+            <div class="col-6">
+              <label class="cat-label" for="f-name">Naziv * <small>(interno)</small></label>
+              <input type="text" id="f-name" class="form-control form-control-sm" placeholder="Npr. Laptopovi">
             </div>
-            <hr>
-            <div class="form-group">
-              <label style="margin-bottom: 1rem; display: block;">Dodatne opcije:</label>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="f-is-active">
-                <label class="custom-control-label" for="f-is-active">
-                  Aktivna kategorija (šalje se na webshop)
-                </label>
-              </div>
+            <div class="col-6">
+              <label class="cat-label" for="f-display-name">Prikazno ime <small>(klijenti)</small></label>
+              <input type="text" id="f-display-name" class="form-control form-control-sm" placeholder="Npr. Laptopi">
             </div>
-            <div class="form-group">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="f-is-new-products">
-                <label class="custom-control-label" for="f-is-new-products">
-                  New products category
-                </label>
-              </div>
+          </div>
+          <!-- Slug + Nadredjena u 2 kolone -->
+          <div class="row" style="margin-bottom: 0.75rem;">
+            <div class="col-6">
+              <label class="cat-label" for="f-slug">Slug <small>(auto)</small></label>
+              <input type="text" id="f-slug" class="form-control form-control-sm" placeholder="auto-generisan">
             </div>
-            <div class="form-group">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="f-is-top-selling">
-                <label class="custom-control-label" for="f-is-top-selling">
-                  Top selling category
-                </label>
+            <div class="col-6">
+              <label class="cat-label" for="f-parent">Nadredjena kategorija</label>
+              <select id="f-parent" class="form-control form-control-sm">
+                <option value="">-- Koren --</option>
+              </select>
+            </div>
+          </div>
+          <!-- Checkboxovi i markup -->
+          <div id="category-flags-section" style="border-top: 1px solid #f0f0f0; padding-top: 0.75rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-bottom: 0.75rem;">
+              <label class="cat-check">
+                <input type="checkbox" id="f-show-in-nav"> Prikaži u navigaciji
+              </label>
+              <label class="cat-check cat-check-primary">
+                <input type="checkbox" id="f-is-active"> Aktivna
+              </label>
+              <label class="cat-check">
+                <input type="checkbox" id="f-is-new-products"> New products
+              </label>
+              <label class="cat-check">
+                <input type="checkbox" id="f-is-top-selling"> Top selling
+              </label>
+            </div>
+            <div id="markup-field-group" style="border-top: 1px solid #f0f0f0; padding-top: 0.75rem; display: flex; align-items: center; gap: 1rem;">
+              <div>
+                <label class="cat-label" for="f-markup-percent">Markup procenat <small>(prazno = globalni default)</small></label>
+                <div class="input-group input-group-sm" style="width: 130px; margin-top: 4px;">
+                  <input type="number" id="f-markup-percent" class="form-control" min="1" max="500" placeholder="npr. 30">
+                  <span class="input-group-addon">%</span>
+                </div>
               </div>
+              <small class="text-muted" style="margin-top: 1.2rem; font-size: 0.78rem;">ourWebPrice = B2B × (1 + markup%) × (1 + PDV%)</small>
             </div>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
-        <button type="button" class="btn btn-primary" onclick="saveCategory()">
-          <i class="fa fa-save mr-2"></i> Sačuvaj
+      <div class="modal-footer" style="padding: 0.75rem 2rem;">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="saveCategory()">
+          <i class="fa fa-save mr-1"></i> Sačuvaj
         </button>
       </div>
     </div>
@@ -513,7 +543,7 @@
         '<div class="category-icon"><i class="fa fa-folder"></i></div>' +
         '<div class="category-info">' +
         '<span class="category-name">' + escapeHtml(displayText) + '</span>' +
-        '<span class="category-slug">' + escapeHtml(secondaryText) + '</span>' +
+        '<span class="category-slug">' + escapeHtml(secondaryText) + (cat.markupPercent != null ? ' &nbsp;|&nbsp; <span style="color:#7c3aed;font-weight:600;">markup: ' + cat.markupPercent + '%</span>' : '') + '</span>' +
         '</div>' +
         '<div class="category-actions">' +
         '<button class="btn-category recalc" onclick="openRecalcModal(' + cat.id + ', \'' + escapeHtml(displayText).replace(/'/g, "\\'") + '\')" title="Preračunaj naše web cene"><i class="fa fa-calculator"></i></button>' +
@@ -549,8 +579,8 @@
     editingId = null;
     resetForm();
     $('#modal-title').html('<i class="fa fa-folder-o mr-2"></i>Nova kategorija');
-    // Prikaži checkboxove za sve kategorije (i root i subkategorije)
     $('#category-flags-section').show();
+    updateCheckboxVisibility($('#f-parent').val());
     $('#categoryModal').modal('show');
   }
 
@@ -564,7 +594,7 @@
       populateParentSelect(data);
       
       // Then fill form values
-      $('#modal-title').html('<i class="fa fa-folder-open-o mr-2"></i>Uredi: ' + escapeHtml(found.displayName || found.name));
+      $('#modal-title').html('<i class="fa fa-folder-open-o mr-2"></i> Uredi: ' + escapeHtml(found.displayName || found.name));
       $('#f-name').val(found.name);
       $('#f-display-name').val(found.displayName || '');
       $('#f-slug').val(found.slug);
@@ -574,9 +604,10 @@
       // Use 'newProductsCategory' instead of 'isNewProductsCategory' since Jackson removes 'is' prefix
       $('#f-is-new-products').prop('checked', found.newProductsCategory === true);
       $('#f-is-top-selling').prop('checked', found.topSellingCategory === true);
+      $('#f-markup-percent').val(found.markupPercent != null ? found.markupPercent : '');
       
-      // Prikaži checkboxove za sve kategorije (i root i subkategorije)
       $('#category-flags-section').show();
+      updateCheckboxVisibility(found.parentId);
       
       $('#categoryModal').modal('show');
     });
@@ -611,6 +642,13 @@
   function updateCheckboxVisibility(parentId) {
     // Omogućeno za SVE kategorije (i root i subkategorije)
     $('#category-flags-section').show();
+    // Markup je samo za subkategorije (ima parenta)
+    if (parentId) {
+      $('#markup-field-group').show();
+    } else {
+      $('#markup-field-group').hide();
+      $('#f-markup-percent').val('');
+    }
   }
 
   // Update visibility when parent changes
@@ -655,14 +693,15 @@
       showInNav: $('#f-show-in-nav').is(':checked'),
       isActive: $('#f-is-active').is(':checked'),
       isNewProductsCategory: $('#f-is-new-products').is(':checked'),
-      isTopSellingCategory: $('#f-is-top-selling').is(':checked')
+      isTopSellingCategory: $('#f-is-top-selling').is(':checked'),
+      markupPercent: $('#f-markup-percent').val() ? parseInt($('#f-markup-percent').val()) : null
     };
 
     console.log('Saving category with payload:', payload);
 
     const promise = editingId ? apiPut('/api/admin/categories/' + editingId, payload) : apiPost('/api/admin/categories', payload);
     promise.then(() => {
-      showNotification(editingId ? 'Kategorija ažurirana' : 'Kategorija kreirana', 'success');
+      showNotification(editingId ? ' Kategorija ažurirana' : ' Kategorija kreirana', 'success');
       $('#categoryModal').modal('hide');
       // Clear cache after modification but keep filter
       clearCategoriesList();
@@ -796,7 +835,10 @@
   function openRecalcModal(id, name) {
     recalcCategoryId = id;
     $('#recalc-category-name').text(name);
-    $('#recalc-markup').val(30);
+    // Preuzmi markup iz kategorije ako postoji
+    const cat = findInTree(allCategories, id);
+    const defaultMarkup = (cat && cat.markupPercent != null) ? cat.markupPercent : 30;
+    $('#recalc-markup').val(defaultMarkup);
     $('#recalc-result').addClass('d-none').text('');
     $('#recalc-btn').prop('disabled', false).html('<i class="fa fa-calculator mr-1"></i> Pokreni');
     $('#recalcModal').modal('show');

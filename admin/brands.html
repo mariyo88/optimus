@@ -408,7 +408,7 @@
     const brand = allBrands.find(b => b.id === id);
     if (!brand) return;
     
-    $('#modal-title').html('<i class="fa fa-pencil mr-2"></i>Uredi: ' + escapeHtml(brand.name));
+    $('#modal-title').html('<i class="fa fa-pencil mr-2"></i> Uredi: ' + escapeHtml(brand.name));
     $('#f-name').val(brand.name);
     $('#f-logo').val(brand.logoUrl || '');
     updateLogoPreview(brand.logoUrl);

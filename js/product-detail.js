@@ -20,12 +20,57 @@
         };
     }
 
-    function renderStockStatus(product) {
-        var priceInfo = getBestPrices(product);
-        if (priceInfo.inStock) {
-            return '<span class="product-available">Na stanju</span>';
+    function renderStockInfo(product) {
+        var stock = product.stock;
+        var $el = $('#product-stock-info');
+
+        var html;
+        if (!product.active) {
+            html = [
+                '<div style="display:inline-flex;align-items:center;gap:8px;',
+                'background:#f5f5f5;border:1px solid #ddd;border-radius:4px;',
+                'padding:8px 14px;font-size:13px;color:#999;">',
+                '<i class="fa fa-ban"></i> Proizvod nije dostupan',
+                '</div>'
+            ].join('');
+        } else if (!stock || stock <= 0) {
+            html = [
+                '<div style="display:inline-flex;align-items:center;gap:8px;',
+                'background:#fff5f5;border:1px solid #ffcccc;border-radius:4px;',
+                'padding:8px 14px;font-size:13px;color:#cc0000;">',
+                '<i class="fa fa-times-circle"></i> Nema na stanju',
+                '</div>'
+            ].join('');
+        } else if (stock <= 3) {
+            html = [
+                '<div style="display:inline-flex;align-items:center;gap:8px;',
+                'background:#fff8e1;border:1px solid #ffcc02;border-radius:4px;',
+                'padding:8px 14px;font-size:13px;color:#b8860b;">',
+                '<i class="fa fa-exclamation-triangle"></i>',
+                'Poslednji komadi — ostalo <strong>' + stock + ' kom</strong>',
+                '</div>'
+            ].join('');
+        } else if (stock <= 10) {
+            html = [
+                '<div style="display:inline-flex;align-items:center;gap:8px;',
+                'background:#fff3e0;border:1px solid #ffab40;border-radius:4px;',
+                'padding:8px 14px;font-size:13px;color:#e65100;">',
+                '<i class="fa fa-cube"></i>',
+                'Na stanju — <strong>' + stock + ' kom</strong>',
+                '</div>'
+            ].join('');
+        } else {
+            html = [
+                '<div style="display:inline-flex;align-items:center;gap:8px;',
+                'background:#f0faf0;border:1px solid #81c784;border-radius:4px;',
+                'padding:8px 14px;font-size:13px;color:#2e7d32;">',
+                '<i class="fa fa-check-circle"></i>',
+                'Na stanju — <strong>' + stock + ' kom</strong>',
+                '</div>'
+            ].join('');
         }
-        return '<span class="product-available" style="color:#999;">Nema na stanju</span>';
+
+        $el.html(html);
     }
 
     function renderPrice(product) {
@@ -58,9 +103,10 @@
         $details.find('.product-name').text(product.name);
 
         // Price + stock
-        $('#product-price-stock').html(
-            renderPrice(product) + renderStockStatus(product)
-        );
+        $('#product-price-stock').html(renderPrice(product));
+
+        // Stock info widget
+        renderStockInfo(product);
 
         // Key Features - extract from specifications
         renderKeyFeatures(product);
