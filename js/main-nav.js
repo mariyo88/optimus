@@ -26,17 +26,10 @@
                 var currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
                 function navItem(href, label) {
-                    var currentCategory = new URLSearchParams(window.location.search).get('category') || '';
-                    var hrefCategory = href.indexOf('?category=') !== -1 ? href.split('?category=')[1] : '';
-                    var isActive;
-                    if (hrefCategory) {
-                        // Category link: active only if current category matches
-                        isActive = currentPage === 'store.html' && currentCategory === hrefCategory;
-                    } else {
-                        isActive = (href === currentPage) ||
-                            (currentPage === '' && href === 'index.html') ||
-                            (currentPage === 'store.html' && href === 'store.html' && !currentCategory);
-                    }
+                    var isActive = (href === currentPage) ||
+                        (currentPage === '' && href === 'index.html');
+                    // Never mark store category links as active in nav
+                    if (href.indexOf('store.html') === 0) isActive = false;
                     return '<li' + (isActive ? ' class="active"' : '') + '><a href="' + href + '">' + label + '</a></li>';
                 }
 
@@ -96,17 +89,6 @@
 
     $(document).ready(function () {
         initLogo();
-        // Set active nav item immediately from existing HTML (fallback before AJAX)
-        var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        $('.main-nav li').each(function () {
-            var href = $(this).find('a').attr('href') || '';
-            var hrefPage = href.split('/').pop().split('?')[0];
-            if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html')) {
-                $(this).addClass('active');
-            } else {
-                $(this).removeClass('active');
-            }
-        });
         initMainNav();
     });
 
