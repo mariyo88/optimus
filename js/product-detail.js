@@ -288,7 +288,14 @@
     function renderTabs(product) {
         // Description tab - render HTML if present, otherwise use plain text
         var description = product.description || product.shortDescription || '';
-        if (description && description.includes('<ul class="SpecForm">')) {
+        if (!description || !description.trim()) {
+            // No description — hide the Opis tab and activate Detalji instead
+            var $opisTab = $('ul.tab-nav li a[href="#tab1"]').parent();
+            $opisTab.hide();
+            $('#tab1').removeClass('active');
+            $('ul.tab-nav li a[href="#tab2"]').parent().addClass('active');
+            $('#tab2').addClass('active');
+        } else if (description.includes('<ul class="SpecForm">')) {
             // HTML format - render as HTML
             $('#tab1 .col-md-12').html(description);
         } else {
