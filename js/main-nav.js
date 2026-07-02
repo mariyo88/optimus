@@ -26,9 +26,17 @@
                 var currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
                 function navItem(href, label) {
-                    var isActive = (href === currentPage) ||
-                        (currentPage === '' && href === 'index.html') ||
-                        (currentPage === 'store.html' && href.indexOf('store.html') === 0);
+                    var currentCategory = new URLSearchParams(window.location.search).get('category') || '';
+                    var hrefCategory = href.indexOf('?category=') !== -1 ? href.split('?category=')[1] : '';
+                    var isActive;
+                    if (hrefCategory) {
+                        // Category link: active only if current category matches
+                        isActive = currentPage === 'store.html' && currentCategory === hrefCategory;
+                    } else {
+                        isActive = (href === currentPage) ||
+                            (currentPage === '' && href === 'index.html') ||
+                            (currentPage === 'store.html' && href === 'store.html' && !currentCategory);
+                    }
                     return '<li' + (isActive ? ' class="active"' : '') + '><a href="' + href + '">' + label + '</a></li>';
                 }
 
