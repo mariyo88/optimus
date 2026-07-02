@@ -22,6 +22,381 @@
 		<link rel="manifest" href="site.webmanifest">
  		
  		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+		<style>
+			/* ── Hero Banner ── */
+			.page-hero {
+				background: linear-gradient(135deg, #2B2D42 0%, #1a1b2e 60%, #D10024 100%);
+				color: #fff;
+				padding: 0 0 50px;
+				position: relative;
+				overflow: hidden;
+			}
+			.page-hero > .container {
+				padding-top: 10px;
+			}
+			.page-hero-nav {
+				margin-bottom: 0;
+				padding: 0;
+				background: transparent !important;
+				border-bottom: none !important;
+				box-shadow: none !important;
+			}
+			.page-hero-nav #responsive-nav .main-nav > li > a {
+				color: rgba(255,255,255,0.75);
+				font-size: 13px;
+				font-weight: 600;
+				padding: 8px 16px;
+				transition: color 0.2s;
+			}
+			.page-hero-nav #responsive-nav .main-nav > li > a:hover,
+			.page-hero-nav #responsive-nav .main-nav > li.active > a {
+				color: #fff;
+				background: rgba(255,255,255,0.08);
+				border-radius: 4px;
+			}
+			.page-hero::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				right: -10%;
+				width: 500px;
+				height: 500px;
+				background: rgba(209,0,36,0.08);
+				border-radius: 50%;
+			}
+			.page-hero::after {
+				content: '';
+				position: absolute;
+				bottom: -30%;
+				left: -5%;
+				width: 350px;
+				height: 350px;
+				background: rgba(255,255,255,0.03);
+				border-radius: 50%;
+			}
+			.page-hero h1 {
+				font-size: 38px;
+				font-weight: 700;
+				margin-bottom: 12px;
+				color: #fff;
+			}
+			.page-hero h1 span { color: #D10024; }
+			.page-hero p {
+				font-size: 17px;
+				color: rgba(255,255,255,0.75);
+				margin-bottom: 0;
+				max-width: 520px;
+			}
+			.page-hero-badge {
+				display: inline-block;
+				background: rgba(209,0,36,0.2);
+				border: 1px solid rgba(209,0,36,0.5);
+				color: #ff6b6b;
+				padding: 6px 16px;
+				border-radius: 20px;
+				font-size: 13px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-bottom: 18px;
+			}
+
+			/* ── Cart section ── */
+			.cart-page-section {
+				padding: 50px 0 40px;
+				background: #fff;
+			}
+
+			/* ── Cart Table ── */
+			.cart-table-wrap {
+				background: #fff;
+				border-radius: 12px;
+				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+				overflow: hidden;
+				margin-bottom: 32px;
+			}
+			.cart-table-wrap .table-responsive {
+				overflow-x: visible;
+				overflow-y: visible;
+				border: none;
+			}
+			.cart-table-wrap .table {
+				margin-bottom: 0;
+			}
+			.cart-table-wrap .table thead tr {
+				background: #2B2D42;
+			}
+			.cart-table-wrap .table thead th {
+				color: #fff;
+				font-size: 12px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				padding: 16px 18px;
+				border: none;
+				vertical-align: middle;
+			}
+			.cart-table-wrap .table tbody tr {
+				border-bottom: 1px solid #f0f0f0;
+				transition: background 0.18s;
+			}
+			.cart-table-wrap .table tbody tr:last-child {
+				border-bottom: none;
+			}
+			.cart-table-wrap .table tbody tr:hover {
+				background: #fafafa;
+			}
+			.cart-table-wrap .table tbody td {
+				padding: 18px 18px;
+				vertical-align: middle;
+				border: none;
+				font-size: 14px;
+				color: #333;
+			}
+
+			/* Order badge */
+			.cart-order-badge {
+				width: 34px;
+				height: 34px;
+				background: linear-gradient(135deg, #D10024, #a80020);
+				color: #fff;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-weight: 700;
+				font-size: 13px;
+				margin: 0 auto;
+				box-shadow: 0 2px 6px rgba(209,0,36,0.3);
+			}
+
+			/* Product image */
+			.cart-product-img a {
+				display: block;
+				width: 80px;
+				height: 80px;
+				border-radius: 8px;
+				overflow: hidden;
+				border: 1px solid #eee;
+			}
+			.cart-product-img img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.2s;
+			}
+			.cart-product-img a:hover img { transform: scale(1.06); }
+
+			/* Product name */
+			.cart-product-name h4 {
+				margin: 0 0 4px;
+				font-size: 14px;
+				font-weight: 600;
+			}
+			.cart-product-name h4 a {
+				color: #2B2D42;
+				text-decoration: none;
+				transition: color 0.15s;
+			}
+			.cart-product-name h4 a:hover { color: #D10024; }
+			.cart-product-name .brand-tag {
+				display: inline-block;
+				background: #f0f1f4;
+				color: #666;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.5px;
+				padding: 2px 8px;
+				border-radius: 4px;
+				text-transform: uppercase;
+			}
+
+			/* Price cells */
+			.cart-product-price {
+				font-weight: 600;
+				color: #555;
+				white-space: nowrap;
+			}
+			.cart-product-subtotal {
+				font-weight: 700;
+				color: #D10024;
+				white-space: nowrap;
+				font-size: 15px;
+			}
+
+			/* Quantity control */
+			.qty-control {
+				display: inline-flex;
+				align-items: center;
+				border: 1.5px solid #e0e0e0;
+				border-radius: 8px;
+				overflow: hidden;
+				background: #fff;
+				box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+			}
+			.qty-control button {
+				width: 32px;
+				height: 36px;
+				background: #f7f7f7;
+				border: none;
+				outline: none;
+				cursor: pointer;
+				font-size: 16px;
+				font-weight: 700;
+				color: #444;
+				transition: background 0.15s, color 0.15s;
+				flex-shrink: 0;
+			}
+			.qty-control button:hover {
+				background: #D10024;
+				color: #fff;
+			}
+			.qty-control input[type="number"] {
+				width: 44px;
+				height: 36px;
+				border: none;
+				border-left: 1.5px solid #e0e0e0;
+				border-right: 1.5px solid #e0e0e0;
+				text-align: center;
+				font-size: 14px;
+				font-weight: 600;
+				color: #333;
+				outline: none;
+				-moz-appearance: textfield;
+				background: #fff;
+			}
+			.qty-control input[type="number"]::-webkit-outer-spin-button,
+			.qty-control input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; appearance: none; }
+
+			/* Remove button */
+			.cart-remove-btn {
+				width: 34px;
+				height: 34px;
+				border: 1.5px solid #e0e0e0;
+				border-radius: 8px;
+				background: #fff;
+				color: #aaa;
+				cursor: pointer;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				transition: background 0.15s, border-color 0.15s, color 0.15s;
+				margin: 0 auto;
+				outline: none;
+				padding: 0;
+				line-height: 1;
+			}
+			.cart-remove-btn:hover {
+				background: #D10024;
+				border-color: #D10024;
+				color: #fff;
+			}
+
+			/* ── Cart Summary Panel ── */
+			.cart-summary-panel {
+				background: #fff;
+				border-radius: 12px;
+				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+				padding: 28px 28px 24px;
+				position: sticky;
+				top: 20px;
+			}
+			.cart-summary-panel h4 {
+				font-size: 16px;
+				font-weight: 700;
+				color: #2B2D42;
+				margin: 0 0 20px;
+				padding-bottom: 14px;
+				border-bottom: 2px solid #f0f0f0;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+			.cart-summary-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 10px 0;
+				border-bottom: 1px solid #f4f4f4;
+				font-size: 14px;
+				color: #555;
+			}
+			.cart-summary-row:last-of-type { border-bottom: none; }
+			.cart-summary-row.total {
+				padding-top: 16px;
+				font-size: 18px;
+				font-weight: 700;
+				color: #2B2D42;
+			}
+			.cart-summary-row.total span:last-child { color: #D10024; }
+
+			/* Continue shopping link */
+			.cart-continue-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				color: #666;
+				font-size: 13px;
+				text-decoration: none;
+				padding: 10px 0;
+				transition: color 0.15s;
+			}
+			.cart-continue-link:hover { color: #D10024; text-decoration: none; }
+			.cart-continue-link i { font-size: 12px; }
+
+			/* Checkout btn full-width in panel */
+			.cart-checkout-btn {
+				display: block;
+				width: 100%;
+				background: linear-gradient(135deg, #D10024, #a80020);
+				color: #fff;
+				text-align: center;
+				padding: 14px;
+				border-radius: 8px;
+				font-size: 15px;
+				font-weight: 700;
+				text-decoration: none;
+				margin-top: 20px;
+				letter-spacing: 0.5px;
+				transition: opacity 0.2s, transform 0.2s;
+				box-shadow: 0 4px 14px rgba(209,0,36,0.3);
+			}
+			.cart-checkout-btn:hover {
+				color: #fff;
+				text-decoration: none;
+				opacity: 0.92;
+				transform: translateY(-1px);
+			}
+
+			/* Empty state */
+			.cart-empty-wrap {
+				background: #fff;
+				border-radius: 12px;
+				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+				padding: 80px 20px;
+				text-align: center;
+			}
+			.cart-empty-wrap .empty-icon {
+				width: 100px;
+				height: 100px;
+				margin: 0 auto 24px;
+				background: #f4f5f7;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.cart-empty-wrap .empty-icon i {
+				font-size: 46px;
+				color: #ccc;
+			}
+			.cart-empty-wrap h3 {
+				font-size: 20px;
+				font-weight: 400;
+				color: #999;
+				margin: 0 0 28px;
+			}
+		</style>
     </head>
 	<body>
 		<!-- HEADER -->
@@ -106,36 +481,34 @@
 			</div>
 		</header>
 
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<div class="container">
-				<div id="responsive-nav">
-					<ul class="main-nav nav navbar-nav">
-						<li><a href="index.html">Početna</a></li>
-						<li><a href="#">Akcije</a></li>
-						<li><a href="#">Kategorije</a></li>
-					</ul>
+		<!-- HERO BANNER -->
+		<div class="page-hero">
+			<!-- NAV inside hero -->
+			<nav id="navigation" class="page-hero-nav">
+				<div class="container">
+					<div id="responsive-nav">
+						<ul class="main-nav nav navbar-nav">
+							<li><a href="index.html">Početna</a></li>
+							<li><a href="#">Akcije</a></li>
+							<li><a href="#">Kategorije</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-		</nav>
-
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb" class="section">
+			</nav>
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
-						<h3 class="breadcrumb-header">Korpa</h3>
-						<ul class="breadcrumb-tree">
-							<li><a href="index.html">Početna</a></li>
-							<li class="active">Korpa</li>
-						</ul>
+					<div class="col-md-8">
+						<span class="page-hero-badge"><i class="fa fa-shopping-cart"></i> &nbsp;Vaša korpa</span>
+						<h1>Korpa &mdash; <span>Optimus</span></h1>
+						<p>Pregledajte izabrane proizvode, izmenite količine i nastavite ka naručivanju.</p>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- /HERO BANNER -->
 
 		<!-- SECTION -->
-		<div class="section">
+		<div class="section cart-page-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -150,7 +523,7 @@
 		</div>
 
 		<!-- BRANDS CAROUSEL -->
-		<div id="brands-section" class="section">
+		<div id="brands-section" class="section" style="background:#fff;">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->

@@ -22,15 +22,25 @@
                     return cat.showInNav === true || (cat.showInNav === undefined);
                 });
 
+                // Determine active nav item based on current page
+                var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+                function navItem(href, label) {
+                    var isActive = (href === currentPage) ||
+                        (currentPage === '' && href === 'index.html') ||
+                        (currentPage === 'store.html' && href.indexOf('store.html') === 0);
+                    return '<li' + (isActive ? ' class="active"' : '') + '><a href="' + href + '">' + label + '</a></li>';
+                }
+
                 // Build navigation items
-                var navHtml = '<li class="active"><a href="index.html">Početna</a></li>' +
-                    '<li><a href="#">Akcije</a></li>' +
-                    '<li><a href="store.html">Kategorije</a></li>';
+                var navHtml = navItem('index.html', 'Početna') +
+                    navItem('#', 'Akcije') +
+                    navItem('store.html', 'Kategorije');
 
                 visibleCategories.forEach(function (cat) {
                     // Koristi displayName ako postoji, inače fallback na name
                     var categoryName = cat.displayName || cat.name;
-                    navHtml += '<li><a href="store.html?category=' + cat.slug + '">' + categoryName + '</a></li>';
+                    navHtml += navItem('store.html?category=' + cat.slug, categoryName);
                 });
 
                 // Update all navigation elements
@@ -78,6 +88,17 @@
 
     $(document).ready(function () {
         initLogo();
+        // Set active nav item immediately from existing HTML (fallback before AJAX)
+        var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        $('.main-nav li').each(function () {
+            var href = $(this).find('a').attr('href') || '';
+            var hrefPage = href.split('/').pop().split('?')[0];
+            if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html')) {
+                $(this).addClass('active');
+            } else {
+                $(this).removeClass('active');
+            }
+        });
         initMainNav();
     });
 

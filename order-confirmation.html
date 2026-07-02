@@ -16,6 +16,71 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, #2B2D42 0%, #1a1b2e 60%, #D10024 100%);
+            color: #fff;
+            padding: 0 0 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(209,0,36,0.08);
+            border-radius: 50%;
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 350px;
+            height: 350px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+        }
+        .page-hero > .container { padding-top: 50px; }
+        .page-hero h1 { font-size: 38px; font-weight: 700; margin-bottom: 12px; color: #fff; }
+        .page-hero h1 span { color: #D10024; }
+        .page-hero p { font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 0; max-width: 520px; }
+        .page-hero-badge {
+            display: inline-block;
+            background: rgba(209,0,36,0.2);
+            border: 1px solid rgba(209,0,36,0.5);
+            color: #ff6b6b;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .page-hero-nav {
+            margin-bottom: 0;
+            padding: 0;
+            background: transparent !important;
+            border-bottom: none !important;
+            box-shadow: none !important;
+        }
+        .page-hero-nav #responsive-nav .main-nav > li > a {
+            color: rgba(255,255,255,0.75);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            transition: color 0.2s;
+        }
+        .page-hero-nav #responsive-nav .main-nav > li > a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <!-- HEADER -->
@@ -93,34 +158,30 @@
         </div>
     </header>
 
-    <!-- NAVIGATION -->
-    <nav id="navigation">
-        <div class="container">
-            <div id="responsive-nav">
-                <ul class="main-nav nav navbar-nav">
-                    <li><a href="index.html">Početna</a></li>
-                    <li><a href="#">Akcije</a></li>
-                    <li><a href="#">Kategorije</a></li>
-                </ul>
+    <!-- HERO BANNER -->
+    <div class="page-hero">
+        <nav id="navigation" class="page-hero-nav">
+            <div class="container">
+                <div id="responsive-nav">
+                    <ul class="main-nav nav navbar-nav">
+                        <li><a href="index.html">Početna</a></li>
+                        <li><a href="#">Akcije</a></li>
+                        <li><a href="#">Kategorije</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- BREADCRUMB -->
-    <div id="breadcrumb" class="section">
+        </nav>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <h3 class="breadcrumb-header">Potvrda porudžbine</h3>
-                    <ul class="breadcrumb-tree">
-                        <li><a href="index.html">Početna</a></li>
-                        <li><a href="checkout.html">Naručivanje</a></li>
-                        <li class="active">Potvrda</li>
-                    </ul>
+                <div class="col-md-8">
+                    <span class="page-hero-badge"><i class="fa fa-check-circle"></i> &nbsp;Porudžbina primljena</span>
+                    <h1>Hvala vam &mdash; <span>Optimus</span></h1>
+                    <p>Vaša porudžbina je uspešno primljena. Kontaktiraćemo vas u najkraćem roku.</p>
                 </div>
             </div>
         </div>
     </div>
+    <!-- /HERO BANNER -->
 
     <!-- SECTION -->
     <div class="section">

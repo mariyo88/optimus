@@ -34,6 +34,309 @@
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 
+		<style>
+			/* ── Hero Banner ── */
+			.page-hero {
+				background: linear-gradient(135deg, #2B2D42 0%, #1a1b2e 60%, #D10024 100%);
+				color: #fff;
+				padding: 0 0 50px;
+				position: relative;
+				overflow: hidden;
+			}
+			.page-hero > .container {
+				padding-top: 10px;
+			}
+			.page-hero-nav {
+				margin-bottom: 0;
+				padding: 0;
+				background: transparent !important;
+				border-bottom: none !important;
+				box-shadow: none !important;
+			}
+			.page-hero-nav #responsive-nav .main-nav > li > a {
+				color: rgba(255,255,255,0.75);
+				font-size: 13px;
+				font-weight: 600;
+				padding: 8px 16px;
+				transition: color 0.2s;
+			}
+			.page-hero-nav #responsive-nav .main-nav > li > a:hover,
+			.page-hero-nav #responsive-nav .main-nav > li.active > a {
+				color: #fff;
+				background: rgba(255,255,255,0.08);
+				border-radius: 4px;
+			}
+			.page-hero::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				right: -10%;
+				width: 500px;
+				height: 500px;
+				background: rgba(209,0,36,0.08);
+				border-radius: 50%;
+			}
+			.page-hero::after {
+				content: '';
+				position: absolute;
+				bottom: -30%;
+				left: -5%;
+				width: 350px;
+				height: 350px;
+				background: rgba(255,255,255,0.03);
+				border-radius: 50%;
+			}
+			.page-hero h1 {
+				font-size: 38px;
+				font-weight: 700;
+				margin-bottom: 12px;
+				color: #fff;
+			}
+			.page-hero h1 span { color: #D10024; }
+			.page-hero p {
+				font-size: 17px;
+				color: rgba(255,255,255,0.75);
+				margin-bottom: 0;
+				max-width: 520px;
+			}
+			.page-hero-badge {
+				display: inline-block;
+				background: rgba(209,0,36,0.2);
+				border: 1px solid rgba(209,0,36,0.5);
+				color: #ff6b6b;
+				padding: 6px 16px;
+				border-radius: 20px;
+				font-size: 13px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-bottom: 18px;
+			}
+
+			/* ── Checkout section ── */
+			.checkout-section {
+				padding: 50px 0;
+				background: #f8f9fa;
+			}
+
+			/* ── Billing / Shipping panels ── */
+			.billing-details,
+			.shiping-details,
+			.order-notes {
+				background: #fff;
+				border-radius: 6px;
+				box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+				padding: 30px;
+				margin-bottom: 25px;
+			}
+			.billing-details .section-title,
+			.shiping-details .section-title {
+				margin-bottom: 22px;
+			}
+			.billing-details .section-title h3,
+			.shiping-details .section-title h3 {
+				font-size: 18px;
+				font-weight: 700;
+				color: #2B2D42;
+				padding-bottom: 12px;
+				border-bottom: 2px solid #D10024;
+				margin: 0;
+			}
+			.order-notes textarea.input {
+				min-height: 110px;
+				resize: vertical;
+			}
+
+			/* ── Order summary panel ── */
+			.order-details {
+				position: sticky;
+				top: 20px;
+			}
+			.order-details .section-title h3 {
+				font-size: 18px;
+				font-weight: 700;
+				color: #2B2D42;
+				padding-bottom: 12px;
+				border-bottom: 2px solid #D10024;
+				margin-bottom: 20px;
+			}
+			.order-summary {
+				background: #fff;
+				border-radius: 12px;
+				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+				overflow: hidden;
+				margin-bottom: 20px;
+			}
+
+			/* Summary header */
+			.order-summary-header {
+				background: #2B2D42;
+				padding: 14px 20px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.order-summary-header span {
+				color: rgba(255,255,255,0.6);
+				font-size: 11px;
+				font-weight: 700;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+			}
+
+			/* Product rows */
+			.order-product-list {
+				padding: 8px 0;
+				border-bottom: 1px solid #f0f0f0;
+			}
+			.order-product-row {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				padding: 12px 18px;
+				transition: background 0.15s;
+			}
+			.order-product-row:hover { background: #fafafa; }
+			.order-product-row .op-badge {
+				min-width: 24px;
+				height: 24px;
+				background: #D10024;
+				color: #fff;
+				border-radius: 50%;
+				font-size: 11px;
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+			}
+			.order-product-row .op-img {
+				width: 46px;
+				height: 46px;
+				border-radius: 6px;
+				object-fit: cover;
+				border: 1px solid #eee;
+				flex-shrink: 0;
+				background: #f5f5f5;
+			}
+			.order-product-row .op-info {
+				flex: 1;
+				min-width: 0;
+			}
+			.order-product-row .op-name {
+				font-size: 13px;
+				font-weight: 600;
+				color: #2B2D42;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: block;
+				margin-bottom: 2px;
+			}
+			.order-product-row .op-qty {
+				font-size: 11px;
+				color: #999;
+			}
+			.order-product-row .op-price {
+				font-size: 13px;
+				font-weight: 700;
+				color: #D10024;
+				white-space: nowrap;
+				flex-shrink: 0;
+			}
+
+			/* Totals */
+			.order-totals {
+				padding: 14px 18px 6px;
+			}
+			.order-totals-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 8px 0;
+				font-size: 13px;
+				color: #666;
+				border-bottom: 1px solid #f4f4f4;
+			}
+			.order-totals-row:last-child { border-bottom: none; }
+			.order-totals-row.grand-total {
+				font-size: 16px;
+				font-weight: 700;
+				color: #2B2D42;
+				padding-top: 14px;
+			}
+			.order-totals-row.grand-total span:last-child { color: #D10024; }
+			.free-shipping-badge {
+				background: #e8f5e9;
+				color: #27ae60;
+				font-size: 11px;
+				font-weight: 700;
+				padding: 2px 8px;
+				border-radius: 4px;
+			}
+			.payment-method {
+				background: #fff;
+				border-radius: 6px;
+				box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+				padding: 22px 25px;
+				margin-bottom: 20px;
+			}
+
+			/* ── Steps indicator ── */
+			.checkout-steps {
+				display: flex;
+				align-items: center;
+				margin-bottom: 30px;
+				background: #fff;
+				border-radius: 6px;
+				box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+				padding: 18px 25px;
+			}
+			.checkout-step {
+				display: flex;
+				align-items: center;
+				flex: 1;
+				position: relative;
+			}
+			.checkout-step:not(:last-child)::after {
+				content: '';
+				flex: 1;
+				height: 2px;
+				background: #e0e0e0;
+				margin: 0 12px;
+			}
+			.checkout-step.active:not(:last-child)::after { background: #D10024; }
+			.step-circle {
+				width: 32px;
+				height: 32px;
+				border-radius: 50%;
+				background: #e0e0e0;
+				color: #999;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 13px;
+				font-weight: 700;
+				flex-shrink: 0;
+			}
+			.checkout-step.active .step-circle {
+				background: #D10024;
+				color: #fff;
+			}
+			.checkout-step.done .step-circle {
+				background: #28a745;
+				color: #fff;
+			}
+			.step-label {
+				margin-left: 10px;
+				font-size: 13px;
+				font-weight: 600;
+				color: #aaa;
+			}
+			.checkout-step.active .step-label { color: #2B2D42; }
+			.checkout-step.done .step-label { color: #28a745; }
+		</style>
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -144,44 +447,34 @@
 		</header>
 		<!-- /HEADER -->
 
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Početna</a></li>
-						<li><a href="#">Akcije</a></li>
-						<li><a href="#">Kategorije</a></li>
-					</ul>
-					<!-- /NAV -->
+		<!-- HERO BANNER -->
+		<div class="page-hero">
+			<!-- NAV inside hero -->
+			<nav id="navigation" class="page-hero-nav">
+				<div class="container">
+					<div id="responsive-nav">
+						<ul class="main-nav nav navbar-nav">
+							<li class="active"><a href="#">Početna</a></li>
+							<li><a href="#">Akcije</a></li>
+							<li><a href="#">Kategorije</a></li>
+						</ul>
+					</div>
 				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
-		<!-- /NAVIGATION -->
-
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb" class="section">
+			</nav>
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
-						<h3 class="breadcrumb-header">Naručivanje</h3>
-						<ul class="breadcrumb-tree">
-							<li><a href="index.html">Početna</a></li>
-							<li class="active">Naručivanje</li>
-						</ul>
+					<div class="col-md-8">
+						<span class="page-hero-badge"><i class="fa fa-lock"></i> &nbsp;Sigurna kupovina</span>
+						<h1>Naručivanje &mdash; <span>Optimus</span></h1>
+						<p>Unesite podatke za dostavu i završite kupovinu. Vaši podaci su bezbedni i zaštićeni.</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /BREADCRUMB -->
+		<!-- /HERO BANNER -->
 
 		<!-- SECTION -->
-		<div class="section">
+		<div class="section checkout-section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
@@ -191,7 +484,7 @@
 						<!-- Billing Details -->
 						<div class="billing-details">
 							<div class="section-title">
-								<h3 class="title">Adresa za naplatu</h3>
+								<h3 class="title"><i class="fa fa-user" style="color:#D10024;margin-right:8px;"></i>Adresa za naplatu</h3>
 							</div>
 							<div class="form-group">
 								<input class="input" type="text" name="first-name" placeholder="Ime">
@@ -236,7 +529,7 @@
 						<!-- Shiping Details -->
 						<div class="shiping-details">
 							<div class="section-title">
-								<h3 class="title">Adresa za isporuku</h3>
+								<h3 class="title"><i class="fa fa-truck" style="color:#D10024;margin-right:8px;"></i>Adresa za isporuku</h3>
 							</div>
 							<div class="input-checkbox">
 								<input type="checkbox" id="shiping-address">
@@ -284,7 +577,7 @@
 					<!-- Order Details -->
 					<div class="col-md-5 order-details">
 						<div class="section-title text-center">
-							<h3 class="title">Vaša porudžbina</h3>
+							<h3 class="title"><i class="fa fa-list-alt" style="color:#D10024;margin-right:8px;"></i>Vaša porudžbina</h3>
 						</div>
 						<div class="order-summary">
 							<div class="order-col">
@@ -349,7 +642,14 @@
 								Pročitao/la sam i prihvatam <a href="#">uslove korišćenja</a>
 							</label>
 						</div>
-						<a href="#" class="primary-btn order-submit">Pošalji porudžbinu</a>
+						<div style="background:#f8f9fa;border-radius:6px;padding:14px 18px;margin:15px 0;font-size:13px;color:#777;text-align:center;">
+							<i class="fa fa-lock" style="color:#28a745;margin-right:6px;"></i> Sigurna kupovina &nbsp;|&nbsp;
+							<i class="fa fa-shield" style="color:#D10024;margin-right:6px;"></i> Zaštita podataka &nbsp;|&nbsp;
+							<i class="fa fa-truck" style="color:#2B2D42;margin-right:6px;"></i> Brza dostava
+						</div>
+						<a href="#" class="primary-btn order-submit" style="display:block;text-align:center;padding:14px;font-size:16px;">
+							<i class="fa fa-check-circle" style="margin-right:8px;"></i>Pošalji porudžbinu
+						</a>
 					</div>
 					<!-- /Order Details -->
 				</div>

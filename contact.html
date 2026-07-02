@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>Kontakt - Optimus</title>
-	<meta name="description" content="Kontaktirajte Optimus Systems. Vidoja –uliÊa 55, Miloöevac | Momira GajiÊa 38, Velika Plana. Tel: +381 (0)63 243123">
+	<meta name="description" content="Kontaktirajte Optimus Systems. Vidoja ƒêuliƒáa 55, Milo≈°evac | Momira Gajiƒáa 38, Velika Plana. Tel: +381 (0)63 243123">
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -35,173 +35,249 @@
 	<link type="text/css" rel="stylesheet" href="css/style.css"/>
 	
 	<style>
+		/* ‚îÄ‚îÄ Hero Banner ‚îÄ‚îÄ */
+		.page-hero {
+			background: linear-gradient(135deg, #2B2D42 0%, #1a1b2e 60%, #D10024 100%);
+			color: #fff;
+			padding: 0 0 50px;
+			position: relative;
+			overflow: hidden;
+		}
+		.page-hero > .container {
+			padding-top: 50px;
+		}
+		.page-hero-nav {
+			margin-bottom: 0;
+			padding: 0;
+			background: transparent !important;
+			border-bottom: none !important;
+			box-shadow: none !important;
+		}
+		.page-hero-nav #responsive-nav .main-nav > li > a {
+			color: rgba(255,255,255,0.75);
+			font-size: 13px;
+			font-weight: 600;
+			padding: 8px 16px;
+			transition: color 0.2s;
+		}
+		.page-hero-nav #responsive-nav .main-nav > li > a:hover,
+		.page-hero-nav #responsive-nav .main-nav > li.active > a {
+			color: #fff;
+			background: rgba(255,255,255,0.08);
+			border-radius: 4px;
+		}
+		.page-hero::before {
+			content: '';
+			position: absolute;
+			top: -50%;
+			right: -10%;
+			width: 500px;
+			height: 500px;
+			background: rgba(209,0,36,0.08);
+			border-radius: 50%;
+		}
+		.page-hero::after {
+			content: '';
+			position: absolute;
+			bottom: -30%;
+			left: -5%;
+			width: 350px;
+			height: 350px;
+			background: rgba(255,255,255,0.03);
+			border-radius: 50%;
+		}
+		.page-hero h1 {
+			font-size: 38px;
+			font-weight: 700;
+			margin-bottom: 12px;
+			color: #fff;
+		}
+		.page-hero h1 span { color: #D10024; }
+		.page-hero p {
+			font-size: 17px;
+			color: rgba(255,255,255,0.75);
+			margin-bottom: 0;
+			max-width: 520px;
+		}
+		.page-hero-badge {
+			display: inline-block;
+			background: rgba(209,0,36,0.2);
+			border: 1px solid rgba(209,0,36,0.5);
+			color: #ff6b6b;
+			padding: 6px 16px;
+			border-radius: 20px;
+			font-size: 13px;
+			font-weight: 600;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 18px;
+		}
+
+		/* ‚îÄ‚îÄ Contact section ‚îÄ‚îÄ */
 		.contact-section {
 			padding: 60px 0;
-		}
-		.contact-header {
-			text-align: center;
-			margin-bottom: 50px;
-		}
-		.contact-header h1 {
-			font-size: 36px;
-			font-weight: 700;
-			color: #D10024;
-			margin-bottom: 20px;
+			background: #f8f9fa;
 		}
 		.contact-box {
 			background: #fff;
 			padding: 40px;
-			border-radius: 5px;
-			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			border-radius: 6px;
+			box-shadow: 0 2px 15px rgba(0,0,0,0.07);
 			margin-bottom: 30px;
 			height: 100%;
 		}
 		.contact-box h3 {
-			font-size: 22px;
-			font-weight: 600;
+			font-size: 20px;
+			font-weight: 700;
 			color: #2B2D42;
-			margin-bottom: 25px;
+			margin-bottom: 20px;
 			padding-bottom: 15px;
 			border-bottom: 2px solid #D10024;
 		}
+		.contact-box h3 i { color: #D10024; margin-right: 8px; }
 		.contact-info-item {
-			margin-bottom: 25px;
+			margin-bottom: 22px;
 			display: flex;
-			align-items: start;
+			align-items: flex-start;
 		}
 		.contact-info-item i {
-			font-size: 24px;
+			font-size: 20px;
 			color: #D10024;
 			margin-right: 15px;
-			margin-top: 5px;
-			min-width: 30px;
+			margin-top: 3px;
+			min-width: 22px;
 		}
-		.contact-info-item div {
-			flex: 1;
-		}
+		.contact-info-item div { flex: 1; }
 		.contact-info-item strong {
 			display: block;
-			color: #2B2D42;
-			font-size: 16px;
-			margin-bottom: 5px;
+			color: #777;
+			font-size: 11px;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			margin-bottom: 4px;
 		}
 		.contact-info-item p {
 			margin: 0;
-			color: #5a5a5a;
+			color: #2B2D42;
 			font-size: 15px;
 			line-height: 1.6;
 		}
 		.contact-info-item a {
-			color: #D10024;
+			color: #2B2D42;
 			text-decoration: none;
 		}
-		.contact-info-item a:hover {
-			text-decoration: underline;
-		}
+		.contact-info-item a:hover { color: #D10024; }
+
+		/* ‚îÄ‚îÄ Contact form ‚îÄ‚îÄ */
 		.contact-form-box {
-			background: #f8f9fa;
+			background: #fff;
 			padding: 40px;
-			border-radius: 5px;
+			border-radius: 6px;
+			box-shadow: 0 2px 15px rgba(0,0,0,0.07);
 		}
 		.contact-form-box h3 {
-			font-size: 22px;
-			font-weight: 600;
+			font-size: 20px;
+			font-weight: 700;
 			color: #2B2D42;
-			margin-bottom: 25px;
+			margin-bottom: 20px;
+			padding-bottom: 15px;
+			border-bottom: 2px solid #D10024;
 		}
+		.contact-form-box h3 i { color: #D10024; margin-right: 8px; }
 		.form-group label {
 			font-weight: 600;
 			color: #2B2D42;
-			margin-bottom: 8px;
+			font-size: 13px;
+			text-transform: uppercase;
+			letter-spacing: 0.3px;
+			margin-bottom: 7px;
 		}
 		.form-control {
 			border-radius: 3px;
-			border: 1px solid #ddd;
+			border: 1px solid #e0e0e0;
 			padding: 12px 15px;
 			font-size: 14px;
+			transition: border-color 0.3s ease, box-shadow 0.3s ease;
 		}
 		.form-control:focus {
 			border-color: #D10024;
-			box-shadow: 0 0 5px rgba(209, 0, 36, 0.2);
+			box-shadow: 0 0 0 3px rgba(209, 0, 36, 0.1);
+			outline: none;
 		}
 		.btn-submit {
 			background: #D10024;
 			color: #fff;
 			border: none;
-			padding: 12px 40px;
-			font-size: 16px;
-			font-weight: 600;
+			padding: 13px 40px;
+			font-size: 15px;
+			font-weight: 700;
 			border-radius: 3px;
 			cursor: pointer;
 			transition: all 0.3s ease;
+			letter-spacing: 0.3px;
 		}
-		.btn-submit:hover {
-			background: #a00a1f;
-		}
+		.btn-submit:hover { background: #a00a1f; transform: translateY(-1px); }
+
+		/* ‚îÄ‚îÄ Location badge ‚îÄ‚îÄ */
 		.location-badge {
-			background: #2B2D42;
-			color: #fff;
-			padding: 8px 15px;
-			border-radius: 3px;
 			display: inline-block;
-			font-size: 13px;
-			font-weight: 600;
-			margin-bottom: 10px;
+			background: #D10024;
+			color: #fff;
+			padding: 5px 14px;
+			border-radius: 3px;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 18px;
 		}
-		.map-section {
-			margin-top: 60px;
-		}
-		.map-section-title {
+
+		/* ‚îÄ‚îÄ Map ‚îÄ‚îÄ */
+		.map-section { margin-top: 50px; }
+		.section-heading {
 			text-align: center;
-			margin-bottom: 30px;
+			margin-bottom: 35px;
 		}
-		.map-section-title h3 {
-			font-size: 24px;
+		.section-heading h2 {
+			font-size: 26px;
 			font-weight: 700;
 			color: #2B2D42;
-			margin-bottom: 8px;
+			margin-bottom: 10px;
 		}
-		.map-section-title p {
-			color: #777;
-			font-size: 14px;
+		.section-heading .heading-line {
+			width: 50px;
+			height: 3px;
+			background: #D10024;
+			margin: 0 auto 12px;
 		}
+		.section-heading p { color: #777; font-size: 15px; }
 		.map-wrapper {
 			position: relative;
 			border-radius: 8px;
 			overflow: hidden;
-			box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-			border: 3px solid #fff;
+			box-shadow: 0 8px 30px rgba(0,0,0,0.12);
 		}
 		.map-wrapper iframe {
 			width: 100%;
-			height: 500px;
+			height: 480px;
 			border: 0;
 			display: block;
 		}
 		.map-open-btn {
 			display: inline-block;
-			margin-top: 16px;
+			margin-top: 18px;
 			background: #D10024;
 			color: #fff;
-			padding: 10px 24px;
+			padding: 11px 26px;
 			border-radius: 3px;
 			font-size: 14px;
-			font-weight: 600;
+			font-weight: 700;
 			text-decoration: none;
 			transition: background 0.3s;
 		}
-		.map-open-btn:hover {
-			background: #a00a1f;
-			color: #fff;
-			text-decoration: none;
-		}
-		.map-open-btn i {
-			margin-right: 7px;
-		}
-		.map-cta {
-			text-align: center;
-			margin-top: 20px;
-		}
+		.map-open-btn:hover { background: #a00a1f; color: #fff; text-decoration: none; }
+		.map-open-btn i { margin-right: 7px; }
+		.map-cta { text-align: center; margin-top: 18px; }
 	</style>
 </head>
 <body>
@@ -213,7 +289,7 @@
 				<ul class="header-links pull-left">
 					<li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
 					<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
-					<li><a href="https://maps.google.com/?q=Momira+GajiÊa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira GajiÊa 38, Velika Plana 11320, Serbia</a></li>
+					<li><a href="https://maps.google.com/?q=Momira+Gajiƒáa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajiƒáa 38, Velika Plana 11320, Serbia</a></li>
 				</ul>
 				<ul class="header-links pull-right">
 					<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
@@ -241,8 +317,8 @@
 					<div class="col-md-6">
 						<div class="header-search">
 							<form>
-								<input class="input" placeholder="Pretraûite proizvode...">
-								<button class="search-btn"><i class="fa fa-search"></i> Pretraûi</button>
+								<input class="input" placeholder="Pretra≈æite proizvode...">
+								<button class="search-btn"><i class="fa fa-search"></i> Pretra≈æi</button>
 							</form>
 						</div>
 					</div>
@@ -255,7 +331,7 @@
 							<div>
 								<a href="#">
 									<i class="fa fa-heart-o"></i>
-									<span>Lista ûelja</span>
+									<span>Lista ≈æelja</span>
 								</a>
 							</div>
 							<!-- /Wishlist -->
@@ -267,18 +343,13 @@
 									<span>Korpa</span>
 									<div class="qty">3</div>
 								</a>
-								<div class="cart-dropdown">
-<div class="cart-list">
+								<div class="cart-dropdown"><div class="cart-list">
 <div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
                                         <div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">
                                             <i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i>
                                         </div>
                                         <p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
-                                    </div></div>
-<div class="cart-summary" style="display:none;"><small></small><h5></h5></div>
-<div class="cart-btns" style="display:none;"><a href="cart.html">Prikaûi korpu</a><a href="checkout.html">NaruËivanje  <i class="fa fa-arrow-circle-right"></i></a></div>
-</div>
-</div>
+                                    </div></div><div class="cart-summary" style="display:none;"><small></small><h5></h5></div><div class="cart-btns" style="display:none;"><a href="cart.html">Prika≈æi korpu</a><a href="checkout.html">Naruƒçivanje  <i class="fa fa-arrow-circle-right"></i></a></div></div>
 								<!-- /Cart -->
 
 							<!-- Menu Toogle -->
@@ -299,59 +370,47 @@
 	</header>
 	<!-- /HEADER -->
 
-	<!-- NAVIGATION -->
-	<nav id="navigation">
-		<div class="container">
-			<div id="responsive-nav">
-				<ul class="main-nav nav navbar-nav">
-					<li><a href="index.html">PoËetna</a></li>
-					<li><a href="#">Akcije</a></li>
-					<li><a href="#">Kategorije</a></li>
-				</ul>
+	<!-- HERO BANNER -->
+	<div class="page-hero">
+		<nav id="navigation" class="page-hero-nav">
+			<div class="container">
+				<div id="responsive-nav">
+					<ul class="main-nav nav navbar-nav">
+						<li><a href="index.html">Poƒçetna</a></li>
+						<li><a href="#">Akcije</a></li>
+						<li><a href="#">Kategorije</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</nav>
-	<!-- /NAVIGATION -->
-
-	<!-- BREADCRUMB -->
-	<div id="breadcrumb" class="section">
+		</nav>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<h3 class="breadcrumb-header">Kontakt</h3>
-					<ul class="breadcrumb-tree">
-						<li><a href="index.html">PoËetna</a></li>
-						<li class="active">Kontakt</li>
-					</ul>
+				<div class="col-md-8">
+					<span class="page-hero-badge"><i class="fa fa-envelope"></i> &nbsp;Javite nam se</span>
+					<h1>Kontakt &mdash; <span>Optimus</span></h1>
+					<p>Tu smo da vam pomognemo. Posetite nas, pozovite ili po≈°aljite poruku ‚Äî odgovaramo brzo.</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- /BREADCRUMB -->
+	<!-- /HERO BANNER -->
 
 	<!-- SECTION -->
 	<div class="section contact-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="contact-header">
-						<h1>Kontaktirajte nas</h1>
-						<p style="font-size: 18px; color: #5a5a5a;">Tu smo da vam pomognemo - Javite nam se!</p>
-					</div>
-				</div>
-			</div>
 
 			<div class="row">
 				<!-- Contact Info -->
 				<div class="col-md-6">
 					<div class="contact-box">
-						<h3><i class="fa fa-building-o"></i> Sediöte kompanije</h3>
-						<span class="location-badge">MILOäEVAC</span>
+						<h3><i class="fa fa-building-o"></i> Sedi≈°te kompanije</h3>
+						<span class="location-badge">MILO≈†EVAC</span>
 						<div class="contact-info-item">
 							<i class="fa fa-map-marker"></i>
 							<div>
 								<strong>Adresa</strong>
-								<p>Vidoja –uliÊa 55<br>11318 Miloöevac<br>Srbija</p>
+								<p>Vidoja ƒêuliƒáa 55<br>11318 Milo≈°evac<br>Srbija</p>
 							</div>
 						</div>
 						<div class="contact-info-item">
@@ -379,7 +438,7 @@
 							<i class="fa fa-map-marker"></i>
 							<div>
 								<strong>Adresa</strong>
-								<p>Momira GajiÊa 38<br>11320 Velika Plana<br>Srbija</p>
+								<p>Momira Gajiƒáa 38<br>11320 Velika Plana<br>Srbija</p>
 							</div>
 						</div>
 						<div class="contact-info-item">
@@ -404,7 +463,7 @@
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-md-12">
 					<div class="contact-form-box">
-						<h3><i class="fa fa-paper-plane"></i> Poöaljite nam poruku</h3>
+						<h3><i class="fa fa-paper-plane"></i> Po≈°aljite nam poruku</h3>
 						<form id="contactForm">
 							<div class="row">
 								<div class="col-md-6">
@@ -439,7 +498,7 @@
 								<textarea class="form-control" id="message" rows="6" required></textarea>
 							</div>
 							<button type="submit" class="btn-submit">
-								<i class="fa fa-paper-plane"></i> Poöalji poruku
+								<i class="fa fa-paper-plane"></i> Po≈°alji poruku
 							</button>
 						</form>
 					</div>
@@ -449,9 +508,10 @@
 			<!-- Map -->
 			<div class="row map-section">
 				<div class="col-md-12">
-					<div class="map-section-title">
-						<h3><i class="fa fa-map-marker" style="color:#D10024; margin-right:8px;"></i>Pronaite nas</h3>
-						<p>Momira GajiÊa 38, 11320 Velika Plana, Srbija</p>
+					<div class="section-heading">
+						<h2><i class="fa fa-map-marker" style="color:#D10024; margin-right:8px;"></i>Pronaƒëite nas</h2>
+						<div class="heading-line"></div>
+						<p>Momira Gajiƒáa 38, 11320 Velika Plana, Srbija</p>
 					</div>
 					<div class="map-wrapper">
 						<iframe 
@@ -463,7 +523,7 @@
 						</iframe>
 					</div>
 					<div class="map-cta">
-						<a href="https://maps.google.com/?q=Optimus+Systems+Djuric+centar,+Momira+GajiÊa+38,+Velika+Plana" target="_blank" class="map-open-btn">
+						<a href="https://maps.google.com/?q=Optimus+Systems+Djuric+centar,+Momira+Gajiƒáa+38,+Velika+Plana" target="_blank" class="map-open-btn">
 							<i class="fa fa-external-link"></i> Otvori u Google Maps
 						</a>
 					</div>
@@ -479,7 +539,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title">
-						<h3 class="title">Naöi brendovi</h3>
+						<h3 class="title">Na≈°i brendovi</h3>
 					</div>
 					<div class="brands-carousel" id="brands-carousel-container">
 						<!-- Brands will be loaded dynamically via AJAX -->
@@ -498,9 +558,9 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="footer">
 							<h3 class="footer-title">O nama</h3>
-							<p>Optimus je vaö IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u naöoj PC igraonici sa najnovijom opremom. Naö cilj je kvalitetna usluga i bezuslovna podröka za sve vaöe digitalne potrebe.</p>
+							<p>Optimus je va≈° IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u na≈°oj PC igraonici sa najnovijom opremom. Na≈° cilj je kvalitetna usluga i bezuslovna podr≈°ka za sve va≈°e digitalne potrebe.</p>
 							<ul class="footer-links">
-								<li><a href="https://maps.google.com/?q=Momira+GajiÊa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira GajiÊa 38, Velika Plana 11320, Serbia</a></li>
+								<li><a href="https://maps.google.com/?q=Momira+Gajiƒáa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajiƒáa 38, Velika Plana 11320, Serbia</a></li>
 								<li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
 								<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
 							</ul>
@@ -525,8 +585,8 @@
 								<li><a href="about.html">O nama</a></li>
 								<li><a href="contact.html">Kontakt</a></li>
 								<li><a href="#">Politika privatnosti</a></li>
-								<li><a href="#">Narudûbine i povrat</a></li>
-								<li><a href="#">Uslovi koriöÊenja</a></li>
+								<li><a href="#">Narud≈æbine i povrat</a></li>
+								<li><a href="#">Uslovi kori≈°ƒáenja</a></li>
 							</ul>
 						</div>
 					</div>
@@ -536,10 +596,10 @@
 							<h3 class="footer-title">Usluge</h3>
 							<ul class="footer-links">
 								<li><a href="#">Moj nalog</a></li>
-								<li><a href="cart.html">Prikaûi korpu</a></li>
-								<li><a href="#">Lista ûelja</a></li>
-								<li><a href="#">Prati porudûbinu</a></li>
-								<li><a href="#">PomoÊ</a></li>
+								<li><a href="cart.html">Prika≈æi korpu</a></li>
+								<li><a href="#">Lista ≈æelja</a></li>
+								<li><a href="#">Prati porud≈æbinu</a></li>
+								<li><a href="#">Pomoƒá</a></li>
 							</ul>
 						</div>
 					</div>
@@ -560,7 +620,7 @@
 							<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 						</ul>
 						<span class="copyright">
-							© 2026 FirstCode. Sva prava zadrûana.
+							¬© 2026 FirstCode. Sva prava zadr≈æana.
 						</span>
 					</div>
 				</div>
@@ -577,7 +637,6 @@
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/config.js"></script>
-	<script src="js/main-nav.js"></script>
 	<script src="js/header-search.js"></script>
 	<script src="js/cart.js"></script>
 	<script src="js/brands-carousel.js"></script>
@@ -594,7 +653,7 @@
 			const message = document.getElementById('message').value;
 			
 			// Here you would typically send this data to your backend
-			alert('Hvala öto ste nas kontaktirali! OdgovoriÊemo vam u najkraÊem moguÊem roku.');
+			alert('Hvala ≈°to ste nas kontaktirali! Odgovoriƒáemo vam u najkraƒáem moguƒáem roku.');
 			this.reset();
 		});
 	</script>

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>O Nama - Optimus</title>
-	<meta name="description" content="Optimus Systems –uriÊ doo. Vidoja –uliÊa 55, 11318 Miloöevac, Srbija. Vaö pouzdani partner za tehnologiju i belu tehniku.">
+	<meta name="description" content="Optimus Systems ƒêuriƒá doo. Vidoja ƒêuliƒáa 55, 11318 Milo≈°evac, Srbija. Va≈° pouzdani partner za tehnologiju i belu tehniku.">
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -23,7 +23,7 @@
 
 	<!-- Font Awesome Icon -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-	
+
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -33,90 +33,408 @@
 
 	<!-- Custom stylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css"/>
-	
+
 	<style>
-		.about-section {
-			padding: 60px 0;
+		/* ‚îÄ‚îÄ Hero Banner ‚îÄ‚îÄ */
+		.about-hero {
+			background: linear-gradient(135deg, #2B2D42 0%, #1a1b2e 60%, #D10024 100%);
+			color: #fff;
+			padding: 0 0 60px;
+			margin-bottom: 0;
+			position: relative;
+			overflow: hidden;
 		}
-		.about-header {
+		.about-hero > .container {
+			padding-top: 50px;
+		}
+		.page-hero-nav {
+			margin-bottom: 0;
+			padding: 0;
+			background: transparent !important;
+			border-bottom: none !important;
+			box-shadow: none !important;
+		}
+		.page-hero-nav #responsive-nav .main-nav > li > a {
+			color: rgba(255,255,255,0.75);
+			font-size: 13px;
+			font-weight: 600;
+			padding: 8px 16px;
+			transition: color 0.2s;
+		}
+		.page-hero-nav #responsive-nav .main-nav > li > a:hover,
+		.page-hero-nav #responsive-nav .main-nav > li.active > a {
+			color: #fff;
+			background: rgba(255,255,255,0.08);
+			border-radius: 4px;
+		}
+		.about-hero::before {
+			content: '';
+			position: absolute;
+			top: -50%;
+			right: -10%;
+			width: 500px;
+			height: 500px;
+			background: rgba(209,0,36,0.08);
+			border-radius: 50%;
+		}
+		.about-hero::after {
+			content: '';
+			position: absolute;
+			bottom: -30%;
+			left: -5%;
+			width: 350px;
+			height: 350px;
+			background: rgba(255,255,255,0.03);
+			border-radius: 50%;
+		}
+		.about-hero h1 {
+			font-size: 42px;
+			font-weight: 700;
+			margin-bottom: 15px;
+			color: #fff;
+		}
+		.about-hero h1 span {
+			color: #D10024;
+		}
+		.about-hero p {
+			font-size: 18px;
+			color: rgba(255,255,255,0.75);
+			margin-bottom: 0;
+			max-width: 580px;
+		}
+		.about-hero-badge {
+			display: inline-block;
+			background: rgba(209,0,36,0.2);
+			border: 1px solid rgba(209,0,36,0.5);
+			color: #ff6b6b;
+			padding: 6px 16px;
+			border-radius: 20px;
+			font-size: 13px;
+			font-weight: 600;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+
+		/* ‚îÄ‚îÄ Stats Bar ‚îÄ‚îÄ */
+		.stats-bar {
+			background: #fff;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+			padding: 0;
+			margin-bottom: 0;
+			position: relative;
+			z-index: 2;
+		}
+		.stat-item {
 			text-align: center;
-			margin-bottom: 50px;
+			padding: 30px 20px;
+			border-right: 1px solid #f0f0f0;
+			position: relative;
 		}
-		.about-header h1 {
-			font-size: 36px;
+		.stat-item:last-child { border-right: none; }
+		.stat-item .stat-number {
+			font-size: 38px;
 			font-weight: 700;
 			color: #D10024;
-			margin-bottom: 20px;
+			line-height: 1;
+			margin-bottom: 6px;
 		}
-		.about-content {
+		.stat-item .stat-label {
+			font-size: 13px;
+			color: #777;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			font-weight: 600;
+		}
+
+		/* ‚îÄ‚îÄ Main section ‚îÄ‚îÄ */
+		.about-section {
+			padding: 60px 0;
+			background: #f8f9fa;
+		}
+
+		/* ‚îÄ‚îÄ About card ‚îÄ‚îÄ */
+		.about-card {
 			background: #fff;
 			padding: 40px;
-			border-radius: 5px;
-			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			border-radius: 6px;
+			box-shadow: 0 2px 15px rgba(0,0,0,0.07);
 			margin-bottom: 30px;
+			height: 100%;
 		}
-		.about-content h2 {
-			font-size: 24px;
-			font-weight: 600;
+		.about-card h2 {
+			font-size: 22px;
+			font-weight: 700;
 			color: #2B2D42;
 			margin-bottom: 20px;
+			padding-bottom: 15px;
+			border-bottom: 2px solid #D10024;
 		}
-		.about-content p {
-			font-size: 16px;
-			line-height: 1.8;
+		.about-card h2 i {
+			color: #D10024;
+			margin-right: 10px;
+		}
+		.about-card p {
+			font-size: 15px;
+			line-height: 1.9;
 			color: #5a5a5a;
 			margin-bottom: 15px;
 		}
-		.about-features {
-			margin-top: 40px;
-		}
+		.about-card p:last-child { margin-bottom: 0; }
+
+		/* ‚îÄ‚îÄ Feature boxes ‚îÄ‚îÄ */
 		.feature-box {
 			text-align: center;
-			padding: 30px 20px;
-			background: #f8f9fa;
-			border-radius: 5px;
+			padding: 35px 25px;
+			background: #fff;
+			border-radius: 6px;
 			margin-bottom: 30px;
 			transition: all 0.3s ease;
+			box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+			border-top: 3px solid transparent;
 		}
 		.feature-box:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+			transform: translateY(-6px);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+			border-top-color: #D10024;
 		}
-		.feature-box i {
-			font-size: 48px;
+		.feature-box .feature-icon {
+			width: 72px;
+			height: 72px;
+			background: rgba(209,0,36,0.08);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 20px;
+			transition: all 0.3s ease;
+		}
+		.feature-box:hover .feature-icon {
+			background: #D10024;
+		}
+		.feature-box .feature-icon i {
+			font-size: 28px;
 			color: #D10024;
-			margin-bottom: 20px;
+			transition: all 0.3s ease;
+		}
+		.feature-box:hover .feature-icon i {
+			color: #fff;
 		}
 		.feature-box h3 {
-			font-size: 18px;
-			font-weight: 600;
+			font-size: 17px;
+			font-weight: 700;
 			color: #2B2D42;
-			margin-bottom: 15px;
+			margin-bottom: 12px;
 		}
 		.feature-box p {
 			font-size: 14px;
-			color: #5a5a5a;
+			color: #777;
 			margin: 0;
+			line-height: 1.7;
 		}
-		.company-info {
+
+		/* ‚îÄ‚îÄ Services grid ‚îÄ‚îÄ */
+		.services-section {
+			padding: 50px 0;
+			background: #fff;
+		}
+		.section-heading {
+			text-align: center;
+			margin-bottom: 40px;
+		}
+		.section-heading h2 {
+			font-size: 28px;
+			font-weight: 700;
+			color: #2B2D42;
+			margin-bottom: 10px;
+		}
+		.section-heading .heading-line {
+			width: 50px;
+			height: 3px;
+			background: #D10024;
+			margin: 0 auto 15px;
+		}
+		.section-heading p {
+			color: #777;
+			font-size: 15px;
+		}
+		.service-card {
+			position: relative;
+			overflow: hidden;
+			border-radius: 8px;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+			height: 260px;
+			margin-bottom: 25px;
+			cursor: pointer;
+		}
+		.service-card img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			transition: transform 0.4s ease;
+		}
+		.service-card:hover img {
+			transform: scale(1.07);
+		}
+		.service-card-overlay {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: linear-gradient(to top, rgba(43,45,66,0.97), rgba(43,45,66,0.6), transparent);
+			padding: 25px 18px 18px;
+			color: #fff;
+			transition: all 0.3s ease;
+		}
+		.service-card:hover .service-card-overlay {
+			background: linear-gradient(to top, rgba(209,0,36,0.97), rgba(209,0,36,0.7), transparent);
+		}
+		.service-card-overlay h4 {
+			margin: 0 0 5px;
+			font-size: 16px;
+			font-weight: 700;
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+		.service-card-overlay p {
+			margin: 0;
+			font-size: 13px;
+			color: rgba(255,255,255,0.8);
+		}
+
+		/* ‚îÄ‚îÄ Company info ‚îÄ‚îÄ */
+		.company-info-section {
+			background: #f8f9fa;
+			padding: 50px 0;
+		}
+		.company-info-card {
 			background: #2B2D42;
 			color: #fff;
 			padding: 40px;
-			border-radius: 5px;
-			margin-top: 40px;
+			border-radius: 6px;
 		}
-		.company-info h3 {
+		.company-info-card h3 {
 			font-size: 22px;
-			font-weight: 600;
-			margin-bottom: 20px;
+			font-weight: 700;
+			margin-bottom: 25px;
 			color: #fff;
+			padding-bottom: 15px;
+			border-bottom: 2px solid #D10024;
 		}
-		.company-info p {
-			margin-bottom: 10px;
-			font-size: 15px;
-		}
-		.company-info strong {
+		.company-info-card h3 i {
 			color: #D10024;
+			margin-right: 10px;
+		}
+		.info-row {
+			display: flex;
+			align-items: flex-start;
+			margin-bottom: 18px;
+		}
+		.info-row i {
+			color: #D10024;
+			font-size: 18px;
+			margin-right: 15px;
+			margin-top: 2px;
+			min-width: 20px;
+		}
+		.info-row div strong {
+			display: block;
+			color: #ccc;
+			font-size: 12px;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			margin-bottom: 3px;
+		}
+		.info-row div span,
+		.info-row div a {
+			color: #fff;
+			font-size: 15px;
+			text-decoration: none;
+		}
+		.info-row div a:hover { color: #ff6b6b; }
+
+		.location-badge {
+			display: inline-block;
+			background: #D10024;
+			color: #fff;
+			padding: 5px 14px;
+			border-radius: 3px;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+
+		/* ‚îÄ‚îÄ CTA strip ‚îÄ‚îÄ */
+		.cta-strip {
+			background: linear-gradient(135deg, #D10024, #a00a1f);
+			color: #fff;
+			padding: 50px 0;
+			text-align: center;
+		}
+		.cta-strip h3 {
+			font-size: 26px;
+			font-weight: 700;
+			color: #fff;
+			margin-bottom: 10px;
+		}
+		.cta-strip p {
+			font-size: 16px;
+			color: rgba(255,255,255,0.85);
+			margin-bottom: 25px;
+		}
+		.btn-cta {
+			display: inline-block;
+			background: #fff;
+			color: #D10024;
+			padding: 13px 35px;
+			border-radius: 3px;
+			font-size: 15px;
+			font-weight: 700;
+			text-decoration: none;
+			margin: 0 8px 10px;
+			transition: all 0.3s ease;
+		}
+		.btn-cta:hover {
+			background: #2B2D42;
+			color: #fff;
+			text-decoration: none;
+		}
+		.btn-cta-outline {
+			display: inline-block;
+			background: transparent;
+			color: #fff;
+			border: 2px solid rgba(255,255,255,0.7);
+			padding: 11px 35px;
+			border-radius: 3px;
+			font-size: 15px;
+			font-weight: 700;
+			text-decoration: none;
+			margin: 0 8px 10px;
+			transition: all 0.3s ease;
+		}
+		.btn-cta-outline:hover {
+			background: #fff;
+			color: #D10024;
+			border-color: #fff;
+			text-decoration: none;
+		}
+
+		/* ‚îÄ‚îÄ Legal note ‚îÄ‚îÄ */
+		.legal-note {
+			background: #fff;
+			padding: 25px 30px;
+			border-radius: 6px;
+			border-left: 4px solid #D10024;
+		}
+		.legal-note p {
+			margin: 0;
+			font-size: 13px;
+			color: #888;
+			line-height: 1.7;
 		}
 	</style>
 </head>
@@ -129,7 +447,7 @@
 				<ul class="header-links pull-left">
 					<li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
 					<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
-					<li><a href="https://maps.google.com/?q=Momira+GajiÊa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira GajiÊa 38, Velika Plana 11320, Serbia</a></li>
+					<li><a href="https://maps.google.com/?q=Momira+Gajiƒáa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajiƒáa 38, Velika Plana 11320, Serbia</a></li>
 				</ul>
 				<ul class="header-links pull-right">
 					<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
@@ -157,8 +475,8 @@
 					<div class="col-md-6">
 						<div class="header-search">
 							<form>
-								<input class="input" placeholder="Pretraûite proizvode...">
-								<button class="search-btn"><i class="fa fa-search"></i> Pretraûi</button>
+								<input class="input" placeholder="Pretra≈æite proizvode...">
+								<button class="search-btn"><i class="fa fa-search"></i> Pretra≈æi</button>
 							</form>
 						</div>
 					</div>
@@ -171,7 +489,7 @@
 							<div>
 								<a href="#">
 									<i class="fa fa-heart-o"></i>
-									<span>Lista ûelja</span>
+									<span>Lista ≈æelja</span>
 								</a>
 							</div>
 							<!-- /Wishlist -->
@@ -192,7 +510,7 @@
                                         <p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
                                     </div></div>
 <div class="cart-summary" style="display:none;"><small></small><h5></h5></div>
-<div class="cart-btns" style="display:none;"><a href="cart.html">Prikaûi korpu</a><a href="checkout.html">NaruËivanje  <i class="fa fa-arrow-circle-right"></i></a></div>
+<div class="cart-btns" style="display:none;"><a href="cart.html">Prika≈æi korpu</a><a href="checkout.html">Naruƒçivanje  <i class="fa fa-arrow-circle-right"></i></a></div>
 </div>
 </div>
 								<!-- /Cart -->
@@ -215,159 +533,264 @@
 	</header>
 	<!-- /HEADER -->
 
-	<!-- NAVIGATION -->
-	<nav id="navigation">
-		<div class="container">
-			<div id="responsive-nav">
-				<ul class="main-nav nav navbar-nav">
-					<li><a href="index.html">PoËetna</a></li>
-					<li><a href="#">Akcije</a></li>
-					<li><a href="#">Kategorije</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- /NAVIGATION -->
-
-	<!-- BREADCRUMB -->
-	<div id="breadcrumb" class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h3 class="breadcrumb-header">O nama</h3>
-					<ul class="breadcrumb-tree">
-						<li><a href="index.html">PoËetna</a></li>
-						<li class="active">O nama</li>
+	<!-- HERO BANNER -->
+	<div class="about-hero">
+		<nav id="navigation" class="page-hero-nav">
+			<div class="container">
+				<div id="responsive-nav">
+					<ul class="main-nav nav navbar-nav">
+						<li><a href="index.html">Poƒçetna</a></li>
+						<li><a href="#">Akcije</a></li>
+						<li><a href="#">Kategorije</a></li>
 					</ul>
 				</div>
 			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<span class="about-hero-badge"><i class="fa fa-star"></i> &nbsp;Va≈° IT partner od 2010.</span>
+					<h1>O nama &mdash; <span>Optimus</span> Systems</h1>
+					<p>Va≈°a pouzdana adresa za raƒçunarsku opremu, belu tehniku, servis i IT re≈°enja u Srbiji. Slu≈æimo vam iz Milo≈°evca i Velike Plane.</p>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- /BREADCRUMB -->
+	<!-- /HERO BANNER -->
 
-	<!-- SECTION -->
-	<div class="section about-section">
+	<!-- STATS BAR -->
+	<div class="stats-bar">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="stat-item">
+						<div class="stat-number">15+</div>
+						<div class="stat-label">Godina iskustva</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="stat-item">
+						<div class="stat-number">5000+</div>
+						<div class="stat-label">Zadovoljnih kupaca</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="stat-item">
+						<div class="stat-number">100+</div>
+						<div class="stat-label">Brendova u ponudi</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="stat-item">
+						<div class="stat-number">2</div>
+						<div class="stat-label">Prodajna mesta</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /STATS BAR -->
+
+	<!-- ABOUT SECTION -->
+	<div class="about-section">
+		<div class="container">
+
+			<!-- Ko smo + Misija -->
+			<div class="row">
+				<div class="col-md-6">
+					<div class="about-card">
+						<h2><i class="fa fa-building-o"></i>Ko smo mi?</h2>
+						<p>Optimus Systems ƒêuriƒá doo je kompanija specijalizovana za prodaju raƒçunara, raƒçunarske opreme, bele tehnike i elektronskih ureƒëaja. Sa sedi≈°tem u Milo≈°evcu i poslovnicom u Velikoj Plani, ponosno slu≈æimo kupcima ≈°irom Srbije.</p>
+						<p>Sa vi≈°egodi≈°njim iskustvom u industriji, razvili smo ekspertizu u prepoznavanju potreba na≈°ih kupaca i pru≈æanju re≈°enja koja prevazilaze njihova oƒçekivanja.</p>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="about-card">
+						<h2><i class="fa fa-bullseye"></i>Na≈°a misija</h2>
+						<p>Cilj nam je da obezbedimo najkvalitetnije proizvode po najpovoljnijim cenama, uz vrhunsku korisniƒçku podr≈°ku i servis. Verujemo u izgradnju dugoroƒçnih odnosa sa na≈°im klijentima kroz poverenje, kvalitet i posveƒáenost.</p>
+						<p>Svaki kupac je za nas prioritet ‚Äî od prvog upita do post-prodajne podr≈°ke i servisa.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Feature boxes -->
+			<div class="row" style="margin-top: 10px;">
+				<div class="col-md-3 col-sm-6">
+					<div class="feature-box">
+						<div class="feature-icon"><i class="fa fa-shield"></i></div>
+						<h3>Garancija</h3>
+						<p>Svi proizvodi dolaze sa punom garancijom proizvoƒëaƒça i podr≈°kom na≈°eg servisa.</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="feature-box">
+						<div class="feature-icon"><i class="fa fa-truck"></i></div>
+						<h3>Brza dostava</h3>
+						<p>Pouzdana dostava ≈°irom Srbije uz moguƒánost preuzimanja u prodavnici.</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="feature-box">
+						<div class="feature-icon"><i class="fa fa-headphones"></i></div>
+						<h3>Podr≈°ka</h3>
+						<p>Struƒçni tim uvek spreman da odgovori na sva va≈°a pitanja i tehniƒçke izazove.</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="feature-box">
+						<div class="feature-icon"><i class="fa fa-tags"></i></div>
+						<h3>Povoljne cene</h3>
+						<p>Redovno pratimo tr≈æi≈°te i nudimo konkurentne cene za sve kategorije proizvoda.</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- /ABOUT SECTION -->
+
+	<!-- SERVICES SECTION -->
+	<div class="services-section">
+		<div class="container">
+			<div class="section-heading">
+				<h2>Na≈°e usluge</h2>
+				<div class="heading-line"></div>
+				<p>Pored prodaje, nudimo kompletnu IT podr≈°ku i servisne usluge</p>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="service-card">
+						<img src="./img/18_small02_160921_231822-1.jpg" alt="Raƒçunarski Servis">
+						<div class="service-card-overlay">
+							<h4>Profesionalni Servis</h4>
+							<p>Popravka i odr≈æavanje</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="service-card">
+						<img src="./img/computer-service-958x400_130920_152740_140806_153459.jpg" alt="IT Podr≈°ka">
+						<div class="service-card-overlay">
+							<h4>IT Podr≈°ka</h4>
+							<p>Tehniƒçka podr≈°ka 24/7</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="service-card">
+						<img src="./img/kamera_cctv_160524_191037.jpg" alt="Sigurnosni Sistemi">
+						<div class="service-card-overlay">
+							<h4>Sigurnosni Sistemi</h4>
+							<p>CCTV i video nadzor</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="service-card">
+						<img src="./img/popravka01_160513_20401-350x160.jpg" alt="Dijagnostika">
+						<div class="service-card-overlay">
+							<h4>Dijagnostika</h4>
+							<p>Brzo re≈°avanje problema</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /SERVICES SECTION -->
+
+	<!-- COMPANY INFO SECTION -->
+	<div class="company-info-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="company-info-card">
+						<h3><i class="fa fa-info-circle"></i>Podaci o kompaniji</h3>
+						<div class="info-row">
+							<i class="fa fa-building"></i>
+							<div>
+								<strong>Naziv</strong>
+								<span>Optimus Systems ƒêuriƒá doo</span>
+							</div>
+						</div>
+						<div>
+							<span class="location-badge">SEDI≈†TE</span>
+						</div>
+						<div class="info-row">
+							<i class="fa fa-map-marker"></i>
+							<div>
+								<strong>Adresa</strong>
+								<span>Vidoja ƒêuliƒáa 55, 11318 Milo≈°evac, Srbija</span>
+							</div>
+						</div>
+						<div style="margin-top: 15px;">
+							<span class="location-badge">POSLOVNICA</span>
+						</div>
+						<div class="info-row">
+							<i class="fa fa-map-marker"></i>
+							<div>
+								<strong>Adresa</strong>
+								<span>Momira Gajiƒáa 38, 11320 Velika Plana, Srbija</span>
+							</div>
+						</div>
+						<div class="info-row">
+							<i class="fa fa-phone"></i>
+							<div>
+								<strong>Telefon</strong>
+								<a href="tel:+38163243123">+381 (0)63 243123</a>
+							</div>
+						</div>
+						<div class="info-row">
+							<i class="fa fa-envelope"></i>
+							<div>
+								<strong>Email</strong>
+								<a href="mailto:prodaja@optimussystems.rs">prodaja@optimussystems.rs</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="about-card" style="height: 100%;">
+						<h2><i class="fa fa-clock-o"></i>Radno vreme</h2>
+						<table style="width:100%; font-size:15px; color:#5a5a5a; line-height:2;">
+							<tr>
+								<td style="font-weight:600; color:#2B2D42; padding-right:20px;">Ponedeljak ‚Äì Petak</td>
+								<td>09:00 ‚Äì 17:00</td>
+							</tr>
+							<tr>
+								<td style="font-weight:600; color:#2B2D42;">Subota</td>
+								<td>09:00 ‚Äì 14:00</td>
+							</tr>
+							<tr>
+								<td style="font-weight:600; color:#2B2D42;">Nedelja</td>
+								<td style="color:#D10024; font-weight:600;">Zatvoreno</td>
+							</tr>
+						</table>
+						<hr style="border-color:#f0f0f0; margin: 25px 0;">
+						<div class="legal-note">
+							<p>Sve cene na ovom sajtu iskazane su u dinarima. PDV je uraƒçunat u cenu. Optimus Systems ƒêuriƒá doo se trudi da svi artikli budu prikazani sa ispravnim nazivima, specifikacijama i cenama. Ne mo≈æemo garantovati da su sve informacije u potpunosti ispravne.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /COMPANY INFO SECTION -->
+
+	<!-- CTA STRIP -->
+	<div class="cta-strip">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="about-header">
-						<h1>O nama</h1>
-						<p style="font-size: 18px; color: #5a5a5a;">Dobrodoöli u Optimus Systems</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="about-content">
-						<h2>Ko smo mi?</h2>
-						<p>Optimus Systems –uriÊ doo je vodeÊa kompanija u oblasti prodaje raËunara, raËunarske opreme, bele tehnike i elektronskih ureaja. Sa sediötem u Miloöev cu i  poslovnicom u Velikoj Plani, ponosno sluûimo naöim kupcima öirom Srbije.</p>
-						
-						<p>Naöa misija je da obezbedimo najkvalitetnije proizvode po najpovoljnijim cenama, uz vrhunsku korisniËku podröku i servis. Verujemo u izgradnju dugoroËnih odnosa sa naöim klijentima kroz poverenje, kvalitet i posveÊenost.</p>
-						
-						<p>Sa godinama iskustva u industriji, razvili smo ekspertizu u prepoznavanju potreba naöih kupaca i pruûanju reöenja koja prevazilaze njihova oËekivanja.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row about-features">
-				<div class="col-md-4">
-					<div class="feature-box">
-						<i class="fa fa-shield"></i>
-						<h3>Kvalitet i Garancija</h3>
-						<p>Svi naöi proizvodi dolaze sa punom garancijom proizvoaËa i dodatnom podrökom naöeg servisa.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="feature-box">
-						<i class="fa fa-truck"></i>
-						<h3>Brza Dostava</h3>
-						<p>Obezbeujemo brzu i pouzdanu dostavu proizvoda öirom Srbije uz moguÊnost preuzimanja u prodavnici.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="feature-box">
-						<i class="fa fa-headphones"></i>
-						<h3>KorisniËka Podröka</h3>
-						<p>Naö struËni tim je uvek spreman da vam pomogne sa svim pitanjima i tehniËkim izazovima.</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Image Gallery Section -->
-			<div class="row" style="margin-top: 50px;">
-				<div class="col-md-12">
-					<div class="about-content">
-						<h2>Naöe usluge</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="margin-bottom: 30px;">
-				<div class="col-md-3 col-sm-6" style="margin-bottom: 20px;">
-					<div style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 250px;">
-						<img src="./img/18_small02_160921_231822-1.jpg" alt="RaËunarski Servis" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-						<div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(209,0,36,0.95), rgba(209,0,36,0.7)); padding: 20px 15px; color: white;">
-							<h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;">Profesionalni Servis</h4>
-							<p style="margin: 0; font-size: 13px; color: #fff; font-weight: 500;">Popravka i odrûavanje</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6" style="margin-bottom: 20px;">
-					<div style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 250px;">
-						<img src="./img/computer-service-958x400_130920_152740_140806_153459.jpg" alt="IT Podröka" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-						<div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(209,0,36,0.95), rgba(209,0,36,0.7)); padding: 20px 15px; color: white;">
-							<h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;">IT Podröka</h4>
-							<p style="margin: 0; font-size: 13px; color: #fff; font-weight: 500;">TehniËka podröka 24/7</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6" style="margin-bottom: 20px;">
-					<div style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 250px;">
-						<img src="./img/kamera_cctv_160524_191037.jpg" alt="Sigurnosni Sistemi" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-						<div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(209,0,36,0.95), rgba(209,0,36,0.7)); padding: 20px 15px; color: white;">
-							<h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;">Sigurnosni Sistemi</h4>
-							<p style="margin: 0; font-size: 13px; color: #fff; font-weight: 500;">CCTV i video nadzor</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6" style="margin-bottom: 20px;">
-					<div style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 250px;">
-						<img src="./img/popravka01_160513_20401-350x160.jpg" alt="Popravke i Odrûavanje" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-						<div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(209,0,36,0.95), rgba(209,0,36,0.7)); padding: 20px 15px; color: white;">
-							<h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;">Dijagnostika</h4>
-							<p style="margin: 0; font-size: 13px; color: #fff; font-weight: 500;">Brzo reöavanje problema</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="company-info">
-						<h3>Informacije o kompaniji</h3>
-						<p><strong>Naziv:</strong> Optimus Systems –uriÊ doo</p>
-						<p><strong>Sediöte:</strong> Vidoja –uliÊa 55, 11318 Miloöevac, Srbija</p>
-						<p><strong>Poslovnica:</strong> Momira GajiÊa 38, 11320 Velika Plana, Srbija</p>
-						<p><strong>Telefon:</strong> +381 (0)63 243123</p>
-						<p><strong>Email:</strong> prodaja@optimussystems.rs</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row" style="margin-top: 40px;">
-				<div class="col-md-12">
-					<div class="about-content">
-						<p style="text-align: center; font-size: 14px; color: #999;">
-							Sve cene na ovom sajtu iskazane su u dinarima. PDV je uraËunat u cenu. 
-							Optimus Systems –uriÊ doo se trudi da vam svi artikli na ovom sajtu budu prikazani sa ispravnim nazivima, specifikacijama, fotografijama i cenama. 
-							Ne moûemo garantovati da su sve navedene informacije i fotografije artikala na ovom sajtu u potpunosti ispravne.
-						</p>
-					</div>
+					<h3>Imate pitanje ili vam treba savet?</h3>
+					<p>Na≈° tim je tu za vas. Javite nam se i odgovoriƒáemo u najkraƒáem roku.</p>
+					<a href="contact.html" class="btn-cta"><i class="fa fa-paper-plane"></i> Kontaktirajte nas</a>
+					<a href="tel:+38163243123" class="btn-cta-outline"><i class="fa fa-phone"></i> +381 (0)63 243123</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- /SECTION -->
+	<!-- /CTA STRIP -->
 
 	<!-- BRANDS CAROUSEL -->
 	<div id="brands-section" class="section">
@@ -375,7 +798,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title">
-						<h3 class="title">Naöi brendovi</h3>
+						<h3 class="title">Na≈°i brendovi</h3>
 					</div>
 					<div class="brands-carousel" id="brands-carousel-container">
 						<!-- Brands will be loaded dynamically via AJAX -->
@@ -394,9 +817,9 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="footer">
 							<h3 class="footer-title">O nama</h3>
-							<p>Optimus je vaö IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u naöoj PC igraonici sa najnovijom opremom. Naö cilj je kvalitetna usluga i bezuslovna podröka za sve vaöe digitalne potrebe.</p>
+							<p>Optimus je va≈° IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u na≈°oj PC igraonici sa najnovijom opremom. Na≈° cilj je kvalitetna usluga i bezuslovna podr≈°ka za sve va≈°e digitalne potrebe.</p>
 							<ul class="footer-links">
-								<li><a href="https://maps.google.com/?q=Momira+GajiÊa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira GajiÊa 38, Velika Plana 11320, Serbia</a></li>
+								<li><a href="https://maps.google.com/?q=Momira+Gajiƒáa+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajiƒáa 38, Velika Plana 11320, Serbia</a></li>
 								<li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
 								<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
 							</ul>
@@ -421,8 +844,8 @@
 								<li><a href="about.html">O nama</a></li>
 								<li><a href="contact.html">Kontakt</a></li>
 								<li><a href="#">Politika privatnosti</a></li>
-								<li><a href="#">Narudûbine i povrat</a></li>
-								<li><a href="#">Uslovi koriöÊenja</a></li>
+								<li><a href="#">Narud≈æbine i povrat</a></li>
+								<li><a href="#">Uslovi kori≈°ƒáenja</a></li>
 							</ul>
 						</div>
 					</div>
@@ -432,10 +855,10 @@
 							<h3 class="footer-title">Usluge</h3>
 							<ul class="footer-links">
 								<li><a href="#">Moj nalog</a></li>
-								<li><a href="cart.html">Prikaûi korpu</a></li>
-								<li><a href="#">Lista ûelja</a></li>
-								<li><a href="#">Prati porudûbinu</a></li>
-								<li><a href="#">PomoÊ</a></li>
+								<li><a href="cart.html">Prika≈æi korpu</a></li>
+								<li><a href="#">Lista ≈æelja</a></li>
+								<li><a href="#">Prati porud≈æbinu</a></li>
+								<li><a href="#">Pomoƒá</a></li>
 							</ul>
 						</div>
 					</div>
@@ -456,7 +879,7 @@
 							<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 						</ul>
 						<span class="copyright">
-							© 2026 FirstCode. Sva prava zadrûana.
+							¬© 2026 FirstCode. Sva prava zadr≈æana.
 						</span>
 					</div>
 				</div>

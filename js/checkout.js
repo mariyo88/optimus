@@ -21,13 +21,21 @@
                 return;
             }
 
+            var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%23eee' width='80' height='80'/%3E%3C/svg%3E";
+
             var productsHtml = cartItems.map(function(item) {
                 var price = item.product.bestOurWebPrice || item.product.bestRetailPrice || 0;
                 var subtotal = price * item.quantity;
+                var imgSrc = item.product.mainImageUrl || IMG_PLACEHOLDER;
                 return [
-                    '<div class="order-col">',
-                    '  <div>' + item.quantity + 'x ' + item.product.name + '</div>',
-                    '  <div>' + formatPrice(subtotal) + '</div>',
+                    '<div class="order-product-row">',
+                    '  <div class="op-badge">' + item.quantity + '</div>',
+                    '  <img class="op-img" src="' + imgSrc + '" alt="' + item.product.name + '">',
+                    '  <div class="op-info">',
+                    '    <span class="op-name">' + item.product.name + '</span>',
+                    '    <span class="op-qty">kom: ' + item.quantity + '</span>',
+                    '  </div>',
+                    '  <div class="op-price">' + formatPrice(subtotal) + '</div>',
                     '</div>'
                 ].join('');
             }).join('');
@@ -39,20 +47,22 @@
                 '  <h3 class="title">Vaša porudžbina</h3>',
                 '</div>',
                 '<div class="order-summary">',
-                '  <div class="order-col">',
-                '    <div><strong>PROIZVOD</strong></div>',
-                '    <div><strong>UKUPNO</strong></div>',
+                '  <div class="order-summary-header">',
+                '    <span>Proizvod</span>',
+                '    <span>Cena</span>',
                 '  </div>',
-                '  <div class="order-products">',
+                '  <div class="order-product-list">',
                 productsHtml,
                 '  </div>',
-                '  <div class="order-col">',
-                '    <div>Isporuka</div>',
-                '    <div><strong>BESPLATNO</strong></div>',
-                '  </div>',
-                '  <div class="order-col">',
-                '    <div><strong>UKUPNO</strong></div>',
-                '    <div><strong class="order-total">' + formatPrice(total) + '</strong></div>',
+                '  <div class="order-totals">',
+                '    <div class="order-totals-row">',
+                '      <span>Isporuka</span>',
+                '      <span class="free-shipping-badge">Po dogovoru</span>',
+                '    </div>',
+                '    <div class="order-totals-row grand-total">',
+                '      <span>Ukupno</span>',
+                '      <span>' + formatPrice(total) + '</span>',
+                '    </div>',
                 '  </div>',
                 '</div>',
                 '<div class="payment-method">',
