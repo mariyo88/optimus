@@ -17,7 +17,7 @@
                     '  <p style="color:#999;margin:20px 0;">Dodajte proizvode u korpu pre nego što nastavite na naručivanje.</p>',
                     '  <a href="store.html" class="primary-btn">Idite u prodavnicu</a>',
                     '</div>'
-                ].join(''));
+                ].join('')).css('visibility', 'visible');
                 return;
             }
 
@@ -97,7 +97,7 @@
                 '<button type="button" id="order-submit-btn" class="primary-btn order-submit">Pošalji porudžbinu</button>'
             ].join('');
 
-            $('.order-details').html(html);
+            $('.order-details').html(html).css('visibility', 'visible');
         });
     }
 
