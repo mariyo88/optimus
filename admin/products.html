@@ -610,6 +610,12 @@
           <button class="btn btn-light" onclick="openBulkCategoryModal()">
             <i class="fa fa-folder-o"></i> Promeni kategoriju
           </button>
+          <button class="btn btn-success" onclick="executeBulkStatusUpdate(true)">
+            <i class="fa fa-check-circle"></i> Aktiviraj
+          </button>
+          <button class="btn btn-warning" onclick="executeBulkStatusUpdate(false)">
+            <i class="fa fa-ban"></i> Deaktiviraj
+          </button>
           <button class="btn btn-outline-light" onclick="clearSelection()">
             <i class="fa fa-times"></i> Poništi
           </button>
@@ -659,6 +665,27 @@
         <button type="button" class="btn btn-danger btn-sm" id="confirm-delete-btn" onclick="confirmDeleteProduct()">
           <i class="fa fa-trash mr-1"></i> Obriši
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bulk Status Confirm Modal -->
+<div class="modal fade" id="bulkStatusModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" id="bulk-status-modal-header" style="color: white; border: none;">
+        <h5 class="modal-title" id="bulk-status-modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 0.8;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem;">
+        <p id="bulk-status-modal-body" style="margin: 0; color: #555;"></p>
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-sm" id="bulk-status-confirm-btn">Potvrdi</button>
       </div>
     </div>
   </div>
@@ -1018,6 +1045,41 @@
       console.error('Bulk category update error:', err);
       showBulkModalAlert('Greška: ' + (err.message || 'Nepoznata greška'), 'danger');
     });
+  }
+  function executeBulkStatusUpdate(active) {
+    if (selectedProductIds.size === 0) {
+      showNotification('Niste selektovali nijedan proizvod', 'error');
+      return;
+    }
+
+    const count = selectedProductIds.size;
+    const label = active ? 'aktivirati' : 'deaktivirati';
+    const headerColor = active ? '#22c55e' : '#f59e0b';
+    const btnClass = active ? 'btn-success' : 'btn-warning';
+    const icon = active ? 'fa-check-circle' : 'fa-ban';
+
+    $('#bulk-status-modal-header').css('background', headerColor);
+    $('#bulk-status-modal-title').html('<i class="fa ' + icon + ' mr-2"></i> ' + (active ? 'Aktivacija' : 'Deaktivacija'));
+    $('#bulk-status-modal-body').text('Da li ste sigurni da želite da ' + label + ' ' + count + ' selektovanih proizvoda?');
+    $('#bulk-status-confirm-btn').removeClass('btn-success btn-warning').addClass(btnClass).text(active ? 'Aktiviraj' : 'Deaktiviraj');
+
+    $('#bulk-status-confirm-btn').off('click').on('click', function () {
+      $('#bulkStatusModal').modal('hide');
+      const productIds = Array.from(selectedProductIds);
+      apiPatch('/api/admin/products/bulk/status', { productIds: productIds, active: active })
+        .then(() => {
+          const msg = active
+            ? productIds.length + ' proizvoda aktivirano'
+            : productIds.length + ' proizvoda deaktivirano';
+          showNotification(msg, 'success');
+          clearSelection();
+          loadProducts(currentPage);
+        }).catch(err => {
+          showNotification('Greška: ' + (err.message || 'Nepoznata greška'), 'error');
+        });
+    });
+
+    $('#bulkStatusModal').modal('show');
   }
 </script>
 </body>
