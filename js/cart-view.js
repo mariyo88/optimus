@@ -47,7 +47,7 @@
                     '    </a>',
                     '  </td>',
                     '  <td class="cart-product-name">',
-                    '    <h4><a href="product.html?slug=' + item.product.slug + '">' + item.product.name + '</a></h4>',
+                    '    <h4><a href="product.html?slug=' + item.product.slug + '" title="' + item.product.name + '">' + item.product.name + '</a></h4>',
                     '    ' + brand,
                     '  </td>',
                     '  <td style="width:130px;">',

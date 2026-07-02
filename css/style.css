@@ -2879,6 +2879,10 @@ ul.SpecForm .Notice {
 #cart-container .cart-product-name h4 {
     margin: 0;
     font-size: 16px;
+    max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #cart-container .cart-product-name h4 a {
