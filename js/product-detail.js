@@ -317,9 +317,15 @@
         var labels   = '';
         if (p.isNew) labels += '<span class="new">NOVO</span>';
 
-        // Price display
+        // Price display — web cena glavna, maloprodajna prekrižena samo ako je veća
         var priceHtml = '';
-        if (p.bestRetailPrice) {
+        if (p.bestOurWebPrice) {
+            priceHtml = '<h4 class="product-price"><span class="product-price">' + formatPrice(p.bestOurWebPrice) + '</span>';
+            if (p.bestRetailPrice && p.bestRetailPrice > p.bestOurWebPrice) {
+                priceHtml += ' <del class="product-old-price">' + formatPrice(p.bestRetailPrice) + '</del>';
+            }
+            priceHtml += '</h4>';
+        } else if (p.bestRetailPrice) {
             priceHtml = '<h4 class="product-price">' + formatPrice(p.bestRetailPrice) + '</h4>';
         } else {
             priceHtml = '<h4 class="product-price"><span class="text-muted">Nije dostupno</span></h4>';
