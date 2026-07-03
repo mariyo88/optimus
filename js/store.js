@@ -13,7 +13,7 @@
         search:   getParam('search')   || '',
         page:     parseInt(getParam('page') || '0', 10),
         size:     21,  // 3x7 grid (3 columns x 7 rows)
-        sort:     'name,asc',
+        sort:     'id,desc',
         viewMode: 'grid', // 'grid' or 'list'
         minPrice: null,
         maxPrice: null

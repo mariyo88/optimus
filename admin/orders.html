@@ -206,100 +206,6 @@
       color: #999;
     }
 
-    .order-detail-panel {
-      background: white;
-      border-radius: 8px;
-      border: 1px solid #e0e0e0;
-      overflow: hidden;
-      margin-top: 2rem;
-    }
-
-    .order-detail-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .order-detail-body {
-      padding: 2rem;
-    }
-
-    .detail-section {
-      margin-bottom: 2rem;
-    }
-    .detail-section:last-child {
-      margin-bottom: 0;
-    }
-
-    .detail-section-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #333;
-      margin-bottom: 1rem;
-      padding-bottom: 0.8rem;
-      border-bottom: 2px solid #f0f3ff;
-    }
-
-    .detail-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .detail-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .detail-label {
-      font-size: 0.8rem;
-      color: #999;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .detail-value {
-      font-size: 0.95rem;
-      color: #333;
-      font-weight: 500;
-    }
-
-    .items-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .items-table thead tr {
-      background: #f8f9fa;
-      border-bottom: 2px solid #e0e0e0;
-    }
-    .items-table th {
-      padding: 1rem;
-      text-align: left;
-      font-weight: 600;
-      color: #666;
-      font-size: 0.85rem;
-    }
-    .items-table tbody tr {
-      border-bottom: 1px solid #e0e0e0;
-    }
-    .items-table td {
-      padding: 1rem;
-      color: #333;
-      font-size: 0.9rem;
-    }
-    .items-table tfoot tr {
-      background: #f8f9fa;
-      font-weight: 700;
-    }
-    .items-table tfoot td {
-      padding: 1rem;
-      color: #333;
-    }
-
     .pagination-container {
       display: flex;
       justify-content: center;
@@ -308,38 +214,6 @@
       padding: 2rem 0;
     }
 
-    .alert-notification {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-      max-width: 400px;
-      animation: slideIn 0.3s ease;
-      padding: 1rem 1.5rem;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      font-weight: 500;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateY(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .alert-notification.success {
-      background: #10b981;
-      color: white;
-    }
-    .alert-notification.error {
-      background: #ef4444;
-      color: white;
-    }
   </style>
 </head>
 <body>
@@ -425,86 +299,6 @@
         <small id="pagination-info" class="text-muted"></small>
         <div id="pagination-controls"></div>
       </div>
-
-      <!-- Order Detail Panel -->
-      <div class="order-detail-panel d-none" id="order-detail">
-        <div class="order-detail-header">
-          <div>
-            <h3 style="margin: 0; display: flex; align-items: center; gap: 1rem;">
-              <i class="fa fa-file-text-o"></i>
-              <span>Porudžbina <strong id="detail-order-number"></strong></span>
-            </h3>
-          </div>
-        </div>
-        <div class="order-detail-body">
-          <!-- Customer Info -->
-          <div class="detail-section">
-            <div class="detail-section-title">Podaci o kupcu</div>
-            <div class="detail-row">
-              <div class="detail-item">
-                <span class="detail-label">Ime i prezime</span>
-                <span class="detail-value" id="detail-name"></span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Email</span>
-                <span class="detail-value" id="detail-email"></span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Telefon</span>
-                <span class="detail-value" id="detail-phone"></span>
-              </div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-item">
-                <span class="detail-label">Adresa dostave</span>
-                <span class="detail-value" id="detail-address"></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Order Status -->
-          <div class="detail-section">
-            <div class="detail-section-title">Status porudžbine</div>
-            <div class="detail-row">
-              <div class="detail-item">
-                <span class="detail-label">Trenutni status</span>
-                <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem;">
-                  <select id="detail-status" style="border-radius: 6px; border: 1px solid #e0e0e0; padding: 0.6rem 0.8rem; flex: 1;"></select>
-                  <button class="btn btn-primary" onclick="updateStatus()" style="white-space: nowrap;">
-                    <i class="fa fa-check mr-1"></i> Ažuriraj
-                  </button>
-                </div>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Datum naručivanja</span>
-                <span class="detail-value" id="detail-date"></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Items -->
-          <div class="detail-section">
-            <div class="detail-section-title">Stavke porudžbine</div>
-            <table class="items-table">
-              <thead>
-                <tr>
-                  <th>Proizvod</th>
-                  <th style="text-align: right; width: 100px;">Cena</th>
-                  <th style="text-align: center; width: 80px;">Količina</th>
-                  <th style="text-align: right; width: 120px;">Ukupno</th>
-                </tr>
-              </thead>
-              <tbody id="detail-items"></tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="3" style="text-align: right; padding-right: 1rem;">Ukupna vrednost:</td>
-                  <td style="text-align: right;"><span id="detail-total"></span></td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
-      </div>
     </main>
   </div>
 </div>
@@ -515,18 +309,10 @@
 <script>
   initPage();
   let currentPage = 0;
-  let selectedOrderId = null;
-  const ORDER_STATUSES = ['CREATED','CONFIRMED','PROCESSING','SHIPPED','DELIVERED','CANCELLED'];
   const STATUS_LABELS = {
-    'CREATED': 'Kreirano',
-    'CONFIRMED': 'Potvrđeno',
-    'PROCESSING': 'U obradi',
-    'SHIPPED': 'Poslato',
-    'DELIVERED': 'Dostavljeno',
-    'CANCELLED': 'Otkazano'
+    CREATED: 'Kreirano', CONFIRMED: 'Potvrđeno', PROCESSING: 'U obradi',
+    SHIPPED: 'Poslato', DELIVERED: 'Dostavljeno', CANCELLED: 'Otkazano'
   };
-
-  ORDER_STATUSES.forEach(s => $('#detail-status').append('<option value="' + s + '">' + STATUS_LABELS[s] + '</option>'));
 
   function loadOrders(page) {
     currentPage = page || 0;
@@ -548,27 +334,28 @@
 
       let html = '';
       data.content.forEach(o => {
-        html += '<div class="order-list-item" onclick="showOrderDetail(' + o.id + ')">' +
-          '<div class="order-number-badge">' + escapeHtml(o.orderNumber) + '</div>' +
+        html += '<div class="order-list-item" onclick="location.href=\'order-detail.html?id=' + o.id + '\'">' +
+          '<div class="order-number-badge">' + esc(o.orderNumber) + '</div>' +
           '<div class="order-main-info">' +
-            '<div class="order-customer">' + escapeHtml(o.customerName) + '</div>' +
+            '<div class="order-customer">' + esc(o.customerName) + '</div>' +
             '<div class="order-details">' +
-              '<div class="order-detail-item"><i class="fa fa-envelope"></i> ' + escapeHtml(o.customerEmail) + '</div>' +
-              (o.customerPhone ? '<div class="order-detail-item"><i class="fa fa-phone"></i> ' + escapeHtml(o.customerPhone) + '</div>' : '') +
+              '<div class="order-detail-item"><i class="fa fa-envelope"></i> ' + esc(o.customerEmail) + '</div>' +
               '<div class="order-detail-item"><i class="fa fa-calendar"></i> ' + formatDate(o.createdAt) + '</div>' +
             '</div>' +
           '</div>' +
-          '<div class="order-status ' + o.orderStatus + '">' + STATUS_LABELS[o.orderStatus] + '</div>' +
+          '<div class="order-status ' + o.orderStatus + '">' + (STATUS_LABELS[o.orderStatus] || o.orderStatus) + '</div>' +
           '<div class="order-amount">' + formatPrice(o.totalPrice) + '</div>' +
         '</div>';
       });
-
       $('#orders-container').html(html);
 
-      if (data.totalPages > 1) {
+      // data.page (ne data.number) — OrderPageDto koristi polje "page"
+      const pg = data.page;
+      const total = data.totalPages;
+      if (total > 1) {
         $('#pagination-container').show();
-        $('#pagination-info').text('Strana ' + (data.number + 1) + ' od ' + data.totalPages + ' (' + data.totalElements + ' ukupno)');
-        renderPagination(data.number, data.totalPages);
+        $('#pagination-info').text('Strana ' + (pg + 1) + ' od ' + total + ' (' + data.totalElements + ' ukupno)');
+        renderPagination(pg, total);
       } else {
         $('#pagination-container').hide();
       }
@@ -576,51 +363,14 @@
   }
 
   function renderPagination(page, total) {
-    if (total <= 1) { $('#pagination-controls').html(''); return; }
     let html = '<ul class="pagination pagination-sm mb-0">';
-    html += '<li class="page-item ' + (page === 0 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + (page - 1) + ');return false">«</a></li>';
+    html += '<li class="page-item ' + (page === 0 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + (page - 1) + ');return false;">«</a></li>';
     const from = Math.max(0, page - 2), to = Math.min(total - 1, page + 2);
     for (let i = from; i <= to; i++) {
-      html += '<li class="page-item ' + (i === page ? 'active' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + i + ');return false">' + (i + 1) + '</a></li>';
+      html += '<li class="page-item ' + (i === page ? 'active' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + i + ');return false;">' + (i + 1) + '</a></li>';
     }
-    html += '<li class="page-item ' + (page === total - 1 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + (page + 1) + ');return false">»</a></li></ul>';
+    html += '<li class="page-item ' + (page === total - 1 ? 'disabled' : '') + '"><a class="page-link" href="#" onclick="loadOrders(' + (page + 1) + ');return false;">»</a></li></ul>';
     $('#pagination-controls').html(html);
-  }
-
-  function showOrderDetail(id) {
-    selectedOrderId = id;
-    api('/api/admin/orders/' + id).then(o => {
-      $('#detail-order-number').text(o.orderNumber);
-      $('#detail-name').text(o.customerName);
-      $('#detail-email').text(o.customerEmail);
-      $('#detail-phone').text(o.customerPhone || '-');
-      $('#detail-address').text(o.deliveryAddress);
-      $('#detail-status').val(o.orderStatus);
-      $('#detail-date').text(formatDate(o.createdAt));
-      $('#detail-total').text(formatPrice(o.totalPrice));
-
-      const rows = (o.items || []).map(i => {
-        const nameCell = i.productId
-          ? '<a href="product-form.html?id=' + i.productId + '" title="Otvori proizvod u adminu" style="color:#667eea;text-decoration:none;font-weight:500;">' + escapeHtml(i.productName) + ' <i class="fa fa-external-link" style="font-size:11px;opacity:0.7;"></i></a>'
-          : escapeHtml(i.productName);
-        return '<tr><td>' + nameCell + '</td><td style="text-align: right;">' + formatPrice(i.productPrice) + '</td><td style="text-align: center;">' + i.quantity + '</td><td style="text-align: right;">' + formatPrice(i.totalPrice) + '</td></tr>';
-      }).join('');
-      $('#detail-items').html(rows);
-      $('#order-detail').removeClass('d-none');
-      $('html, body').animate({ scrollTop: $('#order-detail').offset().top - 20 }, 300);
-    });
-  }
-
-
-  function updateStatus() {
-    if (!selectedOrderId) return;
-    const status = $('#detail-status').val();
-    apiPatch('/api/admin/orders/' + selectedOrderId + '/status', { status }).then(() => {
-      showNotification('Status ažuriran', 'success');
-      loadOrders(currentPage);
-    }).catch(err => {
-      showNotification('Greška pri ažuriranju: ' + (err.message || 'Nepoznata greška'), 'error');
-    });
   }
 
   function formatDate(dt) {
@@ -628,22 +378,9 @@
     return new Date(dt).toLocaleString('sr-RS', { dateStyle: 'short', timeStyle: 'short' });
   }
 
-  function escapeHtml(text) {
-    const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
-    return text.replace(/[&<>"']/g, m => map[m]);
-  }
-
-  function showNotification(message, type) {
-    const notification = $('<div></div>')
-      .addClass('alert-notification ' + type)
-      .html('<i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + message)
-      .appendTo('body');
-
-    setTimeout(() => {
-      notification.fadeOut(300, function() {
-        $(this).remove();
-      });
-    }, 3000);
+  function esc(text) {
+    if (!text) return '';
+    return String(text).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
   }
 
   $(document).ready(function() {

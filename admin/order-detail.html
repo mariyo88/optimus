@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Porudžbina — Optimus Admin</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <style>
+    .page-header-custom {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .page-header-custom h2 { margin: 0; font-size: 1.8rem; font-weight: 600; }
+
+    .detail-card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .detail-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f3ff;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #333;
+    }
+    .detail-card-title i {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: #f0f3ff; border-radius: 8px; color: #667eea; font-size: 1.1rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+    .info-item { display: flex; flex-direction: column; }
+    .info-label { font-size: 0.78rem; color: #999; font-weight: 600; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.4px; }
+    .info-value { font-size: 0.95rem; color: #333; font-weight: 500; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-badge.CREATED    { background: rgba(59,130,246,0.1);  color: #3b82f6; }
+    .status-badge.CONFIRMED  { background: rgba(16,185,129,0.1);  color: #10b981; }
+    .status-badge.PROCESSING { background: rgba(245,158,11,0.1);  color: #f59e0b; }
+    .status-badge.SHIPPED    { background: rgba(139,92,246,0.1);  color: #8b5cf6; }
+    .status-badge.DELIVERED  { background: rgba(34,197,94,0.1);   color: #22c55e; }
+    .status-badge.CANCELLED  { background: rgba(239,68,68,0.1);   color: #ef4444; }
+
+    .items-table { width: 100%; border-collapse: collapse; }
+    .items-table thead tr { background: #f8f9fa; border-bottom: 2px solid #e0e0e0; }
+    .items-table th { padding: 0.9rem 1rem; text-align: left; font-weight: 600; color: #666; font-size: 0.85rem; }
+    .items-table tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
+    .items-table tbody tr:hover { background: #fafafa; }
+    .items-table tbody tr:last-child { border-bottom: none; }
+    .items-table td { padding: 0.9rem 1rem; color: #333; font-size: 0.9rem; }
+    .items-table tfoot tr { border-top: 2px solid #e0e0e0; background: #f8f9fa; }
+    .items-table tfoot td { padding: 1rem; font-weight: 700; color: #333; }
+
+    .status-update-row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .status-update-row select {
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.9rem;
+      flex: 1;
+      max-width: 260px;
+    }
+    .status-update-row select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+
+    .alert-notification {
+      position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+      max-width: 400px; animation: slideIn 0.3s ease;
+      padding: 1rem 1.5rem; border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-weight: 500;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(40px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .alert-notification.success { background: #10b981; color: white; }
+    .alert-notification.error   { background: #ef4444; color: white; }
+  </style>
+</head>
+<body>
+
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
+    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
+    <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
+    <div class="form-group"><label>Korisničko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
+    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="••••••••"></div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()"><i class="fa fa-sign-in mr-1"></i> Prijavi se</button>
+  </div>
+</div>
+
+<div id="app">
+  <nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretraži..."></div></div>
+    <div class="navbar-actions">
+      <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
+      <div class="nav-divider"></div>
+      <div class="nav-avatar" id="nav-username" onclick="logout()">A</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-layout">
+    <aside class="sidebar">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+      </ul>
+      <p class="nav-section-label">Katalog</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="products.html"><i class="fa fa-cube"></i>Proizvodi</a></li>
+        <li class="nav-item"><a class="nav-link" href="product-form.html"><i class="fa fa-plus-square"></i>Novi proizvod</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fa fa-sitemap"></i>Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link" href="god-categories.html"><i class="fa fa-list"></i>GoD Kategorije</a></li>
+        <li class="nav-item"><a class="nav-link" href="brands.html"><i class="fa fa-tag"></i>Brendovi</a></li>
+      </ul>
+      <p class="nav-section-label">Prodaja</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudžbine</a></li>
+      </ul>
+      <p class="nav-section-label">Sistem</p><hr class="nav-section-divider">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="import.html"><i class="fa fa-upload"></i>Import</a></li>
+        <li class="nav-item"><a class="nav-link" href="config.html"><i class="fa fa-cog"></i>Konfiguracija</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header-custom">
+        <h2><i class="fa fa-file-text-o" style="margin-right: 0.8rem;"></i>Porudžbina <span id="page-order-number"></span></h2>
+        <a href="orders.html" class="btn btn-light" style="color: #000;"><i class="fa fa-arrow-left mr-2"></i> Nazad</a>
+      </div>
+
+      <div id="loading-state" class="text-center py-5 text-muted">
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+        <p class="mt-2">Učitavanje...</p>
+      </div>
+
+      <div id="order-content" style="display:none;">
+        <!-- Kupac -->
+        <div class="detail-card">
+          <div class="detail-card-title"><i class="fa fa-user"></i> Podaci o kupcu</div>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Ime i prezime</span>
+              <span class="info-value" id="d-name"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Email</span>
+              <span class="info-value" id="d-email"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Telefon</span>
+              <span class="info-value" id="d-phone"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Adresa dostave</span>
+              <span class="info-value" id="d-address"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="detail-card">
+          <div class="detail-card-title"><i class="fa fa-info-circle"></i> Status porudžbine</div>
+          <div class="info-grid" style="margin-bottom: 1.5rem;">
+            <div class="info-item">
+              <span class="info-label">Datum naručivanja</span>
+              <span class="info-value" id="d-date"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Trenutni status</span>
+              <span class="info-value" id="d-status-badge"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Ukupna vrednost</span>
+              <span class="info-value" style="font-size: 1.1rem; font-weight: 700; color: #667eea;" id="d-total"></span>
+            </div>
+          </div>
+          <div class="status-update-row">
+            <select id="d-status-select"></select>
+            <button class="btn btn-primary" onclick="updateStatus()">
+              <i class="fa fa-check mr-1"></i> Ažuriraj status
+            </button>
+          </div>
+        </div>
+
+        <!-- Stavke -->
+        <div class="detail-card">
+          <div class="detail-card-title"><i class="fa fa-list"></i> Stavke porudžbine</div>
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th>Proizvod</th>
+                <th style="text-align:right; width:110px;">Cena</th>
+                <th style="text-align:center; width:80px;">Kol.</th>
+                <th style="text-align:right; width:130px;">Ukupno</th>
+              </tr>
+            </thead>
+            <tbody id="d-items"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" style="text-align:right;">Ukupno:</td>
+                <td style="text-align:right;" id="d-total-footer"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="admin.js"></script>
+<script>
+  initPage();
+
+  const ORDER_STATUSES = ['CREATED','CONFIRMED','PROCESSING','SHIPPED','DELIVERED','CANCELLED'];
+  const STATUS_LABELS = {
+    CREATED: 'Kreirano', CONFIRMED: 'Potvrđeno', PROCESSING: 'U obradi',
+    SHIPPED: 'Poslato', DELIVERED: 'Dostavljeno', CANCELLED: 'Otkazano'
+  };
+
+  ORDER_STATUSES.forEach(s => $('#d-status-select').append('<option value="' + s + '">' + STATUS_LABELS[s] + '</option>'));
+
+  const orderId = new URLSearchParams(window.location.search).get('id');
+
+  function loadOrder() {
+    if (!orderId) { location.href = 'orders.html'; return; }
+    api('/api/admin/orders/' + orderId).then(o => {
+      $('#page-order-number').text('#' + o.orderNumber);
+      $('#d-name').text(o.customerName);
+      $('#d-email').text(o.customerEmail);
+      $('#d-phone').text(o.customerPhone || '-');
+      $('#d-address').text(o.deliveryAddress);
+      $('#d-date').text(formatDate(o.createdAt));
+      $('#d-total').text(formatPrice(o.totalPrice));
+      $('#d-total-footer').text(formatPrice(o.totalPrice));
+      $('#d-status-badge').html('<span class="status-badge ' + o.orderStatus + '">' + (STATUS_LABELS[o.orderStatus] || o.orderStatus) + '</span>');
+      $('#d-status-select').val(o.orderStatus);
+
+      const rows = (o.items || []).map(i => {
+        const nameCell = i.productId
+          ? '<a href="product-form.html?id=' + i.productId + '" style="color:#667eea;text-decoration:none;font-weight:500;">' + esc(i.productName) + ' <i class="fa fa-external-link" style="font-size:10px;opacity:0.6;"></i></a>'
+          : esc(i.productName);
+        return '<tr><td>' + nameCell + '</td>' +
+          '<td style="text-align:right;">' + formatPrice(i.productPrice) + '</td>' +
+          '<td style="text-align:center;">' + i.quantity + '</td>' +
+          '<td style="text-align:right;">' + formatPrice(i.totalPrice) + '</td></tr>';
+      }).join('');
+      $('#d-items').html(rows);
+
+      $('#loading-state').hide();
+      $('#order-content').show();
+    }).catch(() => {
+      $('#loading-state').html('<p class="text-danger">Porudžbina nije pronađena.</p>');
+    });
+  }
+
+  function updateStatus() {
+    const status = $('#d-status-select').val();
+    apiPatch('/api/admin/orders/' + orderId + '/status', { status }).then(o => {
+      showNotif('Status ažuriran', 'success');
+      $('#d-status-badge').html('<span class="status-badge ' + o.orderStatus + '">' + (STATUS_LABELS[o.orderStatus] || o.orderStatus) + '</span>');
+    }).catch(() => showNotif('Greška pri ažuriranju', 'error'));
+  }
+
+  function formatDate(dt) {
+    if (!dt) return '-';
+    return new Date(dt).toLocaleString('sr-RS', { dateStyle: 'short', timeStyle: 'short' });
+  }
+
+  function esc(text) {
+    if (!text) return '';
+    return String(text).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  }
+
+  function showNotif(msg, type) {
+    $('<div class="alert-notification ' + type + '"><i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + msg + '</div>')
+      .appendTo('body').delay(2700).fadeOut(300, function() { $(this).remove(); });
+  }
+
+  $(document).ready(function() {
+    if (getAuth()) loadOrder();
+  });
+</script>
+</body>
+</html>
