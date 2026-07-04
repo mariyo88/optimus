@@ -299,8 +299,14 @@
         } else if (description.includes('<')) {
             // HTML sadržaj (SpecForm, sirova tabela, lista...) — renderuj direktno
             $('#tab1 .col-md-12').html(description);
-            // Primeni Bootstrap table klase na sve tabele u opisu — identičan izgled kao Detalji tab
-            $('#tab1 .col-md-12 table').addClass('table table-bordered');
+            // Primeni Bootstrap table klase i ukloni inline width da se tabela širi na punu širinu
+            $('#tab1 .col-md-12 table')
+                .addClass('table table-bordered')
+                .removeAttr('width')
+                .css('width', '100%');
+            $('#tab1 .col-md-12 table td, #tab1 .col-md-12 table th')
+                .removeAttr('width')
+                .css('width', '');
         } else {
             // Plain text — escape i prikaži kao tekst
             $('#tab1 .col-md-12 p').text(description);

@@ -1944,6 +1944,21 @@ textarea.input {
   width: 100%;
 }
 
+/* Ensure description HTML content fills full tab width */
+#tab1 .col-md-12 table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+#tab1 .col-md-12 img {
+  max-width: 100%;
+  height: auto;
+}
+
+#tab1 .col-md-12 > * {
+  max-width: 100%;
+}
+
 /*-- Rating --*/
 
 .rating-avg {
