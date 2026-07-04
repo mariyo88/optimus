@@ -8,7 +8,7 @@
     var Cart = window.OptimusCart;
 
     function renderOrderSummary() {
-        Cart.recalculate(function(cartItems) {
+        Cart.loadDetails(function(cartItems) {
             if (cartItems.length === 0) {
                 $('.order-details').html([
                     '<div class="text-center" style="padding:40px;">',

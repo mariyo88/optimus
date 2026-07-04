@@ -240,11 +240,16 @@
             $thumbSlick.append('<div class="product-preview">' + imgHtml + '</div>');
         });
         
+        var imgCount = images.length;
+        var thumbsToShow = Math.min(3, imgCount);
+        var useInfinite = imgCount > 3;
+
         // Init thumb first, then main (asNavFor requires both to exist)
         $thumbSlick.slick({
-            slidesToShow: 3,
+            slidesToShow: thumbsToShow,
             slidesToScroll: 1,
-            arrows: true,
+            arrows: imgCount > thumbsToShow,
+            infinite: useInfinite,
             centerMode: false,
             focusOnSelect: true,
             centerPadding: 0,
@@ -252,34 +257,30 @@
             verticalSwiping: true,
             adaptiveHeight: false,
             asNavFor: '#product-main-img',
-            responsive: [{ breakpoint: 991, settings: { vertical: false, arrows: false, dots: true, centerMode: true } }]
+            responsive: [{ breakpoint: 991, settings: { vertical: false, arrows: false, dots: imgCount > 1, centerMode: false, infinite: useInfinite } }]
         });
 
         $mainSlick.slick({
-            infinite: true,
+            infinite: imgCount > 3,
             speed: 300,
             dots: false,
-            arrows: true,
+            arrows: imgCount > 1,
             fade: true,
             adaptiveHeight: false,
             asNavFor: '#product-imgs'
         });
 
-        // Fix thumb height to match main image height
-        // Wait for first image to load before measuring
-        var $firstImg = $mainSlick.find('img').first();
+        // Fix thumb height to match number of visible thumbnails
+        var THUMB_HEIGHT = 155; // px, matches CSS
+        var THUMB_MARGIN = 5;   // margin between slides
         function applyThumbHeight() {
-            var thumbHeight = $mainSlick.outerHeight();
-            if (thumbHeight > 50) {
-                $thumbSlick.css('height', thumbHeight + 'px');
-                $thumbSlick.find('.slick-list').css('height', thumbHeight + 'px');
-            }
+            var thumbHeight = thumbsToShow * (THUMB_HEIGHT + THUMB_MARGIN * 2);
+            $thumbSlick.css('height', thumbHeight + 'px');
+            $thumbSlick.find('.slick-list').css('height', thumbHeight + 'px');
         }
-        if ($firstImg.length && !$firstImg[0].complete) {
-            $firstImg.on('load', applyThumbHeight);
-        } else {
-            applyThumbHeight();
-        }
+        applyThumbHeight();
+        // Re-apply on window resize
+        $(window).off('resize.productImgs').on('resize.productImgs', applyThumbHeight);
 
         // Re-init zoom on new slides
         $mainSlick.find('.product-preview').zoom();

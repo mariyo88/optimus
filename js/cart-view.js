@@ -13,7 +13,7 @@
     function renderCartPage() {
         var $container = $('#cart-container');
 
-        Cart.recalculate(function(cartItems) {
+        Cart.loadDetails(function(cartItems) {
             if (cartItems.length === 0) {
                 $container.html(
                     '<div class="cart-empty-wrap">' +
@@ -151,7 +151,10 @@
     });
 
     $(document).ready(function() {
-        renderCartPage();
+        // Single recalculate on page load to remove inactive/deleted products
+        Cart.recalculate(function() {
+            renderCartPage();
+        });
     });
 
 })(jQuery);

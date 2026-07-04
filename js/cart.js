@@ -71,11 +71,6 @@
                     self.showCartModal(null, quantity);
                 }
             });
-            
-            // Recalculate cart to get latest product data
-            setTimeout(function() {
-                self.recalculate();
-            }, 100);
         },
 
         // Remove item from cart
@@ -270,11 +265,12 @@
         // Update cart UI in header
         updateUI: function() {
             var count = this.getCount();
-            // Update only cart badge, not wishlist badge
             $('.header-ctn .dropdown .qty').text(count);
             
-            // Update cart dropdown
-            this.updateDropdown();
+            // Only update dropdown if it's currently visible
+            if ($('.cart-dropdown').is(':visible')) {
+                this.updateDropdown();
+            }
         },
 
         // Update cart dropdown in header
