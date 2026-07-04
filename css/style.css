@@ -3372,3 +3372,114 @@ ul.SpecForm .Notice {
         max-width: 100%;
     }
 }
+
+/* ================================================================
+   Product Description - Raw HTML (DSC i drugi dobavljači)
+   Sve unutar #tab1 da ne utiče na ostatak sajta
+   ================================================================ */
+
+#tab1 .col-md-12 {
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #444;
+}
+
+/* Naslovi unutar opisa */
+#tab1 .col-md-12 h1,
+#tab1 .col-md-12 h2,
+#tab1 .col-md-12 h3,
+#tab1 .col-md-12 h4,
+#tab1 .col-md-12 h5,
+#tab1 .col-md-12 h6 {
+  color: #2B2D42;
+  font-weight: 600;
+  margin: 20px 0 10px;
+  font-size: 15px;
+}
+
+#tab1 .col-md-12 h1 { font-size: 18px; }
+#tab1 .col-md-12 h2 { font-size: 16px; }
+
+/* Tabele – Bootstrap klase se dodaju via JS (.table.table-bordered), ovde samo dopune */
+#tab1 .col-md-12 table {
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+/* Prva kolona (naziv karakteristike) */
+#tab1 .col-md-12 table td:first-child,
+#tab1 .col-md-12 table th:first-child {
+  font-weight: 700;
+  color: #2B2D42;
+  width: 25%;
+  background-color: #fafafa !important;
+}
+
+
+/* Liste */
+#tab1 .col-md-12 ul,
+#tab1 .col-md-12 ol {
+  padding-left: 20px;
+  margin: 12px 0;
+}
+
+#tab1 .col-md-12 li {
+  padding: 4px 0;
+  color: #555;
+}
+
+#tab1 .col-md-12 ul li {
+  list-style: none;
+  padding-left: 16px;
+  position: relative;
+}
+
+#tab1 .col-md-12 ul li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: #D10024;
+  font-weight: 700;
+}
+
+/* Paragrafi i plain tekst */
+#tab1 .col-md-12 p {
+  margin: 8px 0;
+  color: #555;
+}
+
+/* Linkovi unutar opisa */
+#tab1 .col-md-12 a {
+  color: #D10024;
+  text-decoration: underline;
+}
+
+#tab1 .col-md-12 a:hover {
+  color: #a0001a;
+}
+
+/* Bold / strong */
+#tab1 .col-md-12 strong,
+#tab1 .col-md-12 b {
+  color: #2B2D42;
+  font-weight: 600;
+}
+
+/* Responsive – tabela na mobilnom postaje skrolabilna */
+@media only screen and (max-width: 768px) {
+  #tab1 .col-md-12 {
+    overflow-x: auto;
+  }
+
+  #tab1 .col-md-12 table td:first-child,
+  #tab1 .col-md-12 table th:first-child {
+    width: auto;
+  }
+
+  #tab1 .col-md-12 table td,
+  #tab1 .col-md-12 table th {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}

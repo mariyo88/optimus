@@ -295,11 +295,13 @@
             $('#tab1').removeClass('active');
             $('ul.tab-nav li a[href="#tab2"]').parent().addClass('active');
             $('#tab2').addClass('active');
-        } else if (description.includes('<ul class="SpecForm">')) {
-            // HTML format - render as HTML
+        } else if (description.includes('<')) {
+            // HTML sadržaj (SpecForm, sirova tabela, lista...) — renderuj direktno
             $('#tab1 .col-md-12').html(description);
+            // Primeni Bootstrap table klase na sve tabele u opisu — identičan izgled kao Detalji tab
+            $('#tab1 .col-md-12 table').addClass('table table-bordered');
         } else {
-            // Plain text format - render as text
+            // Plain text — escape i prikaži kao tekst
             $('#tab1 .col-md-12 p').text(description);
         }
 
