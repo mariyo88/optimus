@@ -413,7 +413,7 @@ textarea.input {
 #top-header {
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #1E1F29;
+  background: linear-gradient(135deg, #2a0008 0%, #1E1F29 100%);
 }
 
 .header-links li {
@@ -446,7 +446,7 @@ textarea.input {
 #header {
   padding-top: 15px;
   padding-bottom: 15px;
-  background-color: #15161D;
+  background: linear-gradient(135deg, #1E1F29 0%, #15161D 60%, #2a0008 100%);
 }
 
 .header-logo {
@@ -2552,6 +2552,79 @@ textarea.input {
 
 .product .add-to-cart-btn:disabled {
   pointer-events: none;
+}
+
+/* ── Stock Badge — clean pill indicators ─────────────────── */
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: #444;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Stanje 2: Na stanju */
+.stock-badge--ok .stock-check {
+  font-size: 15px;
+  color: #3dab6a;
+  font-weight: 700;
+}
+.stock-badge--ok .stock-delivery {
+  color: #888;
+  font-size: 12px;
+}
+
+/* Stanje 1: Malo na stanju — narandžasta pulse tačkica */
+.stock-badge--low {
+  color: #555;
+}
+.stock-badge--low strong {
+  color: #333;
+}
+.stock-badge--low::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f0a500;
+  flex-shrink: 0;
+  animation: stockPulse 1.8s ease-in-out infinite;
+}
+
+/* Stanje 3: Nije na stanju */
+.stock-badge--out {
+  color: #999;
+}
+.stock-dot--out {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  flex-shrink: 0;
+}
+
+@keyframes stockPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.45; transform: scale(1.35); }
+}
+
+/* Dugme "Obavesti me" za out-of-stock na product detail stranici */
+.product-details .add-to-cart-btn.notify-btn {
+  background: #fff;
+  color: #555;
+  border: 1.5px solid #ccc;
+  cursor: default;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.product-details .add-to-cart-btn.notify-btn:hover {
+  background: #fff;
+  color: #555;
+  border-color: #bbb;
 }
 
 /*=========================================================

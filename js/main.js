@@ -123,6 +123,8 @@ function formatPrice(val) {
 
 		up.on('click', function () {
 			var value = parseInt($input.val()) + 1;
+			var max = parseInt($input.attr('max'));
+			if (!isNaN(max) && value > max) value = max;
 			$input.val(value);
 			$input.change();
 			updatePriceSlider($this , value)

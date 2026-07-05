@@ -267,8 +267,9 @@
             var count = this.getCount();
             $('.header-ctn .dropdown .qty').text(count);
             
-            // Only update dropdown if it's currently visible
-            if ($('.cart-dropdown').is(':visible')) {
+            // Ne osvežavaj dropdown na cart stranici — korisnik već gleda korpu
+            var isCartPage = window.location.pathname.indexOf('cart.html') !== -1;
+            if (!isCartPage && $('.cart-dropdown').is(':visible')) {
                 this.updateDropdown();
             }
         },

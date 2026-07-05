@@ -23,51 +23,26 @@
     function renderStockInfo(product) {
         var stock = product.stock;
         var $el = $('#product-stock-info');
-
         var html;
-        if (!product.active) {
-            html = [
-                '<div style="display:inline-flex;align-items:center;gap:8px;',
-                'background:#f5f5f5;border:1px solid #ddd;border-radius:4px;',
-                'padding:8px 14px;font-size:13px;color:#999;">',
-                '<i class="fa fa-ban"></i> Proizvod nije dostupan',
-                '</div>'
-            ].join('');
-        } else if (!stock || stock <= 0) {
-            html = [
-                '<div style="display:inline-flex;align-items:center;gap:8px;',
-                'background:#fff5f5;border:1px solid #ffcccc;border-radius:4px;',
-                'padding:8px 14px;font-size:13px;color:#cc0000;">',
-                '<i class="fa fa-times-circle"></i> Nema na stanju',
-                '</div>'
-            ].join('');
+
+        if (!product.active || !stock || stock <= 0) {
+            // Stanje 3: Rasprodato / nije aktivno
+            html = '<span class="stock-badge stock-badge--out">' +
+                   '<span class="stock-dot stock-dot--out"></span>' +
+                   'Trenutno nedostupno' +
+                   '</span>';
         } else if (stock <= 3) {
-            html = [
-                '<div style="display:inline-flex;align-items:center;gap:8px;',
-                'background:#fff8e1;border:1px solid #ffcc02;border-radius:4px;',
-                'padding:8px 14px;font-size:13px;color:#b8860b;">',
-                '<i class="fa fa-exclamation-triangle"></i>',
-                'Poslednji komadi — ostalo <strong>' + stock + ' kom</strong>',
-                '</div>'
-            ].join('');
-        } else if (stock <= 10) {
-            html = [
-                '<div style="display:inline-flex;align-items:center;gap:8px;',
-                'background:#fff3e0;border:1px solid #ffab40;border-radius:4px;',
-                'padding:8px 14px;font-size:13px;color:#e65100;">',
-                '<i class="fa fa-cube"></i>',
-                'Na stanju — <strong>' + stock + ' kom</strong>',
-                '</div>'
-            ].join('');
+            // Stanje 1: Jako malo na stanju
+            var txt = stock === 1
+                ? ' <strong>Poslednji komad</strong> na stanju'
+                : ' Brzo ponestaje — ostalo još <strong>' + stock + ' komada</strong>';
+            html = '<span class="stock-badge stock-badge--low">' + txt + '</span>';
         } else {
-            html = [
-                '<div style="display:inline-flex;align-items:center;gap:8px;',
-                'background:#f0faf0;border:1px solid #81c784;border-radius:4px;',
-                'padding:8px 14px;font-size:13px;color:#2e7d32;">',
-                '<i class="fa fa-check-circle"></i>',
-                'Na stanju — <strong>' + stock + ' kom</strong>',
-                '</div>'
-            ].join('');
+            // Stanje 2: Dovoljno na stanju
+            html = '<span class="stock-badge stock-badge--ok">' +
+                   '<span class="stock-check">&#10003;</span>' +
+                   ' Na stanju <span class="stock-delivery">(Raspoloživo ' + stock + ' komada)</span>' +
+                   '</span>';
         }
 
         $el.html(html);
@@ -143,12 +118,23 @@
         $addToCartBtn.attr('data-slug', product.slug);
         
         if (!priceInfo.inStock) {
-            $addToCartBtn.prop('disabled', true);
-            $addToCartBtn.addClass('out-of-stock-disabled');
+            $addToCartBtn.prop('disabled', true).addClass('out-of-stock-disabled');
+            $addToCartBtn.html('<i class="fa fa-bell-o"></i> Obavesti me');
+            $addToCartBtn.addClass('notify-btn');
         }
 
-        // Set default quantity to 1
-        $('.add-to-cart input[type="number"]').val(1);
+        // Set default quantity to 1, limit to available stock
+        var $qtyInput = $('.add-to-cart input[type="number"]');
+        $qtyInput.val(1);
+        if (priceInfo.inStock && product.stock > 0) {
+            $qtyInput.attr('max', product.stock);
+            $qtyInput.off('input.stockLimit').on('input.stockLimit', function () {
+                var max = parseInt($(this).attr('max'));
+                var val = parseInt($(this).val());
+                if (!isNaN(max) && val > max) $(this).val(max);
+                if (val < 1) $(this).val(1);
+            });
+        }
 
         // Page title + breadcrumb
         document.title = product.name + ' — Optimus';
@@ -264,7 +250,10 @@
             infinite: imgCount > 3,
             speed: 300,
             dots: false,
-            arrows: imgCount > 1,
+            arrows: false,
+            swipe: false,
+            draggable: false,
+            touchMove: false,
             fade: true,
             adaptiveHeight: false,
             asNavFor: '#product-imgs'
