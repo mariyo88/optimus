@@ -325,7 +325,7 @@
                         '    <h3 class="product-name"><a href="product.html?slug=' + item.product.slug + '">' + item.product.name + '</a></h3>',
                         '    <h4 class="product-price"><span class="qty">' + item.quantity + 'x</span>' + formatPrice(price) + '</h4>',
                         '  </div>',
-                        '  <button class="delete" data-product-id="' + item.product.id + '" onclick="window.OptimusCart.remove(' + item.product.id + '); return false;"><i class="fa fa-close"></i></button>',
+                        '  <button class="delete" data-product-id="' + item.product.id + '"><i class="fa fa-close"></i></button>',
                         '</div>'
                     ].join('');
                 }).join('');
@@ -526,21 +526,35 @@
             Cart.add(productId, quantity, productSlug);
         });
 
-        // Remove from cart (in dropdown) - kept for backward compatibility
-        $(document).on('click', '.cart-dropdown .delete', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            var productId = parseInt($(this).attr('data-product-id'));
-            
-            if (productId && !isNaN(productId)) {
-                Cart.remove(productId);
+        // Prevent dropdown from closing when clicking inside — delete dugme je izuzetak
+        $('.cart-dropdown').on('click', function(e) {
+            if (!$(e.target).closest('.delete').length) {
+                e.stopPropagation();
             }
         });
 
-        // Prevent dropdown from closing when clicking inside
-        $('.cart-dropdown').on('click', function(e) {
+        // Remove from cart (in dropdown) — direktno vezano na .cart-dropdown da ne bude blokirano stopPropagation-om
+        $('.cart-dropdown').on('click', '.delete', function(e) {
+            e.preventDefault();
             e.stopPropagation();
+
+            var productId = parseInt($(this).attr('data-product-id'));
+
+            if (productId && !isNaN(productId)) {
+                Cart.remove(productId);
+                $(this).closest('.product-widget').remove();
+
+                if ($('.cart-dropdown .product-widget').length === 0) {
+                    $('.cart-dropdown .cart-list').html(
+                        '<div class="cart-empty-state" style="padding:50px 20px;text-align:center;">' +
+                        '<div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">' +
+                        '<i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i></div>' +
+                        '<p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p></div>'
+                    );
+                    $('.cart-summary').hide();
+                    $('.cart-btns').hide();
+                }
+            }
         });
 
         // Populate dropdown when opened

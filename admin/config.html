@@ -209,6 +209,14 @@
 
         <div class="config-section">
           <div class="config-section-header">
+            <div class="icon" style="background:#fff7ed; color:#9a3412;"><i class="fa fa-envelope"></i></div>
+            Email — SMTP podesavanja
+          </div>
+          <table class="config-table"><tbody id="email-body"></tbody></table>
+        </div>
+
+        <div class="config-section">
+          <div class="config-section-header">
             <div class="icon" style="background:#e0e7ff; color:#3730a3;"><i class="fa fa-database"></i></div>
             Baza podataka
           </div>
@@ -273,19 +281,7 @@
 
   function cronBadge(cron) {
     if (!cron) return '<span class="status-badge status-not-set"><i class="fa fa-times"></i> Nije postavljeno</span>';
-    return '<code style="background:#f1f5f9; padding: 0.2rem 0.5rem; border-radius:4px;">' + escHtml(cron) + '</code>'
-      + ' <span style="color:#666; font-size:0.8rem; margin-left:0.5rem;">' + describeCron(cron) + '</span>';
-  }
-
-  function describeCron(cron) {
-    // Basic human-readable description for common Spring cron patterns (6-part: sec min hr dom mon dow)
-    var parts = cron.trim().split(/\s+/);
-    if (parts.length !== 6) return '';
-    var sec = parts[0], min = parts[1], hr = parts[2];
-    if (hr === '*' && min === '*') return '(svaki minut)';
-    if (hr === '*' && /^\d+$/.test(min)) return '(svaki sat u ' + min + '. minuti)';
-    if (/^\d+$/.test(hr) && /^\d+$/.test(min)) return '(svaki dan u ' + hr + ':' + min.padStart(2,'0') + ')';
-    return '';
+    return '<code style="background:#f1f5f9; padding: 0.2rem 0.5rem; border-radius:4px;">' + escHtml(cron) + '</code>';
   }
 
   function renderConfig(data) {
@@ -325,8 +321,20 @@
 
     var sched = data.scheduler || {};
     $('#scheduler-body').html(
-      row('DSC cron', cronBadge(sched.dscPriceUpdateCron)) +
-      row('USPON cron', cronBadge(sched.usponPriceUpdateCron))
+      row('DSC — update cena (cron)', cronBadge(sched.dscPriceUpdateCron)) +
+      row('USPON — update cena (cron)', cronBadge(sched.usponPriceUpdateCron)) +
+      row('DSC — full import (cron)', cronBadge(sched.dscFullImportCron)) +
+      row('USPON — full import (cron)', cronBadge(sched.usponFullImportCron))
+    );
+
+    var em = data.email || {};
+    $('#email-body').html(
+      row('SMTP Host', escHtml(em.host || '—')) +
+      row('SMTP Port', escHtml(em.port || '—')) +
+      row('Korisnik (username)', maskedVal(em.username)) +
+      row('Lozinka', setBadge(em.passwordSet)) +
+      row('From adresa', escHtml(em.from || '—')) +
+      row('Admin email (notifikacije)', maskedVal(em.adminEmail))
     );
 
     var db = data.database || {};
