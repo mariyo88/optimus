@@ -266,12 +266,6 @@
         updateUI: function() {
             var count = this.getCount();
             $('.header-ctn .dropdown .qty').text(count);
-            
-            // Ne osvežavaj dropdown na cart stranici — korisnik već gleda korpu
-            var isCartPage = window.location.pathname.indexOf('cart.html') !== -1;
-            if (!isCartPage && $('.cart-dropdown').is(':visible')) {
-                this.updateDropdown();
-            }
         },
 
         // Update cart dropdown in header
@@ -547,6 +541,15 @@
         // Prevent dropdown from closing when clicking inside
         $('.cart-dropdown').on('click', function(e) {
             e.stopPropagation();
+        });
+
+        // Populate dropdown when opened
+        $(document).on('click', '.header-ctn .dropdown > a', function() {
+            setTimeout(function() {
+                if ($('.header-ctn .dropdown').hasClass('open')) {
+                    Cart.updateDropdown();
+                }
+            }, 50);
         });
     });
 

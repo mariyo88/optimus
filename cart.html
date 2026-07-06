@@ -296,21 +296,21 @@
 			/* ── Cart Summary Panel ── */
 			.cart-summary-panel {
 				background: #fff;
-				border-radius: 12px;
-				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+				border-radius: 16px;
+				box-shadow: 0 4px 24px rgba(0,0,0,0.10);
 				padding: 28px 28px 24px;
 				position: sticky;
 				top: 20px;
 			}
 			.cart-summary-panel h4 {
-				font-size: 16px;
+				font-size: 15px;
 				font-weight: 700;
 				color: #2B2D42;
 				margin: 0 0 20px;
 				padding-bottom: 14px;
 				border-bottom: 2px solid #f0f0f0;
 				text-transform: uppercase;
-				letter-spacing: 0.5px;
+				letter-spacing: 1px;
 			}
 			.cart-summary-row {
 				display: flex;
@@ -327,8 +327,22 @@
 				font-size: 18px;
 				font-weight: 700;
 				color: #2B2D42;
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				flex-wrap: wrap;
+				gap: 4px;
 			}
-			.cart-summary-row.total span:last-child { color: #D10024; }
+			.cart-summary-row.total span:first-child {
+				font-size: 16px;
+				white-space: nowrap;
+			}
+			.cart-summary-row.total span:last-child {
+				color: #D10024;
+				font-size: 22px;
+				font-weight: 700;
+				white-space: nowrap;
+			}
 
 			/* Continue shopping link */
 			.cart-continue-link {
@@ -351,21 +365,22 @@
 				background: linear-gradient(135deg, #D10024, #a80020);
 				color: #fff;
 				text-align: center;
-				padding: 14px;
-				border-radius: 8px;
-				font-size: 15px;
+				padding: 15px;
+				border-radius: 30px;
+				font-size: 16px;
 				font-weight: 700;
 				text-decoration: none;
 				margin-top: 20px;
 				letter-spacing: 0.5px;
-				transition: opacity 0.2s, transform 0.2s;
-				box-shadow: 0 4px 14px rgba(209,0,36,0.3);
+				transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+				box-shadow: 0 6px 20px rgba(209,0,36,0.4);
 			}
 			.cart-checkout-btn:hover {
 				color: #fff;
 				text-decoration: none;
 				opacity: 0.92;
-				transform: translateY(-1px);
+				transform: translateY(-2px);
+				box-shadow: 0 8px 24px rgba(209,0,36,0.5);
 			}
 
 			/* Empty state */
