@@ -522,14 +522,18 @@ textarea.input {
 .header-ctn {
   float: right;
   padding: 15px 0px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .header-ctn>div {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 }
 
 .header-ctn>div+div {
-  margin-left: 15px;
+  margin-left: 0;
 }
 
 .header-ctn>div>a {
@@ -684,6 +688,56 @@ textarea.input {
 
 .header-ctn li.nav-toggle {
   display: none;
+}
+
+/* PRODAVNICA button */
+.prodavnica-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #D10024;
+  color: #FFF !important;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  width: auto !important;
+  white-space: nowrap;
+}
+
+.prodavnica-btn:hover {
+  background-color: #b8001f;
+  color: #FFF !important;
+}
+
+.prodavnica-btn i {
+  font-size: 14px !important;
+  display: inline !important;
+}
+
+.header-ctn .prodavnica-wrap {
+  display: inline-flex !important;
+  align-items: center;
+}
+
+/* Kategorije desno u navu */
+.nav-kategorije-right {
+  float: right !important;
+  margin-left: auto;
+}
+
+.nav-kategorije-right > a {
+  padding: 20px 0px;
+}
+
+.nav-kategorije-right > a:hover,
+.nav-kategorije-right > a:focus {
+  color: #D10024;
+  background-color: transparent;
 }
 
 /*----------------------------*\

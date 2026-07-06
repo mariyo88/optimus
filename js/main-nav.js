@@ -35,8 +35,7 @@
 
                 // Build navigation items
                 var navHtml = navItem('index.html', 'Početna') +
-                    navItem('#', 'Akcije') +
-                    navItem('store.html', 'Kategorije');
+                    navItem('#', 'Akcije');
 
                 visibleCategories.forEach(function (cat) {
                     // Koristi displayName ako postoji, inače fallback na name

@@ -377,7 +377,12 @@
     <main class="main-content">
       <div class="page-header-custom">
         <h2><i class="fa fa-cube" style="margin-right: 0.8rem;"></i><span id="page-title">Novi proizvod</span></h2>
-        <a href="products.html" class="btn btn-light" style="color: #000;"><i class="fa fa-arrow-left mr-2"></i> Nazad</a>
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <a id="view-on-site-btn" href="#" target="_blank" class="btn btn-light d-none" style="color: #fff; font-weight: 600;">
+            <i class="fa fa-external-link mr-2"></i> Pogledaj na sajtu
+          </a>
+          <a href="products.html" class="btn btn-light" style="color: #000;"><i class="fa fa-arrow-left mr-2"></i> Nazad</a>
+        </div>
       </div>
 
       <div id="alert-box" class="alert d-none mb-3"></div>
@@ -579,6 +584,11 @@
     (p.images || []).forEach(img => addImageRow(img));
     (p.specifications || []).forEach(s => addSpecRow(s));
     renderSupplierPanel(p.supplierProducts || []);
+    if (p.slug) {
+      $('#view-on-site-btn')
+        .attr('href', '../product.html?slug=' + encodeURIComponent(p.slug))
+        .removeClass('d-none');
+    }
   }
 
   function showNotif(msg, type) {
