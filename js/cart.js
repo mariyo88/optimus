@@ -233,33 +233,45 @@
 
         // Show notification for removed inactive items
         showRemovedItemsNotification: function(productNames) {
-            var message = productNames.length === 1
-                ? 'Artikal "' + productNames[0] + '" je uklonjen iz korpe jer više nije dostupan.'
+            var isSingle = productNames.length === 1;
+            var message = isSingle
+                ? '"' + productNames[0] + '" je uklonjen iz korpe jer više nije dostupan.'
                 : productNames.length + ' artikla su uklonjena iz korpe jer više nisu dostupna.';
 
-            var $notification = $('<div class="cart-notification cart-notification--warning">')
-                .text(message)
-                .css({
-                    position: 'fixed',
-                    top: '80px',
-                    right: '20px',
-                    background: '#e67e22',
-                    color: '#fff',
-                    padding: '15px 25px',
-                    borderRadius: '3px',
-                    zIndex: 9999,
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-                    maxWidth: '360px',
-                    lineHeight: '1.4'
-                });
+            // Remove any existing removed-items banner
+            $('#cart-removed-banner').remove();
 
-            $('body').append($notification);
+            var $banner = $([
+                '<div id="cart-removed-banner" style="',
+                '  position: fixed;',
+                '  top: 0; left: 0; right: 0;',
+                '  z-index: 10001;',
+                '  background: linear-gradient(135deg, #2a0008 0%, #1E1F29 100%);',
+                '  padding: 10px 15px;',
+                '  transform: translateY(-100%);',
+                '  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);',
+                '">',
+                '  <i class="fa fa-ban" style="color: #D10024; margin-right: 5px; font-size: 12px;"></i>',
+                '  <span style="color: #fff; font-size: 12px;">' + message + '</span>',
+                '</div>'
+            ].join(''));
 
-            setTimeout(function() {
-                $notification.fadeOut(function() {
-                    $(this).remove();
+            $('body').append($banner);
+
+            // Slide in
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    $banner.css('transform', 'translateY(0)');
                 });
-            }, 5000);
+            });
+
+            var dismiss = function() {
+                $banner.css('transform', 'translateY(-100%)');
+                setTimeout(function() { $banner.remove(); }, 400);
+            };
+
+            // Auto-dismiss after 5s
+            setTimeout(dismiss, 5000);
         },
 
         // Update cart UI in header
@@ -268,13 +280,14 @@
             $('.header-ctn .dropdown .qty').text(count);
         },
 
-        // Update cart dropdown in header
-        updateDropdown: function() {
+        // Update cart dropdown in header — accepts pre-fetched cartItems to avoid double API call
+        updateDropdown: function(cartItems) {
             var self = this;
-            this.loadDetails(function(cartItems) {
+
+            var render = function(items) {
                 var $cartList = $('.cart-dropdown .cart-list');
-                
-                if (cartItems.length === 0) {
+
+                if (items.length === 0) {
                     $cartList.html(`
                         <div style="
                             padding: 50px 20px;
@@ -306,16 +319,16 @@
                     $('.cart-btns').hide();
                     return;
                 }
-                
+
                 $('.cart-summary').show();
                 $('.cart-btns').show();
-                
+
                 var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23eee' width='100' height='100'/%3E%3C/svg%3E";
-                
-                var html = cartItems.map(function(item) {
+
+                var html = items.map(function(item) {
                     var imgSrc = item.product.mainImageUrl || IMG_PLACEHOLDER;
                     var price = item.product.bestOurWebPrice || item.product.bestRetailPrice || 0;
-                    
+
                     return [
                         '<div class="product-widget" data-product-id="' + item.product.id + '">',
                         '  <div class="product-img">',
@@ -329,14 +342,23 @@
                         '</div>'
                     ].join('');
                 }).join('');
-                
+
                 $cartList.html(html);
-                
+
                 // Update totals
-                var total = self.calculateTotal(cartItems);
-                $('.cart-summary small').text(cartItems.length + ' stavki izabrano');
+                var total = self.calculateTotal(items);
+                $('.cart-summary small').text(items.length + ' stavki izabrano');
                 $('.cart-summary h5').text('MEĐUZBIR: ' + formatPrice(total));
-            });
+            };
+
+            // If cartItems were passed directly (from recalculate), use them — no extra API call
+            if (cartItems) {
+                render(cartItems);
+            } else {
+                self.loadDetails(function(items) {
+                    render(items);
+                });
+            }
         },
 
         // Show notification
@@ -557,11 +579,15 @@
             }
         });
 
-        // Populate dropdown when opened
+        // Populate dropdown when opened — first validate active items, then render
         $(document).on('click', '.header-ctn .dropdown > a', function() {
             setTimeout(function() {
                 if ($('.header-ctn .dropdown').hasClass('open')) {
-                    Cart.updateDropdown();
+                    // Recalculate removes inactive/deleted items, then passes results directly
+                    // to updateDropdown to avoid a second round of API calls
+                    Cart.recalculate(function(cartItems) {
+                        Cart.updateDropdown(cartItems);
+                    });
                 }
             }, 50);
         });
