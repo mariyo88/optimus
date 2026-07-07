@@ -41,16 +41,12 @@
                 var imgSrc = item.product.mainImageUrl || IMG_PLACEHOLDER;
                 var price = item.product.bestOurWebPrice || item.product.bestRetailPrice || 0;
                 var subtotal = price * item.quantity;
-                var orderNumber = item.orderNumber || 0;
                 var brand = item.product.brandName
                     ? '<span class="brand-tag">' + item.product.brandName + '</span>'
                     : '';
 
                 return [
-                    '<tr data-product-id="' + item.product.id + '">',
-                    '  <td style="width:50px;text-align:center;">',
-                    '    <div class="cart-order-badge">' + orderNumber + '</div>',
-                    '  </td>',
+                    '<tr data-product-id="' + item.product.id + '" data-order-number="' + (item.orderNumber || 0) + '">',
                     '  <td class="cart-product-img" style="width:100px;">',
                     '    <a href="product.html?slug=' + item.product.slug + '">',
                     '      <img src="' + imgSrc + '" alt="' + item.product.name + '">',
@@ -89,12 +85,11 @@
                 '      <div class="table-responsive">',
                 '        <table class="table">',
                 '          <thead><tr>',
-                '            <th style="text-align:center;width:50px;">#</th>',
-                '            <th></th>',
+                '            <th style="width:100px;"></th>',
                 '            <th>Proizvod</th>',
-                '            <th>Količina</th>',
-                '            <th>Cena</th>',
-                '            <th></th>',
+                '            <th style="width:130px;">Količina</th>',
+                '            <th style="width:140px;">Ukupno</th>',
+                '            <th style="width:50px;text-align:center;"></th>',
                 '          </tr></thead>',
                 '          <tbody>' + rows + '</tbody>',
                 '        </table>',

@@ -119,13 +119,13 @@
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
 
-                            <!-- PRODAVNICA -->
-                            <div class="prodavnica-wrap">
-                                <a href="store.html" class="prodavnica-btn">
-                                    <i class="fa fa-shopping-cart"></i> PRODAVNICA
-                                </a>
-                            </div>
-                            <!-- /PRODAVNICA -->
+                            <!-- Wishlist -->
+                            <a href="wishlist.html" class="wishlist-link">
+                                <i class="fa fa-heart-o"></i>
+                                <span>Želje</span>
+                                <div class="wishlist-count">0</div>
+                            </a>
+                            <!-- /Wishlist -->
 
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -220,7 +220,7 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
                             <h3 class="footer-title">O nama</h3>
-                            <p>Optimus je vaš IT centar u Velikoj Plani.</p>
+                            <p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
                             <ul class="footer-links">
                                 <li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
                                 <li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
@@ -228,21 +228,40 @@
                             </ul>
                         </div>
                     </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Kategorije</h3>
+                            <ul class="footer-links">
+                                <li><a href="#">Akcije</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="clearfix visible-xs"></div>
+
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
                             <h3 class="footer-title">Informacije</h3>
                             <ul class="footer-links">
                                 <li><a href="about.html">O nama</a></li>
                                 <li><a href="contact.html">Kontakt</a></li>
+                                <li><a href="#">Politika privatnosti</a></li>
+                                <li><a href="#">Narudžbine i povrat</a></li>
+                                <li><a href="#">Uslovi korišćenja</a></li>
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
                             <h3 class="footer-title">Usluge</h3>
                             <ul class="footer-links">
+                                <li><a href="#">Moj nalog</a></li>
                                 <li><a href="cart.html">Prikaži korpu</a></li>
-                                <li><a href="store.html">Prodavnica</a></li>
+                                <li><a href="wishlist.html">Lista želja</a></li>
+                                <li><a href="#">Prati porudžbinu</a></li>
+                                <li><a href="#">Pomoć</a></li>
                             </ul>
                         </div>
                     </div>
@@ -253,6 +272,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
                         <span class="copyright">© 2026 FirstCode. Sva prava zadržana.</span>
                     </div>
                 </div>
@@ -267,6 +294,7 @@
     <script src="js/config.js"></script>
     <script src="js/main-nav.js"></script>
     <script src="js/header-search.js"></script>
+    <script src="js/wishlist.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/brands-carousel.js"></script>
     <script src="js/order-confirmation.js"></script>

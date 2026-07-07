@@ -123,6 +123,17 @@
             $addToCartBtn.addClass('notify-btn');
         }
 
+        // Update Add to Wishlist button with product data
+        var $addToWishlistBtn = $('.product-btns .add-to-wishlist');
+        $addToWishlistBtn.attr('data-id', product.id);
+        $addToWishlistBtn.attr('data-slug', product.slug);
+
+        // Sync wishlist button state (fill heart if already wishlisted)
+        if (window.OptimusWishlist && window.OptimusWishlist.has(product.id)) {
+            $addToWishlistBtn.addClass('wishlisted');
+            $addToWishlistBtn.find('i').removeClass('fa-heart-o').addClass('fa-heart');
+        }
+
         // Set default quantity to 1, limit to available stock
         var $qtyInput = $('.add-to-cart input[type="number"]');
         $qtyInput.val(1);
@@ -353,7 +364,7 @@
             '      ' + inStockBadge,
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
-            '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">dodaj u listu želja</span></button>',
+            '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>',
             '        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
             '        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>',
             '      </div>',

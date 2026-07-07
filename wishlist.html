@@ -5,23 +5,23 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Korpa - Optimus</title>
+		<title>Lista Želja - Optimus</title>
 
- 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
- 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
- 		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
- 		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
- 		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
- 		<link rel="stylesheet" href="css/font-awesome.min.css">
- 		
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+
 		<!-- Favicon -->
 		<link rel="icon" type="image/x-icon" href="favicon.ico">
 		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 		<link rel="manifest" href="site.webmanifest">
- 		
- 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 
 		<style>
 			/* ── Hero Banner ── */
@@ -32,9 +32,7 @@
 				position: relative;
 				overflow: hidden;
 			}
-			.page-hero > .container {
-				padding-top: 10px;
-			}
+			.page-hero > .container { padding-top: 10px; }
 			.page-hero-nav {
 				margin-bottom: 0;
 				padding: 0;
@@ -102,28 +100,27 @@
 				margin-bottom: 18px;
 			}
 
-			/* ── Cart section ── */
-			.cart-page-section {
+			/* ── Wishlist section ── */
+			.wishlist-page-section {
 				padding: 50px 0 40px;
 				background: #fff;
 			}
 
-			/* ── Cart Table ── */
-			.cart-table-wrap {
+			/* ── Wishlist Table ── */
+			.wishlist-table-wrap {
 				background: #fff;
 				border-radius: 12px;
 				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
 				overflow: hidden;
 				margin-bottom: 32px;
 			}
-			.cart-table-wrap .table-responsive {
-				overflow-x: visible;
-				overflow-y: visible;
+			.wishlist-table-wrap .table-responsive {
+				overflow-x: auto;
 				border: none;
 			}
-			.cart-table-wrap .table { margin-bottom: 0; }
-			.cart-table-wrap .table thead tr { background: #2B2D42; }
-			.cart-table-wrap .table thead th {
+			.wishlist-table-wrap .table { margin-bottom: 0; }
+			.wishlist-table-wrap .table thead tr { background: #2B2D42; }
+			.wishlist-table-wrap .table thead th {
 				color: #fff;
 				font-size: 12px;
 				font-weight: 600;
@@ -133,42 +130,22 @@
 				border: none;
 				vertical-align: middle;
 			}
-			.cart-table-wrap .table tbody tr {
+			.wishlist-table-wrap .table tbody tr {
 				border-bottom: 1px solid #f0f0f0;
 				transition: background 0.18s;
 			}
-			.cart-table-wrap .table tbody tr:last-child {
-				border-bottom: none;
-			}
-			.cart-table-wrap .table tbody tr:hover {
-				background: #fafafa;
-			}
-			.cart-table-wrap .table tbody td {
-				padding: 18px 18px;
+			.wishlist-table-wrap .table tbody tr:last-child { border-bottom: none; }
+			.wishlist-table-wrap .table tbody tr:hover { background: #fafafa; }
+			.wishlist-table-wrap .table tbody td {
+				padding: 18px;
 				vertical-align: middle;
 				border: none;
 				font-size: 14px;
 				color: #333;
 			}
 
-			/* Order badge */
-			.cart-order-badge {
-				width: 34px;
-				height: 34px;
-				background: linear-gradient(135deg, #D10024, #a80020);
-				color: #fff;
-				border-radius: 50%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-weight: 700;
-				font-size: 13px;
-				margin: 0 auto;
-				box-shadow: 0 2px 6px rgba(209,0,36,0.3);
-			}
-
-			/* Product image */
-			.cart-product-img a {
+			/* Product image cell */
+			.wl-product-img a {
 				display: block;
 				width: 80px;
 				height: 80px;
@@ -176,27 +153,27 @@
 				overflow: hidden;
 				border: 1px solid #eee;
 			}
-			.cart-product-img img {
+			.wl-product-img img {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
 				transition: transform 0.2s;
 			}
-			.cart-product-img a:hover img { transform: scale(1.06); }
+			.wl-product-img a:hover img { transform: scale(1.06); }
 
-			/* Product name */
-			.cart-product-name h4 {
+			/* Product name cell */
+			.wl-product-name h4 {
 				margin: 0 0 4px;
 				font-size: 14px;
 				font-weight: 600;
 			}
-			.cart-product-name h4 a {
+			.wl-product-name h4 a {
 				color: #2B2D42;
 				text-decoration: none;
 				transition: color 0.15s;
 			}
-			.cart-product-name h4 a:hover { color: #D10024; }
-			.cart-product-name .brand-tag {
+			.wl-product-name h4 a:hover { color: #D10024; }
+			.wl-product-name .brand-tag {
 				display: inline-block;
 				background: #f0f1f4;
 				color: #666;
@@ -208,65 +185,58 @@
 				text-transform: uppercase;
 			}
 
-			/* Price cells */
-			.cart-product-price {
-				font-weight: 600;
-				color: #555;
-				white-space: nowrap;
-			}
-			.cart-product-subtotal {
+			/* Price */
+			.wl-product-price {
 				font-weight: 700;
 				color: #D10024;
 				white-space: nowrap;
 				font-size: 15px;
 			}
+			.wl-product-old-price {
+				font-size: 12px;
+				color: #aaa;
+				display: block;
+				text-decoration: line-through;
+			}
 
-			/* Quantity control */
-			.qty-control {
+			/* Stock badge */
+			.wl-stock-badge {
+				display: inline-block;
+				padding: 3px 10px;
+				border-radius: 4px;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.5px;
+			}
+			.wl-stock-badge.in-stock  { background: #e8f7ef; color: #27ae60; }
+			.wl-stock-badge.out-stock { background: #fde8eb; color: #D10024; }
+
+			/* Move to cart button */
+			.wl-add-cart-btn {
 				display: inline-flex;
 				align-items: center;
-				border: 1.5px solid #e0e0e0;
-				border-radius: 8px;
-				overflow: hidden;
-				background: #fff;
-				box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-			}
-			.qty-control button {
-				width: 32px;
-				height: 36px;
-				background: #f7f7f7;
-				border: none;
-				outline: none;
-				cursor: pointer;
-				font-size: 16px;
-				font-weight: 700;
-				color: #444;
-				transition: background 0.15s, color 0.15s;
-				flex-shrink: 0;
-			}
-			.qty-control button:hover {
-				background: #D10024;
+				gap: 6px;
+				padding: 8px 16px;
+				background: linear-gradient(135deg, #D10024, #a80020);
 				color: #fff;
-			}
-			.qty-control input[type="number"] {
-				width: 44px;
-				height: 36px;
 				border: none;
-				border-left: 1.5px solid #e0e0e0;
-				border-right: 1.5px solid #e0e0e0;
-				text-align: center;
-				font-size: 14px;
+				border-radius: 6px;
+				font-size: 13px;
 				font-weight: 600;
-				color: #333;
-				outline: none;
-				-moz-appearance: textfield;
-				background: #fff;
+				cursor: pointer;
+				transition: opacity 0.2s, transform 0.2s;
+				white-space: nowrap;
 			}
-			.qty-control input[type="number"]::-webkit-outer-spin-button,
-			.qty-control input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; appearance: none; }
+			.wl-add-cart-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+			.wl-add-cart-btn:disabled {
+				background: #ccc;
+				cursor: not-allowed;
+				transform: none;
+				opacity: 1;
+			}
 
 			/* Remove button */
-			.cart-remove-btn {
+			.wl-remove-btn {
 				width: 34px;
 				height: 34px;
 				border: 1.5px solid #e0e0e0;
@@ -283,65 +253,14 @@
 				padding: 0;
 				line-height: 1;
 			}
-			.cart-remove-btn:hover {
+			.wl-remove-btn:hover {
 				background: #D10024;
 				border-color: #D10024;
 				color: #fff;
 			}
 
-			/* ── Cart Summary Panel ── */
-			.cart-summary-panel {
-				background: #fff;
-				border-radius: 16px;
-				box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-				padding: 28px 28px 24px;
-				position: sticky;
-				top: 20px;
-			}
-			.cart-summary-panel h4 {
-				font-size: 15px;
-				font-weight: 700;
-				color: #2B2D42;
-				margin: 0 0 20px;
-				padding-bottom: 14px;
-				border-bottom: 2px solid #f0f0f0;
-				text-transform: uppercase;
-				letter-spacing: 1px;
-			}
-			.cart-summary-row {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding: 10px 0;
-				border-bottom: 1px solid #f4f4f4;
-				font-size: 14px;
-				color: #555;
-			}
-			.cart-summary-row:last-of-type { border-bottom: none; }
-			.cart-summary-row.total {
-				padding-top: 16px;
-				font-size: 18px;
-				font-weight: 700;
-				color: #2B2D42;
-				display: flex;
-				justify-content: space-between;
-				align-items: baseline;
-				flex-wrap: wrap;
-				gap: 4px;
-			}
-			.cart-summary-row.total span:first-child {
-				font-size: 16px;
-				white-space: nowrap;
-			}
-			.cart-summary-row.total span:last-child {
-				color: #D10024;
-				font-size: 22px;
-				font-weight: 700;
-				white-space: nowrap;
-			}
-
 			/* Continue shopping link */
-			.cart-continue-link {
+			.wl-continue-link {
 				display: inline-flex;
 				align-items: center;
 				gap: 8px;
@@ -351,43 +270,280 @@
 				padding: 10px 0;
 				transition: color 0.15s;
 			}
-			.cart-continue-link:hover { color: #D10024; text-decoration: none; }
-			.cart-continue-link i { font-size: 12px; }
+			.wl-continue-link:hover { color: #D10024; text-decoration: none; }
 
-			/* Checkout btn full-width in panel */
-			.cart-checkout-btn {
-				display: block;
+			/* Confirmation Modal - matching cart modal style */
+			.wl-confirm-modal {
+				position: fixed;
+				top: 0;
+				left: 0;
 				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.45);
+				display: none;
+				align-items: center;
+				justify-content: center;
+				z-index: 10000;
+				animation: fadeInOverlay 0.2s ease;
+			}
+			.wl-confirm-modal.active {
+				display: flex;
+			}
+			.wl-confirm-content {
+				background: #fff;
+				border-radius: 8px;
+				max-width: 480px;
+				width: 90%;
+				box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+				animation: slideInModal 0.25s ease;
+				overflow: hidden;
+				border: 1px solid rgba(0,0,0,0.1);
+			}
+			.wl-confirm-header {
+				background: #2c3e50;
+				color: #fff;
+				padding: 14px 20px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.wl-confirm-header-left {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.wl-confirm-header i {
+				color: #e74c3c;
+				font-size: 20px;
+			}
+			.wl-confirm-header h3 {
+				margin: 0;
+				font-size: 15px;
+				font-weight: 600;
+				color: #fff;
+			}
+			.wl-confirm-close {
+				background: none;
+				border: none;
+				color: #fff;
+				font-size: 20px;
+				cursor: pointer;
+				line-height: 1;
+				opacity: 0.8;
+				transition: opacity 0.2s;
+			}
+			.wl-confirm-close:hover {
+				opacity: 1;
+			}
+			.wl-confirm-body {
+				padding: 24px 20px;
+				border-bottom: 1px solid #f0f0f0;
+			}
+			.wl-confirm-body p {
+				margin: 0;
+				font-size: 14px;
+				color: #555;
+				line-height: 1.6;
+			}
+			.wl-confirm-body strong {
+				color: #2c3e50;
+			}
+			.wl-confirm-footer {
+				padding: 16px 20px;
+				display: flex;
+				gap: 10px;
+			}
+			.wl-confirm-btn {
+				flex: 1;
+				padding: 11px 16px;
+				border-radius: 4px;
+				font-size: 13px;
+				font-weight: 600;
+				border: 2px solid;
+				cursor: pointer;
+				transition: all 0.2s;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 6px;
+			}
+			.wl-confirm-btn-cancel {
+				background: #fff;
+				color: #666;
+				border-color: #ddd;
+			}
+			.wl-confirm-btn-cancel:hover {
+				background: #f5f5f5;
+				border-color: #bbb;
+				color: #333;
+			}
+			.wl-confirm-btn-confirm {
+				background: #e74c3c;
+				color: #fff;
+				border-color: #e74c3c;
+			}
+			.wl-confirm-btn-confirm:hover {
+				background: #c0392b;
+				border-color: #c0392b;
+			}
+			@keyframes fadeInOverlay {
+				from { opacity: 0; }
+				to { opacity: 1; }
+			}
+			@keyframes slideInModal {
+				from {
+					transform: translateY(-20px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+
+			/* Summary panel - Horizontal layout */
+			.wl-summary-panel-horizontal {
+				background: #fff;
+				border-radius: 12px;
+				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+				padding: 28px 32px;
+				margin-bottom: 32px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				gap: 24px;
+			}
+
+			.wl-summary-stats {
+				display: flex;
+				align-items: center;
+				gap: 32px;
+				flex: 1;
+			}
+
+			.wl-stat-item {
+				display: flex;
+				align-items: center;
+				gap: 16px;
+			}
+
+			.wl-stat-icon {
+				width: 56px;
+				height: 56px;
+				border-radius: 12px;
+				background: linear-gradient(135deg, rgba(209,0,36,0.1), rgba(209,0,36,0.05));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 24px;
+				color: #D10024;
+			}
+
+			.wl-stat-content {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.wl-stat-label {
+				font-size: 12px;
+				color: #999;
+				font-weight: 500;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				margin-bottom: 4px;
+			}
+
+			.wl-stat-value {
+				font-size: 28px;
+				font-weight: 700;
+				color: #2B2D42;
+				line-height: 1;
+			}
+
+			.wl-summary-actions {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+
+			.wl-move-all-btn {
 				background: linear-gradient(135deg, #D10024, #a80020);
 				color: #fff;
-				text-align: center;
-				padding: 15px;
-				border-radius: 30px;
-				font-size: 16px;
+				padding: 14px 28px;
+				border-radius: 8px;
+				font-size: 14px;
 				font-weight: 700;
 				text-decoration: none;
-				margin-top: 20px;
-				letter-spacing: 0.5px;
+				letter-spacing: 0.3px;
+				border: none;
+				cursor: pointer;
 				transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+				box-shadow: 0 4px 16px rgba(209,0,36,0.3);
+				white-space: nowrap;
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.wl-move-all-btn:hover {
+				opacity: 0.92;
+				transform: translateY(-1px);
 				box-shadow: 0 6px 20px rgba(209,0,36,0.4);
 			}
-			.cart-checkout-btn:hover {
-				color: #fff;
-				text-decoration: none;
-				opacity: 0.92;
-				transform: translateY(-2px);
-				box-shadow: 0 8px 24px rgba(209,0,36,0.5);
+
+			.wl-clear-btn {
+				background: transparent;
+				border: 1.5px solid #e0e0e0;
+				color: #999;
+				padding: 13px 24px;
+				border-radius: 8px;
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: border-color 0.15s, color 0.15s, background 0.15s;
+				white-space: nowrap;
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.wl-clear-btn:hover { 
+				border-color: #D10024; 
+				color: #D10024;
+				background: rgba(209,0,36,0.03);
+			}
+
+			/* Responsive adjustments */
+			@media (max-width: 991px) {
+				.wl-summary-panel-horizontal {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+				.wl-summary-stats {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 20px;
+					width: 100%;
+				}
+				.wl-summary-actions {
+					width: 100%;
+					flex-direction: column;
+				}
+				.wl-move-all-btn,
+				.wl-clear-btn {
+					width: 100%;
+					justify-content: center;
+				}
 			}
 
 			/* Empty state */
-			.cart-empty-wrap {
+			.wl-empty-wrap {
 				background: #fff;
 				border-radius: 12px;
 				box-shadow: 0 2px 16px rgba(0,0,0,0.07);
 				padding: 80px 20px;
 				text-align: center;
 			}
-			.cart-empty-wrap .empty-icon {
+			.wl-empty-wrap .empty-icon {
 				width: 100px;
 				height: 100px;
 				margin: 0 auto 24px;
@@ -397,18 +553,15 @@
 				align-items: center;
 				justify-content: center;
 			}
-			.cart-empty-wrap .empty-icon i {
-				font-size: 46px;
-				color: #ccc;
-			}
-			.cart-empty-wrap h3 {
+			.wl-empty-wrap .empty-icon i { font-size: 46px; color: #ccc; }
+			.wl-empty-wrap h3 {
 				font-size: 20px;
 				font-weight: 400;
 				color: #999;
 				margin: 0 0 28px;
 			}
 		</style>
-    </head>
+	</head>
 	<body>
 		<!-- HEADER -->
 		<header>
@@ -451,13 +604,13 @@
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
 
-								<!-- Wishlist -->
+								<!-- Wishlist icon -->
 								<a href="wishlist.html" class="wishlist-link">
 									<i class="fa fa-heart-o"></i>
 									<span>Želje</span>
 									<div class="wishlist-count">0</div>
 								</a>
-								<!-- /Wishlist -->
+								<!-- /Wishlist icon -->
 
 								<!-- Cart -->
 								<div class="dropdown">
@@ -468,22 +621,23 @@
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
-<div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
-                                        <div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                                            <i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i>
-                                        </div>
-                                        <p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
-                                    </div></div>
+											<div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
+												<div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+													<i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i>
+												</div>
+												<p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
+											</div>
+										</div>
 										<div class="cart-summary" style="display:none;"><small></small><h5></h5></div>
 										<div class="cart-btns" style="display:none;">
 											<a href="cart.html">Prikaži korpu</a>
-											<a href="checkout.html">Naručivanje  <i class="fa fa-arrow-circle-right"></i></a>
+											<a href="checkout.html">Naručivanje <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
 								<!-- /Cart -->
 
-								<!-- Menu Toogle -->
+								<!-- Menu Toggle -->
 								<div class="menu-toggle">
 									<a href="#">
 										<i class="fa fa-bars"></i>
@@ -499,23 +653,22 @@
 
 		<!-- HERO BANNER -->
 		<div class="page-hero">
-			<!-- NAV inside hero -->
 			<nav id="navigation" class="page-hero-nav">
 				<div class="container">
 					<div id="responsive-nav">
 						<ul class="main-nav nav navbar-nav">
-                                                <li class="active"><a href="index.html">Početna</a></li>
-                                                <li><a href="#">Akcije</a></li>
-                                        </ul>
+							<li><a href="index.html">Početna</a></li>
+							<li><a href="#">Akcije</a></li>
+						</ul>
 					</div>
 				</div>
 			</nav>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8">
-						<span class="page-hero-badge"><i class="fa fa-shopping-cart"></i> &nbsp;Vaša korpa</span>
-						<h1>Korpa &mdash; <span>Optimus</span></h1>
-						<p>Pregledajte izabrane proizvode, izmenite količine i nastavite ka naručivanju.</p>
+						<span class="page-hero-badge"><i class="fa fa-heart"></i> &nbsp;Lista želja</span>
+						<h1>Lista Želja &mdash; <span>Optimus</span></h1>
+						<p>Čuvajte omiljene proizvode i dodajte ih u korpu kada budete spremni.</p>
 					</div>
 				</div>
 			</div>
@@ -523,11 +676,11 @@
 		<!-- /HERO BANNER -->
 
 		<!-- SECTION -->
-		<div class="section cart-page-section">
+		<div class="section wishlist-page-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<div id="cart-container">
+						<div id="wishlist-container">
 							<div class="text-center" style="padding:40px;">
 								<i class="fa fa-spinner fa-spin fa-2x"></i>
 							</div>
@@ -539,24 +692,17 @@
 
 		<!-- BRANDS CAROUSEL -->
 		<div id="brands-section" class="section" style="background:#fff;">
-			<!-- container -->
 			<div class="container">
-				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title">
 							<h3 class="title">Naši brendovi</h3>
 						</div>
-						<div class="brands-carousel" id="brands-carousel-container">
-							<!-- Brands will be loaded dynamically via AJAX -->
-						</div>
+						<div class="brands-carousel" id="brands-carousel-container"></div>
 					</div>
 				</div>
-				<!-- /row -->
 			</div>
-			<!-- /container -->
 		</div>
-		<!-- /BRANDS CAROUSEL -->
 
 		<!-- FOOTER -->
 		<footer id="footer">
@@ -566,7 +712,7 @@
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">O nama</h3>
-								<p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
+								<p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom.</p>
 								<ul class="footer-links">
 									<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
 									<li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
@@ -606,6 +752,7 @@
 									<li><a href="#">Moj nalog</a></li>
 									<li><a href="cart.html">Prikaži korpu</a></li>
 									<li><a href="wishlist.html">Lista želja</a></li>
+									<li><a href="wishlist.html">Lista želja</a></li>
 									<li><a href="#">Prati porudžbinu</a></li>
 									<li><a href="#">Pomoć</a></li>
 								</ul>
@@ -644,12 +791,31 @@
 		<script src="js/header-search.js"></script>
 		<script src="js/cart.js"></script>
 		<script src="js/wishlist.js"></script>
-		<script src="js/cart-view.js"></script>
+		<script src="js/wishlist-view.js"></script>
 		<script src="js/brands-carousel.js"></script>
+
+		<!-- Confirmation Modal -->
+		<div id="wl-confirm-modal" class="wl-confirm-modal">
+			<div class="wl-confirm-content">
+				<div class="wl-confirm-header">
+					<div class="wl-confirm-header-left">
+						<i class="fa fa-exclamation-triangle"></i>
+						<h3>Brisanje liste želja</h3>
+					</div>
+					<button class="wl-confirm-close" id="wl-modal-close-x">&times;</button>
+				</div>
+				<div class="wl-confirm-body">
+					<p>Da li ste sigurni da želite da obrišete <strong>sve proizvode iz liste želja</strong>?<br>Ova radnja se ne može poništiti.</p>
+				</div>
+				<div class="wl-confirm-footer">
+					<button class="wl-confirm-btn wl-confirm-btn-cancel" id="wl-modal-cancel">
+						<i class="fa fa-times"></i> Otkaži
+					</button>
+					<button class="wl-confirm-btn wl-confirm-btn-confirm" id="wl-modal-confirm">
+						<i class="fa fa-trash-o"></i> Obriši sve
+					</button>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
-
-
-
-
-

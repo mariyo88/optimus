@@ -548,6 +548,7 @@ textarea.input {
 .header-ctn>div>a>i {
   display: block;
   font-size: 18px;
+  margin-bottom: 3px;
 }
 
 .header-ctn>div>a>span {
@@ -692,38 +693,37 @@ textarea.input {
   display: none;
 }
 
-/* PRODAVNICA button */
-.prodavnica-btn {
+/* PRODAVNICA button — mirrors wishlist-link / cart icon pattern */
+.header-ctn .prodavnica-wrap {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background-color: #D10024;
-  color: #FFF !important;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+}
+
+.prodavnica-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 70px;
+  text-align: center;
+  color: #FFF;
   text-decoration: none;
-  transition: background-color 0.2s;
-  width: auto !important;
-  white-space: nowrap;
+  padding: 0;
+  transition: color 0.15s;
 }
 
 .prodavnica-btn:hover {
-  background-color: #b8001f;
-  color: #FFF !important;
+  color: #D10024;
+  text-decoration: none;
 }
 
 .prodavnica-btn i {
-  font-size: 14px !important;
-  display: inline !important;
+  display: block;
+  font-size: 18px;
 }
 
-.header-ctn .prodavnica-wrap {
-  display: inline-flex !important;
-  align-items: center;
+.prodavnica-btn span {
+  font-size: 12px;
 }
 
 /* Kategorije desno u navu */
@@ -3018,36 +3018,46 @@ ul.SpecForm .Notice {
 
 /* Cart table styles */
 #cart-container .table {
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 #cart-container .table thead th {
-    background-color: #f5f5f5;
-    padding: 15px;
+    background-color: #2B2D42;
+    padding: 16px 18px;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 12px;
-    color: #333;
+    color: #fff;
+    letter-spacing: 1px;
+    border: none;
 }
 
 #cart-container .table tbody td {
-    padding: 20px 15px;
+    padding: 18px;
     vertical-align: middle;
-    border-top: 1px solid #e4e7ed;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#cart-container .table tbody tr:last-child td {
+    border-bottom: none;
 }
 
 #cart-container .cart-product-img img {
-    border-radius: 4px;
-    border: 1px solid #e4e7ed;
+    border-radius: 8px;
+    border: 1px solid #eee;
 }
 
 #cart-container .cart-product-name h4 {
-    margin: 0;
-    font-size: 16px;
-    max-width: 280px;
-    white-space: nowrap;
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 600;
+    max-width: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.4;
 }
 
 #cart-container .cart-product-name h4 a {
@@ -3648,3 +3658,48 @@ ul.SpecForm .Notice {
     font-size: 13px;
   }
 }
+
+
+/* =========================================================
+   WISHLIST — global styles (header icon + button states)
+   ========================================================= */
+
+/* Header wishlist icon — mirrors the cart .qty pattern */
+.header-ctn .wishlist-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 70px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 0;
+  transition: color 0.15s;
+}
+.header-ctn .wishlist-link:hover { color: #D10024; text-decoration: none; }
+.header-ctn .wishlist-link i { 
+  display: block; 
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+.header-ctn .wishlist-link span { font-size: 12px; }
+
+.header-ctn .wishlist-link .wishlist-count {
+  position: absolute;
+  right: 10px;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 10px;
+  color: #fff;
+  background-color: #D10024;
+}
+
+/* Product card wishlist button — active/wishlisted state */
+.add-to-wishlist { cursor: pointer; }
+.add-to-wishlist.wishlisted i { color: #e74c3c; }
+.add-to-wishlist.wishlisted { color: #e74c3c; }

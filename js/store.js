@@ -102,7 +102,7 @@
             '      <h4 class="product-price">' + priceHtml + '</h4>',
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
-            '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">dodaj u listu želja</span></button>',
+            '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>',
             '        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
             '        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>',
             '      </div>',
@@ -156,7 +156,7 @@
             '      <p class="product-description">' + description + '</p>',
             '      <div class="product-actions">',
             '        <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> dodaj u korpu</button>',
-            '        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i> Lista želja</button>',
+            '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i> Lista želja</button>',
             '        <button class="add-to-compare"><i class="fa fa-exchange"></i> Poređenje</button>',
             '      </div>',
             '    </div>',
@@ -359,6 +359,11 @@
                 }
 
                 $grid.html(products.map(state.viewMode === 'list' ? buildProductListItem : buildProductCard).join(''));
+
+                // Sync wishlist heart state on newly rendered cards
+                if (window.OptimusWishlist) {
+                    window.OptimusWishlist.syncButtonStates();
+                }
 
                 var from = state.page * state.size + 1;
                 var to   = Math.min(from + products.length - 1, data.totalElements);
