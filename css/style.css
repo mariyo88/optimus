@@ -1784,6 +1784,7 @@ textarea.input {
 
 .product-details .product-rating>i {
   color: #E4E7ED;
+  margin-right: 4px;
 }
 
 .product-details .product-rating>i.fa-star {

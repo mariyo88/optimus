@@ -426,6 +426,10 @@
                 if (typeof window.initQrShare === 'function') {
                     window.initQrShare(product.slug);
                 }
+                // Init reviews
+                if (typeof window.initReviews === 'function') {
+                    window.initReviews(product.slug);
+                }
             },
             error: showError
         });
