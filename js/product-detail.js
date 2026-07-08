@@ -401,6 +401,11 @@
 
                 var html = relatedProducts.map(buildRelatedProductCard).join('');
                 $('#related-products-container').html(html);
+                
+                // Sync wishlist button states after related products are rendered
+                if (window.OptimusWishlist) {
+                    window.OptimusWishlist.syncButtonStates();
+                }
             }
         });
     }

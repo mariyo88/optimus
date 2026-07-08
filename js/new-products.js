@@ -171,6 +171,11 @@
                 adjustedConfig.infinite = products.length > adjustedConfig.slidesToShow;
                 
                 initSlick($container, adjustedConfig);
+                
+                // Sync wishlist button states after products are rendered
+                if (window.OptimusWishlist) {
+                    window.OptimusWishlist.syncButtonStates();
+                }
             },
             error: function (xhr, status, error) {
                 console.error('Error loading products:', error, xhr);

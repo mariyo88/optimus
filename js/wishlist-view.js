@@ -16,11 +16,102 @@
     // Cached enriched items for DOM-only updates
     var cachedItems = [];
 
+    /**
+     * Validates all wishlist items against the API — removes inactive/deleted products
+     * from localStorage, shows a banner if any were removed, then renders the page.
+     * Mirrors the recalculate() pattern used in cart.js.
+     */
+    function validateAndLoad(callback) {
+        var list = Wishlist.get();
+
+        if (list.length === 0) {
+            callback([]);
+            return;
+        }
+
+        var API_BASE = window.APP_CONFIG.API_BASE;
+        var loadedCount = 0;
+        var validItems = [];
+        var removedNames = [];
+
+        list.forEach(function (item) {
+            var identifier = item.productSlug || item.productId;
+
+            $.ajax({
+                url: API_BASE + '/api/products/' + identifier,
+                method: 'GET',
+                success: function (product) {
+                    if (product.active === false) {
+                        // Inactive — remove from localStorage silently
+                        removedNames.push(product.name || String(identifier));
+                        Wishlist.remove(item.productId);
+                        return;
+                    }
+                    validItems.push({ product: product, addedAt: item.addedAt });
+                },
+                error: function () {
+                    // 404 / deleted — remove from localStorage
+                    removedNames.push(String(identifier));
+                    Wishlist.remove(item.productId);
+                },
+                complete: function () {
+                    loadedCount++;
+                    if (loadedCount === list.length) {
+                        if (removedNames.length > 0) {
+                            showRemovedBanner(removedNames);
+                        }
+                        // Preserve add-order (newest first)
+                        validItems.sort(function (a, b) {
+                            return new Date(b.addedAt) - new Date(a.addedAt);
+                        });
+                        callback(validItems);
+                    }
+                }
+            });
+        });
+    }
+
+    function showRemovedBanner(names) {
+        var isSingle = names.length === 1;
+        var message = isSingle
+            ? '"' + names[0] + '" je uklonjen iz liste želja jer više nije dostupan.'
+            : names.length + ' artikla su uklonjena iz liste želja jer više nisu dostupna.';
+
+        $('#wl-removed-banner').remove();
+
+        var $banner = $([
+            '<div id="wl-removed-banner" style="',
+            '  position:fixed;top:0;left:0;right:0;',
+            '  z-index:10001;',
+            '  background:linear-gradient(135deg,#2a0008 0%,#1E1F29 100%);',
+            '  padding:10px 15px;',
+            '  transform:translateY(-100%);',
+            '  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);',
+            '">',
+            '  <i class="fa fa-ban" style="color:#D10024;margin-right:5px;font-size:12px;"></i>',
+            '  <span style="color:#fff;font-size:12px;">' + message + '</span>',
+            '</div>'
+        ].join(''));
+
+        $('body').append($banner);
+
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                $banner.css('transform', 'translateY(0)');
+            });
+        });
+
+        setTimeout(function () {
+            $banner.css('transform', 'translateY(-100%)');
+            setTimeout(function () { $banner.remove(); }, 400);
+        }, 5000);
+    }
+
     function renderWishlistPage() {
         var $container = $('#wishlist-container');
         $container.html('<div class="text-center" style="padding:40px;"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
 
-        Wishlist.loadDetails(function (items) {
+        validateAndLoad(function (items) {
             cachedItems = items;
             buildWishlistHTML(items, $container);
         });
@@ -72,7 +163,7 @@
                 '  </td>',
 
                 '  <td class="wl-product-price" style="width:160px;">',
-                '    ' + (price > 0 ? formatPrice(price) : '<span style="color:#aaa;">N/A</span>'),
+                '    ' + (price > 0 ? formatPrice(price) : '<span style="color:#aaa;">Cena nije dostupna</span>'),
                 '    ' + (oldPrice ? '<span class="wl-product-old-price">' + formatPrice(oldPrice) + '</span>' : ''),
                 '  </td>',
 

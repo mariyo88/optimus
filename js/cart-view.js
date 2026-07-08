@@ -14,11 +14,7 @@
 
     function renderCartPage() {
         var $container = $('#cart-container');
-
-        Cart.loadDetails(function(cartItems) {
-            cachedCartItems = cartItems;
-            buildCartHTML(cartItems, $container);
-        });
+        buildCartHTML([], $container);
     }
 
     function buildCartHTML(cartItems, $container) {
@@ -197,9 +193,11 @@
     });
 
     $(document).ready(function() {
-        // Single recalculate on page load to remove inactive/deleted products
-        Cart.recalculate(function() {
-            renderCartPage();
+        // Single recalculate on page load — reuse the already-fetched items directly
+        // to avoid a second round of API calls
+        Cart.recalculate(function(cartItems) {
+            cachedCartItems = cartItems;
+            buildCartHTML(cartItems);
         });
     });
 
