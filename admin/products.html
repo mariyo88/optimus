@@ -559,9 +559,17 @@
           <h2><i class="fa fa-cube" style="margin-right: 0.8rem;"></i>Proizvodi</h2>
           <p>Upravljanje katalogom proizvoda</p>
         </div>
-        <a href="product-form.html" class="btn btn-light" style="color: #000;">
-          <i class="fa fa-plus mr-2"></i> Novi proizvod
-        </a>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button class="btn btn-light" onclick="loadProducts(0)" style="color: #000; font-weight: 600;">
+            <i class="fa fa-search mr-2"></i> Pretraži
+          </button>
+          <button class="btn btn-light" onclick="resetFilters()" style="color: #fff; font-weight: 600; background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4);">
+            <i class="fa fa-times mr-2"></i> Resetuj filtere
+          </button>
+          <a href="product-form.html" class="btn btn-light" style="color: #000; font-weight: 600;">
+            <i class="fa fa-plus mr-2"></i> Novi proizvod
+          </a>
+        </div>
       </div>
 
       <div class="filter-section">
@@ -593,9 +601,20 @@
             </select>
           </div>
           <div class="filter-group">
-            <button class="btn btn-primary" onclick="loadProducts(0)" style="width: 100%;">
-              <i class="fa fa-search mr-1"></i> Pretraži
-            </button>
+            <label for="category-active-filter">Kategorija</label>
+            <select id="category-active-filter">
+              <option value="">-- Sve --</option>
+              <option value="true">Aktivna kategorija</option>
+              <option value="false">Neaktivna kategorija</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="image-filter">Slika</label>
+            <select id="image-filter">
+              <option value="">-- Sve --</option>
+              <option value="true">Sa slikom</option>
+              <option value="false">Bez slike</option>
+            </select>
           </div>
         </div>
       </div>
@@ -737,14 +756,16 @@
       search: $('#search-input').val().trim(),
       category: $('#category-filter').val(),
       active: $('#active-filter').val(),
-      stock: $('#stock-filter').val()
+      stock: $('#stock-filter').val(),
+      categoryActive: $('#category-active-filter').val(),
+      hasImage: $('#image-filter').val()
     };
     localStorage.setItem('admin_products_filters', JSON.stringify(filters));
   }
 
   function getFilters() {
     const saved = localStorage.getItem('admin_products_filters');
-    return saved ? JSON.parse(saved) : { search: '', category: '', active: '' };
+    return saved ? JSON.parse(saved) : { search: '', category: '', active: '', stock: '', categoryActive: '', hasImage: '' };
   }
 
   function restoreFilters() {
@@ -753,6 +774,8 @@
     if (filters.category) $('#category-filter').val(filters.category);
     if (filters.active) $('#active-filter').val(filters.active);
     if (filters.stock) $('#stock-filter').val(filters.stock);
+    if (filters.categoryActive) $('#category-active-filter').val(filters.categoryActive);
+    if (filters.hasImage) $('#image-filter').val(filters.hasImage);
   }
 
   function clearFilters() {
@@ -760,6 +783,14 @@
     $('#search-input').val('');
     $('#category-filter').val('');
     $('#active-filter').val('');
+    $('#stock-filter').val('');
+    $('#category-active-filter').val('');
+    $('#image-filter').val('');
+  }
+
+  function resetFilters() {
+    clearFilters();
+    loadProducts(0);
   }
 
   function loadProducts(page) {
@@ -769,6 +800,8 @@
     const category = $('#category-filter').val();
     const activeFilter = $('#active-filter').val();
     const stockFilter = $('#stock-filter').val();
+    const categoryActiveFilter = $('#category-active-filter').val();
+    const hasImageFilter = $('#image-filter').val();
     const params = new URLSearchParams({ 
       page: currentPage, 
       size: currentPageSize, 
@@ -778,6 +811,8 @@
     if (category) params.set('category', category);
     if (activeFilter) params.set('active', activeFilter);
     if (stockFilter) params.set('inStock', stockFilter);
+    if (categoryActiveFilter) params.set('categoryActive', categoryActiveFilter);
+    if (hasImageFilter) params.set('hasImage', hasImageFilter);
 
     api('/api/admin/products?' + params).then(data => {
       const content = data.content || [];
@@ -916,11 +951,32 @@
   $(document).ready(function() {
     if (!getAuth()) return;
     api('/api/categories').then(cats => {
-      const flattened = flattenCategories(cats);
-      flattened.forEach(c => {
-        $('#category-filter').append('<option value="' + c.slug + '">' + escapeHtml(c.name) + '</option>');
+      // Samo subkategorije (kategorije sa parent-om) — root kategorije su samo kontejneri
+      function collectSubcategories(tree) {
+        const result = [];
+        for (const cat of tree) {
+          if (cat.children && cat.children.length) {
+            // root kategorija — dodaj njenu djecu sa referencom na parent
+            for (const child of cat.children) {
+              result.push({ ...child, parentName: cat.name });
+              // future-proof: ako dijete ima svoju djecu
+              if (child.children && child.children.length) {
+                result.push(...collectSubcategories([child]));
+              }
+            }
+          }
+        }
+        // Sortiraj samo po imenu subkategorije
+        result.sort((a, b) => a.name.localeCompare(b.name, 'sr'));
+        return result.filter(c => c.name && c.name.trim() !== '');
+        return result;
+      }
+      const subcats = collectSubcategories(cats);
+      subcats.forEach(c => {
+        const label = escapeHtml(c.name) + ' <span style="color:#aaa">(' + escapeHtml(c.parentName || '') + ')</span>';
+        $('#category-filter').append('<option value="' + c.slug + '">' + escapeHtml(c.name) + ' (' + escapeHtml(c.parentName || '') + ')</option>');
         // Also populate bulk category select with displayName
-        const displayText = c.displayName || c.name;
+        const displayText = (c.displayName || c.name) + ' (' + (c.parentName || '') + ')';
         $('#bulk-category-select').append('<option value="' + c.id + '">' + escapeHtml(displayText) + '</option>');
       });
       // Restore filters after categories are loaded

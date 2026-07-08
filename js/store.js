@@ -137,8 +137,8 @@
         var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
         var inStockBadge = !p.inStock ? '<span class="out-of-stock-badge">Nema na stanju</span>' : '<span class="in-stock-badge">Na stanju</span>';
         
-        // Truncate description if exists
-        var description = p.description ? p.description.substring(0, 200) + '...' : 'Opis nije dostupan.';
+        // Use shortDescription for list view; fall back gracefully if empty
+        var description = p.shortDescription ? p.shortDescription : 'Opis nije dostupan.';
 
         return [
             '<div class="col-md-12">',
