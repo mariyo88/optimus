@@ -287,9 +287,27 @@
         var available = cachedItems.filter(function (i) { return i.product.stock > 0 || i.product.inStock; });
         if (available.length === 0) return;
 
+        var $btn = $(this);
+
+        // Prevent double-click
+        if ($btn.data('adding')) return;
+        $btn.data('adding', true);
+
+        // Add all silently — no modal popup per item
         available.forEach(function (item) {
-            Cart.add(item.product.id, 1, item.product.slug);
+            Cart.addSilent(item.product.id, 1, item.product.slug);
         });
+
+        // Visual feedback — swap icon to check for 2.5s, text stays the same
+        var $icon = $btn.find('i');
+        $icon.removeClass('fa-shopping-cart').addClass('fa-check');
+        $btn.prop('disabled', true);
+
+        setTimeout(function () {
+            $icon.removeClass('fa-check').addClass('fa-shopping-cart');
+            $btn.prop('disabled', false);
+            $btn.data('adding', false);
+        }, 2500);
     });
 
     // "Obriši listu"

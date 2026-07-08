@@ -73,6 +73,32 @@
             });
         },
 
+        // Add item to cart silently — no modal, no AJAX (used for bulk actions)
+        addSilent: function(productId, quantity, productSlug) {
+            quantity = quantity || 1;
+            var cart = this.get();
+
+            var existingItem = cart.find(function(item) { return item.productId === productId; });
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                var maxOrderNumber = cart.reduce(function(max, item) {
+                    return Math.max(max, item.orderNumber || 0);
+                }, 0);
+
+                cart.push({
+                    productId: productId,
+                    productSlug: productSlug || null,
+                    quantity: quantity,
+                    addedAt: new Date().toISOString(),
+                    orderNumber: maxOrderNumber + 1
+                });
+            }
+
+            this.save(cart);
+        },
+
         // Remove item from cart
         remove: function(productId) {
             var cart = this.get();

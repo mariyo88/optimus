@@ -204,19 +204,32 @@
     }
 
     function updateBreadcrumbs(product) {
-        // Update product name (last breadcrumb)
-        $('#breadcrumb-product').text(product.name);
+        var $breadcrumb = $('#breadcrumb');
 
-        // Update category breadcrumb
+        // Build category link if available
+        var categoryHtml = '';
         if (product.category) {
-            // Koristi displayName ako postoji, inače fallback na name
             var categoryName = product.category.displayName || product.category.name;
-            var $categoryBreadcrumb = $('#breadcrumb-category');
-            $categoryBreadcrumb.html('<a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a>')
-                .show();
-        } else {
-            $('#breadcrumb-category').hide();
+            categoryHtml = '<li><a href="store.html?category=' + product.category.slug + '">' + categoryName + '</a></li>';
         }
+
+        // Product name — escaped
+        var productName = $('<span>').text(product.name).html();
+
+        $breadcrumb.html(
+            '<div class="container">' +
+                '<div class="row">' +
+                    '<div class="col-md-12">' +
+                        '<ul class="breadcrumb-tree">' +
+                            '<li><a href="index.html">Početna</a></li>' +
+                            '<li><a href="store.html">Sve kategorije</a></li>' +
+                            categoryHtml +
+                            '<li class="active">' + productName + '</li>' +
+                        '</ul>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+        );
     }
 
     function renderImages(product) {
@@ -384,7 +397,7 @@
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
             '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>',
-            '        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
+            '        <button class="add-to-compare" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
             '        <button class="quick-view"><i class="fa fa-eye"></i></button>',
             '      </div>',
             '    </div>',
@@ -426,6 +439,11 @@
                 // Sync wishlist button states after related products are rendered
                 if (window.OptimusWishlist) {
                     window.OptimusWishlist.syncButtonStates();
+                }
+                
+                // Sync compare button states after related products are rendered
+                if (window.OptimusCompare) {
+                    window.OptimusCompare.syncButtonStates();
                 }
             }
         });
