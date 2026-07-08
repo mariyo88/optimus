@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>U izradi - Optimus</title>
+	<meta name="description" content="Ova stranica je trenutno u izradi. Uskoro dostupno.">
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+	<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="manifest" href="site.webmanifest">
+
+	<!-- Custom stylesheet -->
+	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+	<style>
+		/* ── Under Construction Page ── */
+		.wip-hero {
+			background: linear-gradient(135deg, #2B2D42 0%, #1a1b2e 60%, #D10024 100%);
+			color: #fff;
+			min-height: 480px;
+			display: flex;
+			align-items: center;
+			position: relative;
+			overflow: hidden;
+			padding: 60px 0;
+		}
+		.wip-hero::before {
+			content: '';
+			position: absolute;
+			top: -40%;
+			right: -8%;
+			width: 480px;
+			height: 480px;
+			background: rgba(209,0,36,0.08);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+		.wip-hero::after {
+			content: '';
+			position: absolute;
+			bottom: -30%;
+			left: -5%;
+			width: 340px;
+			height: 340px;
+			background: rgba(255,255,255,0.03);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+		.wip-hero .container {
+			position: relative;
+			z-index: 1;
+		}
+
+		.wip-icon-wrap {
+			width: 110px;
+			height: 110px;
+			background: rgba(209,0,36,0.15);
+			border: 2px solid rgba(209,0,36,0.4);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 30px;
+			animation: wip-pulse 2.5s ease-in-out infinite;
+		}
+		.wip-icon-wrap i {
+			font-size: 46px;
+			color: #ff6b6b;
+		}
+		@keyframes wip-pulse {
+			0%, 100% { transform: scale(1);   box-shadow: 0 0 0 0   rgba(209,0,36,0.3); }
+			50%       { transform: scale(1.04); box-shadow: 0 0 0 14px rgba(209,0,36,0);   }
+		}
+
+		.wip-badge {
+			display: inline-block;
+			background: rgba(209,0,36,0.2);
+			border: 1px solid rgba(209,0,36,0.5);
+			color: #ff6b6b;
+			padding: 6px 18px;
+			border-radius: 20px;
+			font-size: 12px;
+			font-weight: 700;
+			letter-spacing: 1.5px;
+			text-transform: uppercase;
+			margin-bottom: 22px;
+		}
+
+		.wip-hero h1 {
+			font-size: 40px;
+			font-weight: 700;
+			color: #fff;
+			margin-bottom: 16px;
+		}
+		.wip-hero h1 span {
+			color: #D10024;
+		}
+		.wip-hero p.wip-lead {
+			font-size: 17px;
+			color: rgba(255,255,255,0.75);
+			max-width: 520px;
+			margin: 0 auto 30px;
+			line-height: 1.7;
+		}
+
+		/* Progress bar */
+		.wip-progress-wrap {
+			max-width: 400px;
+			margin: 0 auto 30px;
+		}
+		.wip-progress-label {
+			display: flex;
+			justify-content: space-between;
+			font-size: 12px;
+			color: rgba(255,255,255,0.55);
+			margin-bottom: 8px;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+		}
+		.wip-progress {
+			height: 6px;
+			background: rgba(255,255,255,0.12);
+			border-radius: 3px;
+			overflow: hidden;
+		}
+		.wip-progress-bar {
+			height: 100%;
+			background: linear-gradient(90deg, #D10024, #ff6b6b);
+			border-radius: 3px;
+			width: 0;
+			transition: width 1.2s ease;
+		}
+
+		.wip-actions {
+			margin-top: 10px;
+		}
+		.btn-wip-primary {
+			display: inline-block;
+			background: #D10024;
+			color: #fff;
+			padding: 13px 32px;
+			border-radius: 3px;
+			font-size: 14px;
+			font-weight: 700;
+			text-decoration: none;
+			margin: 0 6px 10px;
+			transition: background 0.25s ease, transform 0.2s ease;
+		}
+		.btn-wip-primary:hover {
+			background: #a80020;
+			color: #fff;
+			text-decoration: none;
+			transform: translateY(-2px);
+		}
+		.btn-wip-outline {
+			display: inline-block;
+			background: transparent;
+			color: #fff;
+			border: 2px solid rgba(255,255,255,0.5);
+			padding: 11px 32px;
+			border-radius: 3px;
+			font-size: 14px;
+			font-weight: 700;
+			text-decoration: none;
+			margin: 0 6px 10px;
+			transition: all 0.25s ease;
+		}
+		.btn-wip-outline:hover {
+			background: #fff;
+			color: #D10024;
+			border-color: #fff;
+			text-decoration: none;
+		}
+
+		/* Info cards below the hero */
+		.wip-info-section {
+			padding: 55px 0 40px;
+			background: #f8f9fa;
+		}
+		.wip-card {
+			background: #fff;
+			border-radius: 6px;
+			box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+			padding: 35px 28px;
+			text-align: center;
+			margin-bottom: 30px;
+			transition: box-shadow 0.3s ease, transform 0.3s ease;
+			border-top: 3px solid transparent;
+		}
+		.wip-card:hover {
+			box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+			transform: translateY(-5px);
+			border-top-color: #D10024;
+		}
+		.wip-card-icon {
+			width: 66px;
+			height: 66px;
+			background: rgba(209,0,36,0.08);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 18px;
+			transition: background 0.3s ease;
+		}
+		.wip-card:hover .wip-card-icon {
+			background: #D10024;
+		}
+		.wip-card-icon i {
+			font-size: 26px;
+			color: #D10024;
+			transition: color 0.3s ease;
+		}
+		.wip-card:hover .wip-card-icon i {
+			color: #fff;
+		}
+		.wip-card h4 {
+			font-size: 16px;
+			font-weight: 700;
+			color: #2B2D42;
+			margin-bottom: 10px;
+		}
+		.wip-card p {
+			font-size: 14px;
+			color: #777;
+			margin: 0;
+			line-height: 1.7;
+		}
+
+		/* Contact strip */
+		.wip-contact-strip {
+			background: #2B2D42;
+			padding: 40px 0;
+			text-align: center;
+			color: #fff;
+		}
+		.wip-contact-strip h3 {
+			font-size: 20px;
+			font-weight: 700;
+			color: #fff;
+			margin-bottom: 8px;
+		}
+		.wip-contact-strip p {
+			color: rgba(255,255,255,0.65);
+			font-size: 14px;
+			margin-bottom: 20px;
+		}
+		.wip-contact-link {
+			display: inline-block;
+			color: #ff6b6b;
+			font-size: 15px;
+			font-weight: 600;
+			text-decoration: none;
+			margin: 0 16px;
+			transition: color 0.2s ease;
+		}
+		.wip-contact-link i {
+			margin-right: 7px;
+		}
+		.wip-contact-link:hover {
+			color: #fff;
+			text-decoration: none;
+		}
+
+		/* Responsive */
+		@media (max-width: 767px) {
+			.wip-hero h1 { font-size: 28px; }
+			.wip-hero p.wip-lead { font-size: 15px; }
+			.wip-icon-wrap { width: 82px; height: 82px; }
+			.wip-icon-wrap i { font-size: 34px; }
+		}
+	</style>
+</head>
+<body>
+	<!-- HEADER -->
+	<header>
+		<!-- TOP HEADER -->
+		<div id="top-header">
+			<div class="container">
+				<ul class="header-links pull-left">
+					<li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
+					<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
+					<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
+				</ul>
+				<ul class="header-links pull-right">
+					<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
+					<li><a href="#"><i class="fa fa-user-o"></i> Moj nalog</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- /TOP HEADER -->
+
+		<!-- MAIN HEADER -->
+		<div id="header">
+			<div class="container">
+				<div class="row">
+					<!-- LOGO -->
+					<div class="col-md-3">
+						<div class="header-logo">
+							<a href="index.html" class="logo">
+								<img src="./img/logo.png" alt="">
+							</a>
+						</div>
+					</div>
+					<!-- /LOGO -->
+
+					<!-- SEARCH BAR -->
+					<div class="col-md-6">
+						<div class="header-search">
+							<form>
+								<input class="input" placeholder="Pretražite proizvode...">
+								<button class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
+							</form>
+						</div>
+					</div>
+					<!-- /SEARCH BAR -->
+
+					<!-- ACCOUNT -->
+					<div class="col-md-3 clearfix">
+						<div class="header-ctn">
+
+							<!-- Wishlist -->
+							<div>
+								<a href="wishlist.html" class="wishlist-link">
+									<i class="fa fa-heart-o"></i>
+									<span>Želje</span>
+									<div class="wishlist-count">0</div>
+								</a>
+							</div>
+							<!-- /Wishlist -->
+
+							<!-- Compare icon -->
+							<div>
+								<a href="compare.html" class="wishlist-link">
+									<i class="fa fa-exchange"></i>
+									<span>Poređenje</span>
+									<div class="compare-count">0</div>
+								</a>
+							</div>
+							<!-- /Compare icon -->
+
+							<!-- Cart -->
+							<div class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									<i class="fa fa-shopping-cart"></i>
+									<span>Korpa</span>
+									<div class="qty">0</div>
+								</a>
+								<div class="cart-dropdown">
+									<div class="cart-list">
+										<div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
+											<div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+												<i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i>
+											</div>
+											<p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
+										</div>
+									</div>
+									<div class="cart-summary" style="display:none;"><small></small><h5></h5></div>
+									<div class="cart-btns" style="display:none;">
+										<a href="cart.html">Prikaži korpu</a>
+										<a href="checkout.html">Naručivanje <i class="fa fa-arrow-circle-right"></i></a>
+									</div>
+								</div>
+							</div>
+							<!-- /Cart -->
+
+							<!-- Menu Toggle -->
+							<div class="menu-toggle">
+								<a href="#">
+									<i class="fa fa-bars"></i>
+									<span>Meni</span>
+								</a>
+							</div>
+							<!-- /Menu Toggle -->
+						</div>
+					</div>
+					<!-- /ACCOUNT -->
+				</div>
+			</div>
+		</div>
+		<!-- /MAIN HEADER -->
+	</header>
+	<!-- /HEADER -->
+
+	<!-- NAVIGATION -->
+	<nav id="navigation">
+		<div class="container">
+			<div id="responsive-nav">
+				<ul class="main-nav nav navbar-nav"></ul>
+			</div>
+		</div>
+	</nav>
+	<!-- /NAVIGATION -->
+
+	<!-- HERO SECTION -->
+	<div class="wip-hero">
+		<div class="container text-center">
+			<div class="wip-icon-wrap">
+				<i class="fa fa-wrench"></i>
+			</div>
+			<span class="wip-badge"><i class="fa fa-clock-o"></i> &nbsp;Uskoro dostupno</span>
+			<h1>Stranica je <span>u izradi</span></h1>
+			<p class="wip-lead">
+				Radimo na ovoj stranici i uskoro će biti dostupna. Hvala vam na strpljenju — trudimu se da isporučimo što bolje iskustvo.
+			</p>
+
+			<!-- Progress bar -->
+			<div class="wip-progress-wrap">
+				<div class="wip-progress-label">
+					<span>Napredak</span>
+					<span id="wip-percent">0%</span>
+				</div>
+				<div class="wip-progress">
+					<div class="wip-progress-bar" id="wip-progress-bar"></div>
+				</div>
+			</div>
+
+			<div class="wip-actions">
+				<a href="index.html" class="btn-wip-primary">
+					<i class="fa fa-home"></i> Idi na početnu
+				</a>
+				<a href="contact.html" class="btn-wip-outline">
+					<i class="fa fa-paper-plane"></i> Kontaktirajte nas
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- /HERO SECTION -->
+
+	<!-- INFO CARDS -->
+	<div class="wip-info-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="wip-card">
+						<div class="wip-card-icon">
+							<i class="fa fa-shopping-cart"></i>
+						</div>
+						<h4>Prodavnica radi</h4>
+						<p>Dok čekate ovu stranicu, naša prodavnica je u punom pogonu. Pregledajte sve kategorije i pronađite ono što tražite.</p>
+						<a href="store.html" style="display:inline-block;margin-top:14px;color:#D10024;font-weight:700;font-size:13px;text-decoration:none;">
+							Idi na prodavnicu <i class="fa fa-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="wip-card">
+						<div class="wip-card-icon">
+							<i class="fa fa-phone"></i>
+						</div>
+						<h4>Pozovite nas direktno</h4>
+						<p>Imate pitanje ili vam treba nešto konkretno? Naš tim je dostupan radnim danima od 09:00 do 17:00.</p>
+						<a href="tel:+38163243123" style="display:inline-block;margin-top:14px;color:#D10024;font-weight:700;font-size:13px;text-decoration:none;">
+							+381 (0)63 243123 <i class="fa fa-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="wip-card">
+						<div class="wip-card-icon">
+							<i class="fa fa-envelope-o"></i>
+						</div>
+						<h4>Pišite nam</h4>
+						<p>Ako niste u mogućnosti da nas pozovete, pošaljite nam poruku i javićemo vam se u što kraćem roku.</p>
+						<a href="mailto:prodaja@optimussystems.rs" style="display:inline-block;margin-top:14px;color:#D10024;font-weight:700;font-size:13px;text-decoration:none;">
+							prodaja@optimussystems.rs <i class="fa fa-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /INFO CARDS -->
+
+	<!-- CONTACT STRIP -->
+	<div class="wip-contact-strip">
+		<div class="container">
+			<h3>Ostanite u kontaktu</h3>
+			<p>Pratite nas ili nam se obratite — uvek smo tu za vas.</p>
+			<a href="tel:+38163243123" class="wip-contact-link">
+				<i class="fa fa-phone"></i> +381 (0)63 243123
+			</a>
+			<a href="mailto:prodaja@optimussystems.rs" class="wip-contact-link">
+				<i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs
+			</a>
+			<a href="contact.html" class="wip-contact-link">
+				<i class="fa fa-map-marker"></i> Pronađite nas
+			</a>
+		</div>
+	</div>
+	<!-- /CONTACT STRIP -->
+
+	<!-- FOOTER -->
+	<footer id="footer">
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">O nama</h3>
+							<p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
+							<ul class="footer-links">
+								<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
+								<li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
+								<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Kategorije</h3>
+							<ul class="footer-links">
+								<li><a href="#">Akcije</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="clearfix visible-xs"></div>
+
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Informacije</h3>
+							<ul class="footer-links">
+								<li><a href="about.html">O nama</a></li>
+								<li><a href="contact.html">Kontakt</a></li>
+								<li><a href="under-construction.html">Politika privatnosti</a></li>
+								<li><a href="under-construction.html">Narudžbine i povrat</a></li>
+								<li><a href="under-construction.html">Uslovi korišćenja</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Usluge</h3>
+							<ul class="footer-links">
+								<li><a href="under-construction.html">Moj nalog</a></li>
+								<li><a href="cart.html">Prikaži korpu</a></li>
+								<li><a href="wishlist.html">Lista želja</a></li>
+								<li><a href="under-construction.html">Prati porudžbinu</a></li>
+								<li><a href="under-construction.html">Pomoć</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="bottom-footer" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<ul class="footer-payments">
+							<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+							<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+							<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+						</ul>
+						<span class="copyright">
+							© 2026 FirstCode. Sva prava zadržana.
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/slick.min.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/jquery.zoom.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/main-nav.js"></script>
+	<script src="js/header-search.js"></script>
+	<script src="js/cart.js"></script>
+	<script src="js/wishlist.js"></script>
+	<script src="js/compare.js"></script>
+
+	<script>
+		// Animate progress bar on page load
+		$(document).ready(function () {
+			var targetWidth = 35; // adjust this % to reflect actual progress
+			setTimeout(function () {
+				$('#wip-progress-bar').css('width', targetWidth + '%');
+				$({ value: 0 }).animate({ value: targetWidth }, {
+					duration: 1200,
+					easing: 'swing',
+					step: function () {
+						$('#wip-percent').text(Math.round(this.value) + '%');
+					},
+					complete: function () {
+						$('#wip-percent').text(targetWidth + '%');
+					}
+				});
+			}, 300);
+		});
+	</script>
+</body>
+</html>

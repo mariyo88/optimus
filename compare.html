@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="sr">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Poređenje proizvoda - Optimus</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/x-icon" href="favicon.ico">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+		<link rel="manifest" href="site.webmanifest">
+
+		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<link type="text/css" rel="stylesheet" href="css/compare.css"/>
+
+		<style>
+			/* ── Hero Banner ── */
+			.page-hero {
+				background: linear-gradient(135deg, #2B2D42 0%, #1a1b2e 60%, #D10024 100%);
+				color: #fff;
+				padding: 0 0 50px;
+				position: relative;
+				overflow: hidden;
+			}
+			.page-hero > .container { padding-top: 10px; }
+			.page-hero-nav {
+				margin-bottom: 0;
+				padding: 0;
+				background: transparent !important;
+				border-bottom: none !important;
+				box-shadow: none !important;
+			}
+			.page-hero-nav #responsive-nav .main-nav > li > a {
+				color: rgba(255,255,255,0.75);
+				font-size: 13px;
+				font-weight: 600;
+				padding: 8px 16px;
+				transition: color 0.2s;
+			}
+			.page-hero-nav #responsive-nav .main-nav > li > a:hover,
+			.page-hero-nav #responsive-nav .main-nav > li.active > a {
+				color: #fff;
+				background: rgba(255,255,255,0.08);
+				border-radius: 4px;
+			}
+			.page-hero::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				right: -10%;
+				width: 500px;
+				height: 500px;
+				background: rgba(209,0,36,0.08);
+				border-radius: 50%;
+			}
+			.page-hero::after {
+				content: '';
+				position: absolute;
+				bottom: -30%;
+				left: -5%;
+				width: 350px;
+				height: 350px;
+				background: rgba(255,255,255,0.03);
+				border-radius: 50%;
+			}
+			.page-hero h1 {
+				font-size: 38px;
+				font-weight: 700;
+				margin-bottom: 12px;
+				color: #fff;
+			}
+			.page-hero h1 span { color: #D10024; }
+			.page-hero p {
+				font-size: 17px;
+				color: rgba(255,255,255,0.75);
+				margin-bottom: 0;
+				max-width: 520px;
+			}
+			.page-hero-badge {
+				display: inline-block;
+				background: rgba(209,0,36,0.2);
+				border: 1px solid rgba(209,0,36,0.5);
+				color: #ff6b6b;
+				padding: 6px 16px;
+				border-radius: 20px;
+				font-size: 13px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-bottom: 18px;
+			}
+
+			/* ── Toolbar above table ── */
+			.compare-toolbar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 24px;
+				flex-wrap: wrap;
+				gap: 12px;
+			}
+			.compare-toolbar-info {
+				font-size: 14px;
+				color: #666;
+			}
+			.compare-toolbar-info strong {
+				color: #2B2D42;
+				font-weight: 700;
+			}
+			.compare-clear-btn {
+				background: transparent;
+				border: 1.5px solid #e0e0e0;
+				color: #999;
+				padding: 9px 20px;
+				border-radius: 6px;
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: border-color 0.15s, color 0.15s, background 0.15s;
+				display: inline-flex;
+				align-items: center;
+				gap: 7px;
+			}
+			.compare-clear-btn:hover {
+				border-color: #D10024;
+				color: #D10024;
+				background: rgba(209,0,36,0.03);
+			}
+			.continue-shopping-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				color: #666;
+				font-size: 13px;
+				text-decoration: none;
+				transition: color 0.15s;
+			}
+			.continue-shopping-link:hover { color: #D10024; text-decoration: none; }
+
+			/* ── Confirmation Modal ── */
+			.cmp-confirm-modal {
+				position: fixed;
+				top: 0; left: 0;
+				width: 100%; height: 100%;
+				background: rgba(0,0,0,0.45);
+				display: none;
+				align-items: center;
+				justify-content: center;
+				z-index: 10000;
+				animation: cmpFadeIn 0.2s ease;
+			}
+			.cmp-confirm-modal.active { display: flex; }
+			.cmp-confirm-content {
+				background: #fff;
+				border-radius: 8px;
+				max-width: 480px;
+				width: 90%;
+				box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+				animation: cmpSlideIn 0.25s ease;
+				overflow: hidden;
+				border: 1px solid rgba(0,0,0,0.1);
+			}
+			.cmp-confirm-header {
+				background: #2c3e50;
+				color: #fff;
+				padding: 14px 20px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.cmp-confirm-header-left {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.cmp-confirm-header i { color: #e74c3c; font-size: 20px; }
+			.cmp-confirm-header h3 { margin: 0; font-size: 15px; font-weight: 600; color: #fff; }
+			.cmp-confirm-close {
+				background: none; border: none; color: #fff;
+				font-size: 20px; cursor: pointer; line-height: 1;
+				opacity: 0.8; transition: opacity 0.2s;
+			}
+			.cmp-confirm-close:hover { opacity: 1; }
+			.cmp-confirm-body {
+				padding: 24px 20px;
+				border-bottom: 1px solid #f0f0f0;
+			}
+			.cmp-confirm-body p { margin: 0; font-size: 14px; color: #555; line-height: 1.6; }
+			.cmp-confirm-body strong { color: #2c3e50; }
+			.cmp-confirm-footer { padding: 16px 20px; display: flex; gap: 10px; }
+			.cmp-confirm-btn {
+				flex: 1; padding: 11px 16px; border-radius: 4px;
+				font-size: 13px; font-weight: 600; border: 2px solid;
+				cursor: pointer; transition: all 0.2s;
+				display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+			}
+			.cmp-confirm-btn-cancel { background: #fff; color: #666; border-color: #ddd; }
+			.cmp-confirm-btn-cancel:hover { background: #f5f5f5; border-color: #bbb; color: #333; }
+			.cmp-confirm-btn-confirm { background: #e74c3c; color: #fff; border-color: #e74c3c; }
+			.cmp-confirm-btn-confirm:hover { background: #c0392b; border-color: #c0392b; }
+			@keyframes cmpFadeIn { from{opacity:0} to{opacity:1} }
+			@keyframes cmpSlideIn { from{transform:translateY(-20px);opacity:0} to{transform:translateY(0);opacity:1} }
+		</style>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header>
+			<!-- TOP HEADER -->
+			<div id="top-header">
+				<div class="container">
+					<ul class="header-links pull-left">
+						<li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
+						<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
+						<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
+					</ul>
+					<ul class="header-links pull-right">
+						<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
+						<li><a href="#"><i class="fa fa-user-o"></i> Moj nalog</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- /TOP HEADER -->
+
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<div class="container">
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="index.html" class="logo">
+									<img src="./img/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+
+						<!-- SEARCH BAR -->
+						<div class="col-md-6">
+							<div class="header-search">
+								<form>
+									<input class="input" placeholder="Pretražite proizvode...">
+									<button class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
+								</form>
+							</div>
+						</div>
+
+						<!-- HEADER CTN -->
+						<div class="col-md-3 clearfix">
+							<div class="header-ctn">
+
+								<!-- Wishlist icon -->
+								<div>
+									<a href="wishlist.html" class="wishlist-link">
+										<i class="fa fa-heart-o"></i>
+										<span>Želje</span>
+										<div class="wishlist-count">0</div>
+									</a>
+								</div>
+
+								<!-- Compare icon -->
+								<div>
+									<a href="compare.html" class="wishlist-link">
+										<i class="fa fa-exchange"></i>
+										<span>Poređenje</span>
+										<div class="compare-count">0</div>
+									</a>
+								</div>
+
+								<!-- Cart -->
+								<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+										<i class="fa fa-shopping-cart"></i>
+										<span>Korpa</span>
+										<div class="qty">0</div>
+									</a>
+									<div class="cart-dropdown">
+										<div class="cart-list">
+											<div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
+												<div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+													<i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i>
+												</div>
+												<p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
+											</div>
+										</div>
+										<div class="cart-summary" style="display:none;"><small></small><h5></h5></div>
+										<div class="cart-btns" style="display:none;">
+											<a href="cart.html">Prikaži korpu</a>
+											<a href="checkout.html">Naručivanje <i class="fa fa-arrow-circle-right"></i></a>
+										</div>
+									</div>
+								</div>
+
+								<!-- Menu Toggle -->
+								<div class="menu-toggle">
+									<a href="#">
+										<i class="fa fa-bars"></i>
+										<span>Meni</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /MAIN HEADER -->
+
+		</header>
+		<!-- /HEADER -->
+
+		<!-- HERO BANNER -->
+		<div class="page-hero">
+			<!-- NAVIGATION -->
+			<nav id="navigation" class="page-hero-nav">
+				<div class="container">
+					<div id="responsive-nav">
+						<ul class="main-nav nav navbar-nav">
+							<li><a href="index.html">Početna</a></li>
+							<li><a href="store.html">Prodavnica</a></li>
+							<li class="active"><a href="compare.html">Poređenje</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<!-- /NAVIGATION -->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<span class="page-hero-badge"><i class="fa fa-exchange"></i> &nbsp;Poređenje</span>
+						<h1>Poredi <span>Proizvode</span></h1>
+						<p>Uporedite do 4 proizvoda i pronađite pravi izbor za vaše potrebe.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /HERO BANNER -->
+
+		<!-- COMPARE SECTION -->
+		<section id="compare-section">
+			<div class="container">
+
+				<!-- Toolbar -->
+				<div class="compare-toolbar" id="compare-toolbar-wrap">
+					<div class="compare-toolbar-info">
+						Poredite <strong><span id="compare-product-count">0</span> proizvoda</strong>
+					</div>
+					<div style="display:flex;align-items:center;gap:16px;">
+						<a href="store.html" class="continue-shopping-link">
+							<i class="fa fa-arrow-left"></i> Nastavi kupovinu
+						</a>
+						<button class="compare-clear-btn" id="compare-clear-btn">
+							<i class="fa fa-trash-o"></i> Obriši sve
+						</button>
+					</div>
+				</div>
+
+				<!-- Dynamic content -->
+				<div id="compare-container">
+					<div class="text-center" style="padding:60px;">
+						<i class="fa fa-spinner fa-spin fa-2x"></i>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<!-- /COMPARE SECTION -->
+
+		<!-- BRANDS CAROUSEL -->
+		<div id="brands-section" class="section" style="background:#fff;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">Naši brendovi</h3>
+						</div>
+						<div class="brands-carousel" id="brands-carousel-container"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- FOOTER -->
+		<footer id="footer">
+			<div class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">O nama</h3>
+								<p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom.</p>
+								<ul class="footer-links">
+									<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
+									<li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
+									<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Kategorije</h3>
+								<ul class="footer-links">
+									<li><a href="#">Akcije</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="clearfix visible-xs"></div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Informacije</h3>
+								<ul class="footer-links">
+									<li><a href="about.html">O nama</a></li>
+									<li><a href="contact.html">Kontakt</a></li>
+									<li><a href="#">Politika privatnosti</a></li>
+									<li><a href="#">Narudžbine i povrat</a></li>
+									<li><a href="#">Uslovi korišćenja</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Usluge</h3>
+								<ul class="footer-links">
+									<li><a href="#">Moj nalog</a></li>
+									<li><a href="cart.html">Prikaži korpu</a></li>
+									<li><a href="wishlist.html">Lista želja</a></li>
+									<li><a href="compare.html">Poređenje</a></li>
+									<li><a href="#">Prati porudžbinu</a></li>
+									<li><a href="#">Pomoć</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="bottom-footer" class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<ul class="footer-payments">
+								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+							</ul>
+							<span class="copyright">© 2026 FirstCode. Sva prava zadržana.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- SCRIPTS -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/nouislider.min.js"></script>
+		<script src="js/jquery.zoom.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/main-nav.js"></script>
+		<script src="js/header-search.js"></script>
+		<script src="js/cart.js"></script>
+		<script src="js/wishlist.js"></script>
+		<script src="js/compare.js"></script>
+		<script src="js/compare-view.js"></script>
+		<script src="js/brands-carousel.js"></script>
+
+		<!-- Confirmation Modal -->
+		<div id="cmp-confirm-modal" class="cmp-confirm-modal">
+			<div class="cmp-confirm-content">
+				<div class="cmp-confirm-header">
+					<div class="cmp-confirm-header-left">
+						<i class="fa fa-exclamation-triangle"></i>
+						<h3>Brisanje liste poređenja</h3>
+					</div>
+					<button class="cmp-confirm-close" id="cmp-modal-close-x">&times;</button>
+				</div>
+				<div class="cmp-confirm-body">
+					<p>Da li ste sigurni da želite da obrišete <strong>sve proizvode iz liste poređenja</strong>?<br>Ova radnja se ne može poništiti.</p>
+				</div>
+				<div class="cmp-confirm-footer">
+					<button class="cmp-confirm-btn cmp-confirm-btn-cancel" id="cmp-modal-cancel">
+						<i class="fa fa-times"></i> Otkaži
+					</button>
+					<button class="cmp-confirm-btn cmp-confirm-btn-confirm" id="cmp-modal-confirm">
+						<i class="fa fa-trash-o"></i> Obriši sve
+					</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

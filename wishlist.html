@@ -165,10 +165,21 @@
 			.wl-product-img a:hover img { transform: scale(1.06); }
 
 			/* Product name cell */
+			.wl-product-name {
+				max-width: 280px;
+				min-width: 160px;
+			}
 			.wl-product-name h4 {
 				margin: 0 0 4px;
 				font-size: 14px;
 				font-weight: 600;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				line-height: 1.4;
+				overflow-wrap: break-word;
+				word-break: break-word;
 			}
 			.wl-product-name h4 a {
 				color: #2B2D42;
@@ -608,12 +619,24 @@
 							<div class="header-ctn">
 
 								<!-- Wishlist icon -->
-								<a href="wishlist.html" class="wishlist-link">
-									<i class="fa fa-heart-o"></i>
-									<span>Želje</span>
-									<div class="wishlist-count">0</div>
-								</a>
+								<div>
+									<a href="wishlist.html" class="wishlist-link">
+										<i class="fa fa-heart-o"></i>
+										<span>Želje</span>
+										<div class="wishlist-count">0</div>
+									</a>
+								</div>
 								<!-- /Wishlist icon -->
+
+								<!-- Compare icon -->
+								<div>
+									<a href="compare.html" class="wishlist-link">
+										<i class="fa fa-exchange"></i>
+										<span>Poređenje</span>
+										<div class="compare-count">0</div>
+									</a>
+								</div>
+								<!-- /Compare icon -->
 
 								<!-- Cart -->
 								<div class="dropdown">
@@ -659,10 +682,7 @@
 			<nav id="navigation" class="page-hero-nav">
 				<div class="container">
 					<div id="responsive-nav">
-						<ul class="main-nav nav navbar-nav">
-							<li><a href="index.html">Početna</a></li>
-							<li><a href="#">Akcije</a></li>
-						</ul>
+						<ul class="main-nav nav navbar-nav"></ul>
 					</div>
 				</div>
 			</nav>
@@ -741,9 +761,9 @@
 								<ul class="footer-links">
 									<li><a href="about.html">O nama</a></li>
 									<li><a href="contact.html">Kontakt</a></li>
-									<li><a href="#">Politika privatnosti</a></li>
-									<li><a href="#">Narudžbine i povrat</a></li>
-									<li><a href="#">Uslovi korišćenja</a></li>
+									<li><a href="under-construction.html">Politika privatnosti</a></li>
+									<li><a href="under-construction.html">Narudžbine i povrat</a></li>
+									<li><a href="under-construction.html">Uslovi korišćenja</a></li>
 								</ul>
 							</div>
 						</div>
@@ -752,12 +772,12 @@
 							<div class="footer">
 								<h3 class="footer-title">Usluge</h3>
 								<ul class="footer-links">
-									<li><a href="#">Moj nalog</a></li>
+									<li><a href="under-construction.html">Moj nalog</a></li>
 									<li><a href="cart.html">Prikaži korpu</a></li>
 									<li><a href="wishlist.html">Lista želja</a></li>
 									<li><a href="wishlist.html">Lista želja</a></li>
-									<li><a href="#">Prati porudžbinu</a></li>
-									<li><a href="#">Pomoć</a></li>
+									<li><a href="under-construction.html">Prati porudžbinu</a></li>
+									<li><a href="under-construction.html">Pomoć</a></li>
 								</ul>
 							</div>
 						</div>
@@ -794,6 +814,7 @@
 		<script src="js/header-search.js"></script>
 		<script src="js/cart.js"></script>
 		<script src="js/wishlist.js"></script>
+		<script src="js/compare.js"></script>
 		<script src="js/wishlist-view.js"></script>
 		<script src="js/brands-carousel.js"></script>
 		<script src="js/quick-view-modal.js"></script>

@@ -134,6 +134,17 @@
             $addToWishlistBtn.find('i').removeClass('fa-heart-o').addClass('fa-heart');
         }
 
+        // Update Add to Compare button with product data
+        var $compareBtn = $('.product-btns .add-to-compare');
+        $compareBtn.attr('data-id', product.id);
+        $compareBtn.attr('data-slug', product.slug);
+
+        // Sync compare button state
+        if (window.OptimusCompare && window.OptimusCompare.has(product.id)) {
+            $compareBtn.addClass('comparing');
+            $compareBtn.find('i').removeClass('fa-exchange').addClass('fa-check');
+        }
+
         // Set default quantity to 1, limit to available stock
         var $qtyInput = $('.add-to-cart input[type="number"]');
         $qtyInput.val(1);
@@ -231,6 +242,10 @@
         $mainSlick.empty();
         $thumbSlick.empty();
 
+        // Hide both containers before inserting slides to prevent unstyled flash
+        $mainSlick.css('visibility', 'hidden');
+        $thumbSlick.css('visibility', 'hidden');
+
         $.each(images, function (i, img) {
             var imgHtml = '<img src="' + img.imageUrl + '" alt="' + product.name + '" onerror="this.src=\'' + IMG_PLACEHOLDER + '\'">';
             $mainSlick.append('<div class="product-preview">' + imgHtml + '</div>');
@@ -269,6 +284,10 @@
             adaptiveHeight: false,
             asNavFor: '#product-imgs'
         });
+
+        // Reveal both containers now that Slick is ready
+        $mainSlick.css('visibility', 'visible');
+        $thumbSlick.css('visibility', 'visible');
 
         // Fix thumb height to match number of visible thumbnails
         var THUMB_HEIGHT = 155; // px, matches CSS
@@ -395,12 +414,14 @@
                 }).slice(0, 4);
 
                 if (relatedProducts.length === 0) {
-                    $('#related-products-container').html('<p class="text-center" style="padding:20px;color:#999;">No related products found.</p>');
-                    return;
+                    return; // section stays hidden
                 }
 
                 var html = relatedProducts.map(buildRelatedProductCard).join('');
                 $('#related-products-container').html(html);
+
+                // Reveal section only after products are ready
+                $('#related-products-section').show();
                 
                 // Sync wishlist button states after related products are rendered
                 if (window.OptimusWishlist) {
@@ -431,13 +452,29 @@
     }
 
     function loadProduct(slug) {
+        // Show loading spinner while fetching product data
+        var $spinner = $(
+            '<div id="product-loading-spinner" class="section">' +
+            '<div class="container"><div class="row"><div class="col-md-12 text-center" style="padding: 80px 20px;">' +
+            '<i class="fa fa-spinner fa-spin fa-3x" style="color:#D10024;"></i>' +
+            '<p style="margin-top:20px;color:#888;font-size:15px;">Učitavanje proizvoda...</p>' +
+            '</div></div></div></div>'
+        );
+        $('#product-main-section').before($spinner);
+
         $.ajax({
             url: API_BASE + '/api/products/' + slug,
             success: function (product) {
+                // Remove spinner and reveal section before rendering
+                // (Slick carousel needs visible DOM to calculate dimensions)
+                $spinner.remove();
+                $('#product-main-section').show();
+
                 renderDetails(product);
                 renderImages(product);
                 renderTabs(product);
                 loadRelatedProducts(product);
+
                 // Init share buttons (Facebook, WhatsApp, Copy Link, QR Code)
                 if (typeof window.initQrShare === 'function') {
                     window.initQrShare(product.slug);
@@ -447,7 +484,11 @@
                     window.initReviews(product.slug, product);
                 }
             },
-            error: showError
+            error: function() {
+                $spinner.remove();
+                $('#product-main-section').show();
+                showError();
+            }
         });
     }
 

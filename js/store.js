@@ -103,7 +103,7 @@
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
             '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>',
-            '        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
+            '        <button class="add-to-compare" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
             '        <button class="quick-view"><i class="fa fa-eye"></i></button>',
             '      </div>',
             '    </div>',
@@ -157,7 +157,7 @@
             '      <div class="product-actions">',
             '        <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> dodaj u korpu</button>',
             '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i> Lista želja</button>',
-            '        <button class="add-to-compare"><i class="fa fa-exchange"></i> Poređenje</button>',
+            '        <button class="add-to-compare" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-exchange"></i> Poređenje</button>',
             '      </div>',
             '    </div>',
             '  </div>',
@@ -363,6 +363,11 @@
                 // Sync wishlist heart state on newly rendered cards
                 if (window.OptimusWishlist) {
                     window.OptimusWishlist.syncButtonStates();
+                }
+
+                // Sync compare button state on newly rendered cards
+                if (window.OptimusCompare) {
+                    window.OptimusCompare.syncButtonStates();
                 }
 
                 var from = state.page * state.size + 1;

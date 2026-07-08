@@ -37,6 +37,9 @@
 		<!-- Quick View Modal stylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/quick-view-modal.css"/>
 
+		<!-- Compare stylesheet -->
+		<link type="text/css" rel="stylesheet" href="css/compare.css"/>
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -96,12 +99,24 @@
 							<div class="header-ctn">
 
 								<!-- Wishlist -->
-								<a href="wishlist.html" class="wishlist-link">
-									<i class="fa fa-heart-o"></i>
-									<span>Želje</span>
-									<div class="wishlist-count">0</div>
-								</a>
+								<div>
+									<a href="wishlist.html" class="wishlist-link">
+										<i class="fa fa-heart-o"></i>
+										<span>Želje</span>
+										<div class="wishlist-count">0</div>
+									</a>
+								</div>
 								<!-- /Wishlist -->
+
+								<!-- Compare icon -->
+								<div>
+									<a href="compare.html" class="wishlist-link">
+										<i class="fa fa-exchange"></i>
+										<span>Poređenje</span>
+										<div class="compare-count">0</div>
+									</a>
+								</div>
+								<!-- /Compare icon -->
 
 								<!-- Cart -->
 								<div class="dropdown">
@@ -154,10 +169,7 @@
 				<!-- responsive-nav -->
 				<div id="responsive-nav">
 					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-                                                <li class="active"><a href="index.html">Početna</a></li>
-                                                <li><a href="#">Akcije</a></li>
-                                        </ul>
+					<ul class="main-nav nav navbar-nav"></ul>
 					<!-- /NAV -->
 				</div>
 				<!-- /responsive-nav -->
@@ -189,7 +201,7 @@
 		<!-- /BREADCRUMB -->
 
 		<!-- SECTION -->
-		<div id="product-main-section" class="section">
+		<div id="product-main-section" class="section" style="display:none;">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
@@ -197,21 +209,6 @@
 					<!-- Product main img -->
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product01.png" alt="">-->
-<!--							</div>-->
-
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product03.png" alt="">-->
-<!--							</div>-->
-
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product06.png" alt="">-->
-<!--							</div>-->
-
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product08.png" alt="">-->
-<!--							</div>-->
 						</div>
 					</div>
 					<!-- /Product main img -->
@@ -219,21 +216,7 @@
 					<!-- Product thumb imgs -->
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product01.png" alt="">-->
-<!--							</div>-->
 
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product03.png" alt="">-->
-<!--							</div>-->
-
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product06.png" alt="">-->
-<!--							</div>-->
-
-<!--							<div class="product-preview">-->
-<!--								<img src="./img/product08.png" alt="">-->
-<!--							</div>-->
 						</div>
 					</div>
 					<!-- /Product thumb imgs -->
@@ -253,11 +236,13 @@
 							</div>
 							
 							<!-- Key Features -->
-							<div id="product-key-features">
+							<div id="product-key-features" style="display:none;">
 								<h4 style="margin-top: 20px; margin-bottom: 12px; font-size: 16px; font-weight: 600; color: #333;">Ključne karakteristike:</h4>
 								<ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
-									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-1">Učitavanje...</span></li>
-									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-2">Učitavanje...</span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-1"></span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-2"></span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-3"></span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-4"></span></li>
 								</ul>
 							</div>
 
@@ -277,7 +262,7 @@
 
 							<ul class="product-btns">
 								<li><a href="#" class="add-to-wishlist"><i class="fa fa-heart-o"></i> dodaj u listu želja</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> dodaj za poređenje</a></li>
+								<li><a href="#" class="add-to-compare"><i class="fa fa-exchange"></i> dodaj za poređenje</a></li>
 							</ul>
 
 							<ul class="product-links">
@@ -412,7 +397,7 @@
 		<!-- /SECTION -->
 
 		<!-- Section -->
-		<div id="related-products-section" class="section">
+		<div id="related-products-section" class="section" style="display:none;">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
@@ -425,7 +410,7 @@
 					</div>
 
 					<!-- Related products will be loaded here by product-detail.js -->
-					<div id="related-products-container"></div>
+					<div id="related-products-container" class="row"></div>
 
 				</div>
 				<!-- /row -->
@@ -492,9 +477,9 @@
 								<ul class="footer-links">
 									<li><a href="about.html">O nama</a></li>
 									<li><a href="contact.html">Kontakt</a></li>
-									<li><a href="#">Politika privatnosti</a></li>
-									<li><a href="#">Narudžbine i povrat</a></li>
-									<li><a href="#">Uslovi korišćenja</a></li>
+									<li><a href="under-construction.html">Politika privatnosti</a></li>
+									<li><a href="under-construction.html">Narudžbine i povrat</a></li>
+									<li><a href="under-construction.html">Uslovi korišćenja</a></li>
 								</ul>
 							</div>
 						</div>
@@ -503,11 +488,11 @@
 							<div class="footer">
 								<h3 class="footer-title">Usluge</h3>
 								<ul class="footer-links">
-									<li><a href="#">Moj nalog</a></li>
+									<li><a href="under-construction.html">Moj nalog</a></li>
 									<li><a href="cart.html">Prikaži korpu</a></li>
 									<li><a href="wishlist.html">Lista želja</a></li>
-									<li><a href="#">Prati porudžbinu</a></li>
-									<li><a href="#">Pomoć</a></li>
+									<li><a href="under-construction.html">Prati porudžbinu</a></li>
+									<li><a href="under-construction.html">Pomoć</a></li>
 								</ul>
 							</div>
 						</div>
@@ -557,6 +542,7 @@
 		<script src="js/header-search.js"></script>
 		<script src="js/cart.js"></script>
 		<script src="js/wishlist.js"></script>
+		<script src="js/compare.js"></script>
 		<script src="js/product-detail.js"></script>
 		<script src="js/qr-share.js"></script>
 		<script src="js/brands-carousel.js"></script>

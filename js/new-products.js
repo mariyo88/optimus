@@ -154,6 +154,9 @@
         if ($container.hasClass('slick-initialized')) {
             $container.slick('unslick');
         }
+
+        // Hide container while loading to prevent unstyled flash
+        $container.css('visibility', 'hidden');
         
         $.ajax({
             url: API_BASE + '/api/products',
@@ -161,6 +164,7 @@
             success: function (data) {
                 var products = data.content || [];
                 if (products.length === 0) {
+                    $container.css('visibility', 'visible');
                     $container.html('<p class="text-center" style="padding:20px;">Nema proizvoda.</p>');
                     return;
                 }
@@ -171,6 +175,9 @@
                 adjustedConfig.infinite = products.length > adjustedConfig.slidesToShow;
                 
                 initSlick($container, adjustedConfig);
+
+                // Show container only after Slick has initialized
+                $container.css('visibility', 'visible');
                 
                 // Sync wishlist button states after products are rendered
                 if (window.OptimusWishlist) {
@@ -179,6 +186,7 @@
             },
             error: function (xhr, status, error) {
                 console.error('Error loading products:', error, xhr);
+                $container.css('visibility', 'visible');
                 $container.html('<p class="text-center" style="padding:20px;">Greska pri ucitavanju proizvoda.</p>');
             }
         });
