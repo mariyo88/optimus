@@ -1013,6 +1013,8 @@ textarea.input {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1.4;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .product .product-body .product-name>a {
@@ -1256,6 +1258,8 @@ textarea.input {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1.3;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .product-widget .product-body .product-name>a {
@@ -1775,6 +1779,8 @@ textarea.input {
 .product-details .product-name {
   text-transform: uppercase;
   font-size: 18px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .product-details .product-rating {
@@ -2868,6 +2874,8 @@ ul.SpecForm .Notice {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .product.product-list .product-name a {
@@ -3053,6 +3061,15 @@ ul.SpecForm .Notice {
     font-size: 14px;
     font-weight: 600;
     max-width: none;
+  /*margin: 0;*/
+  /*font-size: 16px;*/
+  /*max-width: 280px;*/
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  overflow: hidden;
+
+
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

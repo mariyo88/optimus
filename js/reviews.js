@@ -15,15 +15,63 @@
 
     // ── Public init ───────────────────────────────────────────────────────────
 
-    window.initReviews = function (productSlug) {
+    window.initReviews = function (productSlug, productData) {
         _currentSlug = productSlug;
         _currentPage = 0;
+        
+        // If productData is provided with review stats, use them immediately
+        if (productData && typeof productData.averageRating !== 'undefined' && typeof productData.reviewCount !== 'undefined') {
+            // Show initial data immediately
+            updateHeaderRating(productData.averageRating, productData.reviewCount);
+            updateReviewCountLink(productData.reviewCount);
+            
+            // If there are no reviews, skip the API call and show empty state
+            if (productData.reviewCount === 0) {
+                showEmptyReviewState();
+                bindForm();
+                bindReviewLink();
+                return;
+            }
+        }
+        
+        // Load full reviews data from API (pagination, distribution, etc.)
         loadReviews(0);
         bindForm();
         bindReviewLink();
     };
 
     // ── Load & render ─────────────────────────────────────────────────────────
+
+    function showEmptyReviewState() {
+        // Clear rating summary
+        $('#rating-avg-score').text('');
+        $('#rating-avg-stars').html('');
+        
+        // Clear distribution
+        var html = '';
+        for (var star = 5; star >= 1; star--) {
+            html += '<li>' +
+                '<div class="rating-stars">' + buildStarsHtml(star) + '</div>' +
+                '<div class="rating-progress"><div style="width:0%;"></div></div>' +
+                '<span class="sum">0</span>' +
+                '</li>';
+        }
+        $('#rating-distribution').html(html);
+        
+        // Show empty state in reviews list
+        $('#reviews-list').html(
+            '<li style="padding: 40px 20px; text-align: center; list-style: none;">' +
+                '<div style="width: 72px; height: 72px; margin: 0 auto 20px; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center;">' +
+                    '<i class="fa fa-commenting-o" style="font-size: 30px; color: #ccc;"></i>' +
+                '</div>' +
+                '<h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">Još nema recenzija</h4>' +
+                '<p style="color: #999; font-size: 13px; max-width: 280px; margin: 0 auto 20px; line-height: 1.6;">Budite prvi koji će podeliti iskustvo sa ovim proizvodom.</p>' +
+            '</li>'
+        );
+        
+        // Clear pagination
+        $('#reviews-pagination').empty();
+    }
 
     function loadReviews(page) {
         $.ajax({

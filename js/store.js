@@ -104,7 +104,7 @@
             '      <div class="product-btns">',
             '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>',
             '        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
-            '        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>',
+            '        <button class="quick-view"><i class="fa fa-eye"></i></button>',
             '      </div>',
             '    </div>',
             '    <div class="add-to-cart">',

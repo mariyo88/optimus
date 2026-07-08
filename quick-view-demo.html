@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick View Modal - Demo</title>
+    
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    
+    <!-- Custom stylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    
+    <!-- Quick View Modal stylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/quick-view-modal.css"/>
+    
+    <style>
+        body {
+            background: #f5f5f5;
+            padding: 50px 0;
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .demo-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .demo-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2B2D42;
+            margin-bottom: 10px;
+        }
+        .demo-header p {
+            font-size: 16px;
+            color: #666;
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>Quick View Modal Demo</h1>
+            <p>Kliknite na "brzi pregled" dugme na bilo kojoj kartici proizvoda</p>
+        </div>
+        
+        <div class="demo-grid" id="demo-products">
+            <!-- Products will be loaded here dynamically -->
+            <div class="text-center" style="grid-column: 1/-1; padding: 40px;">
+                <i class="fa fa-spinner fa-spin fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/quick-view-modal.js"></script>
+    
+    <script>
+        // Demo script to load sample products
+        $(document).ready(function() {
+            var API_BASE = window.APP_CONFIG.API_BASE;
+            var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ESlika nije dostupna%3C/text%3E%3C/svg%3E";
+            
+            // Load products from API
+            $.ajax({
+                url: API_BASE + '/api/products',
+                data: { size: 8, sort: 'id,desc' },
+                success: function(data) {
+                    var products = data.content || [];
+                    var html = '';
+                    
+                    products.forEach(function(p) {
+                        var imgSrc = p.mainImageUrl || IMG_PLACEHOLDER;
+                        var labels = '';
+                        if (p.isNew) labels += '<span class="new">NOVO</span>';
+                        
+                        var priceHtml = '';
+                        if (p.bestOurWebPrice) {
+                            priceHtml = '<span class="product-price">' + formatPrice(p.bestOurWebPrice) + '</span>';
+                            if (p.bestRetailPrice && p.bestRetailPrice > p.bestOurWebPrice) {
+                                priceHtml += ' <del class="product-old-price">' + formatPrice(p.bestRetailPrice) + '</del>';
+                            }
+                        } else if (p.bestRetailPrice) {
+                            priceHtml = '<span class="product-price">' + formatPrice(p.bestRetailPrice) + '</span>';
+                        } else {
+                            priceHtml = '<span class="text-muted">Nije dostupno</span>';
+                        }
+                        
+                        var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
+                        var inStockBadge = !p.inStock ? '<span class="out-of-stock">Nema na stanju</span>' : '';
+                        
+                        html += '<div class="product">';
+                        html += '  <div class="product-img">';
+                        html += '    <img src="' + imgSrc + '" alt="' + p.name + '">';
+                        html += '    <div class="product-label">' + labels + '</div>';
+                        html += '  </div>';
+                        html += '  <div class="product-body">';
+                        html += '    <p class="product-category">' + (p.brandName || '') + '</p>';
+                        html += '    <h3 class="product-name"><a href="product.html?slug=' + p.slug + '">' + p.name + '</a></h3>';
+                        html += '    <h4 class="product-price">' + priceHtml + '</h4>';
+                        html += '    ' + inStockBadge;
+                        html += '    <div class="product-rating"></div>';
+                        html += '    <div class="product-btns">';
+                        html += '      <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>';
+                        html += '      <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>';
+                        html += '      <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>';
+                        html += '    </div>';
+                        html += '  </div>';
+                        html += '  <div class="add-to-cart">';
+                        html += '    <button class="add-to-cart-btn' + inStockClass + '" data-id="' + p.id + '" data-slug="' + p.slug + '" ' + (!p.inStock ? 'disabled' : '') + '><i class="fa fa-shopping-cart"></i> dodaj u korpu</button>';
+                        html += '  </div>';
+                        html += '</div>';
+                    });
+                    
+                    $('#demo-products').html(html);
+                    
+                    // Sync wishlist states
+                    if (window.OptimusWishlist) {
+                        window.OptimusWishlist.syncButtonStates();
+                    }
+                },
+                error: function() {
+                    $('#demo-products').html('<div style="grid-column: 1/-1; text-align: center; padding: 40px;"><p>Greška pri učitavanju proizvoda.</p></div>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
