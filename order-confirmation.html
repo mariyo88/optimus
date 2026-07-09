@@ -24,6 +24,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .page-hero::before {
             content: '';
             position: absolute;
@@ -31,9 +32,10 @@
             right: -10%;
             width: 500px;
             height: 500px;
-            background: rgba(209,0,36,0.08);
+            background: rgba(209, 0, 36, 0.08);
             border-radius: 50%;
         }
+
         .page-hero::after {
             content: '';
             position: absolute;
@@ -41,17 +43,36 @@
             left: -5%;
             width: 350px;
             height: 350px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 50%;
         }
-        .page-hero > .container { padding-top: 50px; }
-        .page-hero h1 { font-size: 38px; font-weight: 700; margin-bottom: 12px; color: #fff; }
-        .page-hero h1 span { color: #D10024; }
-        .page-hero p { font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 0; max-width: 520px; }
+
+        .page-hero > .container {
+            padding-top: 50px;
+        }
+
+        .page-hero h1 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .page-hero h1 span {
+            color: #D10024;
+        }
+
+        .page-hero p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 0;
+            max-width: 520px;
+        }
+
         .page-hero-badge {
             display: inline-block;
-            background: rgba(209,0,36,0.2);
-            border: 1px solid rgba(209,0,36,0.5);
+            background: rgba(209, 0, 36, 0.2);
+            border: 1px solid rgba(209, 0, 36, 0.5);
             color: #ff6b6b;
             padding: 6px 16px;
             border-radius: 20px;
@@ -61,6 +82,7 @@
             text-transform: uppercase;
             margin-bottom: 18px;
         }
+
         .page-hero-nav {
             margin-bottom: 0;
             padding: 0;
@@ -68,246 +90,256 @@
             border-bottom: none !important;
             box-shadow: none !important;
         }
+
         .page-hero-nav #responsive-nav .main-nav > li > a {
-            color: rgba(255,255,255,0.75);
+            color: rgba(255, 255, 255, 0.75);
             font-size: 13px;
             font-weight: 600;
             padding: 8px 16px;
             transition: color 0.2s;
         }
+
         .page-hero-nav #responsive-nav .main-nav > li > a:hover {
             color: #fff;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div id="top-header">
-            <div class="container">
-                <ul class="header-links pull-left">
-                    <li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
-                    <li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
-                    <li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
-                </ul>
-                <ul class="header-links pull-right">
-                    <li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
-                    <li><a href="#"><i class="fa fa-user-o"></i> Moj nalog</a></li>
-                </ul>
-            </div>
+<!-- HEADER -->
+<header>
+    <div id="top-header">
+        <div class="container">
+            <ul class="header-links pull-left">
+                <li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
+                <li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>
+                    prodaja@optimussystems.rs</a></li>
+                <li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i
+                        class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
+            </ul>
+            <ul class="header-links pull-right">
+                <li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
+                <li><a href="#"><i class="fa fa-user-o"></i> Moj nalog</a></li>
+            </ul>
         </div>
-        <div id="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="header-logo">
-                            <a href="index.html" class="logo">
-                                <img src="./img/logo.svg" alt="">
+    </div>
+    <div id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="index.html" class="logo">
+                            <img src="./img/logo.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form>
+                            <input class="input" placeholder="Pretražite proizvode...">
+                            <button class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+
+                        <!-- Wishlist -->
+                        <div>
+                            <a href="wishlist.html" class="wishlist-link">
+                                <i class="fa fa-heart-o"></i>
+                                <span>Želje</span>
+                                <div class="wishlist-count">0</div>
                             </a>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="header-search">
-                            <form>
-                                <input class="input" placeholder="Pretražite proizvode...">
-                                <button class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
-                            </form>
+                        <!-- /Wishlist -->
+
+                        <!-- Compare icon -->
+                        <div>
+                            <a href="compare.html" class="wishlist-link">
+                                <i class="fa fa-exchange"></i>
+                                <span>Poređenje</span>
+                                <div class="compare-count">0</div>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-md-3 clearfix">
-                        <div class="header-ctn">
+                        <!-- /Compare icon -->
 
-                            <!-- Wishlist -->
-                            <div>
-                                <a href="wishlist.html" class="wishlist-link">
-                                    <i class="fa fa-heart-o"></i>
-                                    <span>Želje</span>
-                                    <div class="wishlist-count">0</div>
-                                </a>
-                            </div>
-                            <!-- /Wishlist -->
-
-                            <!-- Compare icon -->
-                            <div>
-                                <a href="compare.html" class="wishlist-link">
-                                    <i class="fa fa-exchange"></i>
-                                    <span>Poređenje</span>
-                                    <div class="compare-count">0</div>
-                                </a>
-                            </div>
-                            <!-- /Compare icon -->
-
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Korpa</span>
-                                    <div class="qty">0</div>
-                                </a>
-                                <div class="cart-dropdown">
-                                    <div class="cart-list">
-<div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Korpa</span>
+                                <div class="qty">0</div>
+                            </a>
+                            <div class="cart-dropdown">
+                                <div class="cart-list">
+                                    <div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
                                         <div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">
                                             <i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i>
                                         </div>
                                         <p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
-                                    </div></div>
-                                    <div class="cart-summary" style="display:none;"><small></small><h5></h5></div>
-                                    <div class="cart-btns" style="display:none;">
-                                        <a href="cart.html">Prikaži korpu</a>
-                                        <a href="checkout.html">Naručivanje  <i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
+                                <div class="cart-summary" style="display:none;"><small></small><h5></h5></div>
+                                <div class="cart-btns" style="display:none;">
+                                    <a href="cart.html">Prikaži korpu</a>
+                                    <a href="checkout.html">Naručivanje <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
                             </div>
-                            <div class="menu-toggle">
-                                <a href="#">
-                                    <i class="fa fa-bars"></i>
-                                    <span>Meni</span>
-                                </a>
-                            </div>
+                        </div>
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Meni</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <!-- HERO BANNER -->
-    <div class="page-hero">
-        <nav id="navigation" class="page-hero-nav">
-            <div class="container">
-                <div id="responsive-nav">
-                    <ul class="main-nav nav navbar-nav"></ul>
-                </div>
-            </div>
-        </nav>
+<!-- HERO BANNER -->
+<div class="page-hero">
+    <nav id="navigation" class="page-hero-nav">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <span class="page-hero-badge"><i class="fa fa-check-circle"></i> &nbsp;Porudžbina primljena</span>
-                    <h1>Hvala vam &mdash; <span>Optimus</span></h1>
-                    <p>Vaša porudžbina je uspešno primljena. Kontaktiraćemo vas u najkraćem roku.</p>
+            <div id="responsive-nav">
+                <ul class="main-nav nav navbar-nav"></ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <span class="page-hero-badge"><i class="fa fa-check-circle"></i> &nbsp;Porudžbina primljena</span>
+                <h1>Hvala vam &mdash; <span>Optimus</span></h1>
+                <p>Vaša porudžbina je uspešno primljena. Kontaktiraćemo vas u najkraćem roku.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /HERO BANNER -->
+
+<!-- SECTION -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div id="confirmation-content" class="text-center" style="padding: 60px 20px;">
+                    <i class="fa fa-spinner fa-spin fa-3x" style="color:#D10024;"></i>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /HERO BANNER -->
+</div>
 
-    <!-- SECTION -->
+<!-- BRANDS CAROUSEL -->
+<div id="brands-section" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Naši brendovi</h3>
+                </div>
+                <div class="brands-carousel" id="brands-carousel-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
     <div class="section">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div id="confirmation-content" class="text-center" style="padding: 60px 20px;">
-                        <i class="fa fa-spinner fa-spin fa-3x" style="color:#D10024;"></i>
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">O nama</h3>
+                        <p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis
+                            i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je
+                            kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
+                        <ul class="footer-links">
+                            <li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia"
+                                   target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320,
+                                Serbia</a></li>
+                            <li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
+                            <li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Kategorije</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Akcije</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clearfix visible-xs"></div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Informacije</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.html">O nama</a></li>
+                            <li><a href="contact.html">Kontakt</a></li>
+                            <li><a href="under-construction.html">Politika privatnosti</a></li>
+                            <li><a href="under-construction.html">Narudžbine i povrat</a></li>
+                            <li><a href="under-construction.html">Uslovi korišćenja</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Usluge</h3>
+                        <ul class="footer-links">
+                            <li><a href="under-construction.html">Moj nalog</a></li>
+                            <li><a href="cart.html">Prikaži korpu</a></li>
+                            <li><a href="wishlist.html">Lista želja</a></li>
+                            <li><a href="under-construction.html">Prati porudžbinu</a></li>
+                            <li><a href="under-construction.html">Pomoć</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- BRANDS CAROUSEL -->
-    <div id="brands-section" class="section">
+    <div id="bottom-footer" class="section">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">
-                        <h3 class="title">Naši brendovi</h3>
-                    </div>
-                    <div class="brands-carousel" id="brands-carousel-container"></div>
+                <div class="col-md-12 text-center">
+                    <ul class="footer-payments">
+                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                    </ul>
+                    <span class="copyright">© 2026 FirstCode. Sva prava zadržana.</span>
                 </div>
             </div>
         </div>
     </div>
+</footer>
 
-    <!-- FOOTER -->
-    <footer id="footer">
-        <div class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-xs-6">
-                        <div class="footer">
-                            <h3 class="footer-title">O nama</h3>
-                            <p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
-                            <ul class="footer-links">
-                                <li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
-                                <li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
-                                <li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-xs-6">
-                        <div class="footer">
-                            <h3 class="footer-title">Kategorije</h3>
-                            <ul class="footer-links">
-                                <li><a href="#">Akcije</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="clearfix visible-xs"></div>
-
-                    <div class="col-md-3 col-xs-6">
-                        <div class="footer">
-                            <h3 class="footer-title">Informacije</h3>
-                            <ul class="footer-links">
-                                <li><a href="about.html">O nama</a></li>
-                                <li><a href="contact.html">Kontakt</a></li>
-                                <li><a href="under-construction.html">Politika privatnosti</a></li>
-                                <li><a href="under-construction.html">Narudžbine i povrat</a></li>
-                                <li><a href="under-construction.html">Uslovi korišćenja</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-xs-6">
-                        <div class="footer">
-                            <h3 class="footer-title">Usluge</h3>
-                            <ul class="footer-links">
-                                <li><a href="under-construction.html">Moj nalog</a></li>
-                                <li><a href="cart.html">Prikaži korpu</a></li>
-                                <li><a href="wishlist.html">Lista želja</a></li>
-                                <li><a href="under-construction.html">Prati porudžbinu</a></li>
-                                <li><a href="under-construction.html">Pomoć</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="bottom-footer" class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <ul class="footer-payments">
-                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                        </ul>
-                        <span class="copyright">© 2026 FirstCode. Sva prava zadržana.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/slick.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/main-nav.js"></script>
-    <script src="js/header-search.js"></script>
-    <script src="js/wishlist.js"></script>
-    <script src="js/compare.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/brands-carousel.js"></script>
-    <script src="js/order-confirmation.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/config.js"></script>
+<script src="js/main-nav.js"></script>
+<script src="js/header-search.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/brands-carousel.js"></script>
+<script src="js/order-confirmation.js"></script>
 </body>
 </html>
 

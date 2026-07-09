@@ -1,0 +1,222 @@
+/* ── Checkout section ── */
+.checkout-section {
+	padding: 50px 0;
+	background: #f8f9fa;
+}
+
+/* ── Billing / Shipping panels ── */
+.billing-details,
+.shiping-details,
+.order-notes {
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+	padding: 30px;
+	margin-bottom: 25px;
+}
+.billing-details .section-title,
+.shiping-details .section-title {
+	margin-bottom: 22px;
+}
+.billing-details .section-title h3,
+.shiping-details .section-title h3 {
+	font-size: 18px;
+	font-weight: 700;
+	color: #2B2D42;
+	padding-bottom: 12px;
+	border-bottom: 2px solid #D10024;
+	margin: 0;
+}
+.order-notes textarea.input {
+	min-height: 110px;
+	resize: vertical;
+}
+
+/* ── Order summary panel ── */
+.order-details {
+	position: sticky;
+	top: 20px;
+}
+.order-details .section-title h3 {
+	font-size: 18px;
+	font-weight: 700;
+	color: #2B2D42;
+	padding-bottom: 12px;
+	border-bottom: 2px solid #D10024;
+	margin-bottom: 20px;
+}
+.order-summary {
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+/* Summary header */
+.order-summary-header {
+	background: #2B2D42;
+	padding: 14px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.order-summary-header span {
+	color: rgba(255,255,255,0.6);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+/* Product rows */
+.order-product-list {
+	padding: 8px 0;
+	border-bottom: 1px solid #f0f0f0;
+}
+.order-product-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 18px;
+	transition: background 0.15s;
+}
+.order-product-row:hover { background: #fafafa; }
+.order-product-row .op-badge {
+	min-width: 24px;
+	height: 24px;
+	background: #D10024;
+	color: #fff;
+	border-radius: 50%;
+	font-size: 11px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+.order-product-row .op-img {
+	width: 46px;
+	height: 46px;
+	border-radius: 6px;
+	object-fit: cover;
+	border: 1px solid #eee;
+	flex-shrink: 0;
+	background: #f5f5f5;
+}
+.order-product-row .op-info {
+	flex: 1;
+	min-width: 0;
+}
+.order-product-row .op-name {
+	font-size: 13px;
+	font-weight: 600;
+	color: #2B2D42;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	margin-bottom: 2px;
+}
+.order-product-row .op-qty {
+	font-size: 11px;
+	color: #999;
+}
+.order-product-row .op-price {
+	font-size: 13px;
+	font-weight: 700;
+	color: #D10024;
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+/* Totals */
+.order-totals {
+	padding: 14px 18px 6px;
+}
+.order-totals-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 0;
+	font-size: 13px;
+	color: #666;
+	border-bottom: 1px solid #f4f4f4;
+}
+.order-totals-row:last-child { border-bottom: none; }
+.order-totals-row.grand-total {
+	font-size: 16px;
+	font-weight: 700;
+	color: #2B2D42;
+	padding-top: 14px;
+}
+.order-totals-row.grand-total span:last-child { color: #D10024; }
+.free-shipping-badge {
+	background: #e8f5e9;
+	color: #27ae60;
+	font-size: 11px;
+	font-weight: 700;
+	padding: 2px 8px;
+	border-radius: 4px;
+}
+.payment-method {
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+	padding: 22px 25px;
+	margin-bottom: 20px;
+}
+
+/* ── Steps indicator ── */
+.checkout-steps {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+	padding: 18px 25px;
+}
+.checkout-step {
+	display: flex;
+	align-items: center;
+	flex: 1;
+	position: relative;
+}
+.checkout-step:not(:last-child)::after {
+	content: '';
+	flex: 1;
+	height: 2px;
+	background: #e0e0e0;
+	margin: 0 12px;
+}
+.checkout-step.active:not(:last-child)::after { background: #D10024; }
+.step-circle {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: #e0e0e0;
+	color: #999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	font-weight: 700;
+	flex-shrink: 0;
+}
+.checkout-step.active .step-circle {
+	background: #D10024;
+	color: #fff;
+}
+.checkout-step.done .step-circle {
+	background: #28a745;
+	color: #fff;
+}
+.step-label {
+	margin-left: 10px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #aaa;
+}
+.checkout-step.active .step-label { color: #2B2D42; }
+.checkout-step.done .step-label { color: #28a745; }
