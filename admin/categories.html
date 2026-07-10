@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
-  
-  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -18,254 +16,192 @@
       color: white;
       padding: 2rem;
       border-radius: 8px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .categories-header h2 {
-      margin: 0;
-      font-size: 1.8rem;
-      font-weight: 600;
+    .categories-header h2 { margin: 0; font-size: 1.8rem; font-weight: 600; }
+    .categories-header p { margin: 0.5rem 0 0 0; opacity: 0.9; font-size: 0.95rem; }
+
+    /* GoD tabs */
+    .god-tabs-wrap {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
     }
-    .categories-header p {
-      margin: 0.5rem 0 0 0;
-      opacity: 0.9;
-      font-size: 0.95rem;
+    .god-tab-btn {
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      border: 1px solid #d0d0d0;
+      background: white;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #555;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .god-tab-btn:hover { border-color: #667eea; color: #667eea; background: #f0f3ff; }
+    .god-tab-btn.active { background: #667eea; color: white; border-color: #667eea; font-weight: 600; }
+    .god-tab-btn .tab-count {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 0 5px;
+      font-size: 0.75rem;
+      margin-left: 4px;
+    }
+    .god-tab-btn:not(.active) .tab-count {
+      background: #eee;
+      color: #888;
     }
 
-    .category-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    /* Category items */
+    .category-list { list-style: none; padding: 0; margin: 0; }
     .category-item {
       display: flex;
       align-items: center;
-      padding: 1rem;
+      padding: 0.85rem 1rem;
       border: 1px solid #e0e0e0;
       border-radius: 6px;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
       background: white;
-      transition: all 0.3s ease;
-      gap: 1rem;
+      transition: all 0.2s ease;
+      gap: 0.75rem;
     }
     .category-item:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
       border-color: #667eea;
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
-
     .category-icon {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f0f3ff;
-      border-radius: 6px;
-      color: #667eea;
-      font-size: 1.2rem;
-      flex-shrink: 0;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: #f0f3ff; border-radius: 6px; color: #667eea;
+      font-size: 1rem; flex-shrink: 0;
     }
-
-    .category-info {
-      flex-grow: 1;
-    }
-    .category-name {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 0.25rem;
-      display: block;
-    }
-    .category-slug {
-      font-size: 0.85rem;
-      color: #999;
-      display: block;
-    }
-
-    .category-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
+    .category-info { flex-grow: 1; min-width: 0; }
+    .category-name { font-weight: 600; color: #333; margin-bottom: 0.15rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .category-slug { font-size: 0.82rem; color: #999; display: block; }
+    .category-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
 
     .btn-category {
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      border: 1px solid #e0e0e0;
-      background: white;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-size: 0.85rem;
+      padding: 0.35rem 0.7rem; border-radius: 4px; border: 1px solid #e0e0e0;
+      background: white; cursor: pointer; transition: all 0.2s ease; font-size: 0.82rem;
     }
-    .btn-category:hover {
-      background: #f5f5f5;
-    }
-    .btn-category.edit {
-      color: #667eea;
-      border-color: #667eea;
-    }
-    .btn-category.edit:hover {
-      background: #f0f3ff;
-    }
-    .btn-category.delete {
-      color: #ef4444;
-      border-color: #ef4444;
-    }
-    .btn-category.delete:hover {
-      background: #fee2e2;
-    }
-
-    .btn-category.recalc {
-      color: #7c3aed;
-      border-color: #7c3aed;
-    }
-    .btn-category.recalc:hover {
-      background: #f5f3ff;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #999;
-    }
-    .empty-state-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-
-    .modal-header-custom {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-    }
-    .modal-header-custom .close {
-      color: white;
-      opacity: 0.8;
-    }
-    .modal-header-custom .close:hover {
-      opacity: 1;
-    }
-
-    .form-group label {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 0.5rem;
-    }
-
-    .alert-notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      max-width: 400px;
-      animation: slideIn 0.3s ease;
-      padding: 1rem;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    .alert-notification.success {
-      background: #10b981;
-      color: white;
-    }
-    .alert-notification.error {
-      background: #ef4444;
-      color: white;
-    }
+    .btn-category:hover { background: #f5f5f5; }
+    .btn-category.edit { color: #667eea; border-color: #667eea; }
+    .btn-category.edit:hover { background: #f0f3ff; }
+    .btn-category.delete { color: #ef4444; border-color: #ef4444; }
+    .btn-category.delete:hover { background: #fee2e2; }
+    .btn-category.recalc { color: #7c3aed; border-color: #7c3aed; }
+    .btn-category.recalc:hover { background: #f5f3ff; }
+    .btn-category.migrate { color: #22ea0c; border-color: #eae60c; }
+    .btn-category.migrate:hover { background: #fff7ed; }
+    .btn-category.migrate:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .category-tree-level {
-      margin-left: 2rem;
-      border-left: 2px solid #e0e0e0;
-      padding-left: 1rem;
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-left: 1.75rem;
+      border-left: 2px solid #e8e8e8;
+      padding-left: 0.85rem;
+      margin-top: 0.4rem;
+      margin-bottom: 0.4rem;
     }
 
-    .search-box {
+    /* GoD group section */
+    .god-group-section {
       margin-bottom: 1.5rem;
     }
-    .search-box input {
+    .god-group-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.85rem;
+      background: #f8f9ff;
+      border: 1px solid #e0e8ff;
       border-radius: 6px;
-      border: 2px solid #e0e0e0;
-      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      color: #4a5568;
       font-size: 0.95rem;
+    }
+    .god-group-header .god-icon { color: #667eea; font-size: 1rem; width: 20px; text-align: center; }
+    .god-group-header .god-cat-count {
+      margin-left: auto;
+      font-size: 0.78rem;
+      color: #888;
+      font-weight: 400;
+    }
+
+    .unmapped-section .god-group-header {
+      background: #fff8f0;
+      border-color: #ffd0a0;
+      color: #7a4a10;
+    }
+    .unmapped-section .god-icon { color: #f59e0b; }
+
+    /* Toolbar */
+    .toolbar-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .toolbar-row .search-input {
+      flex: 1; min-width: 200px;
+      border-radius: 6px; border: 2px solid #e0e0e0;
+      padding: 0.55rem 0.9rem; font-size: 0.9rem;
       transition: border-color 0.2s ease;
     }
-    .search-box input:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
+    .toolbar-row .search-input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
 
-    .custom-control {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+    .empty-state { text-align: center; padding: 2.5rem 1rem; color: #aaa; }
+    .empty-state-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
 
-    .custom-control-label {
-      margin-bottom: 0 !important;
-      cursor: pointer;
-    }
+    .modal-header-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; }
+    .modal-header-custom .close { color: white; opacity: 0.8; }
+    .modal-header-custom .close:hover { opacity: 1; }
+    .form-group label { font-weight: 600; color: #333; margin-bottom: 0.4rem; }
 
-    /* Compact category form styles */
-    .cat-label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #444;
-      margin-bottom: 3px;
+    .alert-notification {
+      position: fixed; top: 20px; right: 20px; z-index: 9999;
+      max-width: 380px; padding: 1rem; border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: slideIn 0.3s ease;
     }
-    .cat-label small {
-      font-weight: 400;
-      color: #999;
-    }
+    @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .alert-notification.success { background: #10b981; color: white; }
+    .alert-notification.error { background: #ef4444; color: white; }
+
+    .cat-label { display: block; font-size: 0.82rem; font-weight: 600; color: #444; margin-bottom: 3px; }
+    .cat-label small { font-weight: 400; color: #999; }
     .cat-check {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.875rem;
-      color: #444;
-      cursor: pointer;
-      margin: 0;
-      white-space: nowrap;
+      display: flex; align-items: center; gap: 6px; font-size: 0.875rem;
+      color: #444; cursor: pointer; margin: 0; white-space: nowrap;
     }
-    .cat-check input[type=checkbox] {
-      width: 15px;
-      height: 15px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .cat-check-primary {
-      color: #667eea;
-      font-weight: 600;
-    }
+    .cat-check input[type=checkbox] { width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
+    .cat-check-primary { color: #667eea; font-weight: 600; }
   </style>
 </head>
 <body>
 
+<!-- Login overlay -->
 <div id="login-overlay" class="login-overlay">
   <div class="login-box">
     <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
     <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
-    <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
-    <div class="form-group"><label>Korisnicko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
-    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+    <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
+    <div class="form-group"><label>Korisničko ime</label><input type="text" id="login-username" class="form-control" placeholder="admin"></div>
+    <div class="form-group"><label>Lozinka</label><input type="password" id="login-password" class="form-control" placeholder="••••••••"></div>
     <button class="btn btn-primary btn-block" onclick="doLogin()"><i class="fa fa-sign-in mr-1"></i> Prijavi se</button>
   </div>
 </div>
@@ -273,7 +209,7 @@
 <div id="app" class="d-none">
   <nav class="navbar navbar-dark">
     <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
-    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
+    <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretraži..."></div></div>
     <div class="navbar-actions">
       <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
       <div class="nav-divider"></div>
@@ -296,7 +232,7 @@
       </ul>
       <p class="nav-section-label">Prodaja</p><hr class="nav-section-divider">
       <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudzbine</a></li>
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa fa-shopping-cart"></i>Porudžbine</a></li>
       </ul>
       <p class="nav-section-label">Sistem</p><hr class="nav-section-divider">
       <ul class="nav flex-column">
@@ -309,19 +245,33 @@
       <div class="categories-header">
         <div>
           <h2><i class="fa fa-sitemap" style="margin-right: 0.8rem;"></i>Kategorije</h2>
-          <p>Upravljanje stablom proizvoda i kategorija</p>
+          <p>Upravljanje stablom proizvoda i kategorija — grupisano po GoD kategorijama</p>
         </div>
         <button class="btn btn-light" onclick="openCategoryModal()" style="color: #000;">
           <i class="fa fa-plus mr-2"></i> Nova kategorija
         </button>
       </div>
 
-      <div class="card">
-        <div class="card-body">
-          <div class="search-box">
-            <input type="text" id="search-categories" class="form-control" placeholder="Pretraga kategorija...">
-          </div>
-          <div id="categories-container"></div>
+      <!-- Toolbar: tabs + search -->
+      <div class="god-tabs-wrap" id="god-tabs-row">
+        <span style="font-size:0.82rem;color:#999;margin-right:0.25rem;">Filtriraj:</span>
+        <button class="god-tab-btn active" data-god-id="all" onclick="selectGodTab('all', this)">
+          <i class="fa fa-th-large" style="margin-right:4px;"></i>Sve
+        </button>
+        <div id="god-tab-buttons" style="display:contents;"></div>
+        <button class="god-tab-btn" data-god-id="unmapped" onclick="selectGodTab('unmapped', this)" style="border-color:#f59e0b;color:#b45309;">
+          <i class="fa fa-exclamation-circle" style="margin-right:4px;"></i>Nemapirano
+        </button>
+      </div>
+
+      <div class="toolbar-row">
+        <input type="text" id="search-categories" class="search-input" placeholder="🔍  Pretraga po imenu ili slug-u...">
+      </div>
+
+      <div id="categories-container">
+        <div class="text-center py-5">
+          <i class="fa fa-spinner fa-spin fa-2x text-primary"></i>
+          <p class="text-muted mt-2">Učitavanje...</p>
         </div>
       </div>
     </main>
@@ -334,14 +284,11 @@
     <div class="modal-content">
       <div class="modal-header modal-header-custom">
         <h5 class="modal-title" id="modal-title"><i class="fa fa-folder-o mr-2"></i>Nova kategorija</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
       </div>
       <div class="modal-body" style="padding: 1.5rem 2rem;">
         <div id="form-alert" class="alert d-none" role="alert"></div>
         <form id="categoryForm">
-          <!-- Naziv + Prikazno ime u 2 kolone -->
           <div class="row" style="margin-bottom: 0.75rem;">
             <div class="col-6">
               <label class="cat-label" for="f-name">Naziv * <small>(interno)</small></label>
@@ -352,34 +299,24 @@
               <input type="text" id="f-display-name" class="form-control form-control-sm" placeholder="Npr. Laptopi">
             </div>
           </div>
-          <!-- Slug + Nadredjena u 2 kolone -->
           <div class="row" style="margin-bottom: 0.75rem;">
             <div class="col-6">
               <label class="cat-label" for="f-slug">Slug <small>(auto)</small></label>
               <input type="text" id="f-slug" class="form-control form-control-sm" placeholder="auto-generisan">
             </div>
             <div class="col-6">
-              <label class="cat-label" for="f-parent">Nadredjena kategorija</label>
+              <label class="cat-label" for="f-parent">Nadređena kategorija</label>
               <select id="f-parent" class="form-control form-control-sm">
                 <option value="">-- Koren --</option>
               </select>
             </div>
           </div>
-          <!-- Checkboxovi i markup -->
           <div id="category-flags-section" style="border-top: 1px solid #f0f0f0; padding-top: 0.75rem;">
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-bottom: 0.75rem;">
-              <label class="cat-check">
-                <input type="checkbox" id="f-show-in-nav"> Prikaži u navigaciji
-              </label>
-              <label class="cat-check cat-check-primary">
-                <input type="checkbox" id="f-is-active"> Aktivna
-              </label>
-              <label class="cat-check">
-                <input type="checkbox" id="f-is-new-products"> New products
-              </label>
-              <label class="cat-check">
-                <input type="checkbox" id="f-is-top-selling"> Top selling
-              </label>
+              <label class="cat-check"><input type="checkbox" id="f-show-in-nav"> Prikaži u navigaciji</label>
+              <label class="cat-check cat-check-primary"><input type="checkbox" id="f-is-active"> Aktivna</label>
+              <label class="cat-check"><input type="checkbox" id="f-is-new-products"> New products</label>
+              <label class="cat-check"><input type="checkbox" id="f-is-top-selling"> Top selling</label>
             </div>
             <div id="markup-field-group" style="border-top: 1px solid #f0f0f0; padding-top: 0.75rem; display: flex; align-items: center; gap: 1rem;">
               <div>
@@ -404,15 +341,13 @@
   </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
+<!-- Delete Confirm Modal -->
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header modal-header-custom">
         <h5 class="modal-title"><i class="fa fa-exclamation-triangle mr-2"></i>Potvrdi brisanje</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
       </div>
       <div class="modal-body">
         <p>Da li ste sigurni da želite da obrišete kategoriju <strong id="delete-category-name"></strong>?</p>
@@ -420,9 +355,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
-        <button type="button" class="btn btn-danger" onclick="confirmDelete()">
-          <i class="fa fa-trash mr-2"></i>Obriši
-        </button>
+        <button type="button" class="btn btn-danger" onclick="confirmDelete()"><i class="fa fa-trash mr-2"></i>Obriši</button>
       </div>
     </div>
   </div>
@@ -434,19 +367,15 @@
     <div class="modal-content">
       <div class="modal-header" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white; border: none;">
         <h5 class="modal-title"><i class="fa fa-calculator mr-2"></i>Preračunaj cene</h5>
-        <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.8;">
-          <span>&times;</span>
-        </button>
+        <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.8;"><span>&times;</span></button>
       </div>
       <div class="modal-body">
         <p style="color: #555; margin-bottom: 1rem;">Kategorija: <strong id="recalc-category-name"></strong></p>
-        <p style="font-size: 0.85rem; color: #777; margin-bottom: 1.5rem;">
-          Nova naša web cena = B2B × (1 + markup%) × (1 + PDV%)
-        </p>
+        <p style="font-size: 0.85rem; color: #777; margin-bottom: 1.5rem;">Nova naša web cena = B2B × (1 + markup%) × (1 + PDV%)</p>
         <div class="form-group">
           <label for="recalc-markup" style="font-weight: 600;">Markup procenat *</label>
           <div class="input-group" style="width: 160px;">
-            <input type="number" id="recalc-markup" class="form-control" min="1" max="500" value="30" placeholder="30">
+            <input type="number" id="recalc-markup" class="form-control" min="1" max="500" value="30">
             <span class="input-group-addon">%</span>
           </div>
         </div>
@@ -463,108 +392,322 @@
   </div>
 </div>
 
+<!-- Migrate Images Modal -->
+<div class="modal fade" id="migrateCatModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: linear-gradient(135deg, #e3ea0c 0%, #12c20c 100%); color: white; border: none;">
+        <h5 class="modal-title"><i class="fa fa-cloud-upload mr-2"></i> Grupna migracija slika</h5>
+        <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 0.8;"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #555; margin-bottom: 0.75rem;">Kategorija: <strong id="migrate-cat-name"></strong></p>
+        <p style="color: #555; margin-bottom: 1rem;">
+          Nemigriranih slika: <strong id="migrate-cat-count">...</strong>
+        </p>
+        <p style="font-size: 0.85rem; color: #777; margin-bottom: 0.5rem;">
+          Sve slike sa eksternih URL-ova biće prebačene na Cloudinary. URL-ovi u bazi će biti zamenjeni. <strong>Ova akcija se ne može poništiti.</strong>
+        </p>
+        <div id="migrate-cat-result" class="alert d-none" style="margin-top: 1rem;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+        <button type="button" class="btn" id="migrate-cat-btn" onclick="executeMigrateCategory()"
+          style="background: linear-gradient(135deg, #ea580c 0%, #0c55c2 100%); color: white; border: none;">
+          <i class="fa fa-cloud-upload mr-1"></i> Pokreni migraciju
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="admin.js"></script>
 <script>
   initPage();
+
   let editingId = null;
-  let allCategories = [];
+  let allCategories = [];   // full tree from API
+  let godCategories = [];   // GoD categories with mappings
+  let activeGodTab = 'all'; // current tab
 
-  function loadCategories() {
-    api('/api/categories').then(data => {
-      allCategories = data;
-      saveCategoriesList(data);
-      populateParentSelect(data);
-      
-      // Apply filter if it exists, otherwise show all
-      const savedFilter = getSearchFilter();
-      if (savedFilter) {
-        $('#search-categories').val(savedFilter).trigger('keyup');
-      } else {
-        renderCategories(data);
-      }
+  // ─── Init ─────────────────────────────────────────────────────────────────
+
+  $(document).ready(function() {
+    if (getAuth()) {
+      loadData();
+    }
+  });
+
+  function loadData() {
+    Promise.all([
+      api('/api/categories'),
+      api('/api/admin/god-categories')
+    ]).then(([categories, gods]) => {
+      allCategories = categories;
+      godCategories = gods;
+      buildGodTabs(gods, categories);
+      renderView();
+    }).catch(() => {
+      // Fallback: load categories without god grouping
+      api('/api/categories').then(data => {
+        allCategories = data;
+        godCategories = [];
+        renderView();
+      });
     });
   }
 
-  function renderCategories(nodes, level = 0) {
-    if (!nodes || nodes.length === 0) {
-      if (level === 0) {
-        $('#categories-container').html(
-          '<div class="empty-state">' +
-          '<div class="empty-state-icon"><i class="fa fa-folder-open"></i></div>' +
-          '<p>Nema kategorija. Kreirajte novu!</p>' +
-          '</div>'
-        );
-      }
-      return '';
-    }
+  // ─── GoD Tabs ─────────────────────────────────────────────────────────────
 
-    let html = level === 0 ? '<ul class="category-list">' : '<div class="category-tree-level"><ul class="category-list">';
-
-    nodes.forEach(cat => {
-      const displayText = cat.displayName || cat.name;
-      const secondaryText = cat.displayName ? cat.name + ' → ' + cat.slug : cat.slug;
-      
-      html += '<li class="category-item">' +
-        '<div class="category-icon"><i class="fa fa-folder"></i></div>' +
-        '<div class="category-info">' +
-        '<span class="category-name">' + escapeHtml(displayText) + '</span>' +
-        '<span class="category-slug">' + escapeHtml(secondaryText) + '</span>' +
-        '</div>' +
-        '<div class="category-actions">' +
-        '<button class="btn-category edit" onclick="editCategory(' + cat.id + ')" title="Uredi"><i class="fa fa-edit"></i></button>' +
-        '<button class="btn-category delete" onclick="deleteCategory(' + cat.id + ', \'' + escapeHtml(cat.name).replace(/'/g, "\\'") + '\')" title="Obriši"><i class="fa fa-trash"></i></button>' +
-        '</div>' +
-        '</li>';
-
-      if (cat.children && cat.children.length > 0) {
-        const childHtml = renderCategoriesHtml(cat.children, level + 1);
-        html += childHtml;
-      }
+  function buildGodTabs(gods, categories) {
+    // Build a map: categoryId → godCategoryId
+    const catToGod = {};
+    gods.forEach(g => {
+      (g.mappedCategories || []).forEach(mc => { catToGod[mc.id] = g.id; });
     });
 
-    html += level === 0 ? '</ul>' : '</ul></div>';
-    
-    if (level === 0) {
-      $('#categories-container').html(html);
+    // Count root categories per GoD
+    const unmappedIds = new Set(
+      categories.filter(c => !c.parentId && !catToGod[c.id]).map(c => c.id)
+    );
+
+    let html = '';
+    gods.forEach(g => {
+      const count = (g.mappedCategories || []).length;
+      const icon = g.iconClass || 'fa-folder';
+      html += `<button class="god-tab-btn" data-god-id="${g.id}" onclick="selectGodTab(${g.id}, this)">
+        <i class="fa ${icon}" style="margin-right:4px;"></i>${g.displayName || g.name}
+        <span class="tab-count">${count}</span>
+      </button>`;
+    });
+
+    // Update unmapped count
+    const unmappedCount = unmappedIds.size;
+    const unmappedBtn = $('[data-god-id="unmapped"]');
+    unmappedBtn.html(`<i class="fa fa-exclamation-circle" style="margin-right:4px;"></i>Nemapirano <span class="tab-count" style="background:#ffd0a0;color:#7a4a10;">${unmappedCount}</span>`);
+    if (unmappedCount === 0) unmappedBtn.hide();
+
+    $('#god-tab-buttons').html(html);
+  }
+
+  function selectGodTab(godId, btn) {
+    activeGodTab = godId;
+    $('.god-tab-btn').removeClass('active');
+    $(btn).addClass('active');
+    renderView();
+  }
+
+  // ─── Rendering ────────────────────────────────────────────────────────────
+
+  function renderView() {
+    const query = $('#search-categories').val().toLowerCase().trim();
+
+    if (query) {
+      // Search mode: flat filtered list across all categories
+      renderSearchResults(query);
+      return;
+    }
+
+    if (activeGodTab === 'all') {
+      renderAllGrouped();
+    } else if (activeGodTab === 'unmapped') {
+      renderUnmapped();
+    } else {
+      renderSingleGod(activeGodTab);
+    }
+  }
+
+  /** Build a map of root categoryId → GoD category */
+  function buildCatToGodMap() {
+    const map = {};
+    godCategories.forEach(g => {
+      (g.mappedCategories || []).forEach(mc => { map[mc.id] = g; });
+    });
+    return map;
+  }
+
+  function renderAllGrouped() {
+    const catToGod = buildCatToGodMap();
+    let html = '';
+
+    // Render each GoD group
+    godCategories.forEach(g => {
+      const mappedRootIds = new Set((g.mappedCategories || []).map(mc => mc.id));
+      // Find those root categories in the full tree
+      const rootCats = allCategories.filter(c => !c.parentId && mappedRootIds.has(c.id));
+      if (rootCats.length === 0) return;
+
+      const icon = g.iconClass || 'fa-folder';
+      html += `<div class="god-group-section">
+        <div class="god-group-header">
+          <i class="fa ${icon} god-icon"></i>
+          <span>${g.displayName || g.name}</span>
+          <span class="god-cat-count">${rootCats.length} root kategori${rootCats.length === 1 ? 'ja' : 'ja'}</span>
+        </div>
+        <ul class="category-list">${rootCats.map(c => renderRootCategoryItem(c)).join('')}</ul>
+      </div>`;
+    });
+
+    // Unmapped section
+    const mappedIds = new Set(Object.keys(buildCatToGodMap()).map(Number));
+    const unmapped = allCategories.filter(c => !c.parentId && !mappedIds.has(c.id));
+    if (unmapped.length > 0) {
+      html += `<div class="god-group-section unmapped-section">
+        <div class="god-group-header">
+          <i class="fa fa-exclamation-circle god-icon"></i>
+          <span>Nemapirane root kategorije</span>
+          <span class="god-cat-count">${unmapped.length} kategorij${unmapped.length === 1 ? 'a' : 'a'}</span>
+        </div>
+        <ul class="category-list">${unmapped.map(c => renderRootCategoryItem(c)).join('')}</ul>
+      </div>`;
+    }
+
+    if (!html) {
+      html = '<div class="empty-state"><div class="empty-state-icon"><i class="fa fa-folder-open"></i></div><p>Nema kategorija.</p></div>';
+    }
+    $('#categories-container').html(html);
+  }
+
+  function renderSingleGod(godId) {
+    const g = godCategories.find(g => g.id == godId);
+    if (!g) return;
+
+    const mappedRootIds = new Set((g.mappedCategories || []).map(mc => mc.id));
+    const rootCats = allCategories.filter(c => !c.parentId && mappedRootIds.has(c.id));
+
+    const icon = g.iconClass || 'fa-folder';
+    let html = `<div class="god-group-section">
+      <div class="god-group-header">
+        <i class="fa ${icon} god-icon"></i>
+        <span>${g.displayName || g.name}</span>
+        <span class="god-cat-count">${rootCats.length} root kategorija</span>
+      </div>`;
+
+    if (rootCats.length > 0) {
+      html += `<ul class="category-list">${rootCats.map(c => renderRootCategoryItem(c)).join('')}</ul>`;
+    } else {
+      html += '<div class="empty-state"><div class="empty-state-icon"><i class="fa fa-folder-open"></i></div><p>Nema kategorija u ovoj GoD grupi.</p></div>';
+    }
+    html += '</div>';
+    $('#categories-container').html(html);
+  }
+
+  function renderUnmapped() {
+    const mappedIds = new Set(Object.keys(buildCatToGodMap()).map(Number));
+    const unmapped = allCategories.filter(c => !c.parentId && !mappedIds.has(c.id));
+
+    let html = '<div class="god-group-section unmapped-section">';
+    html += `<div class="god-group-header">
+      <i class="fa fa-exclamation-circle god-icon"></i>
+      <span>Nemapirane root kategorije</span>
+      <span class="god-cat-count">${unmapped.length} kategorija</span>
+    </div>`;
+
+    if (unmapped.length > 0) {
+      html += `<ul class="category-list">${unmapped.map(c => renderRootCategoryItem(c)).join('')}</ul>`;
+    } else {
+      html += '<div class="empty-state"><div class="empty-state-icon"><i class="fa fa-check-circle" style="color:#10b981;"></i></div><p>Sve root kategorije su mapirane!</p></div>';
+    }
+    html += '</div>';
+    $('#categories-container').html(html);
+  }
+
+  function renderSearchResults(query) {
+    const filtered = filterCategories(allCategories, query);
+    if (filtered.length === 0) {
+      $('#categories-container').html(
+        '<div class="empty-state"><div class="empty-state-icon"><i class="fa fa-search"></i></div><p>Nema rezultata za: "' + escapeHtml(query) + '"</p></div>'
+      );
+      return;
+    }
+    let html = '<ul class="category-list">' + filtered.map(c => renderRootCategoryItem(c)).join('') + '</ul>';
+    $('#categories-container').html(html);
+  }
+
+  /** Render a root category item with its children tree */
+  function renderRootCategoryItem(cat) {
+    const displayText = cat.displayName || cat.name;
+    const secondaryText = cat.displayName ? cat.name + ' → ' + cat.slug : cat.slug;
+    const isInactive = cat.isActive === false ? ' style="opacity:0.55;"' : '';
+
+    let html = `<li class="category-item"${isInactive}>
+      <div class="category-icon"><i class="fa fa-folder"></i></div>
+      <div class="category-info">
+        <span class="category-name">${escapeHtml(displayText)}${cat.isActive === false ? ' <span style="font-size:0.75rem;color:#ef4444;">(neaktivna)</span>' : ''}</span>
+        <span class="category-slug">${escapeHtml(secondaryText)}</span>
+      </div>
+      <div class="category-actions">
+        <button class="btn-category edit" onclick="editCategory(${cat.id})" title="Uredi"><i class="fa fa-edit"></i></button>
+        <button class="btn-category delete" onclick="deleteCategory(${cat.id}, '${escapeHtml(cat.name).replace(/'/g, "\\'")}')" title="Obriši"><i class="fa fa-trash"></i></button>
+      </div>
+    </li>`;
+
+    if (cat.children && cat.children.length > 0) {
+      html += '<div class="category-tree-level"><ul class="category-list">';
+      html += cat.children.map(child => renderChildCategoryItem(child)).join('');
+      html += '</ul></div>';
     }
     return html;
   }
 
-  function renderCategoriesHtml(nodes, level) {
-    if (!nodes || nodes.length === 0) return '';
+  function renderChildCategoryItem(cat) {
+    const displayText = cat.displayName || cat.name;
+    const secondaryText = cat.displayName ? cat.name + ' → ' + cat.slug : cat.slug;
+    const markupBadge = cat.markupPercent != null
+      ? ` &nbsp;|&nbsp; <span style="color:#7c3aed;font-weight:600;">markup: ${cat.markupPercent}%</span>` : '';
+    const isInactive = cat.isActive === false ? ' style="opacity:0.55;"' : '';
 
-    let html = '<div class="category-tree-level"><ul class="category-list">';
-    nodes.forEach(cat => {
-      const displayText = cat.displayName || cat.name;
-      const secondaryText = cat.displayName ? cat.name + ' → ' + cat.slug : cat.slug;
-      
-      html += '<li class="category-item">' +
-        '<div class="category-icon"><i class="fa fa-folder"></i></div>' +
-        '<div class="category-info">' +
-        '<span class="category-name">' + escapeHtml(displayText) + '</span>' +
-        '<span class="category-slug">' + escapeHtml(secondaryText) + (cat.markupPercent != null ? ' &nbsp;|&nbsp; <span style="color:#7c3aed;font-weight:600;">markup: ' + cat.markupPercent + '%</span>' : '') + '</span>' +
-        '</div>' +
-        '<div class="category-actions">' +
-        '<button class="btn-category recalc" onclick="openRecalcModal(' + cat.id + ', \'' + escapeHtml(displayText).replace(/'/g, "\\'") + '\')" title="Preračunaj naše web cene"><i class="fa fa-calculator"></i></button>' +
-        '<button class="btn-category edit" onclick="editCategory(' + cat.id + ')" title="Uredi"><i class="fa fa-edit"></i></button>' +
-        '<button class="btn-category delete" onclick="deleteCategory(' + cat.id + ', \'' + escapeHtml(cat.name).replace(/'/g, "\\'") + '\')" title="Obriši"><i class="fa fa-trash"></i></button>' +
-        '</div>' +
-        '</li>';
+    let html = `<li class="category-item"${isInactive}>
+      <div class="category-icon"><i class="fa fa-folder-o"></i></div>
+      <div class="category-info">
+        <span class="category-name">${escapeHtml(displayText)}${cat.isActive === false ? ' <span style="font-size:0.75rem;color:#ef4444;">(neaktivna)</span>' : ''}</span>
+        <span class="category-slug">${escapeHtml(secondaryText)}${markupBadge}</span>
+      </div>
+      <div class="category-actions">
+        <button class="btn-category recalc" onclick="openRecalcModal(${cat.id}, '${escapeHtml(displayText).replace(/'/g, "\\'")}')" title="Preračunaj cene"><i class="fa fa-calculator"></i></button>
+        <button class="btn-category migrate" onclick="openMigrateModal(${cat.id}, '${escapeHtml(displayText).replace(/'/g, "\\'")}')" title="Grupna migracija slika"><i class="fa fa-cloud-upload"></i></button>
+        <button class="btn-category edit" onclick="editCategory(${cat.id})" title="Uredi"><i class="fa fa-edit"></i></button>
+        <button class="btn-category delete" onclick="deleteCategory(${cat.id}, '${escapeHtml(cat.name).replace(/'/g, "\\'")}')" title="Obriši"><i class="fa fa-trash"></i></button>
+      </div>
+    </li>`;
 
-      if (cat.children && cat.children.length > 0) {
-        html += renderCategoriesHtml(cat.children, level + 1);
+    if (cat.children && cat.children.length > 0) {
+      html += '<div class="category-tree-level"><ul class="category-list">';
+      html += cat.children.map(child => renderChildCategoryItem(child)).join('');
+      html += '</ul></div>';
+    }
+    return html;
+  }
+
+  function filterCategories(nodes, query) {
+    if (!nodes) return [];
+    const result = [];
+    nodes.forEach(n => {
+      const nameMatch = (n.name || '').toLowerCase().includes(query);
+      const displayMatch = (n.displayName || '').toLowerCase().includes(query);
+      const slugMatch = (n.slug || '').toLowerCase().includes(query);
+      const childMatches = filterCategories(n.children, query);
+      if (nameMatch || displayMatch || slugMatch || childMatches.length > 0) {
+        result.push({ ...n, children: childMatches.length > 0 ? childMatches : (n.children || []) });
       }
     });
-    html += '</ul></div>';
-    return html;
+    return result;
   }
 
   function escapeHtml(text) {
-    const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
-    return text.replace(/[&<>"']/g, m => map[m]);
+    if (!text) return '';
+    return String(text).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
   }
+
+  // ─── Search ───────────────────────────────────────────────────────────────
+
+  $('#search-categories').on('input', function() {
+    renderView();
+  });
+
+  // ─── Category Modal ───────────────────────────────────────────────────────
 
   function populateParentSelect(tree) {
     const flat = flattenCategories(tree);
@@ -576,42 +719,17 @@
     });
   }
 
-  function openCategoryModal() {
-    editingId = null;
-    resetForm();
-    $('#modal-title').html('<i class="fa fa-folder-o mr-2"></i>Nova kategorija');
-    $('#category-flags-section').show();
-    updateCheckboxVisibility($('#f-parent').val());
-    $('#categoryModal').modal('show');
-  }
-
-  function editCategory(id) {
-    editingId = id;
-    api('/api/categories').then(data => {
-      const found = findInTree(data, id);
-      if (!found) return;
-      
-      // Populate parent select FIRST
-      populateParentSelect(data);
-      
-      // Then fill form values
-      $('#modal-title').html('<i class="fa fa-folder-open-o mr-2"></i> Uredi: ' + escapeHtml(found.displayName || found.name));
-      $('#f-name').val(found.name);
-      $('#f-display-name').val(found.displayName || '');
-      $('#f-slug').val(found.slug);
-      $('#f-parent').val(found.parentId || '');
-      $('#f-show-in-nav').prop('checked', found.showInNav === true);
-      $('#f-is-active').prop('checked', found.isActive === true);
-      // Use 'newProductsCategory' instead of 'isNewProductsCategory' since Jackson removes 'is' prefix
-      $('#f-is-new-products').prop('checked', found.newProductsCategory === true);
-      $('#f-is-top-selling').prop('checked', found.topSellingCategory === true);
-      $('#f-markup-percent').val(found.markupPercent != null ? found.markupPercent : '');
-      
-      $('#category-flags-section').show();
-      updateCheckboxVisibility(found.parentId);
-      
-      $('#categoryModal').modal('show');
-    });
+  function flattenCategories(tree) {
+    let result = [];
+    function traverse(nodes) {
+      if (!nodes) return;
+      nodes.forEach(n => {
+        result.push({ id: n.id, name: n.name });
+        if (n.children) traverse(n.children);
+      });
+    }
+    traverse(tree);
+    return result;
   }
 
   function findInTree(nodes, id) {
@@ -622,28 +740,40 @@
     return null;
   }
 
-  function flattenCategories(tree) {
-    let result = [];
-    function traverse(nodes) {
-      if (!nodes) return;
-      nodes.forEach(n => {
-        result.push({id: n.id, name: n.name});
-        if (n.children) traverse(n.children);
-      });
-    }
-    traverse(tree);
-    return result;
-  }
-
-  function resetForm() {
+  function openCategoryModal() {
+    editingId = null;
     $('#categoryForm')[0].reset();
     $('#form-alert').addClass('d-none');
+    $('#modal-title').html('<i class="fa fa-folder-o mr-2"></i>Nova kategorija');
+    populateParentSelect(allCategories);
+    updateCheckboxVisibility('');
+    $('#categoryModal').modal('show');
+  }
+
+  function editCategory(id) {
+    editingId = id;
+    const found = findInTree(allCategories, id);
+    if (!found) return;
+
+    populateParentSelect(allCategories);
+    $('#modal-title').html('<i class="fa fa-folder-open-o mr-2"></i>Uredi: ' + escapeHtml(found.displayName || found.name));
+    $('#f-name').val(found.name);
+    $('#f-display-name').val(found.displayName || '');
+    $('#f-slug').val(found.slug);
+    $('#f-parent').val(found.parentId || '');
+    $('#f-show-in-nav').prop('checked', found.showInNav === true);
+    $('#f-is-active').prop('checked', found.isActive === true);
+    $('#f-is-new-products').prop('checked', found.newProductsCategory === true);
+    $('#f-is-top-selling').prop('checked', found.topSellingCategory === true);
+    $('#f-markup-percent').val(found.markupPercent != null ? found.markupPercent : '');
+    $('#form-alert').addClass('d-none');
+
+    updateCheckboxVisibility(found.parentId);
+    $('#categoryModal').modal('show');
   }
 
   function updateCheckboxVisibility(parentId) {
-    // Omogućeno za SVE kategorije (i root i subkategorije)
     $('#category-flags-section').show();
-    // Markup je samo za subkategorije (ima parenta)
     if (parentId) {
       $('#markup-field-group').show();
     } else {
@@ -652,43 +782,31 @@
     }
   }
 
-  // Update visibility when parent changes
   $('#f-parent').on('change', function() {
     updateCheckboxVisibility($(this).val());
   });
 
+  // Auto-generate slug from name (only for new categories)
+  $('#f-name').on('input', function() {
+    if (!editingId) {
+      const slug = $(this).val().toLowerCase()
+        .replace(/ć/g,'c').replace(/č/g,'c').replace(/ž/g,'z').replace(/š/g,'s').replace(/đ/g,'d')
+        .replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').trim();
+      $('#f-slug').val(slug);
+    }
+  });
+
   function showFormAlert(msg, type) {
-    const alert = $('#form-alert');
-    alert.removeClass('d-none alert-success alert-danger')
-      .addClass('alert-' + type)
-      .text(msg);
-  }
-
-  function showNotification(message, type) {
-    const notification = $('<div></div>')
-      .addClass('alert-notification ' + type)
-      .html('<i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + message)
-      .appendTo('body');
-
-    setTimeout(() => {
-      notification.fadeOut(300, function() {
-        $(this).remove();
-      });
-    }, 3000);
+    $('#form-alert').removeClass('d-none alert-success alert-danger').addClass('alert-' + type).text(msg);
   }
 
   function saveCategory() {
     const name = $('#f-name').val().trim();
-    if (!name) {
-      showFormAlert('Naziv je obavezan', 'danger');
-      return;
-    }
+    if (!name) { showFormAlert('Naziv je obavezan', 'danger'); return; }
 
-    const displayName = $('#f-display-name').val().trim() || null;
-    
     const payload = {
       name,
-      displayName: displayName,
+      displayName: $('#f-display-name').val().trim() || null,
       slug: $('#f-slug').val().trim() || null,
       parentId: $('#f-parent').val() ? parseInt($('#f-parent').val()) : null,
       showInNav: $('#f-show-in-nav').is(':checked'),
@@ -698,23 +816,22 @@
       markupPercent: $('#f-markup-percent').val() ? parseInt($('#f-markup-percent').val()) : null
     };
 
-    console.log('Saving category with payload:', payload);
+    const promise = editingId
+      ? apiPut('/api/admin/categories/' + editingId, payload)
+      : apiPost('/api/admin/categories', payload);
 
-    const promise = editingId ? apiPut('/api/admin/categories/' + editingId, payload) : apiPost('/api/admin/categories', payload);
     promise.then(() => {
-      showNotification(editingId ? ' Kategorija ažurirana' : ' Kategorija kreirana', 'success');
+      showNotification(editingId ? 'Kategorija ažurirana' : 'Kategorija kreirana', 'success');
       $('#categoryModal').modal('hide');
-      // Clear cache after modification but keep filter
-      clearCategoriesList();
-      loadCategories();
+      loadData();
     }).catch(err => {
-      console.error('Error saving category:', err);
       showFormAlert('Greška: ' + (err.message || 'Nepoznata greška'), 'danger');
     });
   }
 
+  // ─── Delete ───────────────────────────────────────────────────────────────
+
   function deleteCategory(id, name) {
-    // Postavi ID i ime za modal
     window.deleteConfirmId = id;
     $('#delete-category-name').text(name);
     $('#deleteConfirmModal').modal('show');
@@ -723,120 +840,22 @@
   function confirmDelete() {
     const id = window.deleteConfirmId;
     if (!id) return;
-    
     $('#deleteConfirmModal').modal('hide');
-    
     apiDelete('/api/admin/categories/' + id).then(() => {
       showNotification('Kategorija obrisana', 'success');
-      // Clear cache after modification but keep filter
-      clearCategoriesList();
-      loadCategories();
+      loadData();
     }).catch(err => {
       showNotification('Greška pri brisanju: ' + (err.message || 'Nepoznata greška'), 'error');
     });
   }
 
-  // Search with filter persistence
-  function saveSearchFilter(query) {
-    localStorage.setItem('admin_categories_filter', query);
-  }
+  // ─── Recalculate prices ───────────────────────────────────────────────────
 
-  function getSearchFilter() {
-    return localStorage.getItem('admin_categories_filter') || '';
-  }
-
-  // Categories list cache
-  function saveCategoriesList(data) {
-    localStorage.setItem('admin_categories_list', JSON.stringify(data));
-  }
-
-  function getCategoriesList() {
-    const saved = localStorage.getItem('admin_categories_list');
-    return saved ? JSON.parse(saved) : null;
-  }
-
-  function clearCategoriesList() {
-    localStorage.removeItem('admin_categories_list');
-  }
-
-  $('#search-categories').on('keyup', function() {
-    const query = $(this).val().toLowerCase();
-    saveSearchFilter($(this).val());
-    
-    if (!query) {
-      renderCategories(allCategories);
-      return;
-    }
-
-    const filtered = filterCategories(allCategories, query);
-    if (filtered.length === 0) {
-      $('#categories-container').html(
-        '<div class="empty-state">' +
-        '<div class="empty-state-icon"><i class="fa fa-search"></i></div>' +
-        '<p>Nema rezultata za: "' + escapeHtml(query) + '"</p>' +
-        '</div>'
-      );
-    } else {
-      renderCategories(filtered);
-    }
-  });
-
-  function filterCategories(nodes, query) {
-    if (!nodes) return [];
-    return nodes.filter(n => {
-      const matches = n.name.toLowerCase().includes(query) || n.slug.toLowerCase().includes(query);
-      const childMatches = n.children ? filterCategories(n.children, query) : [];
-      if (matches || childMatches.length > 0) {
-        return {
-          ...n,
-          children: childMatches.length > 0 ? childMatches : (n.children || [])
-        };
-      }
-      return null;
-    }).filter(n => n !== null);
-  }
-
-  $(document).ready(function() {
-    if (getAuth()) {
-      // Try to restore from cache first
-      const cachedList = getCategoriesList();
-      if (cachedList) {
-        allCategories = cachedList;
-        populateParentSelect(cachedList);
-        
-        // Restore filter with cached list
-        const savedFilter = getSearchFilter();
-        if (savedFilter) {
-          $('#search-categories').val(savedFilter).trigger('keyup');
-        } else {
-          renderCategories(cachedList);
-        }
-      }
-      
-      // Load fresh data from server
-      api('/api/categories').then(data => {
-        allCategories = data;
-        saveCategoriesList(data);
-        populateParentSelect(data);
-        
-        // Refresh with fresh data and same filter
-        const savedFilter = getSearchFilter();
-        if (savedFilter) {
-          $('#search-categories').val(savedFilter).trigger('keyup');
-        } else {
-          renderCategories(data);
-        }
-      });
-    }
-  });
-
-  // --- Recalculate prices ---
   let recalcCategoryId = null;
 
   function openRecalcModal(id, name) {
     recalcCategoryId = id;
     $('#recalc-category-name').text(name);
-    // Preuzmi markup iz kategorije ako postoji
     const cat = findInTree(allCategories, id);
     const defaultMarkup = (cat && cat.markupPercent != null) ? cat.markupPercent : 30;
     $('#recalc-markup').val(defaultMarkup);
@@ -851,24 +870,75 @@
       $('#recalc-result').removeClass('d-none alert-success').addClass('alert alert-danger').text('Unesite markup između 1 i 500.');
       return;
     }
-
     $('#recalc-btn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Čekaj...');
     $('#recalc-result').addClass('d-none');
 
     api('/api/admin/categories/' + recalcCategoryId + '/recalculate-prices?markupPercent=' + markup, { method: 'POST' })
       .then(res => {
-        $('#recalc-result')
-          .removeClass('d-none alert-danger')
-          .addClass('alert alert-success')
-          .html('<i class="fa fa-check-circle mr-1"></i> Ažurirano <strong>' + res.updatedCount + '</strong> artikala za kategoriju <strong>' + escapeHtml(res.categoryName) + '</strong> sa markupom <strong>' + markup + '%</strong>.');
+        $('#recalc-result').removeClass('d-none alert-danger').addClass('alert alert-success')
+          .html('<i class="fa fa-check-circle mr-1"></i> Ažurirano <strong>' + res.updatedCount + '</strong> artikala za <strong>' + escapeHtml(res.categoryName) + '</strong> sa markupom <strong>' + markup + '%</strong>.');
         $('#recalc-btn').prop('disabled', false).html('<i class="fa fa-calculator mr-1"></i> Pokreni ponovo');
       })
       .catch(err => {
-        $('#recalc-result')
-          .removeClass('d-none alert-success')
-          .addClass('alert alert-danger')
+        $('#recalc-result').removeClass('d-none alert-success').addClass('alert alert-danger')
           .text('Greška: ' + (err.message || 'Nepoznata greška'));
         $('#recalc-btn').prop('disabled', false).html('<i class="fa fa-calculator mr-1"></i> Pokreni');
+      });
+  }
+
+  // ─── Notification ─────────────────────────────────────────────────────────
+
+  function showNotification(message, type) {
+    const n = $('<div></div>').addClass('alert-notification ' + type)
+      .html('<i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + message)
+      .appendTo('body');
+    setTimeout(() => { n.fadeOut(300, function() { $(this).remove(); }); }, 3000);
+  }
+
+  // ─── Category Image Migration ──────────────────────────────────────────────
+
+  let migrateCategoryId = null;
+
+  function openMigrateModal(id, name) {
+    migrateCategoryId = id;
+    $('#migrate-cat-name').text(name);
+    $('#migrate-cat-count').text('...');
+    $('#migrate-cat-result').addClass('d-none').removeClass('alert alert-success alert-danger').text('');
+    $('#migrate-cat-btn').prop('disabled', false).html('<i class="fa fa-cloud-upload mr-1"></i> Pokreni migraciju');
+
+    // Učitaj broj nemigriranih slika
+    api('/api/admin/categories/' + id + '/images/migration-status')
+      .then(res => {
+        const count = res.nonMigratedCount || 0;
+        $('#migrate-cat-count').text(count);
+        if (count === 0) {
+          $('#migrate-cat-btn').prop('disabled', true);
+          $('#migrate-cat-result').removeClass('d-none alert-danger').addClass('alert alert-success')
+            .html('<i class="fa fa-check-circle mr-1"></i> Sve slike su već na Cloudinaryju.');
+        }
+      })
+      .catch(() => $('#migrate-cat-count').text('?'));
+
+    $('#migrateCatModal').modal('show');
+  }
+
+  function executeMigrateCategory() {
+    if (!migrateCategoryId) return;
+    $('#migrate-cat-btn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-1"></i> Migracija u toku...');
+    $('#migrate-cat-result').addClass('d-none');
+
+    apiPost('/api/admin/categories/' + migrateCategoryId + '/images/migrate-to-cloudinary', {})
+      .then(res => {
+        const msg = res.message || ('Migrirano ' + (res.migrated || 0) + ' slika.');
+        $('#migrate-cat-result').removeClass('d-none alert-danger').addClass('alert alert-success')
+          .html('<i class="fa fa-check-circle mr-1"></i> ' + escapeHtml(msg));
+        $('#migrate-cat-btn').prop('disabled', true).html('<i class="fa fa-check mr-1"></i> Završeno');
+      })
+      .catch(err => {
+        const msg = (err.responseJSON && err.responseJSON.message) || 'Greška pri migraciji.';
+        $('#migrate-cat-result').removeClass('d-none alert-success').addClass('alert alert-danger')
+          .html('<i class="fa fa-times-circle mr-1"></i> ' + escapeHtml(msg));
+        $('#migrate-cat-btn').prop('disabled', false).html('<i class="fa fa-cloud-upload mr-1"></i> Pokušaj ponovo');
       });
   }
 </script>

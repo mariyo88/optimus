@@ -40,12 +40,12 @@
             var list = this.get();
 
             if (list.some(function (i) { return i.productId === productId; })) {
-                self.showToast('Proizvod je već dodat za poređenje.', 'info');
+                self.showInfoBanner('Proizvod je već dodat za poređenje.', 'info');
                 return;
             }
 
             if (list.length >= MAX_ITEMS) {
-                self.showToast('Možete porediti najviše ' + MAX_ITEMS + ' proizvoda.', 'warn');
+                self.showInfoBanner('Možete porediti najviše ' + MAX_ITEMS + ' proizvoda.', 'warn');
                 return;
             }
 
@@ -57,7 +57,7 @@
 
             this.save(list);
             self.refreshButtonState(productId, true);
-            self.showToast('Dodato za poređenje!', 'ok');
+            self.showInfoBanner('Proizvod je dodat za poređenje!', 'ok');
         },
 
         remove: function (productId) {
@@ -96,17 +96,20 @@
 
         /**
          * Load full product details for every compare item.
+         * Removes inactive or deleted products from localStorage and shows a banner.
          * Calls callback(enrichedItems) where each item has the full product object.
          */
         loadDetails: function (callback) {
+            var self = this;
             var list = this.get();
             if (list.length === 0) {
                 callback([]);
                 return;
             }
 
-            var loaded   = 0;
-            var enriched = [];
+            var loaded       = 0;
+            var enriched     = [];
+            var removedNames = [];
 
             list.forEach(function (item) {
                 var identifier = item.productSlug || item.productId;
@@ -115,17 +118,29 @@
                     url:    API_BASE + '/api/products/' + identifier,
                     method: 'GET',
                     success: function (product) {
+                        if (product.active === false) {
+                            // Inactive — remove from localStorage silently
+                            removedNames.push(product.name || String(identifier));
+                            self.remove(item.productId);
+                            return;
+                        }
                         enriched.push({
                             product: product,
                             addedAt: item.addedAt
                         });
                     },
                     error: function () {
+                        // 404 / deleted — remove from localStorage
                         console.warn('Compare product not found:', identifier);
+                        removedNames.push(String(identifier));
+                        self.remove(item.productId);
                     },
                     complete: function () {
                         loaded++;
                         if (loaded === list.length) {
+                            if (removedNames.length > 0) {
+                                self.showRemovedBanner(removedNames);
+                            }
                             // Preserve add-order
                             enriched.sort(function (a, b) {
                                 return new Date(a.addedAt) - new Date(b.addedAt);
@@ -135,6 +150,50 @@
                     }
                 });
             });
+        },
+
+        /**
+         * Show a slide-in banner at the top of the page when inactive/deleted
+         * products are removed from the compare list on load.
+         */
+        showRemovedBanner: function (names) {
+            var isSingle = names.length === 1;
+            var message  = isSingle
+                ? '"' + names[0] + '" je uklonjen iz liste poređenja jer više nije dostupan.'
+                : names.length + ' artikla su uklonjena iz liste poređenja jer više nisu dostupna.';
+
+            $('#cmp-removed-banner').remove();
+
+            var $banner = $([
+                '<div id="cmp-removed-banner" style="',
+                '  position:fixed;top:0;left:0;right:0;',
+                '  z-index:10001;',
+                '  background:linear-gradient(135deg,#2a0008 0%,#1E1F29 100%);',
+                '  padding:10px 15px;',
+                '  transform:translateY(-100%);',
+                '  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);',
+                '">',
+                '  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;">',
+                '    <span style="color:#fff;font-size:13px;line-height:1.4;">',
+                '      <i class="fa fa-exclamation-triangle" style="color:#e74c3c;margin-right:8px;"></i>',
+                       message,
+                '    </span>',
+                '  </div>',
+                '</div>'
+            ].join(''));
+
+            $('body').append($banner);
+
+            // Slide in
+            requestAnimationFrame(function () {
+                $banner.css('transform', 'translateY(0)');
+            });
+
+            // Auto-dismiss after 5 s
+            setTimeout(function () {
+                $banner.css('transform', 'translateY(-100%)');
+                setTimeout(function () { $banner.remove(); }, 400);
+            }, 5000);
         },
 
         // ── UI helpers ────────────────────────────────────────────────────────
@@ -187,6 +246,49 @@
         },
 
         // ── Toast notification ────────────────────────────────────────────────
+
+        showInfoBanner: function (message, type) {
+            var gradient = type === 'warn' ? 'linear-gradient(135deg,#4a2600 0%,#1E1F29 100%)'
+                         : type === 'ok'   ? 'linear-gradient(135deg,#003320 0%,#1E1F29 100%)'
+                         :                   'linear-gradient(135deg,#1a1a2e 0%,#1E1F29 100%)';
+            var icon     = type === 'warn' ? 'fa-exclamation-triangle'
+                         : type === 'ok'   ? 'fa-check-circle'
+                         :                   'fa-info-circle';
+            var iconColor = type === 'warn' ? '#e67e22'
+                          : type === 'ok'   ? '#2ecc71'
+                          :                   '#3498db';
+
+            $('#cmp-info-banner').remove();
+
+            var $banner = $([
+                '<div id="cmp-info-banner" style="',
+                '  position:fixed;top:0;left:0;right:0;',
+                '  z-index:10001;',
+                '  background:' + gradient + ';',
+                '  padding:10px 15px;',
+                '  transform:translateY(-100%);',
+                '  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);',
+                '">',
+                '  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;">',
+                '    <span style="color:#fff;font-size:13px;line-height:1.4;">',
+                '      <i class="fa ' + icon + '" style="color:' + iconColor + ';margin-right:8px;"></i>',
+                       message,
+                '    </span>',
+                '  </div>',
+                '</div>'
+            ].join(''));
+
+            $('body').append($banner);
+
+            requestAnimationFrame(function () {
+                $banner.css('transform', 'translateY(0)');
+            });
+
+            setTimeout(function () {
+                $banner.css('transform', 'translateY(-100%)');
+                setTimeout(function () { $banner.remove(); }, 400);
+            }, 3000);
+        },
 
         showToast: function (message, type) {
             var bgColor = type === 'info'  ? '#555'    :

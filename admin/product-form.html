@@ -165,9 +165,55 @@
     }
     .add-button:hover { background: #667eea; color: white; border-style: solid; }
 
+    /* ── Cloudinary migrate button ── */
+    .btn-migrate-cloudinary {
+      padding: 0.35rem 0.6rem;
+      border-radius: 5px;
+      border: 1px solid #fb923c;
+      background: white;
+      color: #ea580c;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .btn-migrate-cloudinary:hover { background: #fff7ed; border-color: #ea580c; }
+    .btn-migrate-cloudinary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .cloudinary-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+    }
+    .cloudinary-badge.on-cloud { background: #d1fae5; color: #065f46; }
+    .cloudinary-badge.not-on-cloud { background: #fee2e2; color: #991b1b; }
+
+    .btn-migrate-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      border: 1px solid #fb923c;
+      background: #fff7ed;
+      color: #c2410c;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    .btn-migrate-all:hover { background: #ffedd5; border-color: #ea580c; }
+    .btn-migrate-all:disabled { opacity: 0.5; cursor: not-allowed; }
+
     .dynamic-row {
       display: grid;
-      grid-template-columns: 1fr 80px auto auto;
       gap: 0.5rem;
       align-items: center;
       padding: 0.5rem 0.6rem;
@@ -175,6 +221,12 @@
       border-radius: 5px;
       margin-bottom: 0.4rem;
       border: 1px solid #ebebeb;
+    }
+    .dynamic-row.spec-row {
+      grid-template-columns: 1fr 1fr auto;
+    }
+    .dynamic-row.image-row {
+      grid-template-columns: 1fr 70px auto auto auto auto;
     }
     .dynamic-row input {
       padding: 0.4rem 0.6rem;
@@ -297,6 +349,104 @@
     .alert-notification.error   { background: #ef4444; color: white; }
 
     .required::after { content: " *"; color: #ef4444; }
+
+    /* ── Confirm Modal ── */
+    .confirm-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 10000;
+    }
+    .confirm-modal-backdrop.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-modal {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      width: 100%;
+      max-width: 420px;
+      margin: 1rem;
+      overflow: hidden;
+      animation: modalIn 0.2s ease;
+    }
+    @keyframes modalIn {
+      from { transform: translateY(-16px); opacity: 0; }
+      to   { transform: translateY(0);     opacity: 1; }
+    }
+    .confirm-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 1.25rem 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .confirm-modal-header .modal-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #fff7ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      color: #ea580c;
+    }
+    .confirm-modal-header h5 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .confirm-modal-body {
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.55;
+    }
+    .confirm-modal-body .highlight {
+      font-weight: 700;
+      color: #ea580c;
+    }
+    .confirm-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      padding: 0.75rem 1.25rem;
+      background: #fafafa;
+      border-top: 1px solid #f0f0f0;
+    }
+    .btn-modal-cancel {
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      background: white;
+      color: #555;
+      font-weight: 600;
+      font-size: 0.87rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .btn-modal-cancel:hover { border-color: #aaa; color: #333; }
+    .btn-modal-confirm {
+      padding: 0.45rem 1.15rem;
+      border-radius: 6px;
+      border: none;
+      background: #ea580c;
+      color: white;
+      font-weight: 600;
+      font-size: 0.87rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-modal-confirm:hover { background: #c2410c; }
   </style>
 </head>
 <body>
@@ -468,6 +618,11 @@
         <!-- ── Tab: Slike ── -->
         <div class="tab-panel" id="tab-images">
           <div class="form-card">
+            <div style="display:flex; justify-content:flex-end; margin-bottom:0.75rem;" id="migrate-all-wrapper">
+              <button type="button" id="btn-migrate-all" class="btn-migrate-all" onclick="migrateAllImagesToCloudinary()">
+                <i class="fa fa-cloud-upload"></i> Migriraj sve na Cloudinary
+              </button>
+            </div>
             <div id="images-container"></div>
             <button type="button" class="add-button" onclick="addImageRow()"><i class="fa fa-plus"></i> Dodaj sliku</button>
           </div>
@@ -512,15 +667,93 @@
 
   function addImageRow(data) {
     data = data || {};
+    var imageId   = data.id || null;
+    var publicId  = data.cloudinaryPublicId || null;
+    var isOnCloud = !!(publicId && publicId.trim() !== '');
+
+    var cloudinaryBadge = isOnCloud
+      ? '<span class="cloudinary-badge on-cloud"><i class="fa fa-cloud"></i> Cloudinary</span>'
+      : '<span class="cloudinary-badge not-on-cloud"><i class="fa fa-exclamation-circle"></i> Eksterni URL</span>';
+
+    var migrateBtn = imageId && !isOnCloud
+      ? '<button type="button" class="btn-migrate-cloudinary" data-image-id="' + imageId + '" onclick="migrateImageToCloudinary(this, ' + imageId + ')"><i class="fa fa-cloud-upload"></i> Cloudinary</button>'
+      : '<span></span>';
+
     $('#images-container').append(
-      '<div class="dynamic-row image-row">' +
-        '<input type="text" class="img-url" placeholder="URL slike" value="' + (data.imageUrl || '') + '">' +
+      '<div class="dynamic-row image-row" data-image-id="' + (imageId || '') + '" data-cloudinary-public-id="' + (publicId || '') + '">' +
+        '<div style="display:flex;flex-direction:column;gap:0.25rem">' +
+          '<input type="text" class="img-url" placeholder="URL slike" value="' + (data.imageUrl || '') + '">' +
+          cloudinaryBadge +
+        '</div>' +
         '<input type="number" class="img-sort" placeholder="Red" value="' + (data.sortOrder != null ? data.sortOrder : 0) + '">' +
         '<div class="checkbox-item"><input type="checkbox" class="img-main" ' + (data.isMain ? 'checked' : '') + '><label style="margin:0;font-size:0.82rem">Glavna</label></div>' +
+        migrateBtn +
         '<button type="button" class="remove-button" onclick="$(this).closest(\'.image-row\').remove(); updateBadge(\'badge-images\', $(\'.image-row\').length)"><i class="fa fa-trash"></i></button>' +
       '</div>'
     );
     updateBadge('badge-images', $('.image-row').length);
+  }
+
+  /**
+   * Migrate a single image to Cloudinary by its DB image ID.
+   */
+  function migrateImageToCloudinary(btn, imageId) {
+    if (!editId) { showNotif('Sačuvajte proizvod pre migracije slika', 'error'); return; }
+    $(btn).prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Migracija...');
+
+    apiPost('/api/admin/products/' + editId + '/images/' + imageId + '/migrate-to-cloudinary', {})
+      .then(function(img) {
+        // Update the row to reflect the new Cloudinary state
+        var $row = $('[data-image-id="' + imageId + '"]');
+        $row.find('.img-url').val(img.imageUrl);
+        $row.attr('data-cloudinary-public-id', img.cloudinaryPublicId || '');
+        $row.find('.cloudinary-badge').replaceWith(
+          '<span class="cloudinary-badge on-cloud"><i class="fa fa-cloud"></i> Cloudinary</span>'
+        );
+        $(btn).replaceWith('<span></span>');
+        showNotif('Slika uspešno migrirana na Cloudinary', 'success');
+      })
+      .catch(function(xhr) {
+        $(btn).prop('disabled', false).html('<i class="fa fa-cloud-upload"></i> Cloudinary');
+        showNotif((xhr.responseJSON && xhr.responseJSON.message) || 'Greška pri migraciji', 'error');
+      });
+  }
+
+  /**
+   * Migrate all non-Cloudinary images for this product.
+   */
+  function migrateAllImagesToCloudinary() {
+    if (!editId) { showNotif('Sačuvajte proizvod pre migracije slika', 'error'); return; }
+    var nonMigrated = $('.image-row .cloudinary-badge.not-on-cloud').length;
+    if (nonMigrated === 0) { showNotif('Sve slike su već na Cloudinaryju', 'success'); return; }
+
+    // Populate and show confirmation modal
+    $('#migrate-modal-count').text(nonMigrated);
+    $('#migrate-confirm-modal').css('display', 'flex');
+  }
+
+  function confirmMigrateAll() {
+    $('#migrate-confirm-modal').css('display', 'none');
+
+    var $btn = $('#btn-migrate-all');
+    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Migracija u toku...');
+
+    apiPost('/api/admin/products/' + editId + '/images/migrate-all-to-cloudinary', {})
+      .then(function(result) {
+        showNotif('Migrirano ' + result.migrated + '/' + result.total + ' slika na Cloudinary' +
+          (result.errors && result.errors.length > 0 ? ' (' + result.errors.length + ' grešaka)' : ''), 'success');
+        api('/api/admin/products/' + editId).then(function(p) {
+          $('#images-container').empty();
+          (p.images || []).forEach(img => addImageRow(img));
+          updateBadge('badge-images', $('.image-row').length);
+        });
+      })
+      .catch(function(xhr) {
+        showNotif((xhr.responseJSON && xhr.responseJSON.message) || 'Greška pri migraciji', 'error');
+      })
+      .finally(function() {
+        $btn.prop('disabled', false).html('<i class="fa fa-cloud-upload"></i> Migriraj sve na Cloudinary');
+      });
   }
 
   function addSpecRow(data) {
@@ -528,7 +761,7 @@
     $('#specs-container').append(
       '<div class="dynamic-row spec-row">' +
         '<input type="text" class="spec-name" placeholder="Naziv (npr. CPU)" value="' + (data.name || data.specificationName || '') + '">' +
-        '<input type="text" class="spec-value" placeholder="Vrednost" value="' + (data.value || data.specificationValue || '') + '" style="grid-column: span 2;">' +
+        '<input type="text" class="spec-value" placeholder="Vrednost" value="' + (data.value || data.specificationValue || '') + '">' +
         '<button type="button" class="remove-button" onclick="$(this).closest(\'.spec-row\').remove(); updateBadge(\'badge-specs\', $(\'.spec-row\').length)"><i class="fa fa-trash"></i></button>' +
       '</div>'
     );
@@ -561,7 +794,12 @@
     var images = [];
     $('#images-container .image-row').each(function() {
       var url = $(this).find('.img-url').val().trim();
-      if (url) images.push({ imageUrl: url, sortOrder: parseInt($(this).find('.img-sort').val()) || 0, isMain: $(this).find('.img-main').is(':checked') });
+      if (url) images.push({
+        imageUrl: url,
+        sortOrder: parseInt($(this).find('.img-sort').val()) || 0,
+        isMain: $(this).find('.img-main').is(':checked'),
+        cloudinaryPublicId: $(this).data('cloudinary-public-id') || null
+      });
     });
     var specs = [];
     $('#specs-container .spec-row').each(function() {
@@ -635,5 +873,29 @@
     });
   });
 </script>
+
+<!-- ── Migrate All to Cloudinary — Confirm Modal ── -->
+<div id="migrate-confirm-modal" class="confirm-modal-backdrop" onclick="if(event.target===this) $('#migrate-confirm-modal').css('display','none')" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.45);z-index:10000;display:none;align-items:center;justify-content:center;">
+  <div class="confirm-modal">
+    <div class="confirm-modal-header">
+      <div class="modal-icon"><i class="fa fa-cloud-upload"></i></div>
+      <h5>Migracija slika na Cloudinary</h5>
+    </div>
+    <div class="confirm-modal-body">
+      Biće migrirano <span id="migrate-modal-count" class="highlight">0</span> slika sa eksternih URL-ova na Cloudinary.
+      <br><br>
+      URL-ovi u bazi će biti zamenjeni Cloudinary linkovima. Ova akcija se <strong>ne može poništiti</strong>.
+    </div>
+    <div class="confirm-modal-footer">
+      <button class="btn-modal-cancel" onclick="$('#migrate-confirm-modal').css('display','none')">
+        <i class="fa fa-times"></i> Otkaži
+      </button>
+      <button class="btn-modal-confirm" onclick="confirmMigrateAll()">
+        <i class="fa fa-cloud-upload"></i> Pokreni migraciju
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
