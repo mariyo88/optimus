@@ -529,6 +529,7 @@
   function getJobBadge(j) {
     if (j === 'importProductsJob') return '<span class="badge" style="background:#dbeafe;color:#1e40af;">📦 Full Import</span>';
     if (j === 'updatePricesJob')   return '<span class="badge" style="background:#fed7aa;color:#92400e;">💰 Price Update</span>';
+    if (j === 'optimizedPriceUpdateJob') return '<span class="badge" style="background:#c7d2fe;color:#4338ca;">⚡ Optimized Price</span>';
     return '<span class="badge badge-secondary">' + (j||'—') + '</span>';
   }
   function formatDuration(ms) {

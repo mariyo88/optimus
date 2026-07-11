@@ -560,6 +560,22 @@
           <p>Upravljanje katalogom proizvoda</p>
         </div>
         <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <!-- Optimized Price Update Buttons -->
+          <button class="btn btn-light" onclick="startOptimizedPriceUpdate('dsc')" 
+                  style="color: #fff; font-weight: 600; background: linear-gradient(135deg, #10b981, #059669); border: none;"
+                  title="Pokreni optimizovani price update za DSC">
+            <i class="fa fa-bolt mr-1"></i> DSC Cene
+          </button>
+          <button class="btn btn-light" onclick="startOptimizedPriceUpdate('uspon')" 
+                  style="color: #fff; font-weight: 600; background: linear-gradient(135deg, #0ea5e9, #0284c7); border: none;"
+                  title="Pokreni optimizovani price update za USPON">
+            <i class="fa fa-bolt mr-1"></i> USPON Cene
+          </button>
+          
+          <!-- Separator -->
+          <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.3); margin: 0 0.25rem;"></div>
+          
+          <!-- Existing Buttons -->
           <button class="btn btn-light" onclick="loadProducts(0)" style="color: #000; font-weight: 600;">
             <i class="fa fa-search mr-2"></i> Pretraži
           </button>
@@ -734,6 +750,43 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
         <button type="button" class="btn btn-primary" onclick="executeBulkCategoryUpdate()">
           <i class="fa fa-check mr-2"></i> Primeni
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optimized Price Update Confirmation Modal -->
+<div class="modal fade" id="priceUpdateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" id="price-update-modal-header" style="color: white; border: none;">
+        <h5 class="modal-title" id="price-update-modal-title">
+          <i class="fa fa-bolt mr-2"></i> Optimizovani Price Update
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 0.8;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem;">
+        <p style="margin: 0 0 1rem; color: #555; font-size: 1rem;">
+          Da li ste sigurni da želite da pokrenete optimizovani price update za <strong id="price-update-supplier-name"></strong> ?
+        </p>
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; border-left: 4px solid #3b82f6;">
+          <p style="margin: 0 0 0.5rem; font-weight: 600; color: #333;">Aktivnosti:</p>
+          <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
+            <li>Preuzeti najnovije cene sa <span id="price-update-supplier-name-2"></span> servera</li>
+            <li>Ažurirati cene samo za artikle gde su se cene promenile</li>
+          </ul>
+        </div>
+        <p style="margin: 1rem 0 0; color: #999; font-size: 0.9rem;">
+          <i class="fa fa-info-circle mr-1"></i> Možete pratiti napredak u Import stranici.
+        </p>
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-primary" id="price-update-confirm-btn">
+          <i class="fa fa-bolt mr-2"></i> Pokreni
         </button>
       </div>
     </div>
@@ -936,9 +989,16 @@
   }
 
   function showNotification(message, type) {
+    const icons = {
+      'success': 'fa-check-circle',
+      'error': 'fa-times-circle',
+      'info': 'fa-info-circle'
+    };
+    const icon = icons[type] || 'fa-info-circle';
+    
     const notification = $('<div></div>')
       .addClass('alert-notification ' + type)
-      .html('<i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + message)
+      .html('<i class="fa ' + icon + ' mr-2"></i>' + message)
       .appendTo('body');
 
     setTimeout(() => {
@@ -1137,6 +1197,55 @@
 
     $('#bulkStatusModal').modal('show');
   }
+
+  function startOptimizedPriceUpdate(supplier) {
+    const supplierName = supplier.toUpperCase();
+    
+    // Postavi boje za modal header zavisno od supplier-a
+    const headerColor = supplier === 'dsc' 
+      ? 'linear-gradient(135deg, #10b981, #059669)' 
+      : 'linear-gradient(135deg, #0ea5e9, #0284c7)';
+    
+    // Popuni modal sa informacijama
+    $('#price-update-modal-header').css('background', headerColor);
+    $('#price-update-supplier-name').text(supplierName);
+    $('#price-update-supplier-name-2').text(supplierName);
+    
+    // Dodaj click handler za confirm dugme
+    $('#price-update-confirm-btn').off('click').on('click', function() {
+      $('#priceUpdateModal').modal('hide');
+      executePriceUpdate(supplier, supplierName);
+    });
+    
+    // Prikaži modal
+    $('#priceUpdateModal').modal('show');
+  }
+  
+  function executePriceUpdate(supplier, supplierName) {
+    showNotification('Pokretanje ' + supplierName + ' optimized price update...', 'info');
+
+    $.ajax({
+      url: API_BASE + '/api/admin/import/' + supplier.toLowerCase() + '/update-prices-optimized',
+      method: 'POST',
+      headers: { 'Authorization': 'Basic ' + getAuth() },
+      success: function(response) {
+        showNotification(
+                supplierName + ' optimized price update pokrenut! Proverite Import stranicu za rezultate.',
+                'success'
+        );
+      },
+      error: function(xhr) {
+        if (xhr.status === 401) {
+          logout();
+          return;
+        }
+        const msg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Greška';
+        showNotification('Greška pri pokretanju ' + supplierName + ' price update: ' + msg, 'error');
+      }
+    });
+  }
+
+
 </script>
 </body>
 </html>
