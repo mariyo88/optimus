@@ -46,7 +46,7 @@
         tempImg.onerror = function () {
             $spinner.hide();
             $overlay.find('.qr-modal-img-wrap').append(
-                '<p class="qr-error-msg" style="color:#D10024;font-size:13px;margin:0;">Greška pri učitavanju QR koda.</p>'
+                '<p class="qr-error-msg" style="color:#4274D9;font-size:13px;margin:0;">Greška pri učitavanju QR koda.</p>'
             );
         };
         tempImg.src = src;

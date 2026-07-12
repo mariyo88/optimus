@@ -24,7 +24,7 @@
 
 /* Header with All Departments button */
 .category-header {
-  background: linear-gradient(135deg, #ef233c 0%, #d10024 100%);
+  background: linear-gradient(135deg, #4274D9 0%, #4274D9 100%);
   padding: 16px 20px;
   color: #fff;
   display: flex;
@@ -35,7 +35,7 @@
 }
 
 .category-header:hover {
-  background: linear-gradient(135deg, #d10024 0%, #b30020 100%);
+  background: linear-gradient(135deg, #4274D9 0%, #293681 100%);
 }
 
 .category-header-icon {
@@ -93,16 +93,16 @@
 }
 
 .category-link:hover {
-  color: #2B2D42;
+  color: #293681;
   text-decoration: none;
   padding-left: 24px;
 }
 
 .category-link.active {
-  background: #fff5f6;
-  color: #ef233c;
+  background: #e8eef8;
+  color: #4274D9;
   font-weight: 600;
-  border-right: 3px solid #ef233c;
+  border-right: 3px solid #4274D9;
 }
 
 /* Category icon */
@@ -120,7 +120,7 @@
 
 .category-link:hover .category-icon,
 .category-link.active .category-icon {
-  color: #ef233c;
+  color: #4274D9;
 }
 
 /* Category name */
@@ -141,7 +141,7 @@
 
 .category-link:hover .category-chevron,
 .category-link.active .category-chevron {
-  color: #ef233c;
+  color: #4274D9;
   transform: translateX(3px);
 }
 
@@ -191,8 +191,8 @@
 
 .category-link:hover .category-count,
 .category-link.active .category-count {
-  background: #ffeef1;
-  color: #ef233c;
+  background: #dde5f5;
+  color: #4274D9;
 }
 
 /* Icon mapping for common categories */
@@ -261,12 +261,12 @@
 
 /* Highlight selected category */
 .modern-category-item.selected > .category-link {
-  background: linear-gradient(90deg, #fff5f6 0%, #ffffff 100%);
-  color: #ef233c;
+  background: linear-gradient(90deg, #e8eef8 0%, #ffffff 100%);
+  color: #4274D9;
   font-weight: 600;
-  border-right: 3px solid #ef233c;
+  border-right: 3px solid #4274D9;
 }
 
 .modern-category-item.selected > .category-link .category-icon {
-  color: #ef233c;
+  color: #4274D9;
 }

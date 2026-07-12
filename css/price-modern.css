@@ -10,7 +10,7 @@
 
 /* Header */
 .price-filter-header {
-  background: linear-gradient(135deg, #ef233c 0%, #d10024 100%);
+  background: linear-gradient(135deg, #4274D9 0%, #4274D9 100%);
   padding: 14px 20px;
   color: #fff;
   display: flex;
@@ -56,14 +56,14 @@
 }
 
 .price-preset-btn:hover {
-  border-color: #ef233c;
-  color: #ef233c;
-  background: #fff5f6;
+  border-color: #4274D9;
+  color: #4274D9;
+  background: #e8eef8;
 }
 
 .price-preset-btn.active {
-  background: #ef233c;
-  border-color: #ef233c;
+  background: #4274D9;
+  border-color: #4274D9;
   color: #fff;
 }
 
@@ -75,9 +75,9 @@
   margin: 0 16px;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #ef233c;
+  border: 1.5px solid #4274D9;
   background: transparent;
-  color: #ef233c;
+  color: #4274D9;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -85,7 +85,7 @@
 }
 
 .price-reset-btn:hover {
-  background: #ef233c;
+  background: #4274D9;
   color: #fff;
 }
 

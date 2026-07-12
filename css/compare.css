@@ -2,8 +2,8 @@
     COMPARE PAGE — compare.css
     Flexbox-based layout. 1 label col + 4 product cols.
     Colors:
-        Primary  : #D10024
-        Dark     : #2B2D42
+        Primary  : #4274D9
+        Dark     : #293681
         Grey bg  : #F5F5F5 / #E4E7ED
 =========================================================*/
 
@@ -30,7 +30,7 @@
 }
 
 .compare-toolbar-info strong {
-    color: #2B2D42;
+    color: #293681;
     font-weight: 700;
 }
 
@@ -50,9 +50,9 @@
 }
 
 .compare-clear-btn:hover {
-    border-color: #D10024;
-    color: #D10024;
-    background: rgba(209, 0, 36, 0.03);
+    border-color: #4274D9;
+    color: #4274D9;
+    background: rgba(66, 116, 217, 0.03);
 }
 
 .continue-shopping-link {
@@ -66,7 +66,7 @@
 }
 
 .continue-shopping-link:hover {
-    color: #D10024;
+    color: #4274D9;
     text-decoration: none;
 }
 
@@ -87,7 +87,7 @@
 
 #compare-empty h3 {
     font-size: 20px;
-    color: #2B2D42;
+    color: #293681;
     margin-bottom: 10px;
     font-weight: 600;
 }
@@ -102,7 +102,7 @@
 
 #compare-empty .primary-btn {
     display: inline-block;
-    background: #D10024;
+    background: #4274D9;
     color: #fff;
     padding: 12px 32px;
     border-radius: 6px;
@@ -124,7 +124,7 @@
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    background: #2B2D42;
+    background: #293681;
     color: #fff;
     padding: 12px 24px;
     border-radius: 6px;
@@ -263,8 +263,8 @@
 }
 
 .cv-card__remove:hover {
-    color: #D10024;
-    background: #fde8ec;
+    color: #4274D9;
+    background: #dde5f5;
 }
 
 /* Product image */
@@ -295,7 +295,7 @@
 .cv-card__name {
     font-size: 12px;
     font-weight: 700;
-    color: #2B2D42;
+    color: #293681;
     line-height: 1.4;
     height: calc(12px * 1.4 * 3); /* 3 lines × font-size × line-height */
     margin-bottom: 8px;
@@ -309,12 +309,12 @@
 }
 
 .cv-card__name a {
-    color: #2B2D42;
+    color: #293681;
     text-decoration: none;
 }
 
 .cv-card__name a:hover {
-    color: #D10024;
+    color: #4274D9;
 }
 
 /* Price */
@@ -356,7 +356,7 @@
 /* Add to cart button */
 .cv-card__cart {
     margin-top: 10px;
-    background: #D10024;
+    background: #4274D9;
     color: #fff;
     border: none;
     padding: 9px 14px;
@@ -406,7 +406,7 @@
     display: flex;
     align-items: center;
     min-width: 700px;
-    background: #2B2D42;
+    background: #293681;
     padding: 10px 16px;
     border-bottom: none;
 }
@@ -459,8 +459,8 @@
 }
 
 .cv-badge--out {
-    background: #fde8ec;
-    color: #D10024;
+    background: #dde5f5;
+    color: #4274D9;
 }
 
 /* ── Hover on rows ───────────────────────────────────────── */
