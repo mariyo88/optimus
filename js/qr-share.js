@@ -1,5 +1,5 @@
 /**
- * QR Code Share — modal logic for product detail page
+ * QR Code Share — inline QR code display for product detail page
  * Depends on: jQuery, window.APP_CONFIG.API_BASE
  */
 (function ($) {
@@ -19,22 +19,24 @@
         return API_BASE + '/api/qr/' + encodeURIComponent(slug) + '?siteUrl=' + siteUrl;
     }
 
-    // ── modal open / close ───────────────────────────────────────────────────
+    // ── load inline QR code ──────────────────────────────────────────────────
 
-    function openModal() {
-        var $overlay = $('#qr-modal');
-        var $img     = $('#qr-img');
-        var $spinner = $('#qr-loading');
-        var $errMsg  = $overlay.find('.qr-error-msg');
+    function loadInlineQr() {
+        var $img     = $('#qr-img-inline');
+        var $spinner = $('#qr-loading-inline');
+        var $error   = $('#qr-error-inline');
+        var $desc    = $('#qr-desc-inline');
+
+        // Only load if not already loaded
+        if ($img.attr('src')) {
+            return;
+        }
 
         // reset state
-        $errMsg.remove();
+        $error.hide();
+        $desc.hide();
         $img.hide().attr('src', '');
         $spinner.show();
-
-        // show overlay via class (not display:flex inline, avoids specificity fight)
-        $overlay.addClass('qr-modal-open');
-        $('#qr-modal-close').focus();
 
         // load image
         var src = getQrImageUrl(currentSlug);
@@ -42,43 +44,40 @@
         tempImg.onload = function () {
             $spinner.hide();
             $img.attr('src', src).show();
+            $desc.show(); // Show description text when QR loads
         };
         tempImg.onerror = function () {
             $spinner.hide();
-            $overlay.find('.qr-modal-img-wrap').append(
-                '<p class="qr-error-msg" style="color:#4274D9;font-size:13px;margin:0;">Greška pri učitavanju QR koda.</p>'
-            );
+            $error.show();
         };
         tempImg.src = src;
     }
 
-    function closeModal() {
-        var $overlay = $('#qr-modal');
-        $overlay.addClass('qr-modal-hiding');
-        setTimeout(function () {
-            $overlay.removeClass('qr-modal-open qr-modal-hiding');
-            $('#qr-modal .qr-error-msg').remove();
-        }, 180);
+    // ── toggle QR popup ──────────────────────────────────────────────────────
+
+    function toggleQrPopup(e) {
+        e.preventDefault();
+        var $popup = $('#qr-popup');
+        
+        if ($popup.is(':visible')) {
+            $popup.fadeOut(200);
+        } else {
+            // Load QR code if not already loaded
+            loadInlineQr();
+            $popup.fadeIn(200);
+        }
     }
 
-    // ── download ─────────────────────────────────────────────────────────────
-
-    function downloadQr() {
-        var src      = getQrImageUrl(currentSlug);
-        var filename = 'product-' + currentSlug + '-qr.png';
-
-        fetch(src)
-            .then(function (resp) { return resp.blob(); })
-            .then(function (blob) {
-                var url = URL.createObjectURL(blob);
-                var a   = document.createElement('a');
-                a.href     = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            });
+    // Close popup when clicking outside
+    function closeQrPopup(e) {
+        var $popup = $('#qr-popup');
+        var $toggle = $('#share-qr-toggle');
+        
+        if ($popup.is(':visible') && 
+            !$(e.target).closest('#qr-popup').length && 
+            !$(e.target).closest('#share-qr-toggle').length) {
+            $popup.fadeOut(200);
+        }
     }
 
     // ── share actions ────────────────────────────────────────────────────────
@@ -106,39 +105,17 @@
                 setTimeout(function () { $btn.html(origHtml); }, 1800);
             });
         });
+
+        // QR toggle button
+        $('#share-qr-toggle').off('click').on('click', toggleQrPopup);
     }
 
     // ── init ─────────────────────────────────────────────────────────────────
 
     $(document).ready(function () {
 
-        // Open modal
-        $(document).on('click', '#share-qr-btn', function (e) {
-            e.preventDefault();
-            if (!currentSlug) return;
-            openModal();
-        });
-
-        // Close — X button
-        $(document).on('click', '#qr-modal-close', function () {
-            closeModal();
-        });
-
-        // Close — click outside card
-        $(document).on('click', '#qr-modal', function (e) {
-            if ($(e.target).is('#qr-modal')) closeModal();
-        });
-
-        // Close — ESC key
-        $(document).on('keydown', function (e) {
-            if (e.key === 'Escape' && $('#qr-modal').hasClass('qr-modal-open')) closeModal();
-        });
-
-        // Download
-        $(document).on('click', '#qr-download-btn', function () {
-            if (!currentSlug) return;
-            downloadQr();
-        });
+        // Close QR popup when clicking outside
+        $(document).on('click', closeQrPopup);
 
         // Expose init so product-detail.js can call it after product loads
         window.initQrShare = initShareButtons;

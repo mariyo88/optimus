@@ -40,7 +40,7 @@
         } else {
             // Stanje 2: Dovoljno na stanju
             html = '<span class="stock-badge stock-badge--ok">' +
-                   '<span class="stock-check">&#10003;</span>' +
+                   '<i class="fa fa-check" style="margin-right: 4px;"></i>' +
                    ' Na stanju <span class="stock-delivery">(Raspoloživo ' + stock + ' komada)</span>' +
                    '</span>';
         }
