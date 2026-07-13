@@ -27,7 +27,7 @@
 
 /* Header - All Departments */
 .god-category-filter .category-header {
-    background: linear-gradient(135deg, #ef233c 0%, #d10024 100%);
+    background: linear-gradient(135deg, #4274D9 0%, #4274D9 100%);
     color: #fff;
     padding: 16px 20px;
     cursor: pointer;
@@ -38,7 +38,7 @@
 }
 
 .god-category-filter .category-header:hover {
-    background: linear-gradient(135deg, #d10024 0%, #b30020 100%);
+    background: linear-gradient(135deg, #4274D9 0%, #293681 100%);
 }
 
 .god-category-filter .category-header-icon {
@@ -96,13 +96,13 @@
 }
 
 .god-category-header:hover {
-    color: #2B2D42;
+    color: #293681;
     padding-left: 24px;
 }
 
 .god-category-item.expanded > .god-category-header {
     background: #f8f9fa;
-    color: #ef233c;
+    color: #4274D9;
     font-weight: 600;
 }
 
@@ -113,7 +113,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff5f6;
+    background: #e8eef8;
     border-radius: 6px;
     flex-shrink: 0;
     transition: all 0.2s ease;
@@ -121,11 +121,11 @@
 
 .god-icon i {
     font-size: 16px;
-    color: #ef233c;
+    color: #4274D9;
 }
 
 .god-category-header:hover .god-icon {
-    background: #ef233c;
+    background: #4274D9;
     transform: scale(1.05);
 }
 
@@ -134,7 +134,7 @@
 }
 
 .god-category-item.expanded > .god-category-header .god-icon {
-    background: #ef233c;
+    background: #4274D9;
 }
 
 .god-category-item.expanded > .god-category-header .god-icon i {
@@ -161,7 +161,7 @@
 }
 
 .god-category-item.expanded .god-chevron {
-    color: #ef233c;
+    color: #4274D9;
 }
 
 .god-category-item.expanded .god-chevron i {
@@ -200,17 +200,17 @@
 
 .mapped-category-link:hover {
     background: #fff;
-    color: #ef233c;
-    border-left-color: #ef233c;
+    color: #4274D9;
+    border-left-color: #4274D9;
     padding-left: 72px;
     text-decoration: none;
 }
 
 .mapped-category-item.selected > .mapped-category-link {
-    background: linear-gradient(90deg, #fff5f6 0%, #ffffff 100%);
-    color: #ef233c;
+    background: linear-gradient(90deg, #e8eef8 0%, #ffffff 100%);
+    color: #4274D9;
     font-weight: 600;
-    border-left-color: #ef233c;
+    border-left-color: #4274D9;
 }
 
 .mapped-category-link:before {
@@ -225,7 +225,7 @@
 
 .mapped-category-link:hover:before,
 .mapped-category-item.selected > .mapped-category-link:before {
-    color: #ef233c;
+    color: #4274D9;
     left: 50px;
 }
 
@@ -243,7 +243,7 @@
 
 .sub-categories-list.expanded + .mapped-category-link .mapped-chevron,
 .mapped-category-link:hover .mapped-chevron {
-    color: #ef233c;
+    color: #4274D9;
 }
 
 /* Sub-Categories List (Third Level) */
@@ -274,17 +274,17 @@
 
 .sub-category-item:hover {
     background: #fff;
-    color: #ef233c;
-    border-left-color: #ef233c;
+    color: #4274D9;
+    border-left-color: #4274D9;
     padding-left: 92px;
     text-decoration: none;
 }
 
 .sub-category-item.selected {
-    background: linear-gradient(90deg, #fff5f6 0%, #ffffff 100%);
-    color: #ef233c;
+    background: linear-gradient(90deg, #e8eef8 0%, #ffffff 100%);
+    color: #4274D9;
     font-weight: 600;
-    border-left-color: #ef233c;
+    border-left-color: #4274D9;
 }
 
 .sub-category-item:before {
@@ -299,7 +299,7 @@
 
 .sub-category-item:hover:before,
 .sub-category-item.selected:before {
-    color: #ef233c;
+    color: #4274D9;
     left: 70px;
 }
 
@@ -366,6 +366,6 @@
 .god-category-filter .text-danger {
     padding: 20px;
     text-align: center;
-    color: #dc3545;
+    color: #4274D9;
     font-size: 14px;
 }

@@ -32,7 +32,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #2B2D42;
+  color: #293681;
   white-space: nowrap;
   margin-right: 4px;
 }
@@ -69,16 +69,16 @@
 }
 
 .brand-link:hover {
-  border-color: #ef233c;
-  color: #ef233c;
-  background: #fff5f6;
+  border-color: #4274D9;
+  color: #4274D9;
+  background: #e8eef8;
   text-decoration: none;
 }
 
 .brand-link.active,
 .modern-brand-item.selected .brand-link {
-  background: #ef233c;
-  border-color: #ef233c;
+  background: #4274D9;
+  border-color: #4274D9;
   color: #fff;
   font-weight: 600;
 }

@@ -215,6 +215,13 @@
         submitOrder();
     });
 
+    // Handle terms and conditions link click
+    $(document).on('click', 'label[for="terms"] a', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.href = 'terms-and-conditions.html';
+    });
+
     $(document).ready(function() {
         renderOrderSummary();
     });

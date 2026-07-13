@@ -54,7 +54,7 @@
             '      min-width:300px;',
             '  ">',
             '    <p style="margin:0;font-size:14px;color:#999;">Broj porudžbine</p>',
-            '    <h3 style="margin:5px 0 0;color:#D10024;letter-spacing:1px;">' + order.orderNumber + '</h3>',
+            '    <h3 style="margin:5px 0 0;color:#4274D9;letter-spacing:1px;">' + order.orderNumber + '</h3>',
             '  </div>',
             '  <div style="text-align:left;margin-bottom:30px;">',
             '    <table class="table table-bordered" style="font-size:14px;">',
@@ -75,7 +75,7 @@
             '        </tr>',
             '        <tr>',
             '          <td colspan="2" class="text-right"><strong>UKUPNO</strong></td>',
-            '          <td class="text-right"><strong style="color:#D10024;">' + formatPrice(order.totalPrice) + '</strong></td>',
+            '          <td class="text-right"><strong style="color:#4274D9;">' + formatPrice(order.totalPrice) + '</strong></td>',
             '        </tr>',
             '      </tfoot>',
             '    </table>',
@@ -96,7 +96,7 @@
     function renderError() {
         $('#confirmation-content').html([
             '<div style="padding:60px 20px;">',
-            '  <i class="fa fa-exclamation-triangle" style="font-size:60px;color:#D10024;margin-bottom:20px;"></i>',
+            '  <i class="fa fa-exclamation-triangle" style="font-size:60px;color:#4274D9;margin-bottom:20px;"></i>',
             '  <h3>Porudžbina nije pronađena</h3>',
             '  <p style="color:#999;margin:20px 0;">Ne možemo da pronađemo detalje vaše porudžbine.</p>',
             '  <a href="index.html" class="primary-btn">Idi na početnu</a>',
@@ -117,7 +117,7 @@
                     '    <i class="fa fa-check" style="font-size:36px;color:#28a745;"></i>',
                     '  </div>',
                     '  <h2>Hvala na porudžbini!</h2>',
-                    '  <p style="color:#666;">Broj porudžbine: <strong style="color:#D10024;">' + decodeURIComponent(orderNumber) + '</strong></p>',
+                    '  <p style="color:#666;">Broj porudžbine: <strong style="color:#4274D9;">' + decodeURIComponent(orderNumber) + '</strong></p>',
                     '  <a href="store.html" class="primary-btn" style="margin-top:20px;">Nastavi kupovinu</a>',
                     '</div>'
                 ].join(''));

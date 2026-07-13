@@ -17,7 +17,7 @@
 	border: none;
 }
 .wishlist-table-wrap .table { margin-bottom: 0; }
-.wishlist-table-wrap .table thead tr { background: #2B2D42; }
+.wishlist-table-wrap .table thead tr { background: #293681; }
 .wishlist-table-wrap .table thead th {
 	color: #fff;
 	font-size: 12px;
@@ -39,7 +39,7 @@
 	vertical-align: middle;
 	border: none;
 	font-size: 14px;
-	color: #333;
+	color: #D10024;
 }
 
 /* Product image cell */
@@ -77,11 +77,11 @@
 	word-break: break-word;
 }
 .wl-product-name h4 a {
-	color: #2B2D42;
+	color: #293681;
 	text-decoration: none;
 	transition: color 0.15s;
 }
-.wl-product-name h4 a:hover { color: #D10024; }
+.wl-product-name h4 a:hover { color: #4274D9; }
 .wl-product-name .brand-tag {
 	display: inline-block;
 	background: #f0f1f4;
@@ -97,7 +97,7 @@
 /* Price */
 .wl-product-price {
 	font-weight: 700;
-	color: #D10024;
+	color: #4274D9;
 	white-space: nowrap;
 	font-size: 15px;
 }
@@ -118,7 +118,7 @@
 	letter-spacing: 0.5px;
 }
 .wl-stock-badge.in-stock  { background: #e8f7ef; color: #27ae60; }
-.wl-stock-badge.out-stock { background: #fde8eb; color: #D10024; }
+.wl-stock-badge.out-stock { background: #dde5f5; color: #4274D9; }
 
 /* Move to cart button */
 .wl-add-cart-btn {
@@ -126,7 +126,7 @@
 	align-items: center;
 	gap: 6px;
 	padding: 8px 16px;
-	background: linear-gradient(135deg, #D10024, #a80020);
+	background: linear-gradient(135deg, #4274D9, #293681);
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -163,8 +163,8 @@
 	line-height: 1;
 }
 .wl-remove-btn:hover {
-	background: #D10024;
-	border-color: #D10024;
+	background: #4274D9;
+	border-color: #4274D9;
 	color: #fff;
 }
 
@@ -179,7 +179,7 @@
 	padding: 10px 0;
 	transition: color 0.15s;
 }
-.wl-continue-link:hover { color: #D10024; text-decoration: none; }
+.wl-continue-link:hover { color: #4274D9; text-decoration: none; }
 
 /* Confirmation Modal - matching cart modal style */
 .wl-confirm-modal {
@@ -209,7 +209,7 @@
 	border: 1px solid rgba(0,0,0,0.1);
 }
 .wl-confirm-header {
-	background: #2c3e50;
+	background: #293681;
 	color: #fff;
 	padding: 14px 20px;
 	display: flex;
@@ -222,7 +222,7 @@
 	gap: 10px;
 }
 .wl-confirm-header i {
-	color: #e74c3c;
+	color: #4274D9;
 	font-size: 20px;
 }
 .wl-confirm-header h3 {
@@ -255,7 +255,7 @@
 	line-height: 1.6;
 }
 .wl-confirm-body strong {
-	color: #2c3e50;
+	color: #293681;
 }
 .wl-confirm-footer {
 	padding: 16px 20px;
@@ -287,13 +287,13 @@
 	color: #333;
 }
 .wl-confirm-btn-confirm {
-	background: #e74c3c;
+	background: #4274D9;
 	color: #fff;
-	border-color: #e74c3c;
+	border-color: #4274D9;
 }
 .wl-confirm-btn-confirm:hover {
-	background: #c0392b;
-	border-color: #c0392b;
+	background: #293681;
+	border-color: #293681;
 }
 @keyframes fadeInOverlay {
 	from { opacity: 0; }
@@ -341,12 +341,12 @@
 	width: 56px;
 	height: 56px;
 	border-radius: 12px;
-	background: linear-gradient(135deg, rgba(209,0,36,0.1), rgba(209,0,36,0.05));
+	background: linear-gradient(135deg, rgba(66,116,217,0.1), rgba(66,116,217,0.05));
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-size: 24px;
-	color: #D10024;
+	color: #4274D9;
 }
 
 .wl-stat-content {
@@ -366,7 +366,7 @@
 .wl-stat-value {
 	font-size: 28px;
 	font-weight: 700;
-	color: #2B2D42;
+	color: #293681;
 	line-height: 1;
 }
 
@@ -377,7 +377,7 @@
 }
 
 .wl-move-all-btn {
-	background: linear-gradient(135deg, #D10024, #a80020);
+	background: linear-gradient(135deg, #4274D9, #293681);
 	color: #fff;
 	padding: 14px 28px;
 	border-radius: 8px;
@@ -388,7 +388,7 @@
 	border: none;
 	cursor: pointer;
 	transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-	box-shadow: 0 4px 16px rgba(209,0,36,0.3);
+	box-shadow: 0 4px 16px rgba(66,116,217,0.3);
 	white-space: nowrap;
 	display: inline-flex;
 	align-items: center;
@@ -397,7 +397,7 @@
 .wl-move-all-btn:hover {
 	opacity: 0.92;
 	transform: translateY(-1px);
-	box-shadow: 0 6px 20px rgba(209,0,36,0.4);
+	box-shadow: 0 6px 20px rgba(66,116,217,0.4);
 }
 
 .wl-clear-btn {
@@ -416,9 +416,9 @@
 	gap: 8px;
 }
 .wl-clear-btn:hover { 
-	border-color: #D10024; 
-	color: #D10024;
-	background: rgba(209,0,36,0.03);
+	border-color: #4274D9; 
+	color: #4274D9;
+	background: rgba(66,116,217,0.03);
 }
 
 /* Responsive adjustments */

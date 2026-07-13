@@ -272,12 +272,12 @@
                 '  position: fixed;',
                 '  top: 0; left: 0; right: 0;',
                 '  z-index: 10001;',
-                '  background: linear-gradient(135deg, #2a0008 0%, #1E1F29 100%);',
+                '  background: linear-gradient(135deg, #1a2050 0%, #1e2756 100%);',
                 '  padding: 10px 15px;',
                 '  transform: translateY(-100%);',
                 '  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);',
                 '">',
-                '  <i class="fa fa-ban" style="color: #D10024; margin-right: 5px; font-size: 12px;"></i>',
+                '  <i class="fa fa-ban" style="color: #4274D9; margin-right: 5px; font-size: 12px;"></i>',
                 '  <span style="color: #fff; font-size: 12px;">' + message + '</span>',
                 '</div>'
             ].join(''));
@@ -396,7 +396,7 @@
                     position: 'fixed',
                     top: '80px',
                     right: '20px',
-                    background: '#D10024',
+                    background: '#4274D9',
                     color: '#fff',
                     padding: '15px 25px',
                     borderRadius: '3px',
@@ -424,7 +424,7 @@
             var productName = product ? product.name : 'Proizvod';
             var price = product ? (product.bestOurWebPrice || product.bestRetailPrice || 0) : 0;
             var priceHtml = price > 0
-                ? '<span style="color:#D10024;font-weight:700;font-size:16px;">' + formatPrice(price) + '</span>'
+                ? '<span style="color:#4274D9;font-weight:700;font-size:16px;">' + formatPrice(price) + '</span>'
                 : '';
             var productHref = product && product.slug ? 'product.html?slug=' + product.slug : '#';
             var cartCount = this.getCount();
@@ -444,7 +444,7 @@
 
                 '    <!-- Header -->',
                 '    <div style="',
-                '      background:#2c3e50;color:#fff;',
+                '      background:#293681;color:#fff;',
                 '      padding:14px 20px;',
                 '      display:flex;align-items:center;justify-content:space-between;">',
                 '      <div style="display:flex;align-items:center;gap:10px;">',
@@ -467,7 +467,7 @@
                 '      </a>',
                 '      <div style="flex:1;min-width:0;">',
                 '        <a href="' + productHref + '" style="',
-                '          color:#2c3e50;text-decoration:none;',
+                '          color:#293681;text-decoration:none;',
                 '          font-size:14px;font-weight:600;',
                 '          display:-webkit-box;-webkit-line-clamp:2;',
                 '          -webkit-box-orient:vertical;overflow:hidden;">',
@@ -486,7 +486,7 @@
                 '      display:flex;align-items:center;justify-content:space-between;',
                 '      font-size:13px;color:#666;border-bottom:1px solid #eee;">',
                 '      <span><i class="fa fa-shopping-cart" style="margin-right:6px;"></i>',
-                '        Ukupno u korpi: <strong style="color:#2c3e50;">' + cartCount + ' ' + (cartCount === 1 ? 'artikal' : 'artikala') + '</strong>',
+                '        Ukupno u korpi: <strong style="color:#293681;">' + cartCount + ' ' + (cartCount === 1 ? 'artikal' : 'artikala') + '</strong>',
                 '      </span>',
                 '    </div>',
 
@@ -494,19 +494,19 @@
                 '    <div style="padding:16px 20px;display:flex;gap:10px;">',
                 '      <button id="cart-modal-continue" style="',
                 '        flex:1;padding:11px 16px;',
-                '        border:2px solid #D10024;background:#fff;',
-                '        color:#D10024;font-size:13px;font-weight:600;',
+                '        border:2px solid #4274D9;background:#fff;',
+                '        color:#4274D9;font-size:13px;font-weight:600;',
                 '        border-radius:4px;cursor:pointer;',
                 '        transition:all 0.2s;">',
                 '        <i class="fa fa-arrow-left" style="margin-right:6px;"></i>Nastavi kupovinu',
                 '      </button>',
                 '      <a href="cart.html" style="',
                 '        flex:1;padding:11px 16px;',
-                '        background:#D10024;color:#fff;',
+                '        background:#4274D9;color:#fff;',
                 '        font-size:13px;font-weight:600;',
                 '        border-radius:4px;cursor:pointer;',
                 '        text-align:center;text-decoration:none;',
-                '        border:2px solid #D10024;',
+                '        border:2px solid #4274D9;',
                 '        transition:all 0.2s;display:block;">',
                 '        <i class="fa fa-shopping-cart" style="margin-right:6px;"></i>Idi u korpu',
                 '      </a>',
@@ -518,7 +518,7 @@
                 '<style>',
                 '@keyframes fadeInOverlay { from { opacity:0; } to { opacity:1; } }',
                 '@keyframes slideInModal { from { transform:translateY(-20px);opacity:0; } to { transform:translateY(0);opacity:1; } }',
-                '#cart-modal-continue:hover { background:#D10024 !important; color:#fff !important; }',
+                '#cart-modal-continue:hover { background:#4274D9 !important; color:#fff !important; }',
                 '#cart-modal-close:hover { opacity:1 !important; }',
                 '</style>'
             ].join('');

@@ -285,7 +285,7 @@
     function showFormMsg(text, type) {
         var $msg = $('#review-form-msg');
         $msg.text(text)
-            .css('color', type === 'success' ? '#28a745' : '#D10024')
+            .css('color', type === 'success' ? '#28a745' : '#4274D9')
             .show();
         if (type === 'success') {
             setTimeout(function () { $msg.fadeOut(); }, 5000);

@@ -43,6 +43,9 @@
 		<!-- Compare stylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/compare.css"/>
 
+		<!-- Product Details Declaration stylesheet -->
+		<link type="text/css" rel="stylesheet" href="css/product-details-declaration.css"/>
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -58,7 +61,7 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="tel:+38163243123"><i class="fa fa-phone"></i> +381 (0)63 243123</a></li>
+						<li><a href="tel:+38166243123"><i class="fa fa-phone"></i> +381 (0)66 243123</a></li>
 						<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
 						<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
 					</ul>
@@ -226,10 +229,10 @@
 							<div id="product-key-features" style="display:none;">
 								<h4 style="margin-top: 20px; margin-bottom: 12px; font-size: 16px; font-weight: 600; color: #333;">Ključne karakteristike:</h4>
 								<ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
-									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-1"></span></li>
-									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-2"></span></li>
-									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-3"></span></li>
-									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #D10024; margin-right: 8px;"></i><span id="feature-4"></span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #4274D9; margin-right: 8px;"></i><span id="feature-1"></span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #4274D9; margin-right: 8px;"></i><span id="feature-2"></span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #4274D9; margin-right: 8px;"></i><span id="feature-3"></span></li>
+									<li style="padding: 6px 0; color: #555; font-size: 14px;"><i class="fa fa-check" style="color: #4274D9; margin-right: 8px;"></i><span id="feature-4"></span></li>
 								</ul>
 							</div>
 
@@ -264,10 +267,17 @@
 								<li><a href="#" id="share-facebook" title="Podeli na Facebook"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="#" id="share-whatsapp" title="Podeli na WhatsApp"><i class="fa fa-whatsapp"></i></a></li>
 								<li><a href="#" id="share-copy-link" title="Kopiraj link"><i class="fa fa-link"></i></a></li>
-								<li><a href="#" id="share-qr-btn" title="QR Kod"><i class="fa fa-qrcode"></i></a></li>
+								<li style="position: relative;">
+									<a href="#" id="share-qr-toggle" title="QR Kod"><i class="fa fa-qrcode"></i></a>
+									<!-- QR Code Popup -->
+									<div id="qr-popup" class="qr-popup" style="display: none;">
+										<div id="qr-loading-inline" class="qr-loading-spinner" aria-label="Učitavanje..."></div>
+										<img id="qr-img-inline" class="qr-img-inline" alt="QR kod proizvoda" style="display:none;" />
+										<p id="qr-error-inline" style="display:none; color: #999; font-size: 11px; margin: 10px 0; text-align: center;">Greška</p>
+										<p id="qr-desc-inline" style="display:none; color: #777; font-size: 10px; margin: 8px 0 0 0; text-align: center;">Skeniraj</p>
+									</div>
+								</li>
 							</ul>
-
-
 
 						</div>
 					</div>
@@ -441,7 +451,7 @@
 								<p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
 								<ul class="footer-links">
 									<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
-									<li><a href="tel:+38163243123"><i class="fa fa-phone"></i>+381 (0)63 243123</a></li>
+									<li><a href="tel:+38166243123"><i class="fa fa-phone"></i>+381 (0)66 243123</a></li>
 									<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
 								</ul>
 							</div>
@@ -464,9 +474,9 @@
 								<ul class="footer-links">
 									<li><a href="about.html">O nama</a></li>
 									<li><a href="contact.html">Kontakt</a></li>
-									<li><a href="under-construction.html">Politika privatnosti</a></li>
+									<li><a href="privacy-policy.html">Politika privatnosti</a></li>
 									<li><a href="under-construction.html">Narudžbine i povrat</a></li>
-									<li><a href="under-construction.html">Uslovi korišćenja</a></li>
+									<li><a href="terms-and-conditions.html">Uslovi korišćenja</a></li>
 								</ul>
 							</div>
 						</div>
@@ -479,7 +489,7 @@
 									<li><a href="cart.html">Prikaži korpu</a></li>
 									<li><a href="wishlist.html">Lista želja</a></li>
 									<li><a href="under-construction.html">Prati porudžbinu</a></li>
-									<li><a href="under-construction.html">Pomoć</a></li>
+									<li><a href="help.html">Pomoć</a></li>
 								</ul>
 							</div>
 						</div>
@@ -535,22 +545,6 @@
 		<script src="js/brands-carousel.js"></script>
 		<script src="js/reviews.js"></script>
 		<script src="js/quick-view-modal.js"></script>
-
-		<!-- QR Code Modal — must be a direct child of body for position:fixed to work correctly -->
-		<div id="qr-modal" class="qr-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
-			<div class="qr-modal-card">
-				<button class="qr-modal-close" id="qr-modal-close" aria-label="Zatvori">&times;</button>
-				<h3 id="qr-modal-title" class="qr-modal-title">QR kod</h3>
-				<div class="qr-modal-img-wrap">
-					<div id="qr-loading" class="qr-loading-spinner" aria-label="Učitavanje..."></div>
-					<img id="qr-img" class="qr-modal-img" alt="QR kod proizvoda" style="display:none;" />
-				</div>
-				<p class="qr-modal-desc">Skeniraj da otvoriš ovaj proizvod</p>
-				<button id="qr-download-btn" class="qr-download-btn">
-					<i class="fa fa-download"></i> Preuzmi QR kod
-				</button>
-			</div>
-		</div>
 
 	</body>
 </html>
