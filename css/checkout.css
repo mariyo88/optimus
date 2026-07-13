@@ -220,3 +220,16 @@
 }
 .checkout-step.active .step-label { color: #293681; }
 .checkout-step.done .step-label { color: #28a745; }
+
+/* ── Terms link styling ── */
+.input-checkbox label[for="terms"] a {
+	color: #293681;
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.2s ease;
+}
+
+.input-checkbox label[for="terms"] a:hover {
+	color: #293681;
+	text-decoration: underline;
+}
