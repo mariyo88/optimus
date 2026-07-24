@@ -9,7 +9,7 @@ var API_BASE = (function() {
     || host === '';
   return isLocal
     ? 'http://' + host + ':8080'
-    : 'https://webshop-backend-473383712022.europe-west1.run.app';
+    : 'https://optimus-backend-473383712022.europe-west1.run.app';
 })();
 
 // ─── Auth ────────────────────────────────────────────────────────────────────

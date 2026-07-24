@@ -9,7 +9,7 @@ a verzionisanje prati [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [1.0.0] - 2026-07-09
 
-Inicijalna produkcijska verzija Optimus webshop frontenda.
+Inicijalna produkcijska verzija Optimus webshop FE-a.
 
 ### Stranice
 
