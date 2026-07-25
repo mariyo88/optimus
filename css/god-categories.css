@@ -106,6 +106,14 @@
     font-weight: 600;
 }
 
+/* Active God Category (when filtering by God category) */
+.god-category-header.active {
+    background: linear-gradient(90deg, #e8eef8 0%, #f8f9fa 100%);
+    color: #4274D9;
+    font-weight: 700;
+    border-left: 4px solid #4274D9;
+}
+
 /* GoD Icon */
 .god-icon {
     width: 36px;
@@ -133,11 +141,13 @@
     color: white;
 }
 
-.god-category-item.expanded > .god-category-header .god-icon {
+.god-category-item.expanded > .god-category-header .god-icon,
+.god-category-header.active .god-icon {
     background: #4274D9;
 }
 
-.god-category-item.expanded > .god-category-header .god-icon i {
+.god-category-item.expanded > .god-category-header .god-icon i,
+.god-category-header.active .god-icon i {
     color: white;
 }
 
@@ -160,7 +170,8 @@
     transition: transform 0.2s ease;
 }
 
-.god-category-item.expanded .god-chevron {
+.god-category-item.expanded .god-chevron,
+.god-category-header.active .god-chevron {
     color: #4274D9;
 }
 

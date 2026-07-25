@@ -135,6 +135,7 @@
                     
                     if (window.storePageState) {
                         window.storePageState.category = '';
+                        window.storePageState.godCategory = '';
                         window.storePageState.brand = '';
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
@@ -143,7 +144,7 @@
                     }
                 });
                 
-                // GoD Category header click - expand/collapse
+                // GoD Category header click - expand/collapse and load products
                 $filter.on('click', '.god-category-header', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -152,6 +153,7 @@
                     var $godItem = $header.closest('.god-category-item');
                     var $mappedList = $godItem.find('.mapped-categories-list');
                     var isExpanded = $godItem.hasClass('expanded');
+                    var godSlug = $godItem.data('slug');
                     
                     if ($mappedList.length === 0) {
                         return; // No mapped categories, do nothing
@@ -173,9 +175,25 @@
                         $mappedList.slideDown(200);
                         $header.find('.god-chevron i').removeClass('fa-angle-right').addClass('fa-angle-down');
                     }
+                    
+                    // Load products for this God category
+                    $('.mapped-category-item').removeClass('selected');
+                    $('.sub-category-item').removeClass('selected');
+                    $('.god-category-header').removeClass('active');
+                    $header.addClass('active');
+                    
+                    if (window.storePageState) {
+                        window.storePageState.godCategory = godSlug;
+                        window.storePageState.category = '';
+                        window.storePageState.brand = '';
+                        window.storePageState.page = 0;
+                        if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('');
+                        if (window.loadStoreProducts) window.loadStoreProducts();
+                    }
                 });
                 
-                // Mapped category click - expand/collapse sub-categories OR filter if no children
+                // Mapped category click - expand/collapse sub-categories AND filter products
                 $filter.on('click', '.mapped-category-link', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -184,6 +202,7 @@
                     var $mappedItem = $link.closest('.mapped-category-item');
                     var $subList = $mappedItem.find('.sub-categories-list');
                     var hasChildren = $mappedItem.hasClass('has-children');
+                    var slug = $mappedItem.data('slug');
                     
                     if (hasChildren) {
                         // Toggle expand/collapse for sub-categories
@@ -201,24 +220,24 @@
                             $subList.addClass('expanded').slideDown(200);
                             $link.find('.mapped-chevron i').removeClass('fa-angle-right').addClass('fa-angle-down');
                         }
-                    } else {
-                        // No children - filter by this category
-                        var slug = $mappedItem.data('slug');
-                        
-                        // Update UI
-                        $('.mapped-category-item').removeClass('selected');
-                        $('.sub-category-item').removeClass('selected');
-                        $mappedItem.addClass('selected');
-                        
-                        // Update state and reload products
-                        if (window.storePageState) {
-                            window.storePageState.category = slug;
-                            window.storePageState.brand = '';
-                            window.storePageState.page = 0;
-                            if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                            if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug);
-                            if (window.loadStoreProducts) window.loadStoreProducts();
-                        }
+                    }
+                    
+                    // Always filter by this root category (whether it has children or not)
+                    // Update UI
+                    $('.mapped-category-item').removeClass('selected');
+                    $('.sub-category-item').removeClass('selected');
+                    $('.god-category-header').removeClass('active');
+                    $mappedItem.addClass('selected');
+                    
+                    // Update state and reload products
+                    if (window.storePageState) {
+                        window.storePageState.category = slug;
+                        window.storePageState.godCategory = '';
+                        window.storePageState.brand = '';
+                        window.storePageState.page = 0;
+                        if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug);
+                        if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });
                 
@@ -233,11 +252,13 @@
                     // Update UI
                     $('.mapped-category-item').removeClass('selected');
                     $('.sub-category-item').removeClass('selected');
+                    $('.god-category-header').removeClass('active');
                     $item.addClass('selected');
                     
                     // Update state and reload products
                     if (window.storePageState) {
                         window.storePageState.category = slug;
+                        window.storePageState.godCategory = '';
                         window.storePageState.brand = '';
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
