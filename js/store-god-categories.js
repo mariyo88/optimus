@@ -42,9 +42,11 @@
                 var $header = $('<div class="category-header">');
                 $header.append('<div class="category-header-icon"><i></i><i></i><i></i></div>');
                 $header.append('<div class="category-header-title">Sve kategorije</div>');
+                $header.append('<span class="category-collapse-toggle"><i class="fa fa-angle-down"></i></span>');
                 $modernFilter.append($header);
                 
-                // GoD Category list
+                // GoD Category list - wrapped in collapsible container
+                var $listWrapper = $('<div class="god-category-list-wrapper expanded">');
                 var $list = $('<div class="god-category-list">');
                 
                 // Build each GoD category
@@ -122,13 +124,68 @@
                     $list.append($godItem);
                 });
                 
-                $modernFilter.append($list);
+                $listWrapper.append($list);
+                $modernFilter.append($listWrapper);
                 $filter.append($modernFilter);
                 
                 // Event handlers
                 
-                // Header click - reset filter (show all products)
-                $header.on('click', function() {
+                // Toggle button click - collapse/expand entire category filter
+                $header.find('.category-collapse-toggle').on('click', function(e) {
+                    e.stopPropagation();
+                    var $wrapper = $modernFilter.find('.god-category-list-wrapper');
+                    var $icon = $(this).find('i');
+                    var isExpanded = $wrapper.hasClass('expanded');
+                    
+                    if (isExpanded) {
+                        // Collapse entire filter
+                        $wrapper.removeClass('expanded').slideUp(200);
+                        $icon.removeClass('fa-angle-down').addClass('fa-angle-up');
+                    } else {
+                        // Expand entire filter
+                        $wrapper.addClass('expanded').slideDown(200);
+                        $icon.removeClass('fa-angle-up').addClass('fa-angle-down');
+                    }
+                });
+                
+                // Header click (excluding toggle button) - reset filter (show all products)
+                $header.on('click', function(e) {
+                    // Don't reset if clicking the toggle button
+                    if ($(e.target).closest('.category-collapse-toggle').length) {
+                        return;
+                    }
+                    
+                    $('.god-category-item').removeClass('expanded');
+                    $('.mapped-category-item').removeClass('selected');
+                    $('.god-category-header').removeClass('active');
+                    
+                    // Expand the category list if it was collapsed
+                    var $wrapper = $modernFilter.find('.god-category-list-wrapper');
+                    if (!$wrapper.hasClass('expanded')) {
+                        $wrapper.addClass('expanded').slideDown(200);
+                        $header.find('.category-collapse-toggle i').removeClass('fa-angle-up').addClass('fa-angle-down');
+                    }
+                    
+                    if (window.storePageState) {
+                        window.storePageState.category = '';
+                        window.storePageState.godCategory = '';
+                        window.storePageState.brand = '';
+                        window.storePageState.specifications = {};
+                        window.storePageState.page = 0;
+                        if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('', '');
+                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', '');
+                        if (window.loadStoreProducts) window.loadStoreProducts();
+                    }
+                });
+                
+                // Header click (excluding toggle button) - reset filter (show all products)
+                $header.on('click', function(e) {
+                    // Don't reset if clicking the toggle button
+                    if ($(e.target).closest('.category-collapse-toggle').length) {
+                        return;
+                    }
+                    
                     $('.god-category-item').removeClass('expanded');
                     $('.mapped-category-item').removeClass('selected');
                     $('.god-category-header').removeClass('active');
@@ -137,9 +194,30 @@
                         window.storePageState.category = '';
                         window.storePageState.godCategory = '';
                         window.storePageState.brand = '';
+                        window.storePageState.specifications = {};
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('');
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('', '');
+                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', '');
+                        if (window.loadStoreProducts) window.loadStoreProducts();
+                    }
+                });
+                
+                // GoD Category header click - expand/collapse and load products
+                $filter.on('click', '.god-category-header', function(e) {
+                    $('.god-category-item').removeClass('expanded');
+                    $('.mapped-category-item').removeClass('selected');
+                    $('.god-category-header').removeClass('active');
+                    
+                    if (window.storePageState) {
+                        window.storePageState.category = '';
+                        window.storePageState.godCategory = '';
+                        window.storePageState.brand = '';
+                        window.storePageState.specifications = {};
+                        window.storePageState.page = 0;
+                        if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('', '');
+                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', '');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });
@@ -186,9 +264,11 @@
                         window.storePageState.godCategory = godSlug;
                         window.storePageState.category = '';
                         window.storePageState.brand = '';
+                        window.storePageState.specifications = {};
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('');
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('', godSlug);
+                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', godSlug);
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });
@@ -234,9 +314,11 @@
                         window.storePageState.category = slug;
                         window.storePageState.godCategory = '';
                         window.storePageState.brand = '';
+                        window.storePageState.specifications = {};
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                        if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug);
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug, '');
+                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory(slug, '');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });
@@ -260,9 +342,11 @@
                         window.storePageState.category = slug;
                         window.storePageState.godCategory = '';
                         window.storePageState.brand = '';
+                        window.storePageState.specifications = {};
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                        if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug);
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug, '');
+                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory(slug, '');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });

@@ -1,80 +1,134 @@
 /**
- * Horizontal Brand Filter Bar - shown when a category is selected
+ * Modern Brand Filter - Collapsible sidebar filter with checkboxes
  */
 (function ($) {
     'use strict';
 
     var API_BASE = window.APP_CONFIG.API_BASE;
 
-    function buildBrandChip(brand) {
-        var $item = $('<div class="modern-brand-item">');
-        $item.attr('data-brand-id', brand.id);
-
-        var $link = $('<a class="brand-link" href="#">');
-
+    /**
+     * Build brand checkbox item
+     */
+    function buildBrandItem(brand) {
+        var checkboxId = 'brand-' + brand.id;
+        var $item = $('<div class="brand-item">');
+        
+        var $checkbox = $('<input type="checkbox" class="brand-checkbox">');
+        $checkbox.attr('id', checkboxId);
+        $checkbox.attr('data-brand-id', brand.id);
+        
+        var $label = $('<label>').attr('for', checkboxId);
+        
+        // Add logo if available
         if (brand.logoUrl) {
-            $link.append('<span class="brand-logo"><img src="' + brand.logoUrl + '" alt="' + brand.name + '"></span>');
+            var $logo = $('<span class="brand-logo-small"><img src="' + brand.logoUrl + '" alt="' + brand.name + '"></span>');
+            $label.append($logo);
         } else {
-            $link.append('<span class="brand-icon"><i class="fa fa-tag"></i></span>');
+            var $icon = $('<span class="brand-icon-small"><i class="fa fa-tag"></i></span>');
+            $label.append($icon);
         }
-
-        $link.append('<span class="brand-name-text">' + brand.name + '</span>');
-        $item.append($link);
+        
+        $label.append('<span class="brand-name">' + escapeHtml(brand.name) + '</span>');
+        
+        $item.append($checkbox).append($label);
         return $item;
     }
 
-    function loadBrandsForCategory(categorySlug) {
+    /**
+     * Load brands for a given category slug
+     */
+    function loadBrandsForCategory(categorySlug, godCategorySlug) {
         var $filter = $('#brand-filter');
-        var $bar = $('#brand-filter-bar');
-        if (!$filter.length) return;
-
-        if (!categorySlug) {
-            $filter.empty();
-            $bar.removeClass('has-brands');
+        var $container = $('#brand-filter-container');
+        
+        if (!$filter.length) {
+            console.warn('Brand filter element not found');
             return;
         }
 
-        $filter.html('<div class="brand-loading"><i class="fa fa-spinner fa-spin"></i></div>');
-        $bar.addClass('has-brands');
+        // If no category selected, clear and hide
+        if (!categorySlug && !godCategorySlug) {
+            $filter.empty();
+            if ($container.length) $container.hide();
+            return;
+        }
+
+        // Show loading indicator
+        $filter.html('<div class="brand-loading"><i class="fa fa-spinner fa-spin"></i> Učitavanje brendova...</div>');
+        if ($container.length) $container.show();
 
         $.ajax({
             url: API_BASE + '/api/brands',
-            data: { categorySlug: categorySlug },
+            data: { categorySlug: categorySlug || godCategorySlug },
             success: function (brands) {
                 $filter.empty();
 
                 if (!brands || brands.length === 0) {
-                    $bar.removeClass('has-brands');
+                    if ($container.length) $container.hide();
                     return;
                 }
 
+                // Sort brands alphabetically
                 brands.sort(function (a, b) { return a.name.localeCompare(b.name); });
 
-                var $modernFilter = $('<div class="modern-brand-filter">');
-                $modernFilter.append('<span class="brand-bar-label">Brendovi:</span>');
+                var $wrapper = $('<div class="modern-brand-filter">');
+                
+                // Header
+                var $header = $('<div class="brand-filter-header">');
+                $header.append('<span class="brand-filter-icon"><i class="fa fa-bookmark"></i></span>');
+                $header.append('<span class="brand-filter-title">Brendovi</span>');
+                $header.append('<span class="brand-filter-count">(' + brands.length + ')</span>');
+                $header.append('<span class="brand-chevron"><i class="fa fa-angle-down"></i></span>');
+                $wrapper.append($header);
 
-                var $list = $('<div class="brand-list">');
+                // Brand list (collapsible)
+                var $list = $('<div class="brand-list expanded">');
                 brands.forEach(function (brand) {
-                    $list.append(buildBrandChip(brand));
+                    $list.append(buildBrandItem(brand));
                 });
-                $modernFilter.append($list);
+                $wrapper.append($list);
 
-                $filter.append($modernFilter);
+                $filter.append($wrapper);
+                if ($container.length) $container.show();
 
-                // Restore active brand if state already has one
-                if (window.storePageState && window.storePageState.brand) {
-                    var $active = $filter.find('[data-brand-id="' + window.storePageState.brand + '"]');
-                    if ($active.length) {
-                        $active.addClass('selected');
-                        $active.find('.brand-link').addClass('active');
-                    }
-                }
+                // Restore selected brand from state
+                restoreSelectedBrand();
             },
-            error: function () {
+            error: function (xhr, status, error) {
+                console.error('Failed to load brands:', error);
                 $filter.empty();
-                $bar.removeClass('has-brands');
+                if ($container.length) $container.hide();
             }
         });
+    }
+
+    /**
+     * Restore selected brand from window.storePageState
+     */
+    function restoreSelectedBrand() {
+        if (!window.storePageState || !window.storePageState.brand) {
+            return;
+        }
+
+        var brandId = window.storePageState.brand;
+        var $checkbox = $('#brand-filter').find('input[data-brand-id="' + brandId + '"]');
+        if ($checkbox.length) {
+            $checkbox.prop('checked', true);
+        }
+    }
+
+    /**
+     * Helper function to escape HTML
+     */
+    function escapeHtml(text) {
+        var map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
     // Expose globally
@@ -84,38 +138,55 @@
         var $filter = $('#brand-filter');
         if (!$filter.length) return;
 
-        // Brand chip click - delegated
-        $filter.on('click', '.brand-link', function (e) {
+        // Header click - expand/collapse
+        $filter.on('click', '.brand-filter-header', function(e) {
             e.preventDefault();
             e.stopPropagation();
 
-            var $item = $(this).closest('.modern-brand-item');
-            var brandId = $item.data('brand-id');
-            var isSelected = $item.hasClass('selected');
+            var $wrapper = $(this).closest('.modern-brand-filter');
+            var $list = $wrapper.find('.brand-list');
+            var $chevron = $(this).find('.brand-chevron i');
+            var isExpanded = $list.hasClass('expanded');
 
-            $filter.find('.modern-brand-item').removeClass('selected');
-            $filter.find('.brand-link').removeClass('active');
-
-            if (!isSelected) {
-                $item.addClass('selected');
-                $(this).addClass('active');
-                if (window.storePageState) {
-                    window.storePageState.brand = brandId;
-                    window.storePageState.page = 0;
-                    if (window.loadStoreProducts) window.loadStoreProducts();
-                }
+            if (isExpanded) {
+                // Collapse
+                $list.removeClass('expanded').slideUp(200);
+                $chevron.removeClass('fa-angle-down').addClass('fa-angle-right');
             } else {
-                if (window.storePageState) {
-                    window.storePageState.brand = '';
-                    window.storePageState.page = 0;
-                    if (window.loadStoreProducts) window.loadStoreProducts();
-                }
+                // Expand
+                $list.addClass('expanded').slideDown(200);
+                $chevron.removeClass('fa-angle-right').addClass('fa-angle-down');
+            }
+        });
+
+        // Checkbox change - update state and reload products
+        $filter.on('change', '.brand-checkbox', function(e) {
+            var brandId = $(this).data('brand-id');
+            var isChecked = $(this).is(':checked');
+
+            if (!window.storePageState) {
+                console.error('storePageState not found');
+                return;
+            }
+
+            // Single-select behavior: uncheck all other checkboxes
+            if (isChecked) {
+                $filter.find('.brand-checkbox').not(this).prop('checked', false);
+                window.storePageState.brand = brandId;
+            } else {
+                window.storePageState.brand = '';
+            }
+
+            // Reset to first page and reload products
+            window.storePageState.page = 0;
+            if (window.loadStoreProducts) {
+                window.loadStoreProducts();
             }
         });
 
         // Load brands if page opened with category already in URL
         if (window.storePageState && window.storePageState.category) {
-            loadBrandsForCategory(window.storePageState.category);
+            loadBrandsForCategory(window.storePageState.category, '');
         }
     });
 

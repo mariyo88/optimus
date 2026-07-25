@@ -1,6 +1,6 @@
 /**
  * GoD Categories (Group of Departments) Styles
- * Based on modern-category-filter design
+ * Uses unified filter design system
  */
 
 /* Override any existing styles */
@@ -13,36 +13,38 @@
     display: none;
 }
 
-#category-filter.god-enabled .checkbox-filter {
-    display: none;
-}
-
-/* Main container */
+/* Main container - uses unified base */
 .god-category-filter {
-    background: #fff;
-    border-radius: 8px;
+    background: var(--filter-bg);
+    border-radius: var(--filter-border-radius);
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 20px;
 }
 
 /* Header - All Departments */
 .god-category-filter .category-header {
-    background: linear-gradient(135deg, #4274D9 0%, #4274D9 100%);
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
     color: #fff;
-    padding: 16px 20px;
+    padding: var(--filter-header-padding);
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     transition: all 0.3s ease;
+    position: relative;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .god-category-filter .category-header:hover {
-    background: linear-gradient(135deg, #4274D9 0%, #293681 100%);
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
 }
 
 .god-category-filter .category-header-icon {
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -57,22 +59,54 @@
 }
 
 .god-category-filter .category-header-title {
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
     flex: 1;
+}
+
+/* Collapse Toggle Button */
+.god-category-filter .category-collapse-toggle {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+
+.god-category-filter .category-collapse-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.god-category-filter .category-collapse-toggle i {
+    font-size: 14px;
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+/* Collapsible Wrapper */
+.god-category-list-wrapper {
+    display: none;
+    overflow: hidden;
+}
+
+.god-category-list-wrapper.expanded {
+    display: block;
 }
 
 /* GoD Category List */
 .god-category-list {
     padding: 0;
     margin: 0;
+    background: #fafbfc;
 }
 
 /* GoD Category Item */
 .god-category-item {
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f0f2f5;
     transition: all 0.2s ease;
 }
 
@@ -81,59 +115,60 @@
 }
 
 .god-category-item:hover {
-    background: #fafafa;
+    background: var(--filter-hover-bg);
 }
 
 /* GoD Category Header */
 .god-category-header {
     display: flex;
     align-items: center;
-    padding: 14px 20px;
+    padding: 12px var(--filter-spacing);
     cursor: pointer;
     gap: 12px;
     transition: all 0.2s ease;
-    color: #5a6c7d;
+    color: var(--filter-text-secondary);
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .god-category-header:hover {
-    color: #293681;
-    padding-left: 24px;
+    color: var(--filter-text-primary);
+    padding-left: 18px;
 }
 
 .god-category-item.expanded > .god-category-header {
-    background: #f8f9fa;
-    color: #4274D9;
+    background: var(--filter-active-bg);
+    color: var(--filter-accent-blue);
     font-weight: 600;
 }
 
-/* Active God Category (when filtering by God category) */
 .god-category-header.active {
-    background: linear-gradient(90deg, #e8eef8 0%, #f8f9fa 100%);
-    color: #4274D9;
+    background: linear-gradient(90deg, var(--filter-active-bg) 0%, #fafbfc 100%);
+    color: var(--filter-accent-blue);
     font-weight: 700;
-    border-left: 4px solid #4274D9;
+    border-left: 3px solid var(--filter-accent-blue);
 }
 
 /* GoD Icon */
 .god-icon {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e8eef8;
+    background: var(--filter-active-bg);
     border-radius: 6px;
     flex-shrink: 0;
     transition: all 0.2s ease;
 }
 
 .god-icon i {
-    font-size: 16px;
-    color: #4274D9;
+    font-size: 15px;
+    color: var(--filter-accent-blue);
 }
 
 .god-category-header:hover .god-icon {
-    background: #4274D9;
+    background: var(--filter-accent-blue);
     transform: scale(1.05);
 }
 
@@ -143,7 +178,7 @@
 
 .god-category-item.expanded > .god-category-header .god-icon,
 .god-category-header.active .god-icon {
-    background: #4274D9;
+    background: var(--filter-accent-blue);
 }
 
 .god-category-item.expanded > .god-category-header .god-icon i,
@@ -155,13 +190,12 @@
 .god-name {
     flex-grow: 1;
     font-size: 14px;
-    font-weight: 600;
 }
 
 /* GoD Chevron */
 .god-chevron {
-    font-size: 14px;
-    color: #999;
+    font-size: 13px;
+    color: var(--filter-text-muted);
     transition: all 0.2s ease;
     margin-left: auto;
 }
@@ -172,7 +206,7 @@
 
 .god-category-item.expanded .god-chevron,
 .god-category-header.active .god-chevron {
-    color: #4274D9;
+    color: var(--filter-accent-blue);
 }
 
 .god-category-item.expanded .god-chevron i {
@@ -182,14 +216,14 @@
 /* Mapped Categories List */
 .mapped-categories-list {
     display: none;
-    background: #fafafa;
+    background: #f5f7fa;
     padding: 0;
 }
 
 /* Mapped Category Item */
 .mapped-category-item {
     position: relative;
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid #edf0f3;
 }
 
 .mapped-category-item:last-child {
@@ -199,9 +233,9 @@
 .mapped-category-link {
     display: flex;
     align-items: center;
-    padding: 12px 20px 12px 68px;
-    color: #666;
-    font-size: 14px;
+    padding: 10px var(--filter-spacing) 10px 56px;
+    color: var(--filter-text-secondary);
+    font-size: 13px;
     cursor: pointer;
     transition: all 0.2s ease;
     border-left: 3px solid transparent;
@@ -210,41 +244,41 @@
 }
 
 .mapped-category-link:hover {
-    background: #fff;
-    color: #4274D9;
-    border-left-color: #4274D9;
-    padding-left: 72px;
+    background: var(--filter-bg);
+    color: var(--filter-accent-blue);
+    border-left-color: var(--filter-accent-blue);
+    padding-left: 60px;
     text-decoration: none;
 }
 
 .mapped-category-item.selected > .mapped-category-link {
-    background: linear-gradient(90deg, #e8eef8 0%, #ffffff 100%);
-    color: #4274D9;
+    background: linear-gradient(90deg, var(--filter-active-bg) 0%, #ffffff 100%);
+    color: var(--filter-accent-blue);
     font-weight: 600;
-    border-left-color: #4274D9;
+    border-left-color: var(--filter-accent-blue);
 }
 
 .mapped-category-link:before {
     content: '\f105';
     font-family: FontAwesome;
     position: absolute;
-    left: 48px;
-    font-size: 14px;
-    color: #ccc;
+    left: 38px;
+    font-size: 13px;
+    color: #d0d5db;
     transition: all 0.2s ease;
 }
 
 .mapped-category-link:hover:before,
 .mapped-category-item.selected > .mapped-category-link:before {
-    color: #4274D9;
-    left: 50px;
+    color: var(--filter-accent-blue);
+    left: 40px;
 }
 
-/* Mapped Chevron (for categories with children) */
+/* Mapped Chevron */
 .mapped-chevron {
     margin-left: auto;
     font-size: 12px;
-    color: #999;
+    color: var(--filter-text-muted);
     transition: all 0.2s ease;
 }
 
@@ -254,13 +288,13 @@
 
 .sub-categories-list.expanded + .mapped-category-link .mapped-chevron,
 .mapped-category-link:hover .mapped-chevron {
-    color: #4274D9;
+    color: var(--filter-accent-blue);
 }
 
-/* Sub-Categories List (Third Level) */
+/* Sub-Categories List */
 .sub-categories-list {
     display: none;
-    background: #f5f5f5;
+    background: #edf0f3;
     padding: 0;
 }
 
@@ -268,15 +302,15 @@
 .sub-category-item {
     display: flex;
     align-items: center;
-    padding: 10px 20px 10px 88px;
-    color: #777;
+    padding: 8px var(--filter-spacing) 8px 70px;
+    color: var(--filter-text-secondary);
     font-size: 13px;
     cursor: pointer;
     transition: all 0.2s ease;
     border-left: 3px solid transparent;
     position: relative;
     text-decoration: none;
-    border-bottom: 1px solid #ececec;
+    border-bottom: 1px solid #e5e9ed;
 }
 
 .sub-category-item:last-child {
@@ -284,92 +318,51 @@
 }
 
 .sub-category-item:hover {
-    background: #fff;
-    color: #4274D9;
-    border-left-color: #4274D9;
-    padding-left: 92px;
+    background: var(--filter-bg);
+    color: var(--filter-accent-blue);
+    border-left-color: var(--filter-accent-blue);
+    padding-left: 74px;
     text-decoration: none;
 }
 
 .sub-category-item.selected {
-    background: linear-gradient(90deg, #e8eef8 0%, #ffffff 100%);
-    color: #4274D9;
+    background: linear-gradient(90deg, var(--filter-active-bg) 0%, #ffffff 100%);
+    color: var(--filter-accent-blue);
     font-weight: 600;
-    border-left-color: #4274D9;
+    border-left-color: var(--filter-accent-blue);
 }
 
 .sub-category-item:before {
     content: '\f105';
     font-family: FontAwesome;
     position: absolute;
-    left: 68px;
+    left: 52px;
     font-size: 12px;
-    color: #ddd;
+    color: #dde1e6;
     transition: all 0.2s ease;
 }
 
 .sub-category-item:hover:before,
 .sub-category-item.selected:before {
-    color: #4274D9;
-    left: 70px;
+    color: var(--filter-accent-blue);
+    left: 54px;
 }
 
 /* Responsive */
 @media (max-width: 991px) {
-    .god-category-filter .category-header {
-        padding: 14px 16px;
-    }
-    
-    .god-category-header {
-        padding: 12px 16px;
-    }
-    
     .god-icon {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
     }
     
     .god-icon i {
-        font-size: 14px;
-    }
-    
-    .god-name {
         font-size: 13px;
     }
     
-    .mapped-category-link {
-        padding: 10px 16px 10px 56px;
-        font-size: 13px;
-    }
-    
-    .mapped-category-link:hover {
-        padding-left: 60px;
-    }
-    
-    .mapped-category-link:before {
-        left: 40px;
-    }
-    
-    .mapped-category-link:hover:before {
-        left: 42px;
-    }
-    
+    .god-name,
+    .mapped-category-link,
     .sub-category-item {
-        padding: 9px 16px 9px 72px;
-        font-size: 12px;
-    }
-    
-    .sub-category-item:hover {
-        padding-left: 76px;
-    }
-    
-    .sub-category-item:before {
-        left: 56px;
-    }
-    
-    .sub-category-item:hover:before,
-    .sub-category-item.selected:before {
-        left: 58px;
+        font-size: 13px;
     }
 }
 
@@ -377,6 +370,6 @@
 .god-category-filter .text-danger {
     padding: 20px;
     text-align: center;
-    color: #4274D9;
+    color: var(--filter-text-muted);
     font-size: 14px;
 }

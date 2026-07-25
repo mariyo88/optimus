@@ -1,42 +1,72 @@
-/* Modern Price Range Filter */
+/**
+ * Modern Price Range Filter
+ * Uses unified filter design system
+ */
 
 .modern-price-filter {
-  background: #fff;
-  border-radius: 8px;
+  background: var(--filter-bg);
+  border-radius: var(--filter-border-radius);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  padding: 0 0 16px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
 }
 
-/* Header */
+/* Header - Blue gradient with collapse functionality */
 .price-filter-header {
-  background: linear-gradient(135deg, #4274D9 0%, #4274D9 100%);
-  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--filter-accent-blue) 0%, #4274D9 100%);
+  padding: var(--filter-header-padding);
   color: #fff;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.price-filter-header:hover {
+  filter: brightness(0.95);
 }
 
 .price-filter-icon {
-  font-size: 15px;
-  opacity: 0.9;
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .price-filter-title {
-  font-size: 15px;
+  flex: 1;
   font-weight: 700;
-  text-transform: uppercase;
+  font-size: 14px;
   letter-spacing: 0.5px;
 }
 
-/* Preset range buttons */
+.price-chevron {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Collapsible content */
+.price-filter-content {
+  display: none;
+  padding-bottom: 16px;
+}
+
+.price-filter-content.expanded {
+  display: block;
+}
+
+/* Preset range buttons - Uses unified design */
 .price-presets {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 0 16px 14px 16px;
+  padding: 14px var(--filter-spacing);
+  background: #fafbfc;
 }
 
 .price-preset-btn {
@@ -44,54 +74,68 @@
   min-width: 70px;
   padding: 6px 8px;
   border-radius: 20px;
-  border: 1.5px solid #e0e0e0;
+  border: 1.5px solid var(--filter-border);
   background: #fafafa;
-  color: #444;
+  color: var(--filter-text-primary);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   text-align: center;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .price-preset-btn:hover {
-  border-color: #4274D9;
-  color: #4274D9;
-  background: #e8eef8;
+  border-color: var(--filter-accent-blue);
+  color: var(--filter-accent-blue);
+  background: var(--filter-active-bg);
 }
 
 .price-preset-btn.active {
-  background: #4274D9;
-  border-color: #4274D9;
+  background: var(--filter-accent-blue);
+  border-color: var(--filter-accent-blue);
   color: #fff;
 }
 
-/* Reset button */
+/* Reset button - Uses unified design */
 .price-reset-btn {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 16px;
+  margin: 0 var(--filter-spacing) 14px var(--filter-spacing);
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1.5px solid #4274D9;
+  border: 1.5px solid var(--filter-accent-blue);
   background: transparent;
-  color: #4274D9;
+  color: var(--filter-accent-blue);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
 }
 
 .price-reset-btn:hover {
-  background: #4274D9;
+  background: var(--filter-accent-blue);
   color: #fff;
 }
 
-/* Loading state */
+/* Loading state - Uses unified design */
 .price-loading {
   padding: 20px;
   text-align: center;
-  color: #aaa;
+  color: var(--filter-text-muted);
+  font-size: 14px;
+}
+
+/* Responsive - Uses unified design */
+@media only screen and (max-width: 991px) {
+  .price-filter-title {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .price-filter-title {
+    font-size: 12px;
+  }
 }

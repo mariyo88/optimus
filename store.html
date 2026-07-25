@@ -37,6 +37,9 @@
  		<!-- Page Hero stylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/page-hero.css"/>
  		
+ 		<!-- Unified Filters Base stylesheet (must come first) -->
+ 		<link type="text/css" rel="stylesheet" href="css/filters-unified.css"/>
+ 		
  		<!-- GoD Categories stylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/god-categories.css"/>
  		
@@ -45,6 +48,9 @@
 
  		<!-- Modern Price Filter stylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/price-modern.css"/>
+ 		
+ 		<!-- Modern Specification Filter stylesheet -->
+ 		<link type="text/css" rel="stylesheet" href="css/specification-modern.css"/>
  		
  		<!-- Quick View Modal stylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/quick-view-modal.css"/>
@@ -218,18 +224,6 @@
 		<div class="section">
 			<!-- container -->
 			<div class="container">
-				<!-- Brand Filter - Horizontal Bar -->
-				<div class="row">
-					<div class="col-md-12">
-						<div id="brand-filter-bar">
-							<div id="brand-filter" class="modern-enabled">
-								<!-- dynamically populated by store-modern-brands.js -->
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Brand Filter - Horizontal Bar -->
-
 				<!-- row -->
 				<div class="row">
 					<!-- ASIDE -->
@@ -244,10 +238,26 @@
 						</div>
 						<!-- /aside Widget -->
 
+						<!-- aside Widget - Modern Brand Filter -->
+						<div class="aside" id="brand-filter-container" style="display: none;">
+							<div id="brand-filter">
+								<!-- dynamically populated by store-modern-brands.js -->
+							</div>
+						</div>
+						<!-- /aside Widget -->
+
 						<!-- aside Widget - Modern Price Filter -->
 						<div class="aside">
 							<div id="price-filter-modern">
 								<!-- dynamically populated by store-modern-price.js -->
+							</div>
+						</div>
+						<!-- /aside Widget -->
+
+						<!-- aside Widget - Modern Specification Filter -->
+						<div class="aside" id="specification-filter-container" style="display: none;">
+							<div id="specification-filter">
+								<!-- dynamically populated by store-modern-specifications.js -->
 							</div>
 						</div>
 						<!-- /aside Widget -->
@@ -448,6 +458,9 @@
 		
 		<!-- Modern Price Filter -->
 		<script src="js/store-modern-price.js"></script>
+		
+		<!-- Modern Specification Filter -->
+		<script src="js/store-modern-specifications.js"></script>
 		
 		<script src="js/brands-carousel.js"></script>
 		<script src="js/bestseller-widgets.js"></script>
