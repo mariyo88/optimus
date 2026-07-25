@@ -1,0 +1,254 @@
+/**
+ * Modern Specification Filter Styles
+ * Uses unified filter design system
+ * Collapsible specification filters with checkboxes
+ */
+
+.modern-specification-filter {
+    background: var(--filter-bg);
+    border-radius: var(--filter-border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 20px;
+}
+
+/* Filter Header - Purple gradient with collapse functionality */
+.spec-filter-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: var(--filter-header-padding);
+    background: linear-gradient(135deg, var(--filter-accent-blue) 0%, var(--filter-accent-purple) 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.spec-filter-header:hover {
+    filter: brightness(0.95);
+}
+
+.spec-filter-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.spec-filter-title {
+    flex: 1;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.spec-filter-chevron {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Collapsible content */
+.spec-filter-content {
+    display: none;
+}
+
+.spec-filter-content.expanded {
+    display: block;
+}
+
+/* Specification Section - Uses unified design */
+.specification-filter-section {
+    border-bottom: 1px solid #f0f2f5;
+    transition: background-color 0.2s ease;
+}
+
+.specification-filter-section:last-child {
+    border-bottom: none;
+}
+
+.specification-filter-section:hover {
+    background-color: var(--filter-hover-bg);
+}
+
+/* Specification Header (Clickable) - Uses unified design */
+.spec-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px var(--filter-spacing);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.spec-header:hover {
+    background-color: #f0f2f5;
+}
+
+.spec-icon {
+    color: var(--filter-accent-blue);
+    font-size: 16px;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.spec-header:hover .spec-icon {
+    color: var(--filter-accent-purple);
+}
+
+.spec-name {
+    flex: 1;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--filter-text-primary);
+}
+
+.spec-count {
+    color: var(--filter-text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    background: #f0f2f5;
+    padding: 3px 8px;
+    border-radius: 10px;
+    line-height: 1;
+}
+
+.spec-chevron {
+    color: var(--filter-text-muted);
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.specification-filter-section.expanded .spec-chevron {
+    transform: rotate(180deg);
+}
+
+/* Specification Values (Checkboxes) - Uses unified design */
+.spec-values {
+    display: none;
+    padding: 8px var(--filter-spacing) 15px 45px;
+    background-color: #fafbfc;
+}
+
+.spec-value-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f5f7fa;
+}
+
+.spec-value-item:last-child {
+    border-bottom: none;
+}
+
+.spec-value-item:hover {
+    padding-left: 5px;
+}
+
+.spec-value-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border: 2px solid #cbd0dd;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.spec-value-item input[type="checkbox"]:hover {
+    border-color: var(--filter-accent-blue);
+}
+
+.spec-value-item label {
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--filter-text-secondary);
+    margin: 0;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.spec-value-item:hover label {
+    color: var(--filter-text-primary);
+    font-weight: 500;
+}
+
+.spec-value-item input[type="checkbox"]:checked + label {
+    font-weight: 600;
+}
+
+/* Loading State - Uses unified design */
+.spec-loading {
+    padding: 20px;
+    text-align: center;
+    color: var(--filter-text-muted);
+    font-size: 14px;
+}
+
+.spec-loading i {
+    margin-right: 8px;
+}
+
+/* Empty State - Uses unified design */
+.spec-empty {
+    padding: 20px;
+    text-align: center;
+    color: var(--filter-text-muted);
+    font-size: 14px;
+}
+
+/* Responsive Adjustments - Uses unified design */
+@media only screen and (max-width: 991px) {
+    .spec-name {
+        font-size: 13px;
+    }
+
+    .spec-values {
+        padding-left: 35px;
+    }
+    
+    .spec-value-item {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .spec-name {
+        font-size: 12px;
+    }
+
+    .spec-count {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+
+    .spec-values {
+        padding-left: 32px;
+    }
+
+    .spec-value-item {
+        font-size: 12px;
+    }
+}
+
+/* Animation for sliding values */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+    }
+}
+
+.specification-filter-section.expanded .spec-values {
+    animation: slideDown 0.3s ease-out;
+}

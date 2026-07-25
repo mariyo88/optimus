@@ -27,11 +27,16 @@
 
         var $wrap = $('<div class="modern-price-filter">');
 
-        // Header
+        // Header with collapse toggle
         var $header = $('<div class="price-filter-header">');
         $header.append('<span class="price-filter-icon"><i class="fa fa-tag"></i></span>');
         $header.append('<span class="price-filter-title">Cena</span>');
+        $header.append('<span class="price-chevron"><i class="fa fa-angle-down"></i></span>');
         $wrap.append($header);
+
+        // Content wrapper for collapsible content
+        var $content = $('<div class="price-filter-content expanded">');
+
 
         // Preset buttons
         var $presets = $('<div class="price-presets">');
@@ -73,12 +78,13 @@
 
             $presets.append($btn);
         });
-        $wrap.append($presets);
+        $content.append($presets);
 
         // Reset button
         var $reset = $('<button class="price-reset-btn">');
         $reset.html('<i class="fa fa-times-circle"></i> Resetuj cenu').hide();
-        $reset.on('click', function () {
+        $reset.on('click', function (e) {
+            e.stopPropagation();
             $presets.find('.price-preset-btn').removeClass('active');
             $(this).hide();
             if (window.storePageState) {
@@ -88,9 +94,22 @@
                 if (window.loadStoreProducts) window.loadStoreProducts();
             }
         });
-        $wrap.append($reset);
+        $content.append($reset);
 
+        $wrap.append($content);
         $container.append($wrap);
+
+        // Header click handler for collapse/expand
+        $header.on('click', function() {
+            var $chevron = $(this).find('.price-chevron i');
+            if ($content.hasClass('expanded')) {
+                $content.removeClass('expanded').slideUp(200);
+                $chevron.css('transform', 'rotate(-90deg)');
+            } else {
+                $content.addClass('expanded').slideDown(200);
+                $chevron.css('transform', 'rotate(0deg)');
+            }
+        });
     }
 
     function loadPriceRange() {

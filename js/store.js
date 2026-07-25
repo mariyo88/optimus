@@ -16,7 +16,8 @@
         sort:     'id,desc',
         viewMode: 'grid', // 'grid' or 'list'
         minPrice: null,
-        maxPrice: null
+        maxPrice: null,
+        specifications: {}  // Map<spec_name, [values]>
     };
     
     // Expose state globally for modern category filter
@@ -335,18 +336,37 @@
         var $grid = $('#store-products');
         $grid.html('<div class="col-md-12 text-center" style="padding:40px;"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
 
+        // Build filter object for POST request
+        var filterData = {
+            category: state.category || null,
+            godCategory: state.godCategory || null,
+            brand: state.brand || null,
+            search: state.search || null,
+            minPrice: state.minPrice,
+            maxPrice: state.maxPrice,
+            specifications: null
+        };
+
+        // Add specifications if any are selected
+        if (state.specifications && Object.keys(state.specifications).length > 0) {
+            filterData.specifications = state.specifications;
+        }
+
+        // Build query params for pagination and sorting
+        var queryParams = {
+            page: state.page,
+            size: state.size,
+            sort: state.sort
+        };
+
         $.ajax({
-            url: API_BASE + '/api/products',
-            data: {
-                category:    state.category    || undefined,
-                godCategory: state.godCategory || undefined,
-                brand:       state.brand       || undefined,
-                search:      state.search      || undefined,
-                minPrice: state.minPrice != null ? state.minPrice : undefined,
-                maxPrice: state.maxPrice != null ? state.maxPrice : undefined,
-                page:     state.page,
-                size:     state.size,
-                sort:     state.sort
+            url: API_BASE + '/api/products/search',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(filterData),
+            // Add pagination as query params
+            beforeSend: function(xhr, settings) {
+                settings.url = settings.url + '?' + $.param(queryParams);
             },
             success: function (data) {
                 var products = data.content || [];
@@ -375,7 +395,11 @@
                 $('#store-qty').text('Prikaz ' + from + '-' + to + ' od ' + data.totalElements + ' proizvoda');
                 $('#store-pagination').html(buildPagination(data.page, data.totalPages));
             },
-            error: function () {
+            error: function (xhr, status, error) {
+                console.error('Failed to load products:', status, error);
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    console.error('Server error:', xhr.responseJSON.message);
+                }
                 $grid.html('<div class="col-md-12 text-center" style="padding:40px;"><p>Nije moguće učitati proizvode. Proverite konzolu za detalje.</p></div>');
             }
         });
@@ -440,6 +464,16 @@
         // which updates window.storePageState and calls window.loadStoreProducts()
 
         loadProducts();
+        
+        // Load specifications if category or godCategory is set from URL
+        if (window.loadSpecificationsForCategory) {
+            window.loadSpecificationsForCategory(state.category, state.godCategory);
+        }
+        
+        // Load brands if category or godCategory is set from URL
+        if (window.loadBrandsForCategory) {
+            window.loadBrandsForCategory(state.category, state.godCategory);
+        }
     });
 
 })(jQuery);
