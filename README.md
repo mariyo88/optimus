@@ -146,7 +146,7 @@ optimus/
 API_BASE = 'http://localhost:8080'
 
 // sve ostalo → produkcija
-API_BASE = 'https://webshop-backend-473383712022.europe-west1.run.app'
+API_BASE = 'https://optimus-backend-473383712022.europe-west1.run.app'
 ```
 
 Nema potrebe za menjanjem koda pri deployu — detekcija je automatska.
