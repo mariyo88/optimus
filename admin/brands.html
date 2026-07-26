@@ -346,6 +346,30 @@
   </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteBrandModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #ef4444; color: white; border: none;">
+        <h5 class="modal-title"><i class="fa fa-trash mr-2"></i> Brisanje brenda</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 0.8;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem;">
+        <p style="margin: 0; color: #555;">Da li ste sigurni da želite da obrišete brend:</p>
+        <p id="delete-brand-name" style="margin: 0.8rem 0 0; font-weight: 700; color: #222; font-size: 0.95rem; word-break: break-word;"></p>
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Otkaži</button>
+        <button type="button" class="btn btn-danger btn-sm" id="confirm-delete-brand-btn" onclick="confirmDeleteBrand()">
+          <i class="fa fa-trash mr-1"></i> Obriši
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="admin.js"></script>
@@ -451,15 +475,25 @@
     });
   }
 
+  let deleteBrandId = null;
+
   function deleteBrand(id, name) {
-    if (confirm('Da li ste sigurni da želite da obrišete brend "' + name + '"?')) {
-      apiDelete('/api/admin/brands/' + id).then(() => {
-        showNotification('Brend obrisan', 'success');
-        loadBrands();
-      }).catch(err => {
-        showNotification('Greška pri brisanju: ' + (err.message || 'Nepoznata greška'), 'error');
-      });
-    }
+    deleteBrandId = id;
+    $('#delete-brand-name').text(name);
+    $('#deleteBrandModal').modal('show');
+  }
+
+  function confirmDeleteBrand() {
+    if (!deleteBrandId) return;
+
+    apiDelete('/api/admin/brands/' + deleteBrandId).then(() => {
+      $('#deleteBrandModal').modal('hide');
+      showNotification('Brend obrisan', 'success');
+      loadBrands();
+      deleteBrandId = null;
+    }).catch(err => {
+      showNotification('Greška pri brisanju: ' + (err.message || 'Nepoznata greška'), 'error');
+    });
   }
 
   function updateLogoPreview(url) {

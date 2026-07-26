@@ -35,7 +35,7 @@
 
                 // Build navigation items
                 var navHtml = navItem('index.html', 'Početna') +
-                    navItem('under-construction.html', 'Akcije');
+                    navItem('offers.html', 'Akcije');
 
                 visibleCategories.forEach(function (cat) {
                     // Koristi displayName ako postoji, inače fallback na name
@@ -71,7 +71,7 @@
     }
 
     function updateFooterNav(categories) {
-        var footerHtml = '<li><a href="#">Akcije</a></li>';
+        var footerHtml = '<li><a href="offers.html">Akcije</a></li>';
 
         categories.forEach(function (cat) {
             // Koristi displayName ako postoji, inače fallback na name
