@@ -30,10 +30,11 @@ function logout() {
   window.location.href = 'index.html';
 }
 
-function doLogin() {
+function doLogin(event) {
+  if (event) event.preventDefault();
   const username = $('#login-username').val().trim();
   const password = $('#login-password').val();
-  if (!username || !password) return;
+  if (!username || !password) return false;
 
   $.ajax({
     url: API_BASE + '/api/admin/orders?size=1',
@@ -46,6 +47,7 @@ function doLogin() {
       $('#login-error').removeClass('d-none');
     }
   });
+  return false;
 }
 
 function showApp() {
@@ -68,7 +70,6 @@ function initPage() {
 
 function api(path, options = {}) {
   const auth = getAuth();
-  console.log('API call:', path, 'Auth token:', auth ? 'present' : 'missing');
   const defaults = {
     url: API_BASE + path,
     headers: { 'Authorization': 'Basic ' + auth, 'Content-Type': 'application/json' },
@@ -77,11 +78,9 @@ function api(path, options = {}) {
   return new Promise((resolve, reject) => {
     $.ajax(Object.assign(defaults, options))
       .done(function(data) {
-        console.log('API response:', path, data);
         resolve(data);
       })
       .fail(function(xhr) {
-        console.error('API error:', path, xhr.status, xhr.responseJSON);
         if (xhr.status === 401) { logout(); return; }
         const msg = xhr.responseJSON?.message || xhr.responseText || 'Greška';
         showToast(msg, 'danger');

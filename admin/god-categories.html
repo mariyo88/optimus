@@ -191,13 +191,19 @@
       <label>Korisničko ime</label>
       <input type="text" id="login-username" class="form-control" placeholder="admin">
     </div>
-    <div class="form-group">
-      <label>Lozinka</label>
-      <input type="password" id="login-password" class="form-control" placeholder="••••••••">
-    </div>
-    <button class="btn btn-primary btn-block" onclick="doLogin()">
-      <i class="fa fa-sign-in mr-1"></i> Prijavi se
-    </button>
+    <form onsubmit="doLogin(); return false;">
+      <div class="form-group">
+        <label>Korisničko ime</label>
+        <input type="text" id="login-username" class="form-control" placeholder="admin" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label>Lozinka</label>
+        <input type="password" id="login-password" class="form-control" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">
+        <i class="fa fa-sign-in mr-1"></i> Prijavi se
+      </button>
+    </form>
   </div>
 </div>
 
