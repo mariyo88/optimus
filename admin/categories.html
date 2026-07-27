@@ -106,6 +106,8 @@
     .btn-category.migrate { color: #22ea0c; border-color: #eae60c; }
     .btn-category.migrate:hover { background: #fff7ed; }
     .btn-category.migrate:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-category.products { color: #0ea5e9; border-color: #0ea5e9; }
+    .btn-category.products:hover { background: #f0f9ff; }
 
     .category-tree-level {
       margin-left: 1.75rem;
@@ -642,6 +644,7 @@
         <span class="category-slug">${escapeHtml(secondaryText)}</span>
       </div>
       <div class="category-actions">
+        <button class="btn-category products" onclick="viewCategoryProducts('${cat.slug}')" title="Prikaži proizvode"><i class="fa fa-cube"></i></button>
         <button class="btn-category edit" onclick="editCategory(${cat.id})" title="Uredi"><i class="fa fa-edit"></i></button>
         <button class="btn-category delete" onclick="deleteCategory(${cat.id}, '${escapeHtml(cat.name).replace(/'/g, "\\'")}')" title="Obriši"><i class="fa fa-trash"></i></button>
       </div>
@@ -669,6 +672,7 @@
         <span class="category-slug">${escapeHtml(secondaryText)}${markupBadge}</span>
       </div>
       <div class="category-actions">
+        <button class="btn-category products" onclick="viewCategoryProducts('${cat.slug}')" title="Prikaži proizvode"><i class="fa fa-cube"></i></button>
         <button class="btn-category recalc" onclick="openRecalcModal(${cat.id}, '${escapeHtml(displayText).replace(/'/g, "\\'")}')" title="Preračunaj cene"><i class="fa fa-calculator"></i></button>
         <button class="btn-category migrate" onclick="openMigrateModal(${cat.id}, '${escapeHtml(displayText).replace(/'/g, "\\'")}')" title="Grupna migracija slika"><i class="fa fa-cloud-upload"></i></button>
         <button class="btn-category edit" onclick="editCategory(${cat.id})" title="Uredi"><i class="fa fa-edit"></i></button>
@@ -896,6 +900,13 @@
       .html('<i class="fa ' + (type === 'success' ? 'fa-check-circle' : 'fa-times-circle') + ' mr-2"></i>' + message)
       .appendTo('body');
     setTimeout(() => { n.fadeOut(300, function() { $(this).remove(); }); }, 3000);
+  }
+
+  // ─── View Category Products ────────────────────────────────────────────────
+
+  function viewCategoryProducts(categoryId) {
+    // Redirect to products.html with selected category
+    window.location.href = 'products.html?category=' + categoryId;
   }
 
   // ─── Category Image Migration ──────────────────────────────────────────────

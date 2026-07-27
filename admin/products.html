@@ -1010,6 +1010,11 @@
 
   $(document).ready(function() {
     if (!getAuth()) return;
+    
+    // Check URL parameters for category filter
+    const urlParams = new URLSearchParams(window.location.search);
+    const categorySlugFromUrl = urlParams.get('category');
+    
     api('/api/categories').then(cats => {
       // Samo subkategorije (kategorije sa parent-om) — root kategorije su samo kontejneri
       function collectSubcategories(tree) {
@@ -1039,8 +1044,21 @@
         const displayText = (c.displayName || c.name) + ' (' + (c.parentName || '') + ')';
         $('#bulk-category-select').append('<option value="' + c.id + '">' + escapeHtml(displayText) + '</option>');
       });
-      // Restore filters after categories are loaded
-      restoreFilters();
+      
+      // If category slug from URL, select that category
+      if (categorySlugFromUrl) {
+        const decodedSlug = decodeURIComponent(categorySlugFromUrl);
+        const matchingCategory = subcats.find(c => c.slug === decodedSlug);
+        if (matchingCategory) {
+          $('#category-filter').val(matchingCategory.slug);
+          // Clear the URL parameter to avoid confusion
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      } else {
+        // Restore filters only if no URL parameter
+        restoreFilters();
+      }
+      
       loadProducts(0);
     });
     $('#search-input').on('keypress', e => { if (e.which === 13) loadProducts(0); });
