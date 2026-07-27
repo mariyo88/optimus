@@ -179,49 +179,6 @@
                     }
                 });
                 
-                // Header click (excluding toggle button) - reset filter (show all products)
-                $header.on('click', function(e) {
-                    // Don't reset if clicking the toggle button
-                    if ($(e.target).closest('.category-collapse-toggle').length) {
-                        return;
-                    }
-                    
-                    $('.god-category-item').removeClass('expanded');
-                    $('.mapped-category-item').removeClass('selected');
-                    $('.god-category-header').removeClass('active');
-                    
-                    if (window.storePageState) {
-                        window.storePageState.category = '';
-                        window.storePageState.godCategory = '';
-                        window.storePageState.brand = '';
-                        window.storePageState.specifications = {};
-                        window.storePageState.page = 0;
-                        if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('', '');
-                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', '');
-                        if (window.loadStoreProducts) window.loadStoreProducts();
-                    }
-                });
-                
-                // GoD Category header click - expand/collapse and load products
-                $filter.on('click', '.god-category-header', function(e) {
-                    $('.god-category-item').removeClass('expanded');
-                    $('.mapped-category-item').removeClass('selected');
-                    $('.god-category-header').removeClass('active');
-                    
-                    if (window.storePageState) {
-                        window.storePageState.category = '';
-                        window.storePageState.godCategory = '';
-                        window.storePageState.brand = '';
-                        window.storePageState.specifications = {};
-                        window.storePageState.page = 0;
-                        if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('', '');
-                        if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', '');
-                        if (window.loadStoreProducts) window.loadStoreProducts();
-                    }
-                });
-                
                 // GoD Category header click - expand/collapse and load products
                 $filter.on('click', '.god-category-header', function(e) {
                     e.preventDefault();
