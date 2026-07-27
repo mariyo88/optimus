@@ -271,8 +271,8 @@
 
 /* When category has an image, reduce left padding (image replaces the fa arrow indent) */
 .mapped-category-link.has-image {
-    padding-left: 12px;
-    gap: 8px;
+    padding-left: 28px;
+    gap: 10px;
 }
 
 .mapped-category-link:hover {
@@ -284,7 +284,7 @@
 }
 
 .mapped-category-link.has-image:hover {
-    padding-left: 16px;
+    padding-left: 32px;
 }
 
 .mapped-category-item.selected > .mapped-category-link {
@@ -414,12 +414,12 @@
 
 /* Sub-category image icon */
 .sub-category-item.has-image {
-    padding-left: 24px;
-    gap: 8px;
+    padding-left: 44px;
+    gap: 10px;
 }
 
 .sub-category-item.has-image:hover {
-    padding-left: 28px;
+    padding-left: 48px;
 }
 
 .sub-category-item.has-image:before {
