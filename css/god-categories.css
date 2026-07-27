@@ -151,8 +151,8 @@
 
 /* GoD Icon */
 .god-icon {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +164,7 @@
 }
 
 .god-icon i {
-    font-size: 15px;
+    font-size: 17px;
     color: var(--filter-accent-blue);
 }
 
@@ -175,8 +175,8 @@
 }
 
 .god-icon.god-icon--image img {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
     display: block;
 }
@@ -318,16 +318,16 @@
 /* Mapped category image icon */
 .mapped-category-icon {
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .mapped-category-icon--image img {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
     object-fit: contain;
     border-radius: 3px;
     filter: grayscale(20%);
@@ -428,16 +428,16 @@
 
 .sub-category-icon {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .sub-category-icon--image img {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
     border-radius: 3px;
     filter: grayscale(20%);
@@ -462,12 +462,12 @@
 /* Responsive */
 @media (max-width: 991px) {
     .god-icon {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
     }
     
     .god-icon i {
-        font-size: 13px;
+        font-size: 15px;
     }
     
     .god-name,
