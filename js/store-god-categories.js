@@ -57,6 +57,7 @@
                     
                     var categoryName = godCat.displayName || godCat.name;
                     var icon = godCat.iconClass || 'fa-folder';
+                    var imageUrl = godCat.imageUrl || null;
                     var hasMappings = godCat.mappedCategories && godCat.mappedCategories.length > 0;
                     
                     if (hasMappings) {
@@ -65,7 +66,16 @@
                     
                     // GoD Category header
                     var $godHeader = $('<div class="god-category-header">');
-                    $godHeader.append('<span class="god-icon"><i class="fa ' + icon + '"></i></span>');
+                    
+                    // Icon or image
+                    var $godIcon = $('<span class="god-icon">');
+                    if (imageUrl) {
+                        $godIcon.addClass('god-icon--image');
+                        $godIcon.append('<img src="' + imageUrl + '" alt="' + categoryName + '">');
+                    } else {
+                        $godIcon.append('<i class="fa ' + icon + '"></i>');
+                    }
+                    $godHeader.append($godIcon);
                     $godHeader.append('<span class="god-name">' + categoryName + '</span>');
                     
                     if (hasMappings) {
@@ -92,7 +102,16 @@
                             }
                             
                             var $mappedLink = $('<a class="mapped-category-link">');
-                            $mappedLink.text(mappedCat.displayName || mappedCat.name);
+                            
+                            // Add image if available
+                            if (fullCategory && fullCategory.imageUrl) {
+                                $mappedLink.addClass('has-image');
+                                var $catImg = $('<span class="mapped-category-icon mapped-category-icon--image">');
+                                $catImg.append('<img src="' + fullCategory.imageUrl + '" alt="' + (mappedCat.displayName || mappedCat.name) + '">');
+                                $mappedLink.append($catImg);
+                            }
+                            
+                            $mappedLink.append('<span class="mapped-category-name">' + (mappedCat.displayName || mappedCat.name) + '</span>');
                             
                             if (hasChildren) {
                                 $mappedLink.append('<span class="mapped-chevron"><i class="fa fa-angle-right"></i></span>');
@@ -108,7 +127,16 @@
                                     var $subItem = $('<a class="sub-category-item">');
                                     $subItem.attr('data-slug', child.slug);
                                     $subItem.attr('data-id', child.id);
-                                    $subItem.text(child.displayName || child.name);
+                                    
+                                    // Add image if available
+                                    if (child.imageUrl) {
+                                        $subItem.addClass('has-image');
+                                        var $subImg = $('<span class="sub-category-icon sub-category-icon--image">');
+                                        $subImg.append('<img src="' + child.imageUrl + '" alt="' + (child.displayName || child.name) + '">');
+                                        $subItem.append($subImg);
+                                    }
+                                    
+                                    $subItem.append('<span class="sub-category-name">' + (child.displayName || child.name) + '</span>');
                                     $subList.append($subItem);
                                 });
                                 

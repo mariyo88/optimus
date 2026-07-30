@@ -6,7 +6,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Optimus - Zna šta da ti prepiše Optimus - Vaša Destinacija za Najnoviju Tehnologiju i Belu Tehniku | Optimus</title>
+		<title>Optimus - Vaša Destinacija za Najnoviju Tehnologiju | Optimus</title>
+		<!-- Canonical i Open Graph — dinamički se ažuriraju putem product-detail.js -->
+		<link rel="canonical" id="canonical-url" href="https://firstcode.in.rs/product.html">
+		<meta property="og:type" content="product">
+		<meta property="og:site_name" content="Optimus">
+		<meta name="twitter:card" content="summary_large_image">
+		<!-- Google Merchant Center: target country / currency -->
+		<meta name="google-merchant-country" content="RS">
+		<meta name="google-merchant-currency" content="RSD">
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -526,6 +534,16 @@
 			<!-- /bottom footer -->
 		</footer>
 		<!-- /FOOTER -->
+
+		<!-- SEO: Crawlable navigation fallback za botove bez JS -->
+		<noscript>
+			<nav aria-label="SEO navigacija" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+				<a href="index.html">Početna</a>
+				<a href="store.html">Sve kategorije</a>
+				<a href="offers.html">Akcije</a>
+				<a href="sitemap.xml">Mapa sajta</a>
+			</nav>
+		</noscript>
 
 		<!-- jQuery Plugins -->
 		<script src="js/jquery.min.js"></script>

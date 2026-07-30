@@ -7,6 +7,18 @@
 
     var API_BASE = window.APP_CONFIG.API_BASE;
 
+    /** Helper: set or create a <meta> tag by property or name attribute */
+    function setMeta(prop, content) {
+        var el = document.querySelector('meta[property="' + prop + '"]') ||
+                 document.querySelector('meta[name="' + prop + '"]');
+        if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute(prop.startsWith('og:') || prop.startsWith('twitter:') ? 'property' : 'name', prop);
+            document.head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+    }
+
     function getSlugFromUrl() {
         var params = new URLSearchParams(window.location.search);
         return params.get('slug');
@@ -161,6 +173,18 @@
         // Page title + breadcrumb
         document.title = product.name + ' — Optimus';
         updateBreadcrumbs(product);
+
+        // Update canonical URL and Open Graph meta tags
+        var productUrl = window.location.origin + '/product.html?slug=' + product.slug;
+        var canonicalEl = document.getElementById('canonical-url');
+        if (canonicalEl) canonicalEl.setAttribute('href', productUrl);
+        setMeta('og:title', product.name + ' — Optimus');
+        setMeta('og:description', product.shortDescription || product.name);
+        setMeta('og:url', productUrl);
+        if (product.mainImageUrl) {
+            setMeta('og:image', product.mainImageUrl);
+            setMeta('twitter:image', product.mainImageUrl);
+        }
     }
 
     function renderKeyFeatures(product) {
@@ -533,6 +557,87 @@
         );
     }
 
+    /**
+     * Injects a Schema.org Product + Offer JSON-LD block into <head>.
+     * Used by Google Rich Results, Google Merchant Center, and AI Commerce agents.
+     * Site base URL is derived from window.location.origin — no hardcoded domain.
+     */
+    function injectProductSchema(product) {
+        var siteBase = window.location.origin;
+
+        // Remove any previously injected schema
+        $('#product-jsonld').remove();
+
+        var price = product.bestOurWebPrice || product.bestRetailPrice;
+        var inStock = product.stock != null && product.stock > 0;
+        var imageUrl = product.mainImageUrl || '';
+        var productUrl = siteBase + '/product.html?slug=' + product.slug;
+
+        var schema = {
+            '@context': 'https://schema.org/',
+            '@type': 'Product',
+            name: product.name,
+            description: product.shortDescription || product.name,
+            sku: product.sku || String(product.id),
+            mpn: product.manufacturerCode || product.sku || String(product.id),
+            image: imageUrl,
+            url: productUrl,
+            brand: {
+                '@type': 'Brand',
+                name: (product.brand && product.brand.name) ? product.brand.name : 'Optimus'
+            }
+        };
+
+        if (price) {
+            schema.offers = {
+                '@type': 'Offer',
+                url: productUrl,
+                priceCurrency: 'RSD',
+                price: price.toString(),
+                availability: inStock
+                    ? 'https://schema.org/InStock'
+                    : 'https://schema.org/OutOfStock',
+                itemCondition: 'https://schema.org/NewCondition',
+                seller: {
+                    '@type': 'Organization',
+                    name: 'Optimus',
+                    url: siteBase
+                },
+                shippingDetails: {
+                    '@type': 'OfferShippingDetails',
+                    shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'RSD' },
+                    shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'RS' },
+                    deliveryTime: {
+                        '@type': 'ShippingDeliveryTime',
+                        handlingTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 2, unitCode: 'DAY' },
+                        transitTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 3, unitCode: 'DAY' }
+                    }
+                },
+                hasMerchantReturnPolicy: {
+                    '@type': 'MerchantReturnPolicy',
+                    applicableCountry: 'RS',
+                    returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+                    merchantReturnDays: 14,
+                    returnMethod: 'https://schema.org/ReturnByMail',
+                    returnFees: 'https://schema.org/FreeReturn'
+                }
+            };
+        }
+
+        if (product.averageRating && product.reviewCount && product.reviewCount > 0) {
+            schema.aggregateRating = {
+                '@type': 'AggregateRating',
+                ratingValue: product.averageRating.toFixed(1),
+                reviewCount: product.reviewCount
+            };
+        }
+
+        $('<script>')
+            .attr({ id: 'product-jsonld', type: 'application/ld+json' })
+            .text(JSON.stringify(schema, null, 2))
+            .appendTo('head');
+    }
+
     function loadProduct(slug) {
         // Show loading spinner while fetching product data
         var $spinner = $(
@@ -556,6 +661,7 @@
                 renderImages(product);
                 renderTabs(product);
                 loadRelatedProducts(product);
+                injectProductSchema(product);
 
                 // Init share buttons (Facebook, WhatsApp, Copy Link, QR Code)
                 if (typeof window.initQrShare === 'function') {

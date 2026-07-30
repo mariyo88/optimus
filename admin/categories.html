@@ -322,6 +322,13 @@
               <label class="cat-check"><input type="checkbox" id="f-is-new-products"> New products</label>
               <label class="cat-check"><input type="checkbox" id="f-is-top-selling"> Top selling</label>
             </div>
+            <div style="margin-bottom: 0.75rem;">
+              <label class="cat-label" for="f-image-url">URL slike <small>(opciono — za navigacioni meni)</small></label>
+              <input type="text" id="f-image-url" class="form-control form-control-sm" placeholder="https://... ili /img/categories/...">
+              <div id="f-image-preview" style="margin-top:6px; display:none;">
+                <img id="f-image-preview-img" src="" alt="Preview" style="width:36px;height:36px;object-fit:contain;border:1px solid #ddd;border-radius:6px;padding:2px;">
+              </div>
+            </div>
             <div id="markup-field-group" style="border-top: 1px solid #f0f0f0; padding-top: 0.75rem; display: flex; align-items: center; gap: 1rem;">
               <div>
                 <label class="cat-label" for="f-markup-percent">Markup procenat <small>(prazno = globalni default)</small></label>
@@ -638,15 +645,17 @@
     const displayText = cat.displayName || cat.name;
     const secondaryText = cat.displayName ? cat.name + ' → ' + cat.slug : cat.slug;
     const isInactive = cat.isActive === false ? ' style="opacity:0.55;"' : '';
+    const iconHtml = cat.imageUrl
+      ? `<img src="${escapeHtml(cat.imageUrl)}" alt="" style="width:22px;height:22px;object-fit:contain;">`
+      : '<i class="fa fa-folder"></i>';
 
     let html = `<li class="category-item"${isInactive}>
-      <div class="category-icon"><i class="fa fa-folder"></i></div>
+      <div class="category-icon">${iconHtml}</div>
       <div class="category-info">
         <span class="category-name">${escapeHtml(displayText)}${cat.isActive === false ? ' <span style="font-size:0.75rem;color:#ef4444;">(neaktivna)</span>' : ''}</span>
         <span class="category-slug">${escapeHtml(secondaryText)}</span>
       </div>
       <div class="category-actions">
-        <button class="btn-category products" onclick="viewCategoryProducts('${cat.slug}')" title="Prikaži proizvode"><i class="fa fa-cube"></i></button>
         <button class="btn-category edit" onclick="editCategory(${cat.id})" title="Uredi"><i class="fa fa-edit"></i></button>
         <button class="btn-category delete" onclick="deleteCategory(${cat.id}, '${escapeHtml(cat.name).replace(/'/g, "\\'")}')" title="Obriši"><i class="fa fa-trash"></i></button>
       </div>
@@ -666,9 +675,12 @@
     const markupBadge = cat.markupPercent != null
       ? ` &nbsp;|&nbsp; <span style="color:#7c3aed;font-weight:600;">markup: ${cat.markupPercent}%</span>` : '';
     const isInactive = cat.isActive === false ? ' style="opacity:0.55;"' : '';
+    const iconHtml = cat.imageUrl
+      ? `<img src="${escapeHtml(cat.imageUrl)}" alt="" style="width:20px;height:20px;object-fit:contain;">`
+      : '<i class="fa fa-folder-o"></i>';
 
     let html = `<li class="category-item"${isInactive}>
-      <div class="category-icon"><i class="fa fa-folder-o"></i></div>
+      <div class="category-icon">${iconHtml}</div>
       <div class="category-info">
         <span class="category-name">${escapeHtml(displayText)}${cat.isActive === false ? ' <span style="font-size:0.75rem;color:#ef4444;">(neaktivna)</span>' : ''}</span>
         <span class="category-slug">${escapeHtml(secondaryText)}${markupBadge}</span>
@@ -753,6 +765,7 @@
     editingId = null;
     $('#categoryForm')[0].reset();
     $('#form-alert').addClass('d-none');
+    $('#f-image-preview').hide();
     $('#modal-title').html('<i class="fa fa-folder-o mr-2"></i>Nova kategorija');
     populateParentSelect(allCategories);
     updateCheckboxVisibility('');
@@ -775,6 +788,13 @@
     $('#f-is-new-products').prop('checked', found.newProductsCategory === true);
     $('#f-is-top-selling').prop('checked', found.topSellingCategory === true);
     $('#f-markup-percent').val(found.markupPercent != null ? found.markupPercent : '');
+    $('#f-image-url').val(found.imageUrl || '');
+    if (found.imageUrl) {
+      $('#f-image-preview-img').attr('src', found.imageUrl);
+      $('#f-image-preview').show();
+    } else {
+      $('#f-image-preview').hide();
+    }
     $('#form-alert').addClass('d-none');
 
     updateCheckboxVisibility(found.parentId);
@@ -793,6 +813,17 @@
 
   $('#f-parent').on('change', function() {
     updateCheckboxVisibility($(this).val());
+  });
+
+  // Image URL preview
+  $('#f-image-url').on('input', function() {
+    var url = $(this).val().trim();
+    if (url) {
+      $('#f-image-preview-img').attr('src', url);
+      $('#f-image-preview').show();
+    } else {
+      $('#f-image-preview').hide();
+    }
   });
 
   // Auto-generate slug from name (only for new categories)
@@ -822,7 +853,8 @@
       isActive: $('#f-is-active').is(':checked'),
       isNewProductsCategory: $('#f-is-new-products').is(':checked'),
       isTopSellingCategory: $('#f-is-top-selling').is(':checked'),
-      markupPercent: $('#f-markup-percent').val() ? parseInt($('#f-markup-percent').val()) : null
+      markupPercent: $('#f-markup-percent').val() ? parseInt($('#f-markup-percent').val()) : null,
+      imageUrl: $('#f-image-url').val().trim() || null
     };
 
     const promise = editingId

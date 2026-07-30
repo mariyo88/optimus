@@ -151,8 +151,8 @@
 
 /* GoD Icon */
 .god-icon {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,11 +160,25 @@
     border-radius: 6px;
     flex-shrink: 0;
     transition: all 0.2s ease;
+    overflow: hidden;
 }
 
 .god-icon i {
-    font-size: 15px;
+    font-size: 17px;
     color: var(--filter-accent-blue);
+}
+
+/* Image variant - no background tint */
+.god-icon.god-icon--image {
+    background: transparent;
+    border: 1px solid #edf0f3;
+}
+
+.god-icon.god-icon--image img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
 }
 
 .god-category-header:hover .god-icon {
@@ -176,6 +190,12 @@
     color: white;
 }
 
+/* Don't tint image icons on hover */
+.god-category-header:hover .god-icon.god-icon--image {
+    background: #f0f4ff;
+    border-color: var(--filter-accent-blue);
+}
+
 .god-category-item.expanded > .god-category-header .god-icon,
 .god-category-header.active .god-icon {
     background: var(--filter-accent-blue);
@@ -184,6 +204,12 @@
 .god-category-item.expanded > .god-category-header .god-icon i,
 .god-category-header.active .god-icon i {
     color: white;
+}
+
+.god-category-item.expanded > .god-category-header .god-icon.god-icon--image,
+.god-category-header.active .god-icon.god-icon--image {
+    background: #f0f4ff;
+    border-color: var(--filter-accent-blue);
 }
 
 /* GoD Name */
@@ -243,12 +269,22 @@
     text-decoration: none;
 }
 
+/* When category has an image, reduce left padding (image replaces the fa arrow indent) */
+.mapped-category-link.has-image {
+    padding-left: 28px;
+    gap: 10px;
+}
+
 .mapped-category-link:hover {
     background: var(--filter-bg);
     color: var(--filter-accent-blue);
     border-left-color: var(--filter-accent-blue);
     padding-left: 60px;
     text-decoration: none;
+}
+
+.mapped-category-link.has-image:hover {
+    padding-left: 32px;
 }
 
 .mapped-category-item.selected > .mapped-category-link {
@@ -268,10 +304,43 @@
     transition: all 0.2s ease;
 }
 
+/* Hide fa arrow when image is present */
+.mapped-category-link.has-image:before {
+    display: none;
+}
+
 .mapped-category-link:hover:before,
 .mapped-category-item.selected > .mapped-category-link:before {
     color: var(--filter-accent-blue);
     left: 40px;
+}
+
+/* Mapped category image icon */
+.mapped-category-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapped-category-icon--image img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 3px;
+    filter: grayscale(20%);
+    transition: filter 0.2s ease;
+}
+
+.mapped-category-link:hover .mapped-category-icon--image img,
+.mapped-category-item.selected > .mapped-category-link .mapped-category-icon--image img {
+    filter: none;
+}
+
+.mapped-category-name {
+    flex: 1;
 }
 
 /* Mapped Chevron */
@@ -311,6 +380,7 @@
     position: relative;
     text-decoration: none;
     border-bottom: 1px solid #e5e9ed;
+    gap: 0;
 }
 
 .sub-category-item:last-child {
@@ -342,6 +412,47 @@
     transition: all 0.2s ease;
 }
 
+/* Sub-category image icon */
+.sub-category-item.has-image {
+    padding-left: 44px;
+    gap: 10px;
+}
+
+.sub-category-item.has-image:hover {
+    padding-left: 48px;
+}
+
+.sub-category-item.has-image:before {
+    display: none;
+}
+
+.sub-category-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub-category-icon--image img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 3px;
+    filter: grayscale(20%);
+    transition: filter 0.2s ease;
+}
+
+.sub-category-item:hover .sub-category-icon--image img,
+.sub-category-item.selected .sub-category-icon--image img {
+    filter: none;
+}
+
+.sub-category-name {
+    flex: 1;
+}
+
 .sub-category-item:hover:before,
 .sub-category-item.selected:before {
     color: var(--filter-accent-blue);
@@ -351,12 +462,12 @@
 /* Responsive */
 @media (max-width: 991px) {
     .god-icon {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
     }
     
     .god-icon i {
-        font-size: 13px;
+        font-size: 15px;
     }
     
     .god-name,

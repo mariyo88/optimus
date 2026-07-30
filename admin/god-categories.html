@@ -318,13 +318,22 @@
               <small class="text-muted">URL format (lowercase, crtice)</small>
             </div>
             <div class="col-md-3 mb-3">
-              <label class="form-label">Ikona</label>
+              <label class="form-label">Ikona (fallback)</label>
               <input type="text" class="form-control" id="iconClass" placeholder="fa-laptop">
               <small class="text-muted">FontAwesome klasa</small>
             </div>
             <div class="col-md-3 mb-3">
               <label class="form-label">Redosled</label>
               <input type="number" class="form-control" id="sortOrder" value="0">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">URL slike</label>
+            <input type="text" class="form-control" id="imageUrl" placeholder="https://... ili /img/categories/...">
+            <small class="text-muted">Opciono — prikazuje se umesto ikonice u meniju. Preporučena veličina: 32×32px ili više.</small>
+            <div id="imagePreview" style="margin-top:8px; display:none;">
+              <img id="imagePreviewImg" src="" alt="Preview" style="width:40px;height:40px;object-fit:contain;border:1px solid #ddd;border-radius:6px;padding:2px;">
             </div>
           </div>
 
@@ -448,10 +457,14 @@
       const statusClass = cat.isActive ? 'status-active' : 'status-inactive';
       const statusText = cat.isActive ? 'Aktivna' : 'Neaktivna';
 
+      const iconHtml = cat.imageUrl
+        ? `<img src="${cat.imageUrl}" alt="${displayName}" style="width:32px;height:32px;object-fit:contain;">`
+        : `<i class="fa ${iconClass}"></i>`;
+
       html += `
         <div class="god-category-item">
           <div class="god-icon">
-            <i class="fa ${iconClass}"></i>
+            ${iconHtml}
           </div>
           <div class="god-info">
             <div class="god-name">
@@ -501,6 +514,7 @@
     $('#godCategoryForm')[0].reset();
     $('#godCategoryId').val('');
     $('#isActive').prop('checked', true);
+    $('#imagePreview').hide();
     $('#godCategoryModal').modal('show');
   }
 
@@ -514,9 +528,17 @@
     $('#displayName').val(cat.displayName || '');
     $('#slug').val(cat.slug);
     $('#iconClass').val(cat.iconClass || '');
+    $('#imageUrl').val(cat.imageUrl || '');
     $('#sortOrder').val(cat.sortOrder);
     $('#description').val(cat.description || '');
     $('#isActive').prop('checked', cat.isActive);
+    // Show image preview if URL exists
+    if (cat.imageUrl) {
+      $('#imagePreviewImg').attr('src', cat.imageUrl);
+      $('#imagePreview').show();
+    } else {
+      $('#imagePreview').hide();
+    }
 
     $('#godCategoryModal').modal('show');
   }
@@ -528,6 +550,7 @@
       displayName: $('#displayName').val().trim() || null,
       slug: $('#slug').val().trim(),
       iconClass: $('#iconClass').val().trim() || null,
+      imageUrl: $('#imageUrl').val().trim() || null,
       sortOrder: parseInt($('#sortOrder').val()) || 0,
       description: $('#description').val().trim() || null,
       isActive: $('#isActive').is(':checked')
@@ -671,6 +694,17 @@
       showAlert('Greška pri uklanjanju mapiranja', 'danger');
     });
   }
+
+  // Image URL preview
+  $('#imageUrl').on('input', function() {
+    var url = $(this).val().trim();
+    if (url) {
+      $('#imagePreviewImg').attr('src', url);
+      $('#imagePreview').show();
+    } else {
+      $('#imagePreview').hide();
+    }
+  });
 
   // Auto-generate slug from name
   $('#name').on('input', function() {

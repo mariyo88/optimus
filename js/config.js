@@ -13,6 +13,6 @@
     window.APP_CONFIG = {
         API_BASE: isLocal
             ? 'http://' + host + ':8080'
-            : 'https://optimus-backend-473383712022.europe-west1.run.app'
+            : 'https://optimus-backend-cwbhusfcmq-ew.a.run.app'
     };
 })(window);
