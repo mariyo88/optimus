@@ -101,7 +101,9 @@
                                 $mappedItem.addClass('has-children');
                             }
                             
+                            // href allows crawlers to follow the link without JS
                             var $mappedLink = $('<a class="mapped-category-link">');
+                            $mappedLink.attr('href', 'store.html?category=' + mappedCat.slug);
                             
                             // Add image if available
                             if (fullCategory && fullCategory.imageUrl) {
@@ -124,7 +126,9 @@
                                 var $subList = $('<div class="sub-categories-list">');
                                 
                                 fullCategory.children.forEach(function(child) {
+                                    // href allows crawlers to follow without JS
                                     var $subItem = $('<a class="sub-category-item">');
+                                    $subItem.attr('href', 'store.html?category=' + child.slug);
                                     $subItem.attr('data-slug', child.slug);
                                     $subItem.attr('data-id', child.id);
                                     
@@ -261,8 +265,7 @@
                 // Mapped category click - expand/collapse sub-categories AND filter products
                 $filter.on('click', '.mapped-category-link', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
-                    
+                    e.stopPropagation();                    
                     var $link = $(this);
                     var $mappedItem = $link.closest('.mapped-category-item');
                     var $subList = $mappedItem.find('.sub-categories-list');
@@ -311,8 +314,7 @@
                 // Sub-category click - filter products
                 $filter.on('click', '.sub-category-item', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
-                    
+                    e.stopPropagation();                    
                     var $item = $(this);
                     var slug = $item.data('slug');
                     
