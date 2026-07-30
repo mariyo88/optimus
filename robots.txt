@@ -8,4 +8,4 @@ Disallow: /order-confirmation.html
 Disallow: /wishlist.html
 Disallow: /compare.html
 
-Sitemap: https://firstcode.in.rs/sitemap.xml
+Sitemap: https://optimus-backend-cwbhusfcmq-ew.a.run.app/sitemap.xml
