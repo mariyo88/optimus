@@ -656,7 +656,6 @@
         <span class="category-slug">${escapeHtml(secondaryText)}</span>
       </div>
       <div class="category-actions">
-        <button class="btn-category products" onclick="viewCategoryProducts('${cat.slug}')" title="Prikaži proizvode"><i class="fa fa-cube"></i></button>
         <button class="btn-category edit" onclick="editCategory(${cat.id})" title="Uredi"><i class="fa fa-edit"></i></button>
         <button class="btn-category delete" onclick="deleteCategory(${cat.id}, '${escapeHtml(cat.name).replace(/'/g, "\\'")}')" title="Obriši"><i class="fa fa-trash"></i></button>
       </div>

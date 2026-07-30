@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /store.html?search=
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /order-confirmation.html
+Disallow: /wishlist.html
+Disallow: /compare.html
+
+Sitemap: https://firstcode.in.rs/sitemap.xml
