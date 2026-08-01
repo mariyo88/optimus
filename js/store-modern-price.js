@@ -43,10 +43,23 @@
         PRICE_PRESETS.forEach(function (p) {
             if (p.min >= maxVal) return; // skip presets out of range
             var effectiveMax = p.max !== null ? p.max : maxVal;
-            var $btn = $('<button class="price-preset-btn">')
-                .text(p.label)
-                .data('min', p.min)
-                .data('max', p.max === null ? 'null' : p.max);
+            
+            var $btn = $('<button class="price-preset-btn">');
+            
+            // Icon
+            var $icon = $('<span class="price-icon">').html('<i class="fa fa-tag"></i>');
+            $btn.append($icon);
+            
+            // Label
+            var $label = $('<span class="price-label">').text(p.label);
+            $btn.append($label);
+            
+            // Check icon (shown only when active)
+            var $check = $('<span class="price-check">').html('<i class="fa fa-check"></i>');
+            $btn.append($check);
+            
+            $btn.data('min', p.min);
+            $btn.data('max', p.max === null ? 'null' : p.max);
 
             $btn.on('click', function () {
                 var isActive = $(this).hasClass('active');
@@ -54,7 +67,6 @@
 
                 if (isActive) {
                     // toggle off = reset
-                    $reset.hide();
                     if (window.storePageState) {
                         window.storePageState.minPrice = null;
                         window.storePageState.maxPrice = null;
@@ -65,7 +77,6 @@
                 }
 
                 $(this).addClass('active');
-                $reset.show();
 
                 var apiMax = p.max !== null ? effectiveMax : null;
                 if (window.storePageState) {
@@ -79,22 +90,6 @@
             $presets.append($btn);
         });
         $content.append($presets);
-
-        // Reset button
-        var $reset = $('<button class="price-reset-btn">');
-        $reset.html('<i class="fa fa-times-circle"></i> Resetuj cenu').hide();
-        $reset.on('click', function (e) {
-            e.stopPropagation();
-            $presets.find('.price-preset-btn').removeClass('active');
-            $(this).hide();
-            if (window.storePageState) {
-                window.storePageState.minPrice = null;
-                window.storePageState.maxPrice = null;
-                window.storePageState.page = 0;
-                if (window.loadStoreProducts) window.loadStoreProducts();
-            }
-        });
-        $content.append($reset);
 
         $wrap.append($content);
         $container.append($wrap);
@@ -134,7 +129,6 @@
 
     window.resetPriceFilter = function () {
         $('#price-filter-modern .price-preset-btn').removeClass('active');
-        $('#price-filter-modern .price-reset-btn').hide();
         if (window.storePageState) {
             window.storePageState.minPrice = null;
             window.storePageState.maxPrice = null;

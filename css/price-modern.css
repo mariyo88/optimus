@@ -1,6 +1,6 @@
 /**
  * Modern Price Range Filter
- * Uses unified filter design system
+ * Uses unified filter design system - matches brand and specification filters
  */
 
 .modern-price-filter {
@@ -60,63 +60,100 @@
   display: block;
 }
 
-/* Preset range buttons - Uses unified design */
+/* Preset range buttons - Card-style matching brand/specification filters */
 .price-presets {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 14px var(--filter-spacing);
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 8px;
   background: #fafbfc;
 }
 
 .price-preset-btn {
-  flex: 1 1 calc(50% - 6px);
-  min-width: 70px;
-  padding: 6px 8px;
-  border-radius: 20px;
-  border: 1.5px solid var(--filter-border);
-  background: #fafafa;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1.5px solid #e9ecef;
+  background: #fff;
   color: var(--filter-text-primary);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  text-align: center;
-  transition: all 0.2s ease;
+  text-align: left;
+  transition: all 0.25s ease;
   white-space: nowrap;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.price-preset-btn .price-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: #8d99ae;
+  background: #f8f9fa;
+  border-radius: 4px;
+  transition: all 0.25s ease;
+}
+
+.price-preset-btn .price-label {
+  flex: 1;
+  color: inherit;
+  transition: all 0.25s ease;
+}
+
+.price-preset-btn .price-check {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: var(--filter-accent-blue);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.25s ease;
 }
 
 .price-preset-btn:hover {
   border-color: var(--filter-accent-blue);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(66, 116, 217, 0.05) 100%);
+  transform: translateX(3px);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.12);
+}
+
+.price-preset-btn:hover .price-icon {
   color: var(--filter-accent-blue);
-  background: var(--filter-active-bg);
+  background: rgba(102, 126, 234, 0.1);
 }
 
 .price-preset-btn.active {
-  background: var(--filter-accent-blue);
   border-color: var(--filter-accent-blue);
-  color: #fff;
-}
-
-/* Reset button - Uses unified design */
-.price-reset-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0 var(--filter-spacing) 14px var(--filter-spacing);
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 1.5px solid var(--filter-accent-blue);
-  background: transparent;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(66, 116, 217, 0.1) 100%);
   color: var(--filter-accent-blue);
-  font-size: 12px;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(102, 126, 234, 0.18);
 }
 
-.price-reset-btn:hover {
-  background: var(--filter-accent-blue);
-  color: #fff;
+.price-preset-btn.active .price-icon {
+  color: var(--filter-accent-blue);
+  background: rgba(102, 126, 234, 0.15);
+}
+
+.price-preset-btn.active .price-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.price-preset-btn.active:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(66, 116, 217, 0.15) 100%);
 }
 
 /* Loading state - Uses unified design */
@@ -132,10 +169,18 @@
   .price-filter-title {
     font-size: 13px;
   }
+  
+  .price-preset-btn {
+    font-size: 13px;
+  }
 }
 
 @media only screen and (max-width: 767px) {
   .price-filter-title {
+    font-size: 12px;
+  }
+  
+  .price-preset-btn {
     font-size: 12px;
   }
 }
