@@ -7,30 +7,27 @@
     var API_BASE = window.APP_CONFIG.API_BASE;
 
     /**
-     * Build brand checkbox item
+     * Build brand button item (modern card-style)
      */
     function buildBrandItem(brand) {
-        var checkboxId = 'brand-' + brand.id;
         var $item = $('<div class="brand-item">');
+        $item.attr('data-brand-id', brand.id);
+        $item.attr('data-brand-name', escapeHtml(brand.name));
         
-        var $checkbox = $('<input type="checkbox" class="brand-checkbox">');
-        $checkbox.attr('id', checkboxId);
-        $checkbox.attr('data-brand-id', brand.id);
-        
-        var $label = $('<label>').attr('for', checkboxId);
-        
-        // Add logo if available
+        // If brand has logo, use logo-only mode (full-width image)
         if (brand.logoUrl) {
-            var $logo = $('<span class="brand-logo-small"><img src="' + brand.logoUrl + '" alt="' + brand.name + '"></span>');
-            $label.append($logo);
+            $item.addClass('brand-item-logo');
+            var $logoFull = $('<span class="brand-logo-full"><img src="' + brand.logoUrl + '" alt="' + brand.name + '"></span>');
+            $item.append($logoFull);
+            $item.append('<span class="brand-check-logo"><i class="fa fa-check-circle"></i></span>');
         } else {
-            var $icon = $('<span class="brand-icon-small"><i class="fa fa-tag"></i></span>');
-            $label.append($icon);
+            // Fallback: show icon + name
+            var $icon = $('<span class="brand-icon"><i class="fa fa-tag"></i></span>');
+            $item.append($icon);
+            $item.append('<span class="brand-name">' + escapeHtml(brand.name) + '</span>');
+            $item.append('<span class="brand-check"><i class="fa fa-check-circle"></i></span>');
         }
         
-        $label.append('<span class="brand-name">' + escapeHtml(brand.name) + '</span>');
-        
-        $item.append($checkbox).append($label);
         return $item;
     }
 
@@ -111,9 +108,9 @@
         }
 
         var brandId = window.storePageState.brand;
-        var $checkbox = $('#brand-filter').find('input[data-brand-id="' + brandId + '"]');
-        if ($checkbox.length) {
-            $checkbox.prop('checked', true);
+        var $brandItem = $('#brand-filter').find('.brand-item[data-brand-id="' + brandId + '"]');
+        if ($brandItem.length) {
+            $brandItem.addClass('active');
         }
     }
 
@@ -159,21 +156,29 @@
             }
         });
 
-        // Checkbox change - update state and reload products
-        $filter.on('change', '.brand-checkbox', function(e) {
-            var brandId = $(this).data('brand-id');
-            var isChecked = $(this).is(':checked');
+        // Brand item click - update state and reload products
+        $filter.on('click', '.brand-item', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var $clickedItem = $(this);
+            var brandId = $clickedItem.data('brand-id');
+            var isActive = $clickedItem.hasClass('active');
 
             if (!window.storePageState) {
                 console.error('storePageState not found');
                 return;
             }
 
-            // Single-select behavior: uncheck all other checkboxes
-            if (isChecked) {
-                $filter.find('.brand-checkbox').not(this).prop('checked', false);
+            // Single-select behavior: remove active class from all other items
+            $filter.find('.brand-item').removeClass('active');
+
+            // Toggle current item
+            if (!isActive) {
+                $clickedItem.addClass('active');
                 window.storePageState.brand = brandId;
             } else {
+                // If clicking on already active brand, deselect it
                 window.storePageState.brand = '';
             }
 

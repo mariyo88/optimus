@@ -206,6 +206,7 @@
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
                         if (window.loadBrandsForCategory) window.loadBrandsForCategory('', '');
+                        if (window.loadPriceRangesForCategory) window.loadPriceRangesForCategory('', '');
                         if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', '');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
@@ -257,6 +258,7 @@
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
                         if (window.loadBrandsForCategory) window.loadBrandsForCategory('', godSlug);
+                        if (window.loadPriceRangesForCategory) window.loadPriceRangesForCategory('', godSlug);
                         if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory('', godSlug);
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
@@ -306,6 +308,7 @@
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
                         if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug, '');
+                        if (window.loadPriceRangesForCategory) window.loadPriceRangesForCategory(slug, '');
                         if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory(slug, '');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
@@ -333,6 +336,7 @@
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
                         if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug, '');
+                        if (window.loadPriceRangesForCategory) window.loadPriceRangesForCategory(slug, '');
                         if (window.loadSpecificationsForCategory) window.loadSpecificationsForCategory(slug, '');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }

@@ -115,6 +115,34 @@
       padding-left: 0.85rem;
       margin-top: 0.4rem;
       margin-bottom: 0.4rem;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+    }
+    .category-tree-level.collapsed {
+      max-height: 0 !important;
+      opacity: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .category-toggle-btn {
+      background: none;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      color: #667eea;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease, color 0.2s ease;
+      margin-right: 0.4rem;
+    }
+    .category-toggle-btn:hover {
+      color: #5568d3;
+    }
+    .category-toggle-btn.collapsed {
+      transform: rotate(-90deg);
+    }
+    .category-toggle-btn i {
+      pointer-events: none;
     }
 
     /* GoD group section */
@@ -164,6 +192,25 @@
       transition: border-color 0.2s ease;
     }
     .toolbar-row .search-input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+
+    .btn-outline-secondary {
+      background: white;
+      border: 1px solid #d0d0d0;
+      color: #555;
+      font-size: 0.82rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-outline-secondary:hover {
+      background: #f5f5f5;
+      border-color: #667eea;
+      color: #667eea;
+    }
+    .btn-outline-secondary i {
+      margin-right: 0.3rem;
+    }
 
     .empty-state { text-align: center; padding: 2.5rem 1rem; color: #aaa; }
     .empty-state-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
@@ -270,6 +317,14 @@
 
       <div class="toolbar-row">
         <input type="text" id="search-categories" class="search-input" placeholder="🔍  Pretraga po imenu ili slug-u...">
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-sm btn-outline-secondary" onclick="expandAll()" title="Proširi sve kategorije">
+            <i class="fa fa-angle-double-down"></i> Proširi sve
+          </button>
+          <button class="btn btn-sm btn-outline-secondary" onclick="collapseAll()" title="Skupi sve kategorije">
+            <i class="fa fa-angle-double-up"></i> Skupi sve
+          </button>
+        </div>
       </div>
 
       <div id="categories-container">
@@ -648,8 +703,16 @@
     const iconHtml = cat.imageUrl
       ? `<img src="${escapeHtml(cat.imageUrl)}" alt="" style="width:22px;height:22px;object-fit:contain;">`
       : '<i class="fa fa-folder"></i>';
+    
+    const hasChildren = cat.children && cat.children.length > 0;
+    const toggleBtn = hasChildren 
+      ? `<button class="category-toggle-btn" onclick="toggleCategory(this, event)" title="Proširi/skupi podkategorije">
+           <i class="fa fa-chevron-down"></i>
+         </button>` 
+      : '';
 
     let html = `<li class="category-item"${isInactive}>
+      ${toggleBtn}
       <div class="category-icon">${iconHtml}</div>
       <div class="category-info">
         <span class="category-name">${escapeHtml(displayText)}${cat.isActive === false ? ' <span style="font-size:0.75rem;color:#ef4444;">(neaktivna)</span>' : ''}</span>
@@ -679,7 +742,15 @@
       ? `<img src="${escapeHtml(cat.imageUrl)}" alt="" style="width:20px;height:20px;object-fit:contain;">`
       : '<i class="fa fa-folder-o"></i>';
 
+    const hasChildren = cat.children && cat.children.length > 0;
+    const toggleBtn = hasChildren 
+      ? `<button class="category-toggle-btn" onclick="toggleCategory(this, event)" title="Proširi/skupi podkategorije">
+           <i class="fa fa-chevron-down"></i>
+         </button>` 
+      : '';
+
     let html = `<li class="category-item"${isInactive}>
+      ${toggleBtn}
       <div class="category-icon">${iconHtml}</div>
       <div class="category-info">
         <span class="category-name">${escapeHtml(displayText)}${cat.isActive === false ? ' <span style="font-size:0.75rem;color:#ef4444;">(neaktivna)</span>' : ''}</span>
@@ -694,7 +765,7 @@
       </div>
     </li>`;
 
-    if (cat.children && cat.children.length > 0) {
+    if (hasChildren) {
       html += '<div class="category-tree-level"><ul class="category-list">';
       html += cat.children.map(child => renderChildCategoryItem(child)).join('');
       html += '</ul></div>';
@@ -727,6 +798,56 @@
   $('#search-categories').on('input', function() {
     renderView();
   });
+
+  // ─── Toggle Category (Collapse/Expand) ────────────────────────────────────
+
+  function toggleCategory(btn, event) {
+    event.stopPropagation();
+    const categoryItem = btn.closest('.category-item');
+    const treeLevel = categoryItem.nextElementSibling;
+    
+    if (treeLevel && treeLevel.classList.contains('category-tree-level')) {
+      const isCollapsed = treeLevel.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        // Expand
+        treeLevel.classList.remove('collapsed');
+        btn.classList.remove('collapsed');
+      } else {
+        // Collapse
+        treeLevel.classList.add('collapsed');
+        btn.classList.add('collapsed');
+      }
+    }
+  }
+
+  function collapseAll() {
+    // Collapse sve tree-level elemente
+    const treeLevels = document.querySelectorAll('.category-tree-level');
+    const toggleBtns = document.querySelectorAll('.category-toggle-btn');
+    
+    treeLevels.forEach(level => {
+      level.classList.add('collapsed');
+    });
+    
+    toggleBtns.forEach(btn => {
+      btn.classList.add('collapsed');
+    });
+  }
+
+  function expandAll() {
+    // Expand sve tree-level elemente
+    const treeLevels = document.querySelectorAll('.category-tree-level');
+    const toggleBtns = document.querySelectorAll('.category-toggle-btn');
+    
+    treeLevels.forEach(level => {
+      level.classList.remove('collapsed');
+    });
+    
+    toggleBtns.forEach(btn => {
+      btn.classList.remove('collapsed');
+    });
+  }
 
   // ─── Category Modal ───────────────────────────────────────────────────────
 
