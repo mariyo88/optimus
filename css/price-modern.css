@@ -37,6 +37,17 @@
   flex-shrink: 0;
 }
 
+/* Currency label style for RSD text */
+.price-filter-currency {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 .price-filter-title {
   flex: 1;
   font-weight: 700;
@@ -72,13 +83,13 @@
 .price-preset-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 8px;
+  padding: 8px 10px;
   border-radius: 6px;
   border: 1.5px solid #e9ecef;
   background: #fff;
   color: var(--filter-text-primary);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
@@ -89,23 +100,33 @@
 }
 
 .price-preset-btn .price-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   font-size: 14px;
   color: #8d99ae;
-  background: #f8f9fa;
+  background: transparent;
   border-radius: 4px;
   transition: all 0.25s ease;
+}
+
+/* Currency label on preset buttons */
+.price-currency-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 2px 3px;
+  opacity: 0.7;
 }
 
 .price-preset-btn .price-label {
   flex: 1;
   color: inherit;
   transition: all 0.25s ease;
+  font-size: 12px;
 }
 
 .price-preset-btn .price-check {
@@ -131,7 +152,7 @@
 
 .price-preset-btn:hover .price-icon {
   color: var(--filter-accent-blue);
-  background: rgba(102, 126, 234, 0.1);
+  background: transparent;
 }
 
 .price-preset-btn.active {
@@ -144,7 +165,7 @@
 
 .price-preset-btn.active .price-icon {
   color: var(--filter-accent-blue);
-  background: rgba(102, 126, 234, 0.15);
+  background: transparent;
 }
 
 .price-preset-btn.active .price-check {

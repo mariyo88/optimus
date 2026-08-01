@@ -134,7 +134,8 @@
                         window.storePageState.brand = '';
                         window.storePageState.page = 0;
                         if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('');
+                        if (window.loadBrandsForCategory) window.loadBrandsForCategory('', '');
+                        if (window.loadPriceRangesForCategory) window.loadPriceRangesForCategory('', '');
                         if (window.loadStoreProducts) window.loadStoreProducts();
                     }
                 });
@@ -181,7 +182,8 @@
                             window.storePageState.brand = '';
                             window.storePageState.page = 0;
                             if (window.updateStoreBreadcrumb) window.updateStoreBreadcrumb();
-                            if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug);
+                            if (window.loadBrandsForCategory) window.loadBrandsForCategory(slug, '');
+                            if (window.loadPriceRangesForCategory) window.loadPriceRangesForCategory(slug, '');
                             if (window.loadStoreProducts) window.loadStoreProducts();
                         }
                     }

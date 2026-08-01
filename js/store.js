@@ -474,6 +474,11 @@
         if (window.loadBrandsForCategory) {
             window.loadBrandsForCategory(state.category, state.godCategory);
         }
+        
+        // Load price ranges if category or godCategory is set from URL
+        if (window.loadPriceRangesForCategory) {
+            window.loadPriceRangesForCategory(state.category, state.godCategory);
+        }
     });
 
 })(jQuery);
