@@ -1,6 +1,6 @@
-/* ── Page Hero Banner (shared across pages) ── */
+﻿/* ── Page Hero Banner (shared across pages) ── */
 .page-hero {
-    background: linear-gradient(135deg, #233D4D 0%, #1a1b2e 60%, #FE7F2D 100%);
+    background: linear-gradient(135deg, #740A03 0%, #280905 60%, #E6501B 100%);
     color: #fff;
     padding: 0 0 50px;
     position: relative;
@@ -55,7 +55,7 @@
     margin-bottom: 12px;
     color: #fff;
 }
-.page-hero h1 span { color: #FE7F2D; }
+.page-hero h1 span { color: #E6501B; }
 .page-hero p {
     font-size: 17px;
     color: rgba(255,255,255,0.75);

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Compare — localStorage implementation
  * Manages product comparison (add, remove, view, UI updates).
  * Max 4 products at a time.
@@ -168,14 +168,14 @@
                 '<div id="cmp-removed-banner" style="',
                 '  position:fixed;top:0;left:0;right:0;',
                 '  z-index:10001;',
-                '  background:#000000;',
+                '  background:#280905;',
                 '  padding:10px 15px;',
                 '  transform:translateY(-100%);',
                 '  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);',
                 '">',
                 '  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;">',
                 '    <span style="color:#fff;font-size:13px;line-height:1.4;">',
-                '      <i class="fa fa-exclamation-triangle" style="color:#FE7F2D;margin-right:8px;"></i>',
+                '      <i class="fa fa-exclamation-triangle" style="color:#E6501B;margin-right:8px;"></i>',
                        message,
                 '    </span>',
                 '  </div>',
@@ -248,9 +248,9 @@
         // ── Toast notification ────────────────────────────────────────────────
 
         showInfoBanner: function (message, type) {
-            var gradient = type === 'warn' ? '#000000'
-                         : type === 'ok'   ? '#233D4D'
-                         :                   '#000000';
+            var gradient = type === 'warn' ? '#280905'
+                         : type === 'ok'   ? '#740A03'
+                         :                   '#280905';
             var icon     = type === 'warn' ? 'fa-exclamation-triangle'
                          : type === 'ok'   ? 'fa-check-circle'
                          :                   'fa-info-circle';

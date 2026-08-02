@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Wishlist View Page - Full wishlist display with move-to-cart functionality
  */
 (function ($) {
@@ -83,12 +83,12 @@
             '<div id="wl-removed-banner" style="',
             '  position:fixed;top:0;left:0;right:0;',
             '  z-index:10001;',
-            '  background:#000000;',
+            '  background:#280905;',
             '  padding:10px 15px;',
             '  transform:translateY(-100%);',
             '  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);',
             '">',
-            '  <i class="fa fa-ban" style="color:#FE7F2D;margin-right:5px;font-size:12px;"></i>',
+            '  <i class="fa fa-ban" style="color:#E6501B;margin-right:5px;font-size:12px;"></i>',
             '  <span style="color:#fff;font-size:12px;">' + message + '</span>',
             '</div>'
         ].join(''));

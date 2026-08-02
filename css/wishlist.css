@@ -1,4 +1,4 @@
-/* ── Wishlist section ── */
+﻿/* ── Wishlist section ── */
 .wishlist-page-section {
 	padding: 50px 0 40px;
 	background: #fff;
@@ -17,7 +17,7 @@
 	border: none;
 }
 .wishlist-table-wrap .table { margin-bottom: 0; }
-.wishlist-table-wrap .table thead tr { background: #233D4D; }
+.wishlist-table-wrap .table thead tr { background: #740A03; }
 .wishlist-table-wrap .table thead th {
 	color: #fff;
 	font-size: 12px;
@@ -77,11 +77,11 @@
 	word-break: break-word;
 }
 .wl-product-name h4 a {
-	color: #233D4D;
+	color: #740A03;
 	text-decoration: none;
 	transition: color 0.15s;
 }
-.wl-product-name h4 a:hover { color: #FE7F2D; }
+.wl-product-name h4 a:hover { color: #E6501B; }
 .wl-product-name .brand-tag {
 	display: inline-block;
 	background: #f0f1f4;
@@ -97,7 +97,7 @@
 /* Price */
 .wl-product-price {
 	font-weight: 700;
-	color: #FE7F2D;
+	color: #E6501B;
 	white-space: nowrap;
 	font-size: 15px;
 }
@@ -118,7 +118,7 @@
 	letter-spacing: 0.5px;
 }
 .wl-stock-badge.in-stock  { background: #e8f7ef; color: #27ae60; }
-.wl-stock-badge.out-stock { background: #dde5f5; color: #FE7F2D; }
+.wl-stock-badge.out-stock { background: #dde5f5; color: #E6501B; }
 
 /* Move to cart button */
 .wl-add-cart-btn {
@@ -126,7 +126,7 @@
 	align-items: center;
 	gap: 6px;
 	padding: 8px 16px;
-	background: linear-gradient(135deg, #FE7F2D, #233D4D);
+	background: linear-gradient(135deg, #E6501B, #740A03);
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -163,8 +163,8 @@
 	line-height: 1;
 }
 .wl-remove-btn:hover {
-	background: #FE7F2D;
-	border-color: #FE7F2D;
+	background: #E6501B;
+	border-color: #E6501B;
 	color: #fff;
 }
 
@@ -179,7 +179,7 @@
 	padding: 10px 0;
 	transition: color 0.15s;
 }
-.wl-continue-link:hover { color: #FE7F2D; text-decoration: none; }
+.wl-continue-link:hover { color: #E6501B; text-decoration: none; }
 
 /* Confirmation Modal - matching cart modal style */
 .wl-confirm-modal {
@@ -209,7 +209,7 @@
 	border: 1px solid rgba(0,0,0,0.1);
 }
 .wl-confirm-header {
-	background: #233D4D;
+	background: #740A03;
 	color: #fff;
 	padding: 14px 20px;
 	display: flex;
@@ -222,7 +222,7 @@
 	gap: 10px;
 }
 .wl-confirm-header i {
-	color: #FE7F2D;
+	color: #E6501B;
 	font-size: 20px;
 }
 .wl-confirm-header h3 {
@@ -255,7 +255,7 @@
 	line-height: 1.6;
 }
 .wl-confirm-body strong {
-	color: #233D4D;
+	color: #740A03;
 }
 .wl-confirm-footer {
 	padding: 16px 20px;
@@ -287,13 +287,13 @@
 	color: #333;
 }
 .wl-confirm-btn-confirm {
-	background: #FE7F2D;
+	background: #E6501B;
 	color: #fff;
-	border-color: #FE7F2D;
+	border-color: #E6501B;
 }
 .wl-confirm-btn-confirm:hover {
-	background: #233D4D;
-	border-color: #233D4D;
+	background: #740A03;
+	border-color: #740A03;
 }
 @keyframes fadeInOverlay {
 	from { opacity: 0; }
@@ -346,7 +346,7 @@
 	align-items: center;
 	justify-content: center;
 	font-size: 24px;
-	color: #FE7F2D;
+	color: #E6501B;
 }
 
 .wl-stat-content {
@@ -366,7 +366,7 @@
 .wl-stat-value {
 	font-size: 28px;
 	font-weight: 700;
-	color: #233D4D;
+	color: #740A03;
 	line-height: 1;
 }
 
@@ -377,7 +377,7 @@
 }
 
 .wl-move-all-btn {
-	background: linear-gradient(135deg, #FE7F2D, #233D4D);
+	background: linear-gradient(135deg, #E6501B, #740A03);
 	color: #fff;
 	padding: 14px 28px;
 	border-radius: 8px;
@@ -416,8 +416,8 @@
 	gap: 8px;
 }
 .wl-clear-btn:hover { 
-	border-color: #FE7F2D; 
-	color: #FE7F2D;
+	border-color: #E6501B; 
+	color: #E6501B;
 	background: rgba(66,116,217,0.03);
 }
 

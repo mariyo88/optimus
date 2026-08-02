@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Product Detail — loads right-side product info from backend API
  * Reads ?slug= from URL query string
  */
@@ -354,7 +354,7 @@
             var height = 40 + ((seed * (i + 1)) % 30);
             var width = (i % 3 === 0) ? 3 : (i % 5 === 0) ? 5 : 2;
             var x = i * 6;
-            bars.push('<rect x="' + x + '" y="' + (60 - height) + '" width="' + width + '" height="' + height + '" fill="#233D4D"/>');
+            bars.push('<rect x="' + x + '" y="' + (60 - height) + '" width="' + width + '" height="' + height + '" fill="#740A03"/>');
         }
         
         return '<svg class="barcode-svg" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">' +
@@ -550,8 +550,8 @@
                 '<h2 style="font-size: 28px; font-weight: 700; color: #222; margin-bottom: 12px;">Proizvod nije pronađen</h2>' +
                 '<p style="color: #888; font-size: 15px; max-width: 400px; margin: 0 auto 32px auto; line-height: 1.6;">Traženi proizvod ne postoji ili je uklonjen iz ponude. Pokušajte da pretražite nešto drugo.</p>' +
                 '<div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">' +
-                    '<a href="index.html" style="display:inline-block; background:#FE7F2D; color:#fff; padding:12px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Početna</a>' +
-                    '<a href="store.html" style="display:inline-block; background:#fff; color:#FE7F2D; border:2px solid #FE7F2D; padding:10px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Pregledaj prodavnicu</a>' +
+                    '<a href="index.html" style="display:inline-block; background:#E6501B; color:#fff; padding:12px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Početna</a>' +
+                    '<a href="store.html" style="display:inline-block; background:#fff; color:#E6501B; border:2px solid #E6501B; padding:10px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Pregledaj prodavnicu</a>' +
                 '</div>' +
             '</div>'
         );
@@ -643,7 +643,7 @@
         var $spinner = $(
             '<div id="product-loading-spinner" class="section">' +
             '<div class="container"><div class="row"><div class="col-md-12 text-center" style="padding: 80px 20px;">' +
-            '<i class="fa fa-spinner fa-spin fa-3x" style="color:#FE7F2D;"></i>' +
+            '<i class="fa fa-spinner fa-spin fa-3x" style="color:#E6501B;"></i>' +
             '<p style="margin-top:20px;color:#888;font-size:15px;">Učitavanje proizvoda...</p>' +
             '</div></div></div></div>'
         );

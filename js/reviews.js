@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Reviews — učitavanje i slanje recenzija za product.html
  * Zavisi od: config.js (window.APP_CONFIG.API_BASE), jQuery
  */
@@ -285,7 +285,7 @@
     function showFormMsg(text, type) {
         var $msg = $('#review-form-msg');
         $msg.text(text)
-            .css('color', type === 'success' ? '#28a745' : '#FE7F2D')
+            .css('color', type === 'success' ? '#28a745' : '#E6501B')
             .show();
         if (type === 'success') {
             setTimeout(function () { $msg.fadeOut(); }, 5000);

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Product Details Declaration Style
  * Clean design for product specifications tab
  */
@@ -40,7 +40,7 @@
     font-size: 22px;
     font-family: 'Courier New', monospace;
     font-weight: 700;
-    color: #233D4D;
+    color: #740A03;
     letter-spacing: 2px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .declaration-barcode-section:hover .barcode-svg rect {
-    fill: #FE7F2D;
+    fill: #E6501B;
 }
 
 .barcode-number {
@@ -82,7 +82,7 @@
 .specs-title {
     font-size: 16px;
     font-weight: 700;
-    color: #233D4D;
+    color: #740A03;
     margin: 0 0 20px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -105,7 +105,7 @@
 
 .spec-item:hover {
     background: white;
-    border-color: #FE7F2D;
+    border-color: #E6501B;
     box-shadow: 0 2px 8px rgba(254, 127, 45, 0.1);
     transform: translateY(-1px);
 }
@@ -121,7 +121,7 @@
 
 .spec-value {
     font-size: 14px;
-    color: #233D4D;
+    color: #740A03;
     font-weight: 600;
     line-height: 1.5;
 }
@@ -144,7 +144,7 @@
 }
 
 .declaration-empty h4 {
-    color: #233D4D;
+    color: #740A03;
     margin-bottom: 10px;
     font-size: 18px;
 }

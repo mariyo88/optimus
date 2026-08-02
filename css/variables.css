@@ -1,29 +1,31 @@
 /*
- * Optimus - Color Variables (Rebranding 2.0)
+ * Optimus - Color Variables (Rebranding 3.0 - New Client)
  * Definiše glavne boje aplikacije za lakše održavanje
  */
 
 :root {
-  /* ===== Primarne Boje (Rebranding 2.0) ===== */
-  --color-black:        #000000;
-  --color-navy:         #233D4D;
-  --color-orange:       #FE7F2D;
+  /* ===== Primarne Boje (Rebranding 3.0) ===== */
+  --color-dark-brown:   #280905;
+  --color-dark-red:     #740A03;
+  --color-red:          #C3110C;
+  --color-orange:       #E6501B;
   --color-grey:         #EAECF0;
   
   /* ===== RGB vrednosti (za transparentnost) ===== */
-  --rgb-black:          0, 0, 0;
-  --rgb-navy:           35, 61, 77;
-  --rgb-orange:         254, 127, 45;
+  --rgb-dark-brown:     40, 9, 5;
+  --rgb-dark-red:       116, 10, 3;
+  --rgb-red:            195, 17, 12;
+  --rgb-orange:         230, 80, 27;
   --rgb-grey:           234, 236, 240;
   
   /* ===== Semantička Upotreba ===== */
-  --color-primary:      var(--color-orange);      /* Glavni akcent (#FE7F2D) */
-  --color-secondary:    var(--color-navy);        /* Sekundarna boja (#233D4D) */
-  --color-dark:         var(--color-black);       /* Tamna pozadina (#000000) */
+  --color-primary:      var(--color-orange);      /* Glavni akcent (#E6501B) */
+  --color-secondary:    var(--color-dark-red);    /* Sekundarna boja (#740A03) */
+  --color-dark:         var(--color-dark-brown);  /* Tamna pozadina (#280905) */
   --color-light:        var(--color-grey);        /* Svetla pozadina (#EAECF0) */
   
   /* ===== Tipografija ===== */
-  --color-heading:      var(--color-navy);        /* Naslovi */
+  --color-heading:      var(--color-dark-red);    /* Naslovi */
   --color-text:         #333333;                  /* Glavni tekst */
   --color-text-muted:   #8D99AE;                  /* Prigušen tekst */
   
@@ -35,12 +37,12 @@
   /* ===== Gumbovi ===== */
   --btn-primary-bg:     var(--color-orange);
   --btn-primary-color:  #FFFFFF;
-  --btn-secondary-bg:   var(--color-navy);
+  --btn-secondary-bg:   var(--color-dark-red);
   --btn-secondary-color:#FFFFFF;
   
   /* ===== Header & Navigation ===== */
-  --header-bg:          var(--color-navy);
-  --header-top-bg:      var(--color-black);
+  --header-bg:          var(--color-dark-red);
+  --header-top-bg:      var(--color-dark-brown);
   --nav-border:         var(--color-orange);
   --nav-link-hover:     var(--color-orange);
   
@@ -51,8 +53,8 @@
   --product-price:      var(--color-orange);
   
   /* ===== Footer ===== */
-  --footer-bg:          var(--color-black);
-  --footer-bottom-bg:   var(--color-black);
+  --footer-bg:          var(--color-dark-brown);
+  --footer-bottom-bg:   var(--color-dark-brown);
   --footer-link-hover:  var(--color-orange);
   
   /* ===== Senke ===== */
