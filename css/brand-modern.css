@@ -11,52 +11,74 @@
     margin-bottom: 20px;
 }
 
-/* Filter Header - Pink/Orange gradient to distinguish from other filters */
+/* Filter Header - Using unified gradient and animations */
 .brand-filter-header {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     padding: var(--filter-header-padding);
-    background: linear-gradient(135deg, var(--filter-accent-pink) 0%, var(--filter-accent-orange) 100%);
+    background: var(--gradient-brands);
     color: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
     user-select: none;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    font-size: 13px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-filter-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.5s ease;
+}
+
+.brand-filter-header:hover::before {
+    left: 100%;
 }
 
 .brand-filter-header:hover {
-    filter: brightness(0.95);
+    filter: brightness(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .brand-filter-icon {
-    font-size: 18px;
+    font-size: 17px;
     flex-shrink: 0;
+    opacity: 0.95;
 }
 
 .brand-filter-title {
     flex: 1;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    font-size: 13px;
+    letter-spacing: 0.8px;
 }
 
 .brand-filter-count {
-    font-size: 11px;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.25);
-    padding: 3px 8px;
-    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 3px 7px;
+    border-radius: 12px;
     line-height: 1;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .brand-chevron {
-    font-size: 14px;
-    transition: transform 0.3s ease;
+    font-size: 13px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
+    opacity: 0.9;
 }
 
 .brand-list:not(.expanded) + .brand-filter-header .brand-chevron {
