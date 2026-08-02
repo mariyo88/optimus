@@ -40,6 +40,9 @@
     <!-- Quick View Modal stylesheet -->
     <link type="text/css" rel="stylesheet" href="css/quick-view-modal.css"/>
 
+    <!-- Feature Banners stylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/feature-banners.css"/>
+
 </head>
 <body>
 <!-- HEADER -->
@@ -174,58 +177,60 @@
 
 <!-- SECTION -->
 <div class="section">
-    <!-- container -->
     <div class="container">
-        <!-- row -->
+        <!-- Section Header -->
         <div class="row">
-            <!-- shop -->
-            <div class="col-md-4 col-xs-6">
-                <div class="shop">
-                    <div class="shop-img">
-                        <img src="./img/shop01.png" alt="">
-                    </div>
-                    <div class="shop-body">
-                        <h3>Laptop<br>Kolekcija</h3>
-                        <a href="store.html?category=laptopovi" class="cta-btn">Kupi sada <i
-                                class="fa fa-arrow-circle-right"></i></a>
-                    </div>
+            <div class="col-md-12 text-center">
+                <div class="section-title">
+                    <h2 class="title">Istražite Naše Kolekcije</h2>
+                    <div class="title-underline"></div>
                 </div>
             </div>
-            <!-- /shop -->
-
-            <!-- shop -->
-            <div class="col-md-4 col-xs-6">
-                <div class="shop">
-                    <div class="shop-img">
-                        <img src="./img/shop03.png" alt="">
-                    </div>
-                    <div class="shop-body">
-                        <h3>Dodaci<br>Kolekcija</h3>
-                        <a href="store.html?category=slusalice-i-mikrofoni" class="cta-btn">Kupi sada <i
-                                class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /shop -->
-
-            <!-- shop -->
-            <div class="col-md-4 col-xs-6">
-                <div class="shop">
-                    <div class="shop-img">
-                        <img src="./img/shop02.png" alt="">
-                    </div>
-                    <div class="shop-body">
-                        <h3>Kamere<br>Kolekcija</h3>
-                        <a href="store.html?category=fotoaparati-i-kamere" class="cta-btn">Kupi sada <i
-                                class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /shop -->
         </div>
-        <!-- /row -->
+
+        <!-- Categories Grid -->
+        <div class="row category-grid">
+            <!-- Large Feature Card -->
+            <div class="col-md-8 col-sm-12">
+                <div class="feature-banner large">
+                    <img src="./img/shop01.png" alt="Laptopovi">
+                    <div class="banner-overlay">
+                        <span class="badge-hot">Novo</span>
+                        <h3>Premium Laptop Kolekcija</h3>
+                        <p>Najnoviji modeli sa do 30% popusta</p>
+                        <a href="store.html?category=laptopovi" class="btn btn-primary">
+                            Istraži <i class="fa fa-long-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Small Feature Cards -->
+            <div class="col-md-4 col-sm-6">
+                <div class="feature-banner small">
+                    <img src="./img/shop03.png" alt="Audio">
+                    <div class="banner-overlay">
+                        <span class="badge-sale">-25%</span>
+                        <h4>Audio Oprema</h4>
+                        <a href="store.html?category=slusalice-i-mikrofoni" class="btn btn-white-outline">
+                            Kupi Sada
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="feature-banner small mt-20">
+                    <img src="./img/shop02.png" alt="Kamere">
+                    <div class="banner-overlay">
+                        <span class="badge-trending">Popularno</span>
+                        <h4>Kamere & Foto</h4>
+                        <a href="store.html?category=fotoaparati-i-kamere" class="btn btn-white-outline">
+                            Pogledaj
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /container -->
 </div>
 <!-- /SECTION -->
 
