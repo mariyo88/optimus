@@ -3682,3 +3682,12 @@ ul.SpecForm .Notice {
   color: #fff;
   background-color: #4274D9;
 }
+
+/* ==========================================
+   TEMPORARY HIDING - FEATURES NOT YET DEVELOPED
+   ========================================== */
+
+/* Hide payment card icons in footer - online payment not available yet */
+.footer-payments {
+	display: none !important;
+}
