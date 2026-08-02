@@ -13,9 +13,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #FBFBFC;
+    background: #EAECF0;
     padding: 30px;
-    border: 1px solid #E4E7ED;
+    border: 1px solid #EAECF0;
     border-radius: 4px;
     margin-bottom: 30px;
     flex-wrap: wrap;
@@ -40,7 +40,7 @@
     font-size: 22px;
     font-family: 'Courier New', monospace;
     font-weight: 700;
-    color: #293681;
+    color: #233D4D;
     letter-spacing: 2px;
 }
 
@@ -49,7 +49,7 @@
     text-align: center;
     padding: 15px 25px;
     background: white;
-    border: 2px dashed #E4E7ED;
+    border: 2px dashed #EAECF0;
     border-radius: 4px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .declaration-barcode-section:hover .barcode-svg rect {
-    fill: #4274D9;
+    fill: #FE7F2D;
 }
 
 .barcode-number {
@@ -82,7 +82,7 @@
 .specs-title {
     font-size: 16px;
     font-weight: 700;
-    color: #293681;
+    color: #233D4D;
     margin: 0 0 20px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -95,8 +95,8 @@
 }
 
 .spec-item {
-    background: #FBFBFC;
-    border: 1px solid #E4E7ED;
+    background: #EAECF0;
+    border: 1px solid #EAECF0;
     border-radius: 4px;
     padding: 18px 20px;
     transition: all 0.2s ease;
@@ -105,8 +105,8 @@
 
 .spec-item:hover {
     background: white;
-    border-color: #4274D9;
-    box-shadow: 0 2px 8px rgba(66, 116, 217, 0.1);
+    border-color: #FE7F2D;
+    box-shadow: 0 2px 8px rgba(254, 127, 45, 0.1);
     transform: translateY(-1px);
 }
 
@@ -121,7 +121,7 @@
 
 .spec-value {
     font-size: 14px;
-    color: #293681;
+    color: #233D4D;
     font-weight: 600;
     line-height: 1.5;
 }
@@ -131,20 +131,20 @@
     text-align: center;
     padding: 60px 20px;
     color: #8D99AE;
-    background: #FBFBFC;
-    border: 1px solid #E4E7ED;
+    background: #EAECF0;
+    border: 1px solid #EAECF0;
     border-radius: 4px;
 }
 
 .declaration-empty i {
     font-size: 64px;
-    color: #E4E7ED;
+    color: #EAECF0;
     margin-bottom: 20px;
     display: block;
 }
 
 .declaration-empty h4 {
-    color: #293681;
+    color: #233D4D;
     margin-bottom: 10px;
     font-size: 18px;
 }
@@ -183,7 +183,7 @@
 /* Print styles */
 @media print {
     .product-declaration {
-        border: 1px solid #E4E7ED;
+        border: 1px solid #EAECF0;
     }
 
     .spec-item {

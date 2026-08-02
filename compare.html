@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Poređenje proizvoda - Optimus</title>
+		<title>Poređenje proizvoda - FirstCode</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -27,7 +27,7 @@
 		<style>
 			/* ── Hero Banner ── */
 			.page-hero {
-				background: linear-gradient(135deg, #293681 0%, #1a1b2e 60%, #4274D9 100%);
+				background: linear-gradient(135deg, #233D4D 0%, #000000 60%, #FE7F2D 100%);
 				color: #fff;
 				padding: 0 0 50px;
 				position: relative;
@@ -61,7 +61,7 @@
 				right: -10%;
 				width: 500px;
 				height: 500px;
-				background: rgba(66,116,217,0.08);
+				background: rgba(254,127,45,0.08);
 				border-radius: 50%;
 			}
 			.page-hero::after {
@@ -80,7 +80,7 @@
 				margin-bottom: 12px;
 				color: #fff;
 			}
-			.page-hero h1 span { color: #4274D9; }
+			.page-hero h1 span { color: #FE7F2D; }
 			.page-hero p {
 				font-size: 17px;
 				color: rgba(255,255,255,0.75);
@@ -89,9 +89,9 @@
 			}
 			.page-hero-badge {
 				display: inline-block;
-				background: rgba(66,116,217,0.2);
-				border: 1px solid rgba(66,116,217,0.5);
-				color: #95CCDD;
+				background: rgba(254,127,45,0.2);
+				border: 1px solid rgba(254,127,45,0.5);
+				color: #FE7F2D;
 				padding: 6px 16px;
 				border-radius: 20px;
 				font-size: 13px;
@@ -115,7 +115,7 @@
 				color: #666;
 			}
 			.compare-toolbar-info strong {
-				color: #293681;
+				color: #233D4D;
 				font-weight: 700;
 			}
 			.compare-clear-btn {
@@ -133,9 +133,9 @@
 				gap: 7px;
 			}
 			.compare-clear-btn:hover {
-				border-color: #4274D9;
-				color: #4274D9;
-				background: rgba(66,116,217,0.03);
+				border-color: #FE7F2D;
+				color: #FE7F2D;
+				background: rgba(254,127,45,0.03);
 			}
 			.continue-shopping-link {
 				display: inline-flex;
@@ -146,7 +146,7 @@
 				text-decoration: none;
 				transition: color 0.15s;
 			}
-			.continue-shopping-link:hover { color: #4274D9; text-decoration: none; }
+			.continue-shopping-link:hover { color: #FE7F2D; text-decoration: none; }
 
 			/* ── Confirmation Modal ── */
 			.cmp-confirm-modal {
@@ -172,7 +172,7 @@
 				border: 1px solid rgba(0,0,0,0.1);
 			}
 			.cmp-confirm-header {
-				background: #293681;
+				background: #233D4D;
 				color: #fff;
 				padding: 14px 20px;
 				display: flex;
@@ -184,7 +184,7 @@
 				align-items: center;
 				gap: 10px;
 			}
-			.cmp-confirm-header i { color: #4274D9; font-size: 20px; }
+			.cmp-confirm-header i { color: #FE7F2D; font-size: 20px; }
 			.cmp-confirm-header h3 { margin: 0; font-size: 15px; font-weight: 600; color: #fff; }
 			.cmp-confirm-close {
 				background: none; border: none; color: #fff;
@@ -197,7 +197,7 @@
 				border-bottom: 1px solid #f0f0f0;
 			}
 			.cmp-confirm-body p { margin: 0; font-size: 14px; color: #555; line-height: 1.6; }
-			.cmp-confirm-body strong { color: #293681; }
+			.cmp-confirm-body strong { color: #233D4D; }
 			.cmp-confirm-footer { padding: 16px 20px; display: flex; gap: 10px; }
 			.cmp-confirm-btn {
 				flex: 1; padding: 11px 16px; border-radius: 4px;
@@ -207,8 +207,8 @@
 			}
 			.cmp-confirm-btn-cancel { background: #fff; color: #666; border-color: #ddd; }
 			.cmp-confirm-btn-cancel:hover { background: #f5f5f5; border-color: #bbb; color: #333; }
-			.cmp-confirm-btn-confirm { background: #4274D9; color: #fff; border-color: #4274D9; }
-			.cmp-confirm-btn-confirm:hover { background: #293681; border-color: #293681; }
+			.cmp-confirm-btn-confirm { background: #FE7F2D; color: #fff; border-color: #FE7F2D; }
+			.cmp-confirm-btn-confirm:hover { background: #233D4D; border-color: #233D4D; }
 			@keyframes cmpFadeIn { from{opacity:0} to{opacity:1} }
 			@keyframes cmpSlideIn { from{transform:translateY(-20px);opacity:0} to{transform:translateY(0);opacity:1} }
 		</style>
@@ -221,7 +221,7 @@
 				<div class="container">
 					<ul class="header-links pull-left">
 						<li><a href="tel:+38166243123"><i class="fa fa-phone"></i> +381 (0)66 243123</a></li>
-						<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i> prodaja@optimussystems.rs</a></li>
+						<li><a href="mailto:info@firstcode.in.rs"><i class="fa fa-envelope-o"></i> info@firstcode.in.rs</a></li>
 						<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i> Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
 					</ul>
 					<ul class="header-links pull-right">
@@ -394,11 +394,11 @@
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">O nama</h3>
-								<p>Optimus je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom.</p>
+								<p>FirstCode je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom.</p>
 								<ul class="footer-links">
 									<li><a href="https://maps.google.com/?q=Momira+Gajića+38,+Velika+Plana+11320,+Serbia" target="_blank"><i class="fa fa-map-marker"></i>Momira Gajića 38, Velika Plana 11320, Serbia</a></li>
 									<li><a href="tel:+38166243123"><i class="fa fa-phone"></i>+381 (0)66 243123</a></li>
-									<li><a href="mailto:prodaja@optimussystems.rs"><i class="fa fa-envelope-o"></i>prodaja@optimussystems.rs</a></li>
+									<li><a href="mailto:info@firstcode.in.rs"><i class="fa fa-envelope-o"></i> info@firstcode.in.rs</a></li>
 								</ul>
 							</div>
 						</div>

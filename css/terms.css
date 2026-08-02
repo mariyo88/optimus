@@ -20,12 +20,12 @@
 }
 
 .terms-sidebar h4 {
-	color: #293681;
+	color: #233D4D;
 	font-size: 16px;
 	font-weight: 700;
 	margin-bottom: 20px;
 	padding-bottom: 15px;
-	border-bottom: 2px solid #4274D9;
+	border-bottom: 2px solid #FE7F2D;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 }
@@ -54,15 +54,15 @@
 .terms-nav a:hover,
 .terms-nav a.active {
 	background-color: #f0f4ff;
-	color: #4274D9;
-	border-left-color: #4274D9;
+	color: #FE7F2D;
+	border-left-color: #FE7F2D;
 	padding-left: 12px;
 }
 
 .terms-sidebar-cta {
 	margin-top: 30px;
 	padding: 20px;
-	background: linear-gradient(135deg, #4274D9 0%, #293681 100%);
+	background: linear-gradient(135deg, #FE7F2D 0%, #233D4D 100%);
 	border-radius: 8px;
 	text-align: center;
 }
@@ -83,7 +83,7 @@
 	display: inline-block;
 	padding: 10px 20px;
 	background: #fff;
-	color: #4274D9;
+	color: #FE7F2D;
 	border-radius: 5px;
 	text-decoration: none;
 	font-weight: 600;
@@ -93,7 +93,7 @@
 
 .btn-cta-small:hover {
 	background: #f0f4ff;
-	color: #293681;
+	color: #233D4D;
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
@@ -119,7 +119,7 @@
 }
 
 .terms-article h2 {
-	color: #293681;
+	color: #233D4D;
 	font-size: 28px;
 	font-weight: 700;
 	margin-bottom: 20px;
@@ -134,7 +134,7 @@
 	justify-content: center;
 	width: 45px;
 	height: 45px;
-	background: linear-gradient(135deg, #4274D9 0%, #293681 100%);
+	background: linear-gradient(135deg, #FE7F2D 0%, #233D4D 100%);
 	color: #fff;
 	border-radius: 50%;
 	font-size: 20px;
@@ -143,7 +143,7 @@
 }
 
 .terms-article h3 {
-	color: #293681;
+	color: #233D4D;
 	font-size: 20px;
 	font-weight: 600;
 	margin-top: 30px;
@@ -198,7 +198,7 @@
 	font-family: 'FontAwesome';
 	position: absolute;
 	left: 0;
-	color: #4274D9;
+	color: #FE7F2D;
 	font-size: 14px;
 	top: 3px;
 }
@@ -218,7 +218,7 @@
 	position: absolute;
 	left: 0;
 	font-weight: 700;
-	color: #4274D9;
+	color: #FE7F2D;
 	font-size: 16px;
 }
 
@@ -234,7 +234,7 @@
 
 .terms-info-box {
 	background: #e7f3ff;
-	border-left: 4px solid #4274D9;
+	border-left: 4px solid #FE7F2D;
 }
 
 .terms-warning-box {
@@ -250,7 +250,7 @@
 }
 
 .terms-info-box i {
-	color: #4274D9;
+	color: #FE7F2D;
 }
 
 .terms-warning-box i {
@@ -259,7 +259,7 @@
 
 .terms-info-box strong,
 .terms-warning-box strong {
-	color: #293681;
+	color: #233D4D;
 	display: block;
 	margin-bottom: 5px;
 }
@@ -288,19 +288,19 @@
 }
 
 .payment-method-card:hover {
-	border-color: #4274D9;
-	box-shadow: 0 4px 15px rgba(66, 116, 217, 0.15);
+	border-color: #FE7F2D;
+	box-shadow: 0 4px 15px rgba(254, 127, 45, 0.15);
 	transform: translateY(-3px);
 }
 
 .payment-method-card i {
 	font-size: 36px;
-	color: #4274D9;
+	color: #FE7F2D;
 	margin-bottom: 15px;
 }
 
 .payment-method-card h4 {
-	color: #293681;
+	color: #233D4D;
 	font-size: 16px;
 	font-weight: 600;
 	margin-bottom: 8px;
@@ -322,17 +322,17 @@
 }
 
 .contact-details-box h3 {
-	color: #293681;
+	color: #233D4D;
 	font-size: 20px;
 	font-weight: 700;
 	margin-bottom: 25px;
 	padding-bottom: 15px;
-	border-bottom: 2px solid #4274D9;
+	border-bottom: 2px solid #FE7F2D;
 }
 
 .contact-details-box h3 i {
 	margin-right: 10px;
-	color: #4274D9;
+	color: #FE7F2D;
 }
 
 .contact-row {
@@ -344,20 +344,20 @@
 
 .contact-row i {
 	font-size: 20px;
-	color: #4274D9;
+	color: #FE7F2D;
 	margin-top: 3px;
 	flex-shrink: 0;
 }
 
 .contact-row strong {
 	display: block;
-	color: #293681;
+	color: #233D4D;
 	font-size: 14px;
 	margin-bottom: 5px;
 }
 
 .contact-row a {
-	color: #4274D9;
+	color: #FE7F2D;
 	text-decoration: none;
 }
 
@@ -372,7 +372,7 @@
 	background: linear-gradient(135deg, #e7f3ff 0%, #f0f4ff 100%);
 	padding: 30px;
 	border-radius: 8px;
-	border: 2px solid #4274D9;
+	border: 2px solid #FE7F2D;
 	margin-top: 40px;
 }
 
@@ -382,11 +382,11 @@
 
 .agreement-icon i {
 	font-size: 48px;
-	color: #4274D9;
+	color: #FE7F2D;
 }
 
 .terms-agreement-box h3 {
-	color: #293681;
+	color: #233D4D;
 	font-size: 22px;
 	font-weight: 700;
 	margin-bottom: 15px;
@@ -402,7 +402,7 @@
 
 .terms-footer-note {
 	font-size: 13px;
-	color: #293681;
+	color: #233D4D;
 	font-weight: 600;
 	margin-top: 15px;
 	margin-bottom: 0;
@@ -412,7 +412,7 @@
 .terms-cta-section {
 	text-align: center;
 	padding: 50px;
-	background: linear-gradient(135deg, #293681 0%, #4274D9 100%);
+	background: linear-gradient(135deg, #233D4D 0%, #FE7F2D 100%);
 	border-radius: 12px;
 	color: #fff;
 }
@@ -448,7 +448,7 @@
 
 .btn-primary-lg {
 	background: #fff;
-	color: #4274D9;
+	color: #FE7F2D;
 }
 
 .btn-primary-lg:hover {

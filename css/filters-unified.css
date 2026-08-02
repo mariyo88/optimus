@@ -12,7 +12,7 @@
     
     /* Colors - Harmonized palette */
     --filter-bg: #ffffff;
-    --filter-border: #e4e7ed;
+    --filter-border: #EAECF0;
     --filter-hover-bg: #f8f9fa;
     --filter-active-bg: #e8eef8;
     
@@ -22,7 +22,7 @@
     --filter-text-muted: #8d99ae;
     
     /* Accents - Unified color scheme */
-    --filter-accent-blue: #667eea;
+    --filter-accent-blue: #1e1e20;
     --filter-accent-purple: #764ba2;
     --filter-accent-pink: #D4145A;
     --filter-accent-orange: #FBB03B;
@@ -32,7 +32,7 @@
     /* Gradients - Consistent across all filters */
     --gradient-categories: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
     --gradient-brands: linear-gradient(135deg, #D4145A 0%, #FBB03B 100%);
-    --gradient-price: linear-gradient(135deg, #667eea 0%, #4274D9 100%);
+    --gradient-price: linear-gradient(135deg, #667eea 0%, #FE7F2D 100%);
     --gradient-specs: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 

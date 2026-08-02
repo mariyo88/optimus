@@ -8,10 +8,10 @@
   --sidebar-width: 256px;
 
   /* Brand */
-  --primary:        #3874ff;
-  --primary-dark:   #004dff;
-  --primary-light:  #e5edff;
-  --primary-rgb:    56, 116, 255;
+  --primary:        #FE7F2D;
+  --primary-dark:   #233D4D;
+  --primary-light:  #EAECF0;
+  --primary-rgb:    254, 127, 45;
 
   /* Surfaces */
   --surface:        #ffffff;

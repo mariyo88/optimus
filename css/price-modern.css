@@ -117,7 +117,7 @@
 
 /* noUiSlider custom styling */
 .price-range-slider .noUi-connect {
-  background: linear-gradient(90deg, #667eea 0%, #4274d9 100%);
+  background: linear-gradient(90deg, #667eea 0%, #FE7F2D 100%);
   box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
 }
 

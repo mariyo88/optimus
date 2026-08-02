@@ -65,20 +65,20 @@
     width: 35px;
     height: 35px;
     background-color: #fff;
-    border: 2px solid #e4e7ed;
+    border: 2px solid #EAECF0;
     border-radius: 50%;
     font-size: 20px;
     line-height: 31px;
     text-align: center;
     cursor: pointer;
-    color: #293681;
+    color: #233D4D;
     z-index: 10;
     transition: all 0.2s;
 }
 
 .quick-view-close:hover {
-    background-color: #4274D9;
-    border-color: #4274D9;
+    background-color: #FE7F2D;
+    border-color: #FE7F2D;
     color: #fff;
     transform: rotate(90deg);
 }
@@ -91,7 +91,7 @@
 
 .quick-view-loading i {
     font-size: 48px;
-    color: #4274D9;
+    color: #FE7F2D;
     animation: spin 1s linear infinite;
 }
 
@@ -117,7 +117,7 @@
 }
 
 .quick-view-error h4 {
-    color: #293681;
+    color: #233D4D;
     margin-bottom: 10px;
 }
 
@@ -160,7 +160,7 @@
 .quick-view-main-image {
     position: relative;
     margin-bottom: 15px;
-    border: 1px solid #e4e7ed;
+    border: 1px solid #EAECF0;
     border-radius: 4px;
     overflow: hidden;
     background-color: #f8f9fa;
@@ -188,7 +188,7 @@
 .quick-view-image-label span {
     display: block;
     padding: 5px 15px;
-    background-color: #4274D9;
+    background-color: #FE7F2D;
     color: #fff;
     font-size: 12px;
     font-weight: 700;
@@ -211,7 +211,7 @@
 .quick-view-thumbnail {
     flex: 0 0 94px;
     height: 94px;
-    border: 2px solid #e4e7ed;
+    border: 2px solid #EAECF0;
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;
@@ -224,7 +224,7 @@
 
 .quick-view-thumbnail:hover,
 .quick-view-thumbnail.active {
-    border-color: #4274D9;
+    border-color: #FE7F2D;
 }
 
 .quick-view-thumbnail img {
@@ -254,7 +254,7 @@
 .quick-view-title {
     font-size: 24px;
     font-weight: 700;
-    color: #293681;
+    color: #233D4D;
     margin: 0 0 15px 0;
     line-height: 1.3;
     word-wrap: break-word;
@@ -271,7 +271,7 @@
 }
 
 .quick-view-stars {
-    color: #4274D9;
+    color: #FE7F2D;
 }
 
 .quick-view-stars i {
@@ -308,7 +308,7 @@
 
 .quick-view-availability-label {
     font-size: 14px;
-    color: #293681;
+    color: #233D4D;
     font-weight: 600;
 }
 
@@ -346,7 +346,7 @@
 .quick-view-features h5 {
     font-size: 14px;
     font-weight: 700;
-    color: #293681;
+    color: #233D4D;
     margin: 0 0 10px 0;
 }
 
@@ -363,7 +363,7 @@
 }
 
 .quick-view-features li i {
-    color: #4274D9;
+    color: #FE7F2D;
     margin-right: 8px;
 }
 
@@ -387,7 +387,7 @@
 }
 
 .quick-view-read-more {
-    color: #4274D9;
+    color: #FE7F2D;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -412,7 +412,7 @@
     height: 55px;
     border: none;
     border-radius: 6px;
-    background-color: #4274D9;
+    background-color: #FE7F2D;
     color: #fff;
     font-size: 16px;
     font-weight: 700;
@@ -423,13 +423,13 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    box-shadow: 0 2px 8px rgba(66, 116, 217, 0.3);
+    box-shadow: 0 2px 8px rgba(254, 127, 45, 0.3);
 }
 
 .quick-view-btn-buy:hover:not(:disabled) {
-    background-color: #293681;
+    background-color: #233D4D;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(66, 116, 217, 0.4);
+    box-shadow: 0 4px 12px rgba(254, 127, 45, 0.4);
 }
 
 .quick-view-btn-buy:disabled {
@@ -462,18 +462,18 @@
 
 .quick-view-btn-wishlist {
     background-color: #fff;
-    color: #293681;
-    border: 2px solid #e4e7ed;
+    color: #233D4D;
+    border: 2px solid #EAECF0;
 }
 
 .quick-view-btn-wishlist:hover {
-    border-color: #4274D9;
-    color: #4274D9;
+    border-color: #FE7F2D;
+    color: #FE7F2D;
     background-color: #e8eef8;
 }
 
 .quick-view-btn-view {
-    background-color: #293681;
+    background-color: #233D4D;
     color: #fff;
 }
 
@@ -488,12 +488,12 @@
     gap: 10px;
     margin: 20px 0 0 0;
     padding-top: 20px;
-    border-top: 1px solid #e4e7ed;
+    border-top: 1px solid #EAECF0;
 }
 
 .quick-view-share-label {
     font-size: 14px;
-    color: #293681;
+    color: #233D4D;
     font-weight: 600;
     margin-right: 5px;
 }
@@ -506,7 +506,7 @@
     justify-content: center;
     border-radius: 50%;
     background-color: #f8f9fa;
-    color: #293681;
+    color: #233D4D;
     text-decoration: none;
     transition: all 0.2s;
     font-size: 16px;
@@ -528,7 +528,7 @@
 }
 
 .quick-view-share-copy:hover {
-    background-color: #4274D9;
+    background-color: #FE7F2D;
     color: #fff;
 }
 

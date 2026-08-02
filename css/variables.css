@@ -1,0 +1,79 @@
+/*
+ * Optimus - Color Variables (Rebranding 2.0)
+ * Definiše glavne boje aplikacije za lakše održavanje
+ */
+
+:root {
+  /* ===== Primarne Boje (Rebranding 2.0) ===== */
+  --color-black:        #000000;
+  --color-navy:         #233D4D;
+  --color-orange:       #FE7F2D;
+  --color-grey:         #EAECF0;
+  
+  /* ===== RGB vrednosti (za transparentnost) ===== */
+  --rgb-black:          0, 0, 0;
+  --rgb-navy:           35, 61, 77;
+  --rgb-orange:         254, 127, 45;
+  --rgb-grey:           234, 236, 240;
+  
+  /* ===== Semantička Upotreba ===== */
+  --color-primary:      var(--color-orange);      /* Glavni akcent (#FE7F2D) */
+  --color-secondary:    var(--color-navy);        /* Sekundarna boja (#233D4D) */
+  --color-dark:         var(--color-black);       /* Tamna pozadina (#000000) */
+  --color-light:        var(--color-grey);        /* Svetla pozadina (#EAECF0) */
+  
+  /* ===== Tipografija ===== */
+  --color-heading:      var(--color-navy);        /* Naslovi */
+  --color-text:         #333333;                  /* Glavni tekst */
+  --color-text-muted:   #8D99AE;                  /* Prigušen tekst */
+  
+  /* ===== UI Elementi ===== */
+  --color-border:       var(--color-grey);        /* Granice */
+  --color-hover:        var(--color-orange);      /* Hover stanje */
+  --color-active:       var(--color-orange);      /* Aktivno stanje */
+  
+  /* ===== Gumbovi ===== */
+  --btn-primary-bg:     var(--color-orange);
+  --btn-primary-color:  #FFFFFF;
+  --btn-secondary-bg:   var(--color-navy);
+  --btn-secondary-color:#FFFFFF;
+  
+  /* ===== Header & Navigation ===== */
+  --header-bg:          var(--color-navy);
+  --header-top-bg:      var(--color-black);
+  --nav-border:         var(--color-orange);
+  --nav-link-hover:     var(--color-orange);
+  
+  /* ===== Produkt Kartice ===== */
+  --product-border:     var(--color-grey);
+  --product-hover:      var(--color-orange);
+  --product-label-new:  var(--color-orange);
+  --product-price:      var(--color-orange);
+  
+  /* ===== Footer ===== */
+  --footer-bg:          var(--color-black);
+  --footer-bottom-bg:   var(--color-black);
+  --footer-link-hover:  var(--color-orange);
+  
+  /* ===== Senke ===== */
+  --shadow-sm:          0 2px 8px rgba(var(--rgb-orange), 0.1);
+  --shadow-md:          0 4px 16px rgba(var(--rgb-orange), 0.15);
+  --shadow-lg:          0 8px 32px rgba(var(--rgb-orange), 0.2);
+}
+
+/*
+ * Primeri Upotrebe:
+ * 
+ * .button {
+ *   background: var(--btn-primary-bg);
+ *   color: var(--btn-primary-color);
+ * }
+ * 
+ * .heading {
+ *   color: var(--color-heading);
+ * }
+ * 
+ * .link:hover {
+ *   color: var(--color-hover);
+ * }
+ */
