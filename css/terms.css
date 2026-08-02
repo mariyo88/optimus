@@ -551,3 +551,20 @@
 		page-break-after: avoid;
 	}
 }
+
+/* ==========================================
+   TEMPORARY HIDING - FEATURES NOT YET DEVELOPED
+   ========================================== */
+
+/* Hide card payment and installment cards - not yet available */
+.payment-method-card:nth-child(2),
+.payment-method-card:nth-child(4) {
+	display: none !important;
+}
+
+/* Hide card payment subsection - section 4.2 */
+#placanje h3:nth-of-type(2),
+#placanje h3:nth-of-type(2) + p,
+#placanje h3:nth-of-type(2) + p + .terms-warning-box {
+	display: none !important;
+}

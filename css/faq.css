@@ -288,3 +288,18 @@
 	color: #4274D9;
 	transform: translateY(-2px);
 }
+
+/* Temporary hiding - features not yet developed */
+
+/* Hide user account section - not yet implemented */
+.faq-category-link[href="#nalog"],
+#nalog {
+	display: none !important;
+}
+
+/* Hide online card payment info - not yet implemented */
+#placanje .faq-item:nth-child(2),
+#placanje .faq-item:nth-child(3),
+#placanje .faq-item:nth-child(4) {
+	display: none !important;
+}
