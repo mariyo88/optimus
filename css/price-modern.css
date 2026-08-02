@@ -1,5 +1,5 @@
 /**
- * Modern Price Range Filter
+ * Modern Price Range Filter with Slider
  * Uses unified filter design system - matches brand and specification filters
  */
 
@@ -11,170 +11,196 @@
   margin-bottom: 20px;
 }
 
-/* Header - Blue gradient with collapse functionality */
+/* Header - Using unified gradient and animations */
 .price-filter-header {
-  background: linear-gradient(135deg, var(--filter-accent-blue) 0%, #4274D9 100%);
+  background: var(--gradient-price);
   padding: var(--filter-header-padding);
   color: #fff;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.5px;
+  font-size: 13px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.price-filter-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.5s ease;
+}
+
+.price-filter-header:hover::before {
+  left: 100%;
 }
 
 .price-filter-header:hover {
-  filter: brightness(0.95);
+  filter: brightness(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .price-filter-icon {
-  font-size: 18px;
+  font-size: 17px;
   flex-shrink: 0;
+  opacity: 0.95;
 }
 
-/* Currency label style for RSD text */
+/* Currency label - consistent with badges */
 .price-filter-currency {
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 1px;
-  background: rgba(255, 255, 255, 0.25);
-  padding: 4px 8px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.8px;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 3px 7px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .price-filter-title {
   flex: 1;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.5px;
+  font-size: 13px;
+  letter-spacing: 0.8px;
 }
 
 .price-chevron {
-  font-size: 14px;
-  transition: transform 0.3s ease;
+  font-size: 13px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
+  opacity: 0.9;
 }
 
 /* Collapsible content */
 .price-filter-content {
   display: none;
-  padding-bottom: 16px;
+  padding: 20px 16px;
+  background: #fafbfc;
 }
 
 .price-filter-content.expanded {
   display: block;
 }
 
-/* Preset range buttons - Card-style matching brand/specification filters */
-.price-presets {
+/* Price range display */
+.price-range-display {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  letter-spacing: 0.3px;
+}
+
+/* Range slider container */
+.price-slider-container {
+  padding: 0 8px 30px 8px;
+}
+
+.price-range-slider {
+  height: 6px;
+}
+
+/* noUiSlider custom styling */
+.price-range-slider .noUi-connect {
+  background: linear-gradient(90deg, #667eea 0%, #4274d9 100%);
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.price-range-slider .noUi-target {
+  background: #e9ecef;
+  border: none;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+}
+
+.price-range-slider .noUi-handle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  top: -9px;
+  right: -12px;
+}
+
+.price-range-slider .noUi-handle:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 12px rgba(102, 126, 234, 0.4);
+}
+
+.price-range-slider .noUi-handle:active {
+  transform: scale(1.05);
+}
+
+.price-range-slider .noUi-handle::before,
+.price-range-slider .noUi-handle::after {
+  display: none;
+}
+
+/* Input fields */
+.price-inputs {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.price-input-wrapper {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 10px 8px;
-  background: #fafbfc;
+  gap: 6px;
 }
 
-.price-preset-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border-radius: 6px;
+.price-input-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-left: 4px;
+}
+
+.price-input {
+  width: 100%;
+  padding: 10px 12px;
   border: 1.5px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
   background: #fff;
-  color: var(--filter-text-primary);
-  font-size: 12px;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.price-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: #fff;
+}
+
+.price-input::placeholder {
+  color: #adb5bd;
   font-weight: 500;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.25s ease;
-  white-space: nowrap;
-  position: relative;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-.price-preset-btn .price-icon {
-  width: 22px;
-  height: 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 14px;
-  color: #8d99ae;
-  background: transparent;
-  border-radius: 4px;
-  transition: all 0.25s ease;
-}
-
-/* Currency label on preset buttons */
-.price-currency-label {
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  padding: 2px 3px;
-  opacity: 0.7;
-}
-
-.price-preset-btn .price-label {
-  flex: 1;
-  color: inherit;
-  transition: all 0.25s ease;
-  font-size: 12px;
-}
-
-.price-preset-btn .price-check {
-  width: 16px;
-  height: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 14px;
-  color: var(--filter-accent-blue);
-  opacity: 0;
-  transform: scale(0.5);
-  transition: all 0.25s ease;
-}
-
-.price-preset-btn:hover {
-  border-color: var(--filter-accent-blue);
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(66, 116, 217, 0.05) 100%);
-  transform: translateX(3px);
-  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.12);
-}
-
-.price-preset-btn:hover .price-icon {
-  color: var(--filter-accent-blue);
-  background: transparent;
-}
-
-.price-preset-btn.active {
-  border-color: var(--filter-accent-blue);
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(66, 116, 217, 0.1) 100%);
-  color: var(--filter-accent-blue);
-  font-weight: 600;
-  box-shadow: 0 3px 8px rgba(102, 126, 234, 0.18);
-}
-
-.price-preset-btn.active .price-icon {
-  color: var(--filter-accent-blue);
-  background: transparent;
-}
-
-.price-preset-btn.active .price-check {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.price-preset-btn.active:hover {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(66, 116, 217, 0.15) 100%);
 }
 
 /* Loading state - Uses unified design */
@@ -191,8 +217,13 @@
     font-size: 13px;
   }
   
-  .price-preset-btn {
+  .price-range-display {
+    font-size: 15px;
+  }
+  
+  .price-input {
     font-size: 13px;
+    padding: 9px 10px;
   }
 }
 
@@ -201,7 +232,16 @@
     font-size: 12px;
   }
   
-  .price-preset-btn {
+  .price-range-display {
+    font-size: 14px;
+  }
+  
+  .price-input {
     font-size: 12px;
+    padding: 8px 10px;
+  }
+  
+  .price-filter-content {
+    padding: 16px 12px;
   }
 }

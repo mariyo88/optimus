@@ -7,25 +7,33 @@
 :root {
     --filter-border-radius: 8px;
     --filter-spacing: 15px;
-    --filter-header-padding: 15px;
-    --filter-item-padding: 10px 15px;
+    --filter-header-padding: 14px 16px;
+    --filter-item-padding: 11px 16px;
     
-    /* Colors */
+    /* Colors - Harmonized palette */
     --filter-bg: #ffffff;
     --filter-border: #e4e7ed;
     --filter-hover-bg: #f8f9fa;
     --filter-active-bg: #e8eef8;
     
-    /* Text */
+    /* Text - Consistent typography */
     --filter-text-primary: #2b2d42;
     --filter-text-secondary: #5a6c7d;
     --filter-text-muted: #8d99ae;
     
-    /* Accents */
+    /* Accents - Unified color scheme */
     --filter-accent-blue: #667eea;
     --filter-accent-purple: #764ba2;
     --filter-accent-pink: #D4145A;
     --filter-accent-orange: #FBB03B;
+    --filter-accent-teal: #38b2ac;
+    --filter-accent-indigo: #5a67d8;
+    
+    /* Gradients - Consistent across all filters */
+    --gradient-categories: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    --gradient-brands: linear-gradient(135deg, #D4145A 0%, #FBB03B 100%);
+    --gradient-price: linear-gradient(135deg, #667eea 0%, #4274D9 100%);
+    --gradient-specs: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Base Filter Container */
@@ -37,55 +45,77 @@
     margin-bottom: 20px;
 }
 
-/* Common Filter Header */
+/* Common Filter Header - Unified styling for all filters */
 .filter-header-base {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     padding: var(--filter-header-padding);
     color: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
     user-select: none;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    font-size: 13px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-header-base::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.5s ease;
+}
+
+.filter-header-base:hover::before {
+    left: 100%;
 }
 
 .filter-header-base:hover {
-    filter: brightness(0.95);
+    filter: brightness(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Header Icons */
+/* Header Icons - Consistent sizing */
 .filter-icon-base {
-    font-size: 18px;
+    font-size: 17px;
     flex-shrink: 0;
+    opacity: 0.95;
 }
 
-/* Header Title */
+/* Header Title - Consistent font weight and size */
 .filter-title-base {
     flex: 1;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    font-size: 13px;
+    letter-spacing: 0.8px;
 }
 
-/* Badge Count */
+/* Badge Count - Uniform appearance across filters */
 .filter-count-base {
-    font-size: 11px;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.25);
-    padding: 3px 8px;
-    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 3px 7px;
+    border-radius: 12px;
     line-height: 1;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Chevron Icon */
+/* Chevron Icon - Consistent sizing and animation */
 .filter-chevron-base {
-    font-size: 14px;
-    transition: transform 0.3s ease;
+    font-size: 13px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
+    opacity: 0.9;
 }
 
 /* Collapsible Content */

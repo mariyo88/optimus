@@ -22,69 +22,95 @@
     margin-bottom: 20px;
 }
 
-/* Header - All Departments */
+/* Header - All Departments - Using unified gradient */
 .god-category-filter .category-header {
-    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    background: var(--gradient-categories);
     color: #fff;
     padding: var(--filter-header-padding);
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     transition: all 0.3s ease;
     position: relative;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    font-size: 13px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
+    overflow: hidden;
+}
+
+.god-category-filter .category-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.5s ease;
+}
+
+.god-category-filter .category-header:hover::before {
+    left: 100%;
 }
 
 .god-category-filter .category-header:hover {
-    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    filter: brightness(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .god-category-filter .category-header-icon {
-    font-size: 18px;
+    font-size: 17px;
     display: flex;
     align-items: center;
     gap: 4px;
+    opacity: 0.95;
 }
 
 .god-category-filter .category-header-icon i {
     width: 4px;
     height: 4px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.9); }
 }
 
 .god-category-filter .category-header-title {
     flex: 1;
 }
 
-/* Collapse Toggle Button */
+/* Collapse Toggle Button - Consistent with other filters */
 .god-category-filter .category-collapse-toggle {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-left: auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .god-category-filter .category-collapse-toggle:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .god-category-filter .category-collapse-toggle i {
-    font-size: 14px;
+    font-size: 13px;
     color: #fff;
-    transition: transform 0.3s ease;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Collapsible Wrapper */
