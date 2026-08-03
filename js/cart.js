@@ -272,12 +272,12 @@
                 '  position: fixed;',
                 '  top: 0; left: 0; right: 0;',
                 '  z-index: 10001;',
-                '  background: #280905;',
+                '  background: #212121;',
                 '  padding: 10px 15px;',
                 '  transform: translateY(-100%);',
                 '  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);',
                 '">',
-                '  <i class="fa fa-ban" style="color: #E6501B; margin-right: 5px; font-size: 12px;"></i>',
+                '  <i class="fa fa-ban" style="color: #0D7377; margin-right: 5px; font-size: 12px;"></i>',
                 '  <span style="color: #fff; font-size: 12px;">' + message + '</span>',
                 '</div>'
             ].join(''));
@@ -396,7 +396,7 @@
                     position: 'fixed',
                     top: '80px',
                     right: '20px',
-                    background: '#E6501B',
+                    background: '#0D7377',
                     color: '#fff',
                     padding: '15px 25px',
                     borderRadius: '3px',
@@ -424,7 +424,7 @@
             var productName = product ? product.name : 'Proizvod';
             var price = product ? (product.bestOurWebPrice || product.bestRetailPrice || 0) : 0;
             var priceHtml = price > 0
-                ? '<span style="color:#E6501B;font-weight:700;font-size:16px;">' + formatPrice(price) + '</span>'
+                ? '<span style="color:#0D7377;font-weight:700;font-size:16px;">' + formatPrice(price) + '</span>'
                 : '';
             var productHref = product && product.slug ? 'product.html?slug=' + product.slug : '#';
             var cartCount = this.getCount();
@@ -444,7 +444,7 @@
 
                 '    <!-- Header -->',
                 '    <div style="',
-                '      background:#740A03;color:#fff;',
+                '      background:#323232;color:#fff;',
                 '      padding:14px 20px;',
                 '      display:flex;align-items:center;justify-content:space-between;">',
                 '      <div style="display:flex;align-items:center;gap:10px;">',
@@ -467,7 +467,7 @@
                 '      </a>',
                 '      <div style="flex:1;min-width:0;">',
                 '        <a href="' + productHref + '" style="',
-                '          color:#740A03;text-decoration:none;',
+                '          color:#323232;text-decoration:none;',
                 '          font-size:14px;font-weight:600;',
                 '          display:-webkit-box;-webkit-line-clamp:2;',
                 '          -webkit-box-orient:vertical;overflow:hidden;">',
@@ -486,7 +486,7 @@
                 '      display:flex;align-items:center;justify-content:space-between;',
                 '      font-size:13px;color:#666;border-bottom:1px solid #eee;">',
                 '      <span><i class="fa fa-shopping-cart" style="margin-right:6px;"></i>',
-                '        Ukupno u korpi: <strong style="color:#740A03;">' + cartCount + ' ' + (cartCount === 1 ? 'artikal' : 'artikala') + '</strong>',
+                '        Ukupno u korpi: <strong style="color:#323232;">' + cartCount + ' ' + (cartCount === 1 ? 'artikal' : 'artikala') + '</strong>',
                 '      </span>',
                 '    </div>',
 
@@ -494,19 +494,19 @@
                 '    <div style="padding:16px 20px;display:flex;gap:10px;">',
                 '      <button id="cart-modal-continue" style="',
                 '        flex:1;padding:11px 16px;',
-                '        border:2px solid #E6501B;background:#fff;',
-                '        color:#E6501B;font-size:13px;font-weight:600;',
+                '        border:2px solid #0D7377;background:#fff;',
+                '        color:#0D7377;font-size:13px;font-weight:600;',
                 '        border-radius:4px;cursor:pointer;',
                 '        transition:all 0.2s;">',
                 '        <i class="fa fa-arrow-left" style="margin-right:6px;"></i>Nastavi kupovinu',
                 '      </button>',
                 '      <a href="cart.html" style="',
                 '        flex:1;padding:11px 16px;',
-                '        background:#E6501B;color:#fff;',
+                '        background:#0D7377;color:#fff;',
                 '        font-size:13px;font-weight:600;',
                 '        border-radius:4px;cursor:pointer;',
                 '        text-align:center;text-decoration:none;',
-                '        border:2px solid #E6501B;',
+                '        border:2px solid #0D7377;',
                 '        transition:all 0.2s;display:block;">',
                 '        <i class="fa fa-shopping-cart" style="margin-right:6px;"></i>Idi u korpu',
                 '      </a>',
@@ -518,7 +518,7 @@
                 '<style>',
                 '@keyframes fadeInOverlay { from { opacity:0; } to { opacity:1; } }',
                 '@keyframes slideInModal { from { transform:translateY(-20px);opacity:0; } to { transform:translateY(0);opacity:1; } }',
-                '#cart-modal-continue:hover { background:#E6501B !important; color:#fff !important; }',
+                '#cart-modal-continue:hover { background:#0D7377 !important; color:#fff !important; }',
                 '#cart-modal-close:hover { opacity:1 !important; }',
                 '</style>'
             ].join('');

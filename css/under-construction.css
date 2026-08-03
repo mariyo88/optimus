@@ -1,6 +1,6 @@
 ﻿/* ── Under Construction Page ── */
 .wip-hero {
-	background: linear-gradient(135deg, #740A03 0%, #280905 60%, #E6501B 100%);
+	background: linear-gradient(135deg, #323232 0%, #212121 60%, #0D7377 100%);
 	color: #fff;
 	min-height: 480px;
 	display: flex;
@@ -78,7 +78,7 @@
 	margin-bottom: 16px;
 }
 .wip-hero h1 span {
-	color: #E6501B;
+	color: #0D7377;
 }
 .wip-hero p.wip-lead {
 	font-size: 17px;
@@ -110,7 +110,7 @@
 }
 .wip-progress-bar {
 	height: 100%;
-	background: linear-gradient(90deg, #E6501B, #95CCDD);
+	background: linear-gradient(90deg, #0D7377, #95CCDD);
 	border-radius: 3px;
 	width: 0;
 	transition: width 1.2s ease;
@@ -121,7 +121,7 @@
 }
 .btn-wip-primary {
 	display: inline-block;
-	background: #E6501B;
+	background: #0D7377;
 	color: #fff;
 	padding: 13px 32px;
 	border-radius: 3px;
@@ -132,7 +132,7 @@
 	transition: background 0.25s ease, transform 0.2s ease;
 }
 .btn-wip-primary:hover {
-	background: #740A03;
+	background: #323232;
 	color: #fff;
 	text-decoration: none;
 	transform: translateY(-2px);
@@ -152,7 +152,7 @@
 }
 .btn-wip-outline:hover {
 	background: #fff;
-	color: #E6501B;
+	color: #0D7377;
 	border-color: #fff;
 	text-decoration: none;
 }
@@ -175,7 +175,7 @@
 .wip-card:hover {
 	box-shadow: 0 8px 28px rgba(0,0,0,0.12);
 	transform: translateY(-5px);
-	border-top-color: #E6501B;
+	border-top-color: #0D7377;
 }
 .wip-card-icon {
 	width: 66px;
@@ -189,11 +189,11 @@
 	transition: background 0.3s ease;
 }
 .wip-card:hover .wip-card-icon {
-	background: #E6501B;
+	background: #0D7377;
 }
 .wip-card-icon i {
 	font-size: 26px;
-	color: #E6501B;
+	color: #0D7377;
 	transition: color 0.3s ease;
 }
 .wip-card:hover .wip-card-icon i {
@@ -202,7 +202,7 @@
 .wip-card h4 {
 	font-size: 16px;
 	font-weight: 700;
-	color: #740A03;
+	color: #323232;
 	margin-bottom: 10px;
 }
 .wip-card p {
@@ -214,7 +214,7 @@
 
 /* Contact strip */
 .wip-contact-strip {
-	background: #740A03;
+	background: #323232;
 	padding: 40px 0;
 	text-align: center;
 	color: #fff;

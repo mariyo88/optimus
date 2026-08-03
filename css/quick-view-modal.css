@@ -71,14 +71,14 @@
     line-height: 31px;
     text-align: center;
     cursor: pointer;
-    color: #740A03;
+    color: #323232;
     z-index: 10;
     transition: all 0.2s;
 }
 
 .quick-view-close:hover {
-    background-color: #E6501B;
-    border-color: #E6501B;
+    background-color: #0D7377;
+    border-color: #0D7377;
     color: #fff;
     transform: rotate(90deg);
 }
@@ -91,7 +91,7 @@
 
 .quick-view-loading i {
     font-size: 48px;
-    color: #E6501B;
+    color: #0D7377;
     animation: spin 1s linear infinite;
 }
 
@@ -117,7 +117,7 @@
 }
 
 .quick-view-error h4 {
-    color: #740A03;
+    color: #323232;
     margin-bottom: 10px;
 }
 
@@ -188,7 +188,7 @@
 .quick-view-image-label span {
     display: block;
     padding: 5px 15px;
-    background-color: #E6501B;
+    background-color: #0D7377;
     color: #fff;
     font-size: 12px;
     font-weight: 700;
@@ -224,7 +224,7 @@
 
 .quick-view-thumbnail:hover,
 .quick-view-thumbnail.active {
-    border-color: #E6501B;
+    border-color: #0D7377;
 }
 
 .quick-view-thumbnail img {
@@ -254,7 +254,7 @@
 .quick-view-title {
     font-size: 24px;
     font-weight: 700;
-    color: #740A03;
+    color: #323232;
     margin: 0 0 15px 0;
     line-height: 1.3;
     word-wrap: break-word;
@@ -271,7 +271,7 @@
 }
 
 .quick-view-stars {
-    color: #E6501B;
+    color: #0D7377;
 }
 
 .quick-view-stars i {
@@ -308,7 +308,7 @@
 
 .quick-view-availability-label {
     font-size: 14px;
-    color: #740A03;
+    color: #323232;
     font-weight: 600;
 }
 
@@ -346,7 +346,7 @@
 .quick-view-features h5 {
     font-size: 14px;
     font-weight: 700;
-    color: #740A03;
+    color: #323232;
     margin: 0 0 10px 0;
 }
 
@@ -363,7 +363,7 @@
 }
 
 .quick-view-features li i {
-    color: #E6501B;
+    color: #0D7377;
     margin-right: 8px;
 }
 
@@ -387,7 +387,7 @@
 }
 
 .quick-view-read-more {
-    color: #E6501B;
+    color: #0D7377;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -412,7 +412,7 @@
     height: 55px;
     border: none;
     border-radius: 6px;
-    background-color: #E6501B;
+    background-color: #0D7377;
     color: #fff;
     font-size: 16px;
     font-weight: 700;
@@ -427,7 +427,7 @@
 }
 
 .quick-view-btn-buy:hover:not(:disabled) {
-    background-color: #740A03;
+    background-color: #323232;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(254, 127, 45, 0.4);
 }
@@ -462,18 +462,18 @@
 
 .quick-view-btn-wishlist {
     background-color: #fff;
-    color: #740A03;
+    color: #323232;
     border: 2px solid #EAECF0;
 }
 
 .quick-view-btn-wishlist:hover {
-    border-color: #E6501B;
-    color: #E6501B;
+    border-color: #0D7377;
+    color: #0D7377;
     background-color: #e8eef8;
 }
 
 .quick-view-btn-view {
-    background-color: #740A03;
+    background-color: #323232;
     color: #fff;
 }
 
@@ -493,7 +493,7 @@
 
 .quick-view-share-label {
     font-size: 14px;
-    color: #740A03;
+    color: #323232;
     font-weight: 600;
     margin-right: 5px;
 }
@@ -506,7 +506,7 @@
     justify-content: center;
     border-radius: 50%;
     background-color: #f8f9fa;
-    color: #740A03;
+    color: #323232;
     text-decoration: none;
     transition: all 0.2s;
     font-size: 16px;
@@ -528,7 +528,7 @@
 }
 
 .quick-view-share-copy:hover {
-    background-color: #E6501B;
+    background-color: #0D7377;
     color: #fff;
 }
 

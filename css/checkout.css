@@ -22,9 +22,9 @@
 .shiping-details .section-title h3 {
 	font-size: 18px;
 	font-weight: 700;
-	color: #740A03;
+	color: #323232;
 	padding-bottom: 12px;
-	border-bottom: 2px solid #E6501B;
+	border-bottom: 2px solid #0D7377;
 	margin: 0;
 }
 .order-notes textarea.input {
@@ -40,9 +40,9 @@
 .order-details .section-title h3 {
 	font-size: 18px;
 	font-weight: 700;
-	color: #740A03;
+	color: #323232;
 	padding-bottom: 12px;
-	border-bottom: 2px solid #E6501B;
+	border-bottom: 2px solid #0D7377;
 	margin-bottom: 20px;
 }
 .order-summary {
@@ -55,7 +55,7 @@
 
 /* Summary header */
 .order-summary-header {
-	background: #740A03;
+	background: #323232;
 	padding: 14px 20px;
 	display: flex;
 	justify-content: space-between;
@@ -85,7 +85,7 @@
 .order-product-row .op-badge {
 	min-width: 24px;
 	height: 24px;
-	background: #E6501B;
+	background: #0D7377;
 	color: #fff;
 	border-radius: 50%;
 	font-size: 11px;
@@ -111,7 +111,7 @@
 .order-product-row .op-name {
 	font-size: 13px;
 	font-weight: 600;
-	color: #740A03;
+	color: #323232;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -147,7 +147,7 @@
 .order-totals-row.grand-total {
 	font-size: 16px;
 	font-weight: 700;
-	color: #740A03;
+	color: #323232;
 	padding-top: 14px;
 }
 .order-totals-row.grand-total span:last-child { color: #D10024; }
@@ -190,7 +190,7 @@
 	background: #e0e0e0;
 	margin: 0 12px;
 }
-.checkout-step.active:not(:last-child)::after { background: #E6501B; }
+.checkout-step.active:not(:last-child)::after { background: #0D7377; }
 .step-circle {
 	width: 32px;
 	height: 32px;
@@ -205,7 +205,7 @@
 	flex-shrink: 0;
 }
 .checkout-step.active .step-circle {
-	background: #E6501B;
+	background: #0D7377;
 	color: #fff;
 }
 .checkout-step.done .step-circle {
@@ -218,18 +218,18 @@
 	font-weight: 600;
 	color: #aaa;
 }
-.checkout-step.active .step-label { color: #740A03; }
+.checkout-step.active .step-label { color: #323232; }
 .checkout-step.done .step-label { color: #28a745; }
 
 /* ── Terms link styling ── */
 .input-checkbox label[for="terms"] a {
-	color: #740A03;
+	color: #323232;
 	text-decoration: none;
 	font-weight: 600;
 	transition: color 0.2s ease;
 }
 
 .input-checkbox label[for="terms"] a:hover {
-	color: #740A03;
+	color: #323232;
 	text-decoration: underline;
 }

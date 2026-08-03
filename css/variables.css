@@ -5,10 +5,10 @@
 
 :root {
   /* ===== Primarne Boje (Rebranding 3.0) ===== */
-  --color-dark-brown:   #280905;
-  --color-dark-red:     #740A03;
+  --color-dark-brown:   #212121;
+  --color-dark-red:     #323232;
   --color-red:          #C3110C;
-  --color-orange:       #E6501B;
+  --color-orange:       #0D7377;
   --color-grey:         #EAECF0;
   
   /* ===== RGB vrednosti (za transparentnost) ===== */
@@ -19,9 +19,9 @@
   --rgb-grey:           234, 236, 240;
   
   /* ===== Semantička Upotreba ===== */
-  --color-primary:      var(--color-orange);      /* Glavni akcent (#E6501B) */
-  --color-secondary:    var(--color-dark-red);    /* Sekundarna boja (#740A03) */
-  --color-dark:         var(--color-dark-brown);  /* Tamna pozadina (#280905) */
+  --color-primary:      var(--color-orange);      /* Glavni akcent (#0D7377) */
+  --color-secondary:    var(--color-dark-red);    /* Sekundarna boja (#323232) */
+  --color-dark:         var(--color-dark-brown);  /* Tamna pozadina (#212121) */
   --color-light:        var(--color-grey);        /* Svetla pozadina (#EAECF0) */
   
   /* ===== Tipografija ===== */

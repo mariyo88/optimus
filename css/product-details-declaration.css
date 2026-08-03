@@ -40,7 +40,7 @@
     font-size: 22px;
     font-family: 'Courier New', monospace;
     font-weight: 700;
-    color: #740A03;
+    color: #323232;
     letter-spacing: 2px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .declaration-barcode-section:hover .barcode-svg rect {
-    fill: #E6501B;
+    fill: #0D7377;
 }
 
 .barcode-number {
@@ -82,7 +82,7 @@
 .specs-title {
     font-size: 16px;
     font-weight: 700;
-    color: #740A03;
+    color: #323232;
     margin: 0 0 20px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -105,7 +105,7 @@
 
 .spec-item:hover {
     background: white;
-    border-color: #E6501B;
+    border-color: #0D7377;
     box-shadow: 0 2px 8px rgba(254, 127, 45, 0.1);
     transform: translateY(-1px);
 }
@@ -121,7 +121,7 @@
 
 .spec-value {
     font-size: 14px;
-    color: #740A03;
+    color: #323232;
     font-weight: 600;
     line-height: 1.5;
 }
@@ -144,7 +144,7 @@
 }
 
 .declaration-empty h4 {
-    color: #740A03;
+    color: #323232;
     margin-bottom: 10px;
     font-size: 18px;
 }

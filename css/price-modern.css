@@ -117,7 +117,7 @@
 
 /* noUiSlider custom styling */
 .price-range-slider .noUi-connect {
-  background: linear-gradient(90deg, #740A03 0%, #E6501B 100%);
+  background: linear-gradient(90deg, #323232 0%, #0D7377 100%);
   box-shadow: 0 2px 4px rgba(116, 10, 3, 0.2);
 }
 
@@ -133,7 +133,7 @@
   height: 24px;
   border-radius: 50%;
   background: #fff;
-  border: 3px solid #740A03;
+  border: 3px solid #323232;
   box-shadow: 0 2px 8px rgba(116, 10, 3, 0.3);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -193,7 +193,7 @@
 
 .price-input:focus {
   outline: none;
-  border-color: #740A03;
+  border-color: #323232;
   box-shadow: 0 0 0 3px rgba(116, 10, 3, 0.1);
   background: #fff;
 }

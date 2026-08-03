@@ -30,10 +30,10 @@
     --filter-accent-indigo: #5a67d8;
     
     /* Gradients - Consistent across all filters */
-    --gradient-categories: linear-gradient(135deg, #740A03 0%, #280905 100%);
-    --gradient-brands: linear-gradient(135deg, #740A03 0%, #E6501B 100%);
-    --gradient-price: linear-gradient(135deg, #740A03 0%, #E6501B 100%);
-    --gradient-specs: linear-gradient(135deg, #740A03 0%, #280905 100%);
+    --gradient-categories: linear-gradient(135deg, #323232 0%, #212121 100%);
+    --gradient-brands: linear-gradient(135deg, #323232 0%, #0D7377 100%);
+    --gradient-price: linear-gradient(135deg, #323232 0%, #0D7377 100%);
+    --gradient-specs: linear-gradient(135deg, #323232 0%, #212121 100%);
 }
 
 /* Base Filter Container */
