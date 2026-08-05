@@ -1,0 +1,101 @@
+name: Update Sitemap
+
+# Workflow se pokreće na tri načina:
+# 1. Na svaki push na main branch
+# 2. Jednom dnevno u 02:00 UTC putem cron schedule
+# 3. Ručno putem workflow_dispatch opcije
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Pokreće se svaki dan u 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+# Dozvole za GITHUB_TOKEN - potrebne za commit i push
+permissions:
+  contents: write
+
+jobs:
+  update-sitemap:
+    name: Download and Update Sitemap
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout repozitorijuma sa puno istorije za pravilno praćenje promena
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      # Konfigurisanje Git-a za automatske commitove
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      
+      # Preuzimanje sitemap.xml sa backenda
+      - name: Download sitemap from backend
+        run: |
+          echo "Preuzimanje sitemap.xml sa backenda..."
+          HTTP_STATUS=$(curl -s -o sitemap.xml -w "%{http_code}" https://optimus-backend-cwbhusfcmq-ew.a.run.app/sitemap.xml)
+          echo "HTTP status: $HTTP_STATUS"
+          
+          # Provera da li je preuzimanje uspešno (HTTP 200)
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "❌ Greška: Backend je vratio HTTP status $HTTP_STATUS"
+            echo "Preuzimanje sitemap.xml nije uspelo!"
+            exit 1
+          fi
+          
+          # Provera da li je fajl preuzet i da nije prazan
+          if [ ! -s sitemap.xml ]; then
+            echo "❌ Greška: sitemap.xml je prazan ili ne postoji"
+            exit 1
+          fi
+          
+          echo "✅ Sitemap uspešno preuzet"
+          echo "Veličina fajla: $(wc -c < sitemap.xml) bytes"
+      
+      # Provera da li je došlo do promena u sitemap.xml
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet sitemap.xml; then
+            echo "Nema promena u sitemap.xml"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Detektovane promene u sitemap.xml"
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      # Commit i push promena samo ako postoje izmene
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git add sitemap.xml
+          git commit -m "🗺️ Automatski update sitemap.xml sa backenda
+          
+          Sitemap ažuriran sa: https://optimus-backend-cwbhusfcmq-ew.a.run.app/sitemap.xml
+          Datum: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git push
+          echo "✅ Sitemap uspešno commit-ovan i push-ovan"
+      
+      # Informativna poruka kada nema promena
+      - name: No changes detected
+        if: steps.check_changes.outputs.changed == 'false'
+        run: |
+          echo "ℹ️ Sitemap je identičan postojećem - nema potrebe za commit-om"
+      
+      # Finalna validacija - provera da li sitemap postoji
+      - name: Validate sitemap
+        run: |
+          if [ -f sitemap.xml ]; then
+            echo "✅ sitemap.xml je prisutan u repozitorijumu"
+            head -n 5 sitemap.xml
+          else
+            echo "❌ sitemap.xml ne postoji!"
+            exit 1
+          fi
