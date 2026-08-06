@@ -1,13 +1,9 @@
 name: Update Sitemap
 
-# Workflow se pokreće na tri načina:
-# 1. Na svaki push na main branch
-# 2. Jednom dnevno u 02:00 UTC putem cron schedule
-# 3. Ručno putem workflow_dispatch opcije
+# Workflow se pokreće na dva načina:
+# 1. Jednom dnevno u 02:00 UTC putem cron schedule
+# 2. Ručno putem workflow_dispatch opcije
 on:
-  push:
-    branches:
-      - main
   schedule:
     # Pokreće se svaki dan u 02:00 UTC
     - cron: '0 2 * * *'
