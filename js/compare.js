@@ -173,23 +173,19 @@
                 '  transform:translateY(-100%);',
                 '  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);',
                 '">',
-                '  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;">',
-                '    <span style="color:#fff;font-size:13px;line-height:1.4;">',
-                '      <i class="fa fa-exclamation-triangle" style="color:#4274D9;margin-right:8px;"></i>',
-                       message,
-                '    </span>',
-                '  </div>',
+                '  <i class="fa fa-ban" style="color:#4274D9;margin-right:5px;font-size:12px;"></i>',
+                '  <span style="color:#fff;font-size:12px;">' + message + '</span>',
                 '</div>'
             ].join(''));
 
             $('body').append($banner);
 
-            // Slide in
             requestAnimationFrame(function () {
-                $banner.css('transform', 'translateY(0)');
+                requestAnimationFrame(function () {
+                    $banner.css('transform', 'translateY(0)');
+                });
             });
 
-            // Auto-dismiss after 5 s
             setTimeout(function () {
                 $banner.css('transform', 'translateY(-100%)');
                 setTimeout(function () { $banner.remove(); }, 400);

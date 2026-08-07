@@ -52,6 +52,18 @@ Table OF Contents
 ===========================================================*/
 
 /*----------------------------*\
+	Accessibility - Screen Reader Only
+\*----------------------------*/
+
+.sr-only {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+/*----------------------------*\
 	Typography
 \*----------------------------*/
 
@@ -509,6 +521,8 @@ textarea.input {
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
+  outline: 2px solid #4274D9;
+  outline-offset: -1px;
 }
 
 .header-search form .search-btn:hover {
@@ -645,8 +659,16 @@ textarea.input {
   color: #D10024;
 }
 
+.cart-dropdown .cart-summary {
+  border-top: 1px solid #E4E7ED;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: none;
+}
+
 .cart-dropdown .cart-btns {
   margin: 0px -17px -17px;
+  display: none;
 }
 
 .cart-dropdown .cart-btns>a {
@@ -668,12 +690,6 @@ textarea.input {
 
 .cart-dropdown .cart-btns>a:hover {
   opacity: 0.9;
-}
-
-.cart-dropdown .cart-summary {
-  border-top: 1px solid #E4E7ED;
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
 
 /*=========================================================
@@ -948,6 +964,13 @@ textarea.input {
 .hot-deal p {
   text-transform: uppercase;
   font-size: 24px;
+}
+
+.hot-deal .deal-title {
+  text-transform: uppercase;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 20px 0 10px 0;
 }
 
 .hot-deal .cta-btn {
