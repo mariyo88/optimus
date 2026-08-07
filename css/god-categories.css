@@ -40,6 +40,24 @@
     overflow: hidden;
 }
 
+/* Diagonal stripe pattern overlay */
+.god-category-filter .category-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.03) 10px,
+        rgba(255, 255, 255, 0.03) 20px
+    );
+    pointer-events: none;
+}
+
 .god-category-filter .category-header::before {
     content: '';
     position: absolute;
@@ -49,6 +67,7 @@
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
     transition: left 0.5s ease;
+    z-index: 1;
 }
 
 .god-category-filter .category-header:hover::before {
@@ -58,6 +77,12 @@
 .god-category-filter .category-header:hover {
     filter: brightness(1.05);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure content is above overlays */
+.god-category-filter .category-header > * {
+    position: relative;
+    z-index: 2;
 }
 
 .god-category-filter .category-header-icon {

@@ -30,6 +30,24 @@
   overflow: hidden;
 }
 
+/* Wave pattern overlay */
+.price-filter-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 8px,
+        rgba(255, 255, 255, 0.04) 8px,
+        rgba(255, 255, 255, 0.04) 16px
+    );
+    pointer-events: none;
+}
+
 .price-filter-header::before {
   content: '';
   position: absolute;
@@ -39,6 +57,7 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
   transition: left 0.5s ease;
+  z-index: 1;
 }
 
 .price-filter-header:hover::before {
@@ -48,6 +67,12 @@
 .price-filter-header:hover {
   filter: brightness(1.05);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure content is above overlays */
+.price-filter-header > * {
+    position: relative;
+    z-index: 2;
 }
 
 .price-filter-icon {
