@@ -29,11 +29,11 @@
     --filter-accent-teal: #38b2ac;
     --filter-accent-indigo: #5a67d8;
     
-    /* Gradients - Consistent across all filters */
-    --gradient-categories: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-    --gradient-brands: linear-gradient(135deg, #D4145A 0%, #FBB03B 100%);
-    --gradient-price: linear-gradient(135deg, #667eea 0%, #4274D9 100%);
-    --gradient-specs: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Gradients - Harmonious multi-tone gradients with depth */
+    --gradient-categories: linear-gradient(135deg, #4a5f7f 0%, #2d3e57 50%, #1e2d42 100%);
+    --gradient-brands: linear-gradient(135deg, #5a7fd7 0%, #4169d9 40%, #3355c7 100%);
+    --gradient-price: linear-gradient(135deg, #6baef9 0%, #5592e8 50%, #4169b8 100%);
+    --gradient-specs: linear-gradient(135deg, #7b8bf5 0%, #6674e3 50%, #5561c9 100%);
 }
 
 /* Base Filter Container */
