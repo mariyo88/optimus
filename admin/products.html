@@ -627,6 +627,14 @@
             </select>
           </div>
           <div class="filter-group">
+            <label for="category-visible-filter">Vidljivost</label>
+            <select id="category-visible-filter">
+              <option value="">-- Sve --</option>
+              <option value="true">Vidljiva kategorija</option>
+              <option value="false">Nevidljiva kategorija</option>
+            </select>
+          </div>
+          <div class="filter-group">
             <label for="image-filter">Slika</label>
             <select id="image-filter">
               <option value="">-- Sve --</option>
@@ -813,6 +821,7 @@
       active: $('#active-filter').val(),
       stock: $('#stock-filter').val(),
       categoryActive: $('#category-active-filter').val(),
+      categoryVisible: $('#category-visible-filter').val(),
       hasImage: $('#image-filter').val()
     };
     localStorage.setItem('admin_products_filters', JSON.stringify(filters));
@@ -820,7 +829,7 @@
 
   function getFilters() {
     const saved = localStorage.getItem('admin_products_filters');
-    return saved ? JSON.parse(saved) : { search: '', category: '', active: '', stock: '', categoryActive: '', hasImage: '' };
+    return saved ? JSON.parse(saved) : { search: '', category: '', active: '', stock: '', categoryActive: '', categoryVisible: '', hasImage: '' };
   }
 
   function restoreFilters() {
@@ -830,6 +839,7 @@
     if (filters.active) $('#active-filter').val(filters.active);
     if (filters.stock) $('#stock-filter').val(filters.stock);
     if (filters.categoryActive) $('#category-active-filter').val(filters.categoryActive);
+    if (filters.categoryVisible) $('#category-visible-filter').val(filters.categoryVisible);
     if (filters.hasImage) $('#image-filter').val(filters.hasImage);
   }
 
@@ -840,6 +850,7 @@
     $('#active-filter').val('');
     $('#stock-filter').val('');
     $('#category-active-filter').val('');
+    $('#category-visible-filter').val('');
     $('#image-filter').val('');
   }
 
@@ -856,6 +867,7 @@
     const activeFilter = $('#active-filter').val();
     const stockFilter = $('#stock-filter').val();
     const categoryActiveFilter = $('#category-active-filter').val();
+    const categoryVisibleFilter = $('#category-visible-filter').val();
     const hasImageFilter = $('#image-filter').val();
     const params = new URLSearchParams({ 
       page: currentPage, 
@@ -867,6 +879,7 @@
     if (activeFilter) params.set('active', activeFilter);
     if (stockFilter) params.set('inStock', stockFilter);
     if (categoryActiveFilter) params.set('categoryActive', categoryActiveFilter);
+    if (categoryVisibleFilter) params.set('categoryVisible', categoryVisibleFilter);
     if (hasImageFilter) params.set('hasImage', hasImageFilter);
 
     api('/api/admin/products?' + params).then(data => {
@@ -1064,6 +1077,11 @@
       loadProducts(0);
     });
     $('#search-input').on('keypress', e => { if (e.which === 13) loadProducts(0); });
+    
+    // Filter change events
+    $('#category-filter, #active-filter, #stock-filter, #category-active-filter, #category-visible-filter, #image-filter').on('change', function() {
+      loadProducts(0);
+    });
   });
 
   // Bulk selection functions

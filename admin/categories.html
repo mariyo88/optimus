@@ -109,6 +109,45 @@
     .btn-category.products { color: #0ea5e9; border-color: #0ea5e9; }
     .btn-category.products:hover { background: #f0f9ff; }
 
+    /* Toggle vidljivosti */
+    .toggle-visible {
+      display: inline-flex;
+      align-items: center;
+      background: #e8e8e8;
+      border-radius: 9px;
+      padding: 1px;
+      cursor: pointer;
+      width: 32px;
+      height: 16px;
+      position: relative;
+      transition: background 0.3s ease;
+      border: none;
+      margin-right: 0.4rem;
+    }
+    .toggle-visible.active {
+      background: #10b981;
+    }
+    .toggle-visible .toggle-slider {
+      width: 14px;
+      height: 14px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      left: 1px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    .toggle-visible.active .toggle-slider {
+      transform: translateX(16px);
+    }
+    .toggle-visible:hover {
+      opacity: 0.85;
+    }
+    .toggle-visible:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .category-tree-level {
       margin-left: 1.75rem;
       border-left: 2px solid #e8e8e8;
@@ -374,6 +413,7 @@
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-bottom: 0.75rem;">
               <label class="cat-check"><input type="checkbox" id="f-show-in-nav"> Prikaži u navigaciji</label>
               <label class="cat-check cat-check-primary"><input type="checkbox" id="f-is-active"> Aktivna</label>
+              <label class="cat-check cat-check-primary" id="f-is-visible-wrapper"><input type="checkbox" id="f-is-visible"> Vidljivo</label>
               <label class="cat-check"><input type="checkbox" id="f-is-new-products"> New products</label>
               <label class="cat-check"><input type="checkbox" id="f-is-top-selling"> Top selling</label>
             </div>
@@ -749,6 +789,14 @@
          </button>` 
       : '';
 
+    // Toggle za vidljivost (samo za child kategorije sa proizvodima)
+    const isVisible = cat.isVisible !== false;
+    const visibilityToggle = `<button class="toggle-visible ${isVisible ? 'active' : ''}" 
+      onclick="toggleVisibility(${cat.id}, ${!isVisible}, event)" 
+      title="${isVisible ? 'Vidljivo - klikni da sakriješ' : 'Sakriveno - klikni da prikažeš'}">
+      <span class="toggle-slider"></span>
+    </button>`;
+
     let html = `<li class="category-item"${isInactive}>
       ${toggleBtn}
       <div class="category-icon">${iconHtml}</div>
@@ -757,6 +805,7 @@
         <span class="category-slug">${escapeHtml(secondaryText)}${markupBadge}</span>
       </div>
       <div class="category-actions">
+        ${visibilityToggle}
         <button class="btn-category products" onclick="viewCategoryProducts('${cat.slug}')" title="Prikaži proizvode"><i class="fa fa-cube"></i></button>
         <button class="btn-category recalc" onclick="openRecalcModal(${cat.id}, '${escapeHtml(displayText).replace(/'/g, "\\'")}')" title="Preračunaj cene"><i class="fa fa-calculator"></i></button>
         <button class="btn-category migrate" onclick="openMigrateModal(${cat.id}, '${escapeHtml(displayText).replace(/'/g, "\\'")}')" title="Grupna migracija slika"><i class="fa fa-cloud-upload"></i></button>
@@ -888,6 +937,8 @@
     $('#form-alert').addClass('d-none');
     $('#f-image-preview').hide();
     $('#modal-title').html('<i class="fa fa-folder-o mr-2"></i>Nova kategorija');
+    // Default: nova kategorija je vidljiva
+    $('#f-is-visible').prop('checked', true);
     populateParentSelect(allCategories);
     updateCheckboxVisibility('');
     $('#categoryModal').modal('show');
@@ -906,6 +957,7 @@
     $('#f-parent').val(found.parentId || '');
     $('#f-show-in-nav').prop('checked', found.showInNav === true);
     $('#f-is-active').prop('checked', found.isActive === true);
+    $('#f-is-visible').prop('checked', found.isVisible !== false);
     $('#f-is-new-products').prop('checked', found.newProductsCategory === true);
     $('#f-is-top-selling').prop('checked', found.topSellingCategory === true);
     $('#f-markup-percent').val(found.markupPercent != null ? found.markupPercent : '');
@@ -925,10 +977,15 @@
   function updateCheckboxVisibility(parentId) {
     $('#category-flags-section').show();
     if (parentId) {
+      // Child kategorija - prikaži sve opcije
       $('#markup-field-group').show();
+      $('#f-is-visible-wrapper').show();
     } else {
+      // Root kategorija - sakrij markup i vidljivost
       $('#markup-field-group').hide();
       $('#f-markup-percent').val('');
+      $('#f-is-visible-wrapper').hide();
+      $('#f-is-visible').prop('checked', true); // Default true za root kategorije
     }
   }
 
@@ -972,6 +1029,7 @@
       parentId: $('#f-parent').val() ? parseInt($('#f-parent').val()) : null,
       showInNav: $('#f-show-in-nav').is(':checked'),
       isActive: $('#f-is-active').is(':checked'),
+      isVisible: $('#f-is-visible').is(':checked'),
       isNewProductsCategory: $('#f-is-new-products').is(':checked'),
       isTopSellingCategory: $('#f-is-top-selling').is(':checked'),
       markupPercent: $('#f-markup-percent').val() ? parseInt($('#f-markup-percent').val()) : null,
@@ -1062,6 +1120,68 @@
   function viewCategoryProducts(categoryId) {
     // Redirect to products.html with selected category
     window.location.href = 'products.html?category=' + categoryId;
+  }
+
+  // ─── Toggle Visibility ─────────────────────────────────────────────────────
+
+  function toggleVisibility(categoryId, newVisibleState, event) {
+    event.stopPropagation(); // Prevent triggering parent click events
+    
+    const button = event.currentTarget;
+    button.disabled = true;
+    
+    // Optimistically update UI
+    const wasActive = button.classList.contains('active');
+    if (newVisibleState) {
+      button.classList.add('active');
+      button.title = 'Vidljivo - klikni da sakriješ';
+    } else {
+      button.classList.remove('active');
+      button.title = 'Sakriveno - klikni da prikažeš';
+    }
+    
+    // Find the category in allCategories
+    const category = findInTree(allCategories, categoryId);
+    if (!category) {
+      showNotification('Kategorija nije pronađena', 'error');
+      button.disabled = false;
+      return;
+    }
+    
+    // Build update payload
+    const payload = {
+      name: category.name,
+      displayName: category.displayName || null,
+      slug: category.slug,
+      parentId: category.parentId || null,
+      showInNav: category.showInNav || false,
+      isActive: category.isActive !== false,
+      isVisible: newVisibleState,
+      isNewProductsCategory: category.newProductsCategory || false,
+      isTopSellingCategory: category.topSellingCategory || false,
+      markupPercent: category.markupPercent || null,
+      imageUrl: category.imageUrl || null
+    };
+    
+    apiPut('/api/admin/categories/' + categoryId, payload)
+      .then(() => {
+        const statusText = newVisibleState ? 'vidljiva' : 'sakrivena';
+        showNotification(`Kategorija "${category.name}" je sada ${statusText}`, 'success');
+        // Reload data to get fresh state
+        loadData();
+      })
+      .catch(err => {
+        // Revert UI on error
+        if (wasActive) {
+          button.classList.add('active');
+          button.title = 'Vidljivo - klikni da sakriješ';
+        } else {
+          button.classList.remove('active');
+          button.title = 'Sakriveno - klikni da prikažeš';
+        }
+        showNotification('Greška: ' + (err.message || 'Nepoznata greška'), 'error');
+        button.disabled = false;
+      });
   }
 
   // ─── Category Image Migration ──────────────────────────────────────────────
