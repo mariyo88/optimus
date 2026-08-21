@@ -5,8 +5,8 @@ name: Update Sitemap
 # 2. Ručno putem workflow_dispatch opcije
 on:
   schedule:
-    # Pokreće se svaki dan u 02:00 UTC
-    - cron: '0 2 * * *'
+    # Pokreće se nedeljom u 02:00 UTC
+    - cron: '0 2 * * 0'
   workflow_dispatch:
 
 # Dozvole za GITHUB_TOKEN - potrebne za commit i push
