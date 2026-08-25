@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brendovi — Optimus Admin</title>
+  <title>Brendovi — Trim Computers Admin</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
   <style>
     .brands-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #F05A22 0%, #1A1A1A 100%);
       color: white;
       padding: 2rem;
       border-radius: 8px;
@@ -55,7 +55,7 @@
     }
     .brand-card:hover {
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      border-color: #667eea;
+      border-color: #F05A22;
       transform: translateY(-2px);
     }
 
@@ -64,7 +64,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f8f9fa;
+      background: #F4F4F4;
       border-bottom: 1px solid #e0e0e0;
       padding: 1rem;
     }
@@ -125,11 +125,11 @@
       min-height: 36px;
     }
     .btn-brand:hover {
-      background: #f5f5f5;
+      background: #F4F4F4;
     }
     .btn-brand.edit {
-      color: #667eea;
-      border-color: #667eea;
+      color: #F05A22;
+      border-color: #F05A22;
     }
     .btn-brand.edit:hover {
       background: #f0f3ff;
@@ -166,12 +166,12 @@
     }
     .search-box input:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #F05A22;
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
     .modal-header-custom {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #F05A22 0%, #1A1A1A 100%);
       color: white;
       border: none;
     }
@@ -228,7 +228,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f8f9fa;
+      background: #F4F4F4;
       border: 2px dashed #e0e0e0;
       border-radius: 6px;
       margin-bottom: 1rem;
@@ -245,7 +245,7 @@
 <div id="login-overlay" class="login-overlay">
   <div class="login-box">
     <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
-    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <h4 class="mb-1 justify-content-center">Trim Computers Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
     <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
     <form onsubmit="doLogin(); return false;">
@@ -258,7 +258,7 @@
 
 <div id="app" class="d-none">
   <nav class="navbar navbar-dark">
-    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Trim Computers Admin</a>
     <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
     <div class="navbar-actions">
       <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
@@ -362,7 +362,7 @@
         <p style="margin: 0; color: #555;">Da li ste sigurni da želite da obrišete brend:</p>
         <p id="delete-brand-name" style="margin: 0.8rem 0 0; font-weight: 700; color: #222; font-size: 0.95rem; word-break: break-word;"></p>
       </div>
-      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+      <div class="modal-footer" style="border-top: 1px solid #F4F4F4;">
         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Otkaži</button>
         <button type="button" class="btn btn-danger btn-sm" id="confirm-delete-brand-btn" onclick="confirmDeleteBrand()">
           <i class="fa fa-trash mr-1"></i> Obriši

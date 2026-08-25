@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Import — Optimus Admin</title>
+  <title>Import — Trim Computers Admin</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
@@ -13,7 +13,7 @@
   <style>
     .supplier-block {
       background: #fff;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #E0E0E0;
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 1.5rem;
@@ -24,7 +24,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid #E0E0E0;
     }
     .supplier-block-header h4 {
       margin: 0;
@@ -51,7 +51,7 @@
     .action-col {
       flex: 1;
       padding: 1.25rem;
-      border-right: 1px solid #e5e7eb;
+      border-right: 1px solid #E0E0E0;
     }
     .action-col:last-child { border-right: none; }
     .action-col h6 {
@@ -59,7 +59,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #6b7280;
+      color: #777777;
       margin-bottom: 0.85rem;
     }
     .upload-zone {
@@ -75,7 +75,7 @@
     }
     .upload-zone:hover { border-color: #6366f1; background: #f0f3ff; }
     .upload-zone .uz-icon { font-size: 1.4rem; color: #9ca3af; display: block; margin-bottom: 0.25rem; }
-    .upload-zone .uz-label { font-size: 0.8rem; color: #6b7280; display: block; }
+    .upload-zone .uz-label { font-size: 0.8rem; color: #777777; display: block; }
     .upload-zone .uz-file { font-size: 0.75rem; color: #374151; font-weight: 600; display: block; margin-top: 0.25rem; word-break: break-all; }
     .upload-zone .uz-detect { font-size: 0.75rem; margin-top: 0.25rem; display: block; }
     .btn-action {
@@ -90,7 +90,7 @@
     }
     .btn-remote:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
     .remote-placeholder {
-      border: 1px solid #e5e7eb; border-radius: 7px; padding: 1.5rem 0.5rem;
+      border: 1px solid #E0E0E0; border-radius: 7px; padding: 1.5rem 0.5rem;
       text-align: center; background: #f9fafb; margin-bottom: 0.6rem;
       color: #9ca3af; font-size: 0.85rem;
     }
@@ -115,7 +115,7 @@
 <div id="login-overlay" class="login-overlay">
   <div class="login-box">
     <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
-    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <h4 class="mb-1 justify-content-center">Trim Computers Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
     <div id="login-error" class="alert alert-danger d-none">Pogresno korisnicko ime ili lozinka.</div>
     <form onsubmit="doLogin(); return false;">
@@ -128,7 +128,7 @@
 
 <div id="app" class="d-none">
   <nav class="navbar navbar-dark">
-    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Trim Computers Admin</a>
     <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretrazi..."></div></div>
     <div class="navbar-actions">
       <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
@@ -322,7 +322,7 @@
             </div>
           </div>
         </div>
-        <div class="card-footer" style="background:#f8f9fa; border-top:1px solid #e0e0e0; padding:0.65rem 1rem;">
+        <div class="card-footer" style="background:#F4F4F4; border-top:1px solid #e0e0e0; padding:0.65rem 1rem;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.85rem; color:#666;">
               Stranica <span id="current-page">1</span> &mdash; <span id="items-count">0</span> zapisa
@@ -495,7 +495,7 @@
             '<td>' + getJobBadge(exec.jobName)         + '</td>' +
             '<td>' + getSupplierBadge(exec.supplier)   + '</td>' +
             '<td>' + getStatusBadge(exec.status)        + '</td>' +
-            '<td style="font-size:0.82rem;color:#6b7280;">' + startTime + '</td>' +
+            '<td style="font-size:0.82rem;color:#777777;">' + startTime + '</td>' +
             '<td><span class="badge badge-secondary">' + duration + '</span></td>' +
             '<td style="text-align:right;font-family:monospace;font-size:0.88rem;">' + stats + '</td>' +
             '</tr>';
@@ -520,7 +520,7 @@
 
   function getStatusBadge(s) {
     const m = { COMPLETED:'#10b981', FAILED:'#ef4444', STARTED:'#3b82f6', STOPPED:'#f59e0b' };
-    const c = m[s] || '#6b7280';
+    const c = m[s] || '#777777';
     return '<span class="badge" style="background:' + c + ';color:#fff;">' + (s||'—') + '</span>';
   }
   function getSupplierBadge(s) {

@@ -17,7 +17,7 @@
 	border: none;
 }
 .wishlist-table-wrap .table { margin-bottom: 0; }
-.wishlist-table-wrap .table thead tr { background: #293681; }
+.wishlist-table-wrap .table thead tr { background: #1A1A1A; }
 .wishlist-table-wrap .table thead th {
 	color: #fff;
 	font-size: 12px;
@@ -29,17 +29,17 @@
 	vertical-align: middle;
 }
 .wishlist-table-wrap .table tbody tr {
-	border-bottom: 1px solid #f0f0f0;
+	border-bottom: 1px solid #F4F4F4;
 	transition: background 0.18s;
 }
 .wishlist-table-wrap .table tbody tr:last-child { border-bottom: none; }
-.wishlist-table-wrap .table tbody tr:hover { background: #fafafa; }
+.wishlist-table-wrap .table tbody tr:hover { background: #FFFFFF; }
 .wishlist-table-wrap .table tbody td {
 	padding: 18px;
 	vertical-align: middle;
 	border: none;
 	font-size: 14px;
-	color: #D10024;
+	color: #F05A22;
 }
 
 /* Product image cell */
@@ -77,11 +77,11 @@
 	word-break: break-word;
 }
 .wl-product-name h4 a {
-	color: #293681;
+	color: #1A1A1A;
 	text-decoration: none;
 	transition: color 0.15s;
 }
-.wl-product-name h4 a:hover { color: #4274D9; }
+.wl-product-name h4 a:hover { color: #F05A22; }
 .wl-product-name .brand-tag {
 	display: inline-block;
 	background: #f0f1f4;
@@ -97,7 +97,7 @@
 /* Price */
 .wl-product-price {
 	font-weight: 700;
-	color: #4274D9;
+	color: #F05A22;
 	white-space: nowrap;
 	font-size: 15px;
 }
@@ -118,7 +118,7 @@
 	letter-spacing: 0.5px;
 }
 .wl-stock-badge.in-stock  { background: #e8f7ef; color: #27ae60; }
-.wl-stock-badge.out-stock { background: #dde5f5; color: #4274D9; }
+.wl-stock-badge.out-stock { background: #F4F4F4; color: #F05A22; }
 
 /* Move to cart button */
 .wl-add-cart-btn {
@@ -126,7 +126,7 @@
 	align-items: center;
 	gap: 6px;
 	padding: 8px 16px;
-	background: linear-gradient(135deg, #4274D9, #293681);
+	background: linear-gradient(135deg, #F05A22, #1A1A1A);
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -163,8 +163,8 @@
 	line-height: 1;
 }
 .wl-remove-btn:hover {
-	background: #4274D9;
-	border-color: #4274D9;
+	background: #F05A22;
+	border-color: #F05A22;
 	color: #fff;
 }
 
@@ -179,7 +179,7 @@
 	padding: 10px 0;
 	transition: color 0.15s;
 }
-.wl-continue-link:hover { color: #4274D9; text-decoration: none; }
+.wl-continue-link:hover { color: #F05A22; text-decoration: none; }
 
 /* Confirmation Modal - matching cart modal style */
 .wl-confirm-modal {
@@ -209,7 +209,7 @@
 	border: 1px solid rgba(0,0,0,0.1);
 }
 .wl-confirm-header {
-	background: #293681;
+	background: #1A1A1A;
 	color: #fff;
 	padding: 14px 20px;
 	display: flex;
@@ -222,7 +222,7 @@
 	gap: 10px;
 }
 .wl-confirm-header i {
-	color: #4274D9;
+	color: #F05A22;
 	font-size: 20px;
 }
 .wl-confirm-header h3 {
@@ -246,7 +246,7 @@
 }
 .wl-confirm-body {
 	padding: 24px 20px;
-	border-bottom: 1px solid #f0f0f0;
+	border-bottom: 1px solid #F4F4F4;
 }
 .wl-confirm-body p {
 	margin: 0;
@@ -255,7 +255,7 @@
 	line-height: 1.6;
 }
 .wl-confirm-body strong {
-	color: #293681;
+	color: #1A1A1A;
 }
 .wl-confirm-footer {
 	padding: 16px 20px;
@@ -282,18 +282,18 @@
 	border-color: #ddd;
 }
 .wl-confirm-btn-cancel:hover {
-	background: #f5f5f5;
+	background: #F4F4F4;
 	border-color: #bbb;
 	color: #333;
 }
 .wl-confirm-btn-confirm {
-	background: #4274D9;
+	background: #F05A22;
 	color: #fff;
-	border-color: #4274D9;
+	border-color: #F05A22;
 }
 .wl-confirm-btn-confirm:hover {
-	background: #293681;
-	border-color: #293681;
+	background: #1A1A1A;
+	border-color: #1A1A1A;
 }
 @keyframes fadeInOverlay {
 	from { opacity: 0; }
@@ -346,7 +346,7 @@
 	align-items: center;
 	justify-content: center;
 	font-size: 24px;
-	color: #4274D9;
+	color: #F05A22;
 }
 
 .wl-stat-content {
@@ -366,7 +366,7 @@
 .wl-stat-value {
 	font-size: 28px;
 	font-weight: 700;
-	color: #293681;
+	color: #1A1A1A;
 	line-height: 1;
 }
 
@@ -377,7 +377,7 @@
 }
 
 .wl-move-all-btn {
-	background: linear-gradient(135deg, #4274D9, #293681);
+	background: linear-gradient(135deg, #F05A22, #1A1A1A);
 	color: #fff;
 	padding: 14px 28px;
 	border-radius: 8px;
@@ -416,8 +416,8 @@
 	gap: 8px;
 }
 .wl-clear-btn:hover { 
-	border-color: #4274D9; 
-	color: #4274D9;
+	border-color: #F05A22; 
+	color: #F05A22;
 	background: rgba(66,116,217,0.03);
 }
 

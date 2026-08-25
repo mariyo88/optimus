@@ -1,0 +1,88 @@
+/*
+ * TRIM COMPUTERS - Color Variables (Rebranding 14.0 - Clean Tech / Trim Style)
+ * Minimalistički dizajn: bijela baza + narandžasti akcent
+ */
+
+:root {
+  /* ===== Primarne Boje (Rebranding 14.0) ===== */
+  --color-orange:       #F05A22;   /* Narandžasta — CTA, dugmad, badges */
+  --color-orange-hover: #FF6B35;   /* Hover narandžasta */
+  --color-dark:         #1A1A1A;   /* Tamna — tekst, nav, naslovi, logo */
+  --color-grey-light:   #F4F4F4;   /* Svjetlo siva — table rows, kartice bg */
+  --color-border:       #E0E0E0;   /* Siva — borderi, linije */
+  --color-white:        #FFFFFF;   /* Bijela — cijeli bg, nav bg */
+
+  /* ===== RGB vrednosti (za transparentnost) ===== */
+  --rgb-orange:         240, 90, 34;
+  --rgb-dark:           26, 26, 26;
+
+  /* ===== Semantička Upotreba ===== */
+  --color-primary:      #F05A22;   /* Glavni akcent — narandžasta */
+  --color-secondary:    #1A1A1A;   /* Sekundarna — tamna */
+  --color-accent:       #FF6B35;   /* Hover/highlight */
+
+  /* ===== Tipografija ===== */
+  --color-text-main:    #1A1A1A;   /* Glavni tekst */
+  --color-text:         #1A1A1A;   /* Alias za kompatibilnost */
+  --color-text-muted:   #777777;   /* Prigušen tekst */
+  --color-heading:      #1A1A1A;   /* Naslovi */
+  --color-text-on-dark: #FFFFFF;   /* Tekst na tamnoj pozadini */
+
+  /* ===== Pozadine ===== */
+  --color-bg-main:      #FFFFFF;   /* Glavna pozadina */
+  --color-bg-card:      #FFFFFF;   /* Kartica pozadina */
+  --color-bg-alt:       #F4F4F4;   /* Alternativne sekcije, table rows */
+  --color-light:        #F4F4F4;   /* Alias za kompatibilnost */
+
+  /* ===== UI Elementi ===== */
+  --color-border:       #E0E0E0;   /* Granice */
+  --color-hover:        #FF6B35;   /* Hover stanje */
+  --color-active:       #F05A22;   /* Aktivno stanje */
+
+  /* ===== Gumbovi ===== */
+  --btn-primary-bg:     #F05A22;
+  --btn-primary-color:  #FFFFFF;
+  --btn-secondary-bg:   #1A1A1A;
+  --btn-secondary-color:#FFFFFF;
+
+  /* ===== Header & Navigation ===== */
+  --header-bg:          #FFFFFF;   /* Nav — bijela (kao na slici!) */
+  --header-top-bg:      #1A1A1A;   /* Top info bar — tamna */
+  --nav-bg:             #FFFFFF;
+  --nav-text:           #1A1A1A;
+  --nav-border:         #E0E0E0;
+  --nav-link-hover:     #F05A22;
+
+  /* ===== Produkt Kartice ===== */
+  --product-border:     #E0E0E0;
+  --product-hover:      #F05A22;
+  --product-label-new:  #F05A22;
+  --product-price:      #F05A22;
+
+  /* ===== Footer ===== */
+  --footer-bg:          #1A1A1A;
+  --footer-bottom-bg:   #111111;
+  --footer-link-hover:  #F05A22;
+
+  /* ===== Senke ===== */
+  --shadow-sm:          0 2px 8px rgba(26, 26, 26, 0.06);
+  --shadow-md:          0 4px 16px rgba(26, 26, 26, 0.10);
+  --shadow-lg:          0 8px 32px rgba(26, 26, 26, 0.15);
+}
+
+/*
+ * Primeri Upotrebe:
+ *
+ * .button {
+ *   background: var(--btn-primary-bg);
+ *   color: var(--btn-primary-color);
+ * }
+ *
+ * .heading {
+ *   color: var(--color-heading);
+ * }
+ *
+ * .link:hover {
+ *   color: var(--color-hover);
+ * }
+ */

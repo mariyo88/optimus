@@ -382,7 +382,7 @@
                     }, 2000);
                 }
             } else {
-                console.error('OptimusCart is not available');
+                console.error('Trim Computers Cart is not available');
                 $btn.prop('disabled', false).html(originalText);
             }
         });

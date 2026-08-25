@@ -168,12 +168,12 @@
                 '<div id="cmp-removed-banner" style="',
                 '  position:fixed;top:0;left:0;right:0;',
                 '  z-index:10001;',
-                '  background:linear-gradient(135deg,#1a2050 0%,#1e2756 100%);',
+                '  background:linear-gradient(135deg,#1A1A1A 0%,#1A1A1A 100%);',
                 '  padding:10px 15px;',
                 '  transform:translateY(-100%);',
                 '  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);',
                 '">',
-                '  <i class="fa fa-ban" style="color:#4274D9;margin-right:5px;font-size:12px;"></i>',
+                '  <i class="fa fa-ban" style="color:#F05A22;margin-right:5px;font-size:12px;"></i>',
                 '  <span style="color:#fff;font-size:12px;">' + message + '</span>',
                 '</div>'
             ].join(''));
@@ -244,9 +244,9 @@
         // ── Toast notification ────────────────────────────────────────────────
 
         showInfoBanner: function (message, type) {
-            var gradient = type === 'warn' ? 'linear-gradient(135deg,#4a2600 0%,#1e2756 100%)'
-                         : type === 'ok'   ? 'linear-gradient(135deg,#003320 0%,#1e2756 100%)'
-                         :                   'linear-gradient(135deg,#1a1a2e 0%,#1e2756 100%)';
+            var gradient = type === 'warn' ? 'linear-gradient(135deg,#4a2600 0%,#1A1A1A 100%)'
+                         : type === 'ok'   ? 'linear-gradient(135deg,#003320 0%,#1A1A1A 100%)'
+                         :                   'linear-gradient(135deg,#1a1a2e 0%,#1A1A1A 100%)';
             var icon     = type === 'warn' ? 'fa-exclamation-triangle'
                          : type === 'ok'   ? 'fa-check-circle'
                          :                   'fa-info-circle';

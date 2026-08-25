@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proizvod — Optimus Admin</title>
+  <title>Proizvod — Trim Computers Admin</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
@@ -15,7 +15,7 @@
   <style>
     /* ── Page header ── */
     .page-header-custom {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #F05A22 0%, #1A1A1A 100%);
       color: white;
       padding: 1rem 1.5rem;
       border-radius: 8px;
@@ -57,9 +57,9 @@
       transition: all 0.18s ease;
       white-space: nowrap;
     }
-    .tab-btn:hover { background: #f0f3ff; color: #667eea; }
+    .tab-btn:hover { background: #f0f3ff; color: #F05A22; }
     .tab-btn.active {
-      background: #667eea;
+      background: #F05A22;
       color: white;
       font-weight: 600;
     }
@@ -128,7 +128,7 @@
     .form-group textarea:focus,
     .form-group select:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #F05A22;
       box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
     }
     .form-group textarea { resize: vertical; min-height: 100px; }
@@ -138,7 +138,7 @@
       gap: 1.5rem;
       margin-top: 0.75rem;
       padding: 0.6rem 0.75rem;
-      background: #f8f9fa;
+      background: #F4F4F4;
       border-radius: 5px;
     }
     .checkbox-item { display: flex; align-items: center; gap: 0.5rem; }
@@ -152,9 +152,9 @@
       gap: 0.4rem;
       padding: 0.4rem 0.9rem;
       border-radius: 5px;
-      border: 1px dashed #667eea;
+      border: 1px dashed #F05A22;
       background: #f8f9ff;
-      color: #667eea;
+      color: #F05A22;
       cursor: pointer;
       transition: all 0.2s ease;
       font-weight: 500;
@@ -163,7 +163,7 @@
       justify-content: center;
       margin-top: 0.5rem;
     }
-    .add-button:hover { background: #667eea; color: white; border-style: solid; }
+    .add-button:hover { background: #F05A22; color: white; border-style: solid; }
 
     /* ── Cloudinary migrate button ── */
     .btn-migrate-cloudinary {
@@ -217,7 +217,7 @@
       gap: 0.5rem;
       align-items: center;
       padding: 0.5rem 0.6rem;
-      background: #f8f9fa;
+      background: #F4F4F4;
       border-radius: 5px;
       margin-bottom: 0.4rem;
       border: 1px solid #ebebeb;
@@ -237,7 +237,7 @@
     }
     .dynamic-row input:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #F05A22;
       box-shadow: 0 0 0 2px rgba(102,126,234,0.1);
     }
 
@@ -260,7 +260,7 @@
       gap: 0.75rem;
     }
     .supplier-card {
-      background: #f8f9fa;
+      background: #F4F4F4;
       border: 1px solid #e0e0e0;
       border-radius: 7px;
       padding: 0.75rem 1rem;
@@ -299,7 +299,7 @@
       padding: 0.5rem 1.4rem;
       border-radius: 6px;
       border: none;
-      background: #667eea;
+      background: #F05A22;
       color: white;
       cursor: pointer;
       font-weight: 600;
@@ -326,7 +326,7 @@
       align-items: center;
       gap: 0.4rem;
     }
-    .btn-cancel:hover { border-color: #667eea; color: #667eea; }
+    .btn-cancel:hover { border-color: #F05A22; color: #F05A22; }
 
     /* ── Notification ── */
     .alert-notification {
@@ -382,7 +382,7 @@
       align-items: center;
       gap: 0.75rem;
       padding: 1.1rem 1.25rem 0.9rem;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid #F4F4F4;
     }
     .confirm-modal-header .modal-icon {
       width: 38px;
@@ -417,8 +417,8 @@
       justify-content: flex-end;
       gap: 0.6rem;
       padding: 0.75rem 1.25rem;
-      background: #fafafa;
-      border-top: 1px solid #f0f0f0;
+      background: #FFFFFF;
+      border-top: 1px solid #F4F4F4;
     }
     .btn-modal-cancel {
       padding: 0.45rem 1rem;
@@ -454,7 +454,7 @@
 <div id="login-overlay" class="login-overlay">
   <div class="login-box">
     <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
-    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <h4 class="mb-1 justify-content-center">Trim Computers Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
     <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
     <form onsubmit="doLogin(); return false;">
@@ -467,7 +467,7 @@
 
 <div id="app">
   <nav class="navbar navbar-dark">
-    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Trim Computers Admin</a>
     <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretraži..."></div></div>
     <div class="navbar-actions">
       <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>

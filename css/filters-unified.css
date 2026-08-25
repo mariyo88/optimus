@@ -12,28 +12,28 @@
     
     /* Colors - Harmonized palette */
     --filter-bg: #ffffff;
-    --filter-border: #e4e7ed;
-    --filter-hover-bg: #f8f9fa;
-    --filter-active-bg: #e8eef8;
+    --filter-border: #E0E0E0;
+    --filter-hover-bg: #F4F4F4;
+    --filter-active-bg: #F4F4F4;
     
     /* Text - Consistent typography */
-    --filter-text-primary: #2b2d42;
-    --filter-text-secondary: #5a6c7d;
-    --filter-text-muted: #8d99ae;
+    --filter-text-primary: #1A1A1A;
+    --filter-text-secondary: #777777;
+    --filter-text-muted: #777777;
     
     /* Accents - Unified color scheme */
-    --filter-accent-blue: #667eea;
-    --filter-accent-purple: #764ba2;
-    --filter-accent-pink: #D4145A;
-    --filter-accent-orange: #FBB03B;
-    --filter-accent-teal: #38b2ac;
-    --filter-accent-indigo: #5a67d8;
+    --filter-accent-blue: #F05A22;
+    --filter-accent-purple: #1A1A1A;
+    --filter-accent-pink: #F05A22;
+    --filter-accent-orange: #F05A22;
+    --filter-accent-teal: #F05A22;
+    --filter-accent-indigo: #F05A22;
     
     /* Gradients - Harmonious multi-tone gradients with depth */
-    --gradient-categories: linear-gradient(135deg, #4a5f7f 0%, #2d3e57 50%, #1e2d42 100%);
-    --gradient-brands: linear-gradient(135deg, #5a7fd7 0%, #4169d9 40%, #3355c7 100%);
-    --gradient-price: linear-gradient(135deg, #6baef9 0%, #5592e8 50%, #4169b8 100%);
-    --gradient-specs: linear-gradient(135deg, #7b8bf5 0%, #6674e3 50%, #5561c9 100%);
+    --gradient-categories: linear-gradient(135deg, #1A1A1A 0%, #1A1A1A 50%, #1A1A1A 100%);
+    --gradient-brands: linear-gradient(135deg, #F05A22 0%, #F05A22 40%, #F05A22 100%);
+    --gradient-price: linear-gradient(135deg, #F05A22 0%, #F05A22 50%, #F05A22 100%);
+    --gradient-specs: linear-gradient(135deg, #F05A22 0%, #F05A22 50%, #F05A22 100%);
 }
 
 /* Base Filter Container */
@@ -121,7 +121,7 @@
 /* Collapsible Content */
 .filter-content-base {
     display: none;
-    background: #fafbfc;
+    background: #FFFFFF;
 }
 
 .filter-content-base.expanded {
@@ -137,7 +137,7 @@
     transition: all 0.2s ease;
     color: var(--filter-text-primary);
     font-size: 14px;
-    border-bottom: 1px solid #f0f2f5;
+    border-bottom: 1px solid #F4F4F4;
 }
 
 .filter-item-base:last-child {
@@ -155,7 +155,7 @@
     width: 18px;
     height: 18px;
     cursor: pointer;
-    border: 2px solid #cbd0dd;
+    border: 2px solid #E0E0E0;
     border-radius: 4px;
     flex-shrink: 0;
 }
@@ -219,12 +219,12 @@
 }
 
 .filter-scrollable::-webkit-scrollbar-track {
-    background: #f1f3f5;
+    background: #F4F4F4;
     border-radius: 3px;
 }
 
 .filter-scrollable::-webkit-scrollbar-thumb {
-    background: #cbd0dd;
+    background: #E0E0E0;
     border-radius: 3px;
 }
 

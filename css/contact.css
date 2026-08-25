@@ -1,7 +1,7 @@
 /* ── Contact section ── */
 .contact-section {
 	padding: 60px 0;
-	background: #f8f9fa;
+	background: #F4F4F4;
 }
 .contact-box {
 	background: #fff;
@@ -14,12 +14,12 @@
 .contact-box h3 {
 	font-size: 20px;
 	font-weight: 700;
-	color: #293681;
+	color: #1A1A1A;
 	margin-bottom: 20px;
 	padding-bottom: 15px;
-	border-bottom: 2px solid #4274D9;
+	border-bottom: 2px solid #F05A22;
 }
-.contact-box h3 i { color: #4274D9; margin-right: 8px; }
+.contact-box h3 i { color: #F05A22; margin-right: 8px; }
 .contact-info-item {
 	margin-bottom: 22px;
 	display: flex;
@@ -27,7 +27,7 @@
 }
 .contact-info-item i {
 	font-size: 20px;
-	color: #4274D9;
+	color: #F05A22;
 	margin-right: 15px;
 	margin-top: 3px;
 	min-width: 22px;
@@ -43,15 +43,15 @@
 }
 .contact-info-item p {
 	margin: 0;
-	color: #293681;
+	color: #1A1A1A;
 	font-size: 15px;
 	line-height: 1.6;
 }
 .contact-info-item a {
-	color: #293681;
+	color: #1A1A1A;
 	text-decoration: none;
 }
-.contact-info-item a:hover { color: #4274D9; }
+.contact-info-item a:hover { color: #F05A22; }
 
 /* ── Contact form ── */
 .contact-form-box {
@@ -63,15 +63,15 @@
 .contact-form-box h3 {
 	font-size: 20px;
 	font-weight: 700;
-	color: #293681;
+	color: #1A1A1A;
 	margin-bottom: 20px;
 	padding-bottom: 15px;
-	border-bottom: 2px solid #4274D9;
+	border-bottom: 2px solid #F05A22;
 }
-.contact-form-box h3 i { color: #4274D9; margin-right: 8px; }
+.contact-form-box h3 i { color: #F05A22; margin-right: 8px; }
 .form-group label {
 	font-weight: 600;
-	color: #293681;
+	color: #1A1A1A;
 	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: 0.3px;
@@ -85,12 +85,12 @@
 	transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .form-control:focus {
-	border-color: #4274D9;
+	border-color: #F05A22;
 	box-shadow: 0 0 0 3px rgba(66, 116, 217, 0.1);
 	outline: none;
 }
 .btn-submit {
-	background: #4274D9;
+	background: #F05A22;
 	color: #fff;
 	border: none;
 	padding: 13px 40px;
@@ -101,12 +101,12 @@
 	transition: all 0.3s ease;
 	letter-spacing: 0.3px;
 }
-.btn-submit:hover { background: #293681; transform: translateY(-1px); }
+.btn-submit:hover { background: #1A1A1A; transform: translateY(-1px); }
 
 /* ── Location badge ── */
 .location-badge {
 	display: inline-block;
-	background: #4274D9;
+	background: #F05A22;
 	color: #fff;
 	padding: 5px 14px;
 	border-radius: 3px;
@@ -126,13 +126,13 @@
 .section-heading h2 {
 	font-size: 26px;
 	font-weight: 700;
-	color: #293681;
+	color: #1A1A1A;
 	margin-bottom: 10px;
 }
 .section-heading .heading-line {
 	width: 50px;
 	height: 3px;
-	background: #4274D9;
+	background: #F05A22;
 	margin: 0 auto 12px;
 }
 .section-heading p { color: #777; font-size: 15px; }
@@ -151,7 +151,7 @@
 .map-open-btn {
 	display: inline-block;
 	margin-top: 18px;
-	background: #4274D9;
+	background: #F05A22;
 	color: #fff;
 	padding: 11px 26px;
 	border-radius: 3px;
@@ -160,6 +160,6 @@
 	text-decoration: none;
 	transition: background 0.3s;
 }
-.map-open-btn:hover { background: #293681; color: #fff; text-decoration: none; }
+.map-open-btn:hover { background: #1A1A1A; color: #fff; text-decoration: none; }
 .map-open-btn i { margin-right: 7px; }
 .map-cta { text-align: center; margin-top: 18px; }

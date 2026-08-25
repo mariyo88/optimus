@@ -1,6 +1,6 @@
 /* ── Page Hero Banner (shared across pages) ── */
 .page-hero {
-    background: linear-gradient(135deg, #293681 0%, #1a1b2e 60%, #4274D9 100%);
+    background: linear-gradient(135deg, #1A1A1A 0%, #1a1b2e 60%, #F05A22 100%);
     color: #fff;
     padding: 0 0 50px;
     position: relative;
@@ -55,7 +55,7 @@
     margin-bottom: 12px;
     color: #fff;
 }
-.page-hero h1 span { color: #4274D9; }
+.page-hero h1 span { color: #F05A22; }
 .page-hero p {
     font-size: 17px;
     color: rgba(255,255,255,0.75);
@@ -85,7 +85,7 @@
     width: 70px;
     height: 70px;
     margin: 0 auto 20px;
-    background: #f8f9fa;
+    background: #F4F4F4;
     border-radius: 50%;
     display: flex;
     align-items: center;
