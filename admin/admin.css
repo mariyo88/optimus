@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────────── */
-/*  Optimus Admin — Phoenix-inspired design system                             */
+/*  Mobil Gadget Admin — Phoenix-inspired design system                             */
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
@@ -15,7 +15,7 @@
 
   /* Surfaces */
   --surface:        #ffffff;
-  --bg:             #f5f7fa;
+  --bg:             #F4F4F4;
   --bg-alt:         #eff2f6;
 
   /* Text */
@@ -24,7 +24,7 @@
   --text-muted:     #6e7891;
 
   /* Borders & shadows */
-  --border:         #cbd0dd;
+  --border:         #E0E0E0;
   --border-light:   #e3e6ed;
   --radius:         8px;
   --radius-lg:      12px;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — Optimus Admin</title>
+  <title>Dashboard — Mobil Gadget Admin</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
   <style>
     .dashboard-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%);
       color: white;
       padding: 2rem;
       border-radius: 8px;
@@ -50,7 +50,7 @@
     }
     .stat-card:hover {
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      border-color: #667eea;
+      border-color: #C8102E;
       transform: translateY(-2px);
     }
     .stat-card::before {
@@ -63,7 +63,7 @@
       background: linear-gradient(90deg, var(--stat-color), var(--stat-color-light));
     }
 
-    .stat-card.products { --stat-color: #667eea; --stat-color-light: #8b9bff; }
+    .stat-card.products { --stat-color: #C8102E; --stat-color-light: #8b9bff; }
     .stat-card.categories { --stat-color: #0ea5e9; --stat-color-light: #38bdf8; }
     .stat-card.brands { --stat-color: #10b981; --stat-color-light: #34d399; }
     .stat-card.orders { --stat-color: #f59e0b; --stat-color-light: #fbbf24; }
@@ -79,7 +79,7 @@
       margin-bottom: 1rem;
     }
 
-    .stat-card.products .stat-icon { background: rgba(102, 126, 234, 0.1); color: #667eea; }
+    .stat-card.products .stat-icon { background: rgba(102, 126, 234, 0.1); color: #C8102E; }
     .stat-card.categories .stat-icon { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
     .stat-card.brands .stat-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; }
     .stat-card.orders .stat-icon { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
@@ -122,7 +122,7 @@
       justify-content: center;
       background: #f0f3ff;
       border-radius: 8px;
-      color: #667eea;
+      color: #C8102E;
     }
 
     .quick-actions {
@@ -147,7 +147,7 @@
       gap: 0.8rem;
     }
     .action-btn:hover {
-      border-color: #667eea;
+      border-color: #C8102E;
       background: #f8f9ff;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -164,13 +164,13 @@
       justify-content: center;
       border-radius: 8px;
       background: #f0f3ff;
-      color: #667eea;
+      color: #C8102E;
     }
 
     .action-btn.category .action-btn-icon { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
     .action-btn.brand .action-btn-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; }
     .action-btn.import .action-btn-icon { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-    .action-btn.product .action-btn-icon { background: rgba(102, 126, 234, 0.1); color: #667eea; }
+    .action-btn.product .action-btn-icon { background: rgba(102, 126, 234, 0.1); color: #C8102E; }
 
     .action-btn-text {
       font-weight: 600;
@@ -197,7 +197,7 @@
       width: 100%;
     }
     .recent-orders-table thead tr {
-      background: #f8f9fa;
+      background: #F4F4F4;
       border-bottom: 1px solid #e0e0e0;
     }
     .recent-orders-table th {
@@ -212,7 +212,7 @@
       transition: background 0.2s ease;
     }
     .recent-orders-table tbody tr:hover {
-      background: #f8f9fa;
+      background: #F4F4F4;
     }
     .recent-orders-table td {
       padding: 1rem 1.5rem;
@@ -221,7 +221,7 @@
 
     .order-number {
       font-weight: 600;
-      color: #667eea;
+      color: #C8102E;
     }
 
     .order-status {
@@ -280,7 +280,7 @@
     <div class="login-logo">
       <div class="login-logo-icon"><i class="fa fa-bolt"></i></div>
     </div>
-    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <h4 class="mb-1 justify-content-center">Mobil Gadget Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
     <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
     <form onsubmit="doLogin(); return false;">
@@ -306,7 +306,7 @@
   <nav class="navbar navbar-dark">
     <a class="navbar-brand" href="index.html">
       <div class="brand-icon"><i class="fa fa-bolt"></i></div>
-      Optimus Admin
+      Mobil Gadget Admin
     </a>
     <div class="navbar-search">
       <div class="search-wrap">

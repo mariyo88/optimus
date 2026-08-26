@@ -52,6 +52,7 @@
                         // Koristi displayName ako postoji, inače fallback na name
                         var categoryName = cat.displayName || cat.name;
                         $('#breadcrumb-category').text(categoryName);
+                        document.title = categoryName + ' - Trim Computers Prodavnica - ';
                     }
                 },
                 error: function () {

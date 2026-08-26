@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kategorije — Optimus Admin</title>
+  <title>Kategorije — Mobil Gadget Admin</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
   <style>
     .categories-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%);
       color: white;
       padding: 2rem;
       border-radius: 8px;
@@ -48,8 +48,8 @@
       transition: all 0.2s ease;
       white-space: nowrap;
     }
-    .god-tab-btn:hover { border-color: #667eea; color: #667eea; background: #f0f3ff; }
-    .god-tab-btn.active { background: #667eea; color: white; border-color: #667eea; font-weight: 600; }
+    .god-tab-btn:hover { border-color: #C8102E; color: #C8102E; background: #f0f3ff; }
+    .god-tab-btn.active { background: #C8102E; color: white; border-color: #C8102E; font-weight: 600; }
     .god-tab-btn .tab-count {
       display: inline-block;
       background: rgba(255,255,255,0.25);
@@ -78,13 +78,13 @@
     }
     .category-item:hover {
       box-shadow: 0 3px 10px rgba(0,0,0,0.07);
-      border-color: #667eea;
+      border-color: #C8102E;
       transform: translateX(3px);
     }
     .category-icon {
       width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
-      background: #f0f3ff; border-radius: 6px; color: #667eea;
+      background: #f0f3ff; border-radius: 6px; color: #C8102E;
       font-size: 1rem; flex-shrink: 0;
     }
     .category-info { flex-grow: 1; min-width: 0; }
@@ -96,8 +96,8 @@
       padding: 0.35rem 0.7rem; border-radius: 4px; border: 1px solid #e0e0e0;
       background: white; cursor: pointer; transition: all 0.2s ease; font-size: 0.82rem;
     }
-    .btn-category:hover { background: #f5f5f5; }
-    .btn-category.edit { color: #667eea; border-color: #667eea; }
+    .btn-category:hover { background: #F4F4F4; }
+    .btn-category.edit { color: #C8102E; border-color: #C8102E; }
     .btn-category.edit:hover { background: #f0f3ff; }
     .btn-category.delete { color: #ef4444; border-color: #ef4444; }
     .btn-category.delete:hover { background: #fee2e2; }
@@ -169,7 +169,7 @@
       border: none;
       padding: 0.25rem 0.5rem;
       cursor: pointer;
-      color: #667eea;
+      color: #C8102E;
       font-size: 0.9rem;
       transition: transform 0.2s ease, color 0.2s ease;
       margin-right: 0.4rem;
@@ -201,7 +201,7 @@
       color: #4a5568;
       font-size: 0.95rem;
     }
-    .god-group-header .god-icon { color: #667eea; font-size: 1rem; width: 20px; text-align: center; }
+    .god-group-header .god-icon { color: #C8102E; font-size: 1rem; width: 20px; text-align: center; }
     .god-group-header .god-cat-count {
       margin-left: auto;
       font-size: 0.78rem;
@@ -230,7 +230,7 @@
       padding: 0.55rem 0.9rem; font-size: 0.9rem;
       transition: border-color 0.2s ease;
     }
-    .toolbar-row .search-input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+    .toolbar-row .search-input:focus { outline: none; border-color: #C8102E; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
 
     .btn-outline-secondary {
       background: white;
@@ -243,9 +243,9 @@
       white-space: nowrap;
     }
     .btn-outline-secondary:hover {
-      background: #f5f5f5;
-      border-color: #667eea;
-      color: #667eea;
+      background: #F4F4F4;
+      border-color: #C8102E;
+      color: #C8102E;
     }
     .btn-outline-secondary i {
       margin-right: 0.3rem;
@@ -254,7 +254,7 @@
     .empty-state { text-align: center; padding: 2.5rem 1rem; color: #aaa; }
     .empty-state-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
 
-    .modal-header-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; }
+    .modal-header-custom { background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%); color: white; border: none; }
     .modal-header-custom .close { color: white; opacity: 0.8; }
     .modal-header-custom .close:hover { opacity: 1; }
     .form-group label { font-weight: 600; color: #333; margin-bottom: 0.4rem; }
@@ -276,7 +276,7 @@
       color: #444; cursor: pointer; margin: 0; white-space: nowrap;
     }
     .cat-check input[type=checkbox] { width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
-    .cat-check-primary { color: #667eea; font-weight: 600; }
+    .cat-check-primary { color: #C8102E; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -285,7 +285,7 @@
 <div id="login-overlay" class="login-overlay">
   <div class="login-box">
     <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
-    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <h4 class="mb-1 justify-content-center">Mobil Gadget Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
     <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
     <form onsubmit="doLogin(); return false;">
@@ -298,7 +298,7 @@
 
 <div id="app" class="d-none">
   <nav class="navbar navbar-dark">
-    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Mobil Gadget Admin</a>
     <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretraži..."></div></div>
     <div class="navbar-actions">
       <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
@@ -409,7 +409,7 @@
               </select>
             </div>
           </div>
-          <div id="category-flags-section" style="border-top: 1px solid #f0f0f0; padding-top: 0.75rem;">
+          <div id="category-flags-section" style="border-top: 1px solid #F4F4F4; padding-top: 0.75rem;">
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-bottom: 0.75rem;">
               <label class="cat-check"><input type="checkbox" id="f-show-in-nav"> Prikaži u navigaciji</label>
               <label class="cat-check cat-check-primary"><input type="checkbox" id="f-is-active"> Aktivna</label>
@@ -424,7 +424,7 @@
                 <img id="f-image-preview-img" src="" alt="Preview" style="width:36px;height:36px;object-fit:contain;border:1px solid #ddd;border-radius:6px;padding:2px;">
               </div>
             </div>
-            <div id="markup-field-group" style="border-top: 1px solid #f0f0f0; padding-top: 0.75rem; display: flex; align-items: center; gap: 1rem;">
+            <div id="markup-field-group" style="border-top: 1px solid #F4F4F4; padding-top: 0.75rem; display: flex; align-items: center; gap: 1rem;">
               <div>
                 <label class="cat-label" for="f-markup-percent">Markup procenat <small>(prazno = globalni default)</small></label>
                 <div class="input-group input-group-sm" style="width: 130px; margin-top: 4px;">
@@ -462,7 +462,7 @@
         <p id="delete-category-name" style="margin: 0.8rem 0 0; font-weight: 700; color: #222; font-size: 0.95rem; word-break: break-word;"></p>
         <p style="margin: 0.8rem 0 0; color: #999; font-size: 0.85rem;">Ova akcija se ne može opozvati.</p>
       </div>
-      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+      <div class="modal-footer" style="border-top: 1px solid #F4F4F4;">
         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Otkaži</button>
         <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete()"><i class="fa fa-trash mr-1"></i> Obriši</button>
       </div>

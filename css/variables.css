@@ -1,0 +1,89 @@
+/*
+ * Mobil Gadget - Color Variables (Rebranding 15.0 - Tech/Retail Red+Blue)
+ * Definiše glavne boje aplikacije za lakše održavanje
+ */
+
+:root {
+  /* ===== Primarne Boje (Rebranding 15.0) ===== */
+  --color-red:          #C8102E;   /* Crvena — primary, CTA, kategorije, search */
+  --color-red-hover:    #E52E3D;   /* Hover crvena — highlight, nav hover */
+  --color-blue:         #0084B4;   /* Plava — secondary, logo akcent, tech */
+  --color-black:        #0A0A0A;   /* Crna — header bg, sekcije, footer */
+  --color-white:        #FFFFFF;   /* Bijela — content bg, tekst na tamnom, search */
+
+  /* ===== RGB vrednosti (za transparentnost) ===== */
+  --rgb-red:            200, 16, 46;
+  --rgb-red-hover:      229, 46, 61;
+  --rgb-blue:           0, 132, 180;
+  --rgb-black:          10, 10, 10;
+
+  /* ===== Semantička Upotreba ===== */
+  --color-primary:      #C8102E;   /* Glavni akcent — crvena */
+  --color-secondary:    #0084B4;   /* Sekundarna — plava */
+  --color-accent:       #E52E3D;   /* Hover/highlight */
+
+  /* ===== Tipografija ===== */
+  --color-text-main:    #0A0A0A;   /* Glavni tekst */
+  --color-text:         #0A0A0A;   /* Alias za kompatibilnost */
+  --color-text-muted:   #777777;   /* Prigušen tekst */
+  --color-heading:      #0A0A0A;   /* Naslovi */
+  --color-text-on-dark: #FFFFFF;   /* Tekst na tamnoj pozadini */
+
+  /* ===== Pozadine ===== */
+  --color-bg-main:      #FFFFFF;   /* Glavna pozadina */
+  --color-bg-card:      #FFFFFF;   /* Kartica pozadina */
+  --color-bg-alt:       #F4F4F4;   /* Alternativne sekcije, table rows */
+  --color-light:        #F4F4F4;   /* Alias za kompatibilnost */
+
+  /* ===== UI Elementi ===== */
+  --color-border:       #E0E0E0;   /* Granice */
+  --color-hover:        #E52E3D;   /* Hover stanje */
+  --color-active:       #C8102E;   /* Aktivno stanje */
+
+  /* ===== Gumbovi ===== */
+  --btn-primary-bg:     #C8102E;
+  --btn-primary-color:  #FFFFFF;
+  --btn-secondary-bg:   #0084B4;
+  --btn-secondary-color:#FFFFFF;
+
+  /* ===== Header & Navigation ===== */
+  --header-bg:          #0A0A0A;   /* Header — crna */
+  --header-top-bg:      #0A0A0A;   /* Top bar — crna */
+  --nav-bg:             #FFFFFF;   /* Nav ispod — bijela */
+  --nav-text:           #0A0A0A;
+  --nav-border:         #E0E0E0;
+  --nav-link-hover:     #C8102E;
+
+  /* ===== Produkt Kartice ===== */
+  --product-border:     #E0E0E0;
+  --product-hover:      #C8102E;
+  --product-label-new:  #C8102E;
+  --product-price:      #C8102E;
+
+  /* ===== Footer ===== */
+  --footer-bg:          #0A0A0A;
+  --footer-bottom-bg:   #0A0A0A;
+  --footer-link-hover:  #E52E3D;
+
+  /* ===== Senke ===== */
+  --shadow-sm:          0 2px 8px rgba(10, 10, 10, 0.08);
+  --shadow-md:          0 4px 16px rgba(10, 10, 10, 0.12);
+  --shadow-lg:          0 8px 32px rgba(10, 10, 10, 0.2);
+}
+
+/*
+ * Primeri Upotrebe:
+ *
+ * .button {
+ *   background: var(--btn-primary-bg);
+ *   color: var(--btn-primary-color);
+ * }
+ *
+ * .heading {
+ *   color: var(--color-heading);
+ * }
+ *
+ * .link:hover {
+ *   color: var(--color-hover);
+ * }
+ */

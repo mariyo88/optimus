@@ -24,7 +24,7 @@
 
 /* Header with All Departments button */
 .category-header {
-  background: linear-gradient(135deg, #4274D9 0%, #4274D9 100%);
+  background: linear-gradient(135deg, #C8102E 0%, #C8102E 100%);
   padding: 16px 20px;
   color: #fff;
   display: flex;
@@ -35,7 +35,7 @@
 }
 
 .category-header:hover {
-  background: linear-gradient(135deg, #4274D9 0%, #293681 100%);
+  background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%);
 }
 
 .category-header-icon {
@@ -69,7 +69,7 @@
 
 /* Individual category items */
 .modern-category-item {
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #F4F4F4;
   transition: all 0.2s ease;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .modern-category-item:hover {
-  background: #fafafa;
+  background: #FFFFFF;
 }
 
 /* Category link styling */
@@ -86,23 +86,23 @@
   display: flex;
   align-items: center;
   padding: 14px 20px;
-  color: #5a6c7d;
+  color: #777777;
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
 .category-link:hover {
-  color: #293681;
+  color: #0A0A0A;
   text-decoration: none;
   padding-left: 24px;
 }
 
 .category-link.active {
-  background: #e8eef8;
-  color: #4274D9;
+  background: #F4F4F4;
+  color: #C8102E;
   font-weight: 600;
-  border-right: 3px solid #4274D9;
+  border-right: 3px solid #C8102E;
 }
 
 /* Category icon */
@@ -114,13 +114,13 @@
   justify-content: center;
   margin-right: 14px;
   font-size: 16px;
-  color: #8D99AE;
+  color: #777777;
   flex-shrink: 0;
 }
 
 .category-link:hover .category-icon,
 .category-link.active .category-icon {
-  color: #4274D9;
+  color: #C8102E;
 }
 
 /* Category name */
@@ -133,7 +133,7 @@
 
 /* Chevron for parent categories */
 .category-chevron {
-  color: #cbd0dd;
+  color: #E0E0E0;
   font-size: 12px;
   transition: all 0.2s ease;
   margin-left: auto;
@@ -141,7 +141,7 @@
 
 .category-link:hover .category-chevron,
 .category-link.active .category-chevron {
-  color: #4274D9;
+  color: #C8102E;
   transform: translateX(3px);
 }
 
@@ -152,8 +152,8 @@
 
 /* Subcategory styling */
 .category-children {
-  background: #fafcfd;
-  border-top: 1px solid #f0f0f0;
+  background: #FFFFFF;
+  border-top: 1px solid #F4F4F4;
   display: none;
 }
 
@@ -163,7 +163,7 @@
 
 .category-children .modern-category-item {
   padding-left: 20px;
-  border-bottom: 1px solid #f8f8f8;
+  border-bottom: 1px solid #F4F4F4;
 }
 
 .category-children .category-link {
@@ -180,8 +180,8 @@
 
 /* Count badge (optional) */
 .category-count {
-  background: #e8ecf1;
-  color: #5a6c7d;
+  background: #E0E0E0;
+  color: #777777;
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 12px;
@@ -191,8 +191,8 @@
 
 .category-link:hover .category-count,
 .category-link.active .category-count {
-  background: #dde5f5;
-  color: #4274D9;
+  background: #F4F4F4;
+  color: #C8102E;
 }
 
 /* Icon mapping for common categories */
@@ -261,12 +261,12 @@
 
 /* Highlight selected category */
 .modern-category-item.selected > .category-link {
-  background: linear-gradient(90deg, #e8eef8 0%, #ffffff 100%);
-  color: #4274D9;
+  background: linear-gradient(90deg, #F4F4F4 0%, #ffffff 100%);
+  color: #C8102E;
   font-weight: 600;
-  border-right: 3px solid #4274D9;
+  border-right: 3px solid #C8102E;
 }
 
 .modern-category-item.selected > .category-link .category-icon {
-  color: #4274D9;
+  color: #C8102E;
 }

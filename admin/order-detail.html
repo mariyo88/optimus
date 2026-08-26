@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Porudžbina — Optimus Admin</title>
+  <title>Porudžbina — Mobil Gadget Admin</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="admin.css">
@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
   <style>
     .page-header-custom {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%);
       color: white;
       padding: 2rem;
       border-radius: 8px;
@@ -45,7 +45,7 @@
     .detail-card-title i {
       width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
-      background: #f0f3ff; border-radius: 8px; color: #667eea; font-size: 1.1rem;
+      background: #f0f3ff; border-radius: 8px; color: #C8102E; font-size: 1.1rem;
     }
 
     .info-grid {
@@ -74,13 +74,13 @@
     .status-badge.CANCELLED  { background: rgba(239,68,68,0.1);   color: #ef4444; }
 
     .items-table { width: 100%; border-collapse: collapse; }
-    .items-table thead tr { background: #f8f9fa; border-bottom: 2px solid #e0e0e0; }
+    .items-table thead tr { background: #F4F4F4; border-bottom: 2px solid #e0e0e0; }
     .items-table th { padding: 0.9rem 1rem; text-align: left; font-weight: 600; color: #666; font-size: 0.85rem; }
-    .items-table tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
-    .items-table tbody tr:hover { background: #fafafa; }
+    .items-table tbody tr { border-bottom: 1px solid #F4F4F4; transition: background 0.15s; }
+    .items-table tbody tr:hover { background: #FFFFFF; }
     .items-table tbody tr:last-child { border-bottom: none; }
     .items-table td { padding: 0.9rem 1rem; color: #333; font-size: 0.9rem; }
-    .items-table tfoot tr { border-top: 2px solid #e0e0e0; background: #f8f9fa; }
+    .items-table tfoot tr { border-top: 2px solid #e0e0e0; background: #F4F4F4; }
     .items-table tfoot td { padding: 1rem; font-weight: 700; color: #333; }
 
     .status-update-row {
@@ -98,7 +98,7 @@
     }
     .status-update-row select:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #C8102E;
       box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
     }
 
@@ -121,7 +121,7 @@
 <div id="login-overlay" class="login-overlay">
   <div class="login-box">
     <div class="login-logo"><div class="login-logo-icon"><i class="fa fa-bolt"></i></div></div>
-    <h4 class="mb-1 justify-content-center">Optimus Admin</h4>
+    <h4 class="mb-1 justify-content-center">Mobil Gadget Admin</h4>
     <p class="text-muted text-center mb-4" style="font-size:.85rem">Prijavite se da biste nastavili</p>
     <div id="login-error" class="alert alert-danger d-none">Pogrešno korisničko ime ili lozinka.</div>
     <form onsubmit="doLogin(); return false;">
@@ -134,7 +134,7 @@
 
 <div id="app">
   <nav class="navbar navbar-dark">
-    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Optimus Admin</a>
+    <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fa fa-bolt"></i></div>Mobil Gadget Admin</a>
     <div class="navbar-search"><div class="search-wrap"><i class="fa fa-search"></i><input type="text" placeholder="Pretraži..."></div></div>
     <div class="navbar-actions">
       <button class="nav-icon-btn"><i class="fa fa-bell"></i></button>
@@ -216,7 +216,7 @@
             </div>
             <div class="info-item">
               <span class="info-label">Ukupna vrednost</span>
-              <span class="info-value" style="font-size: 1.1rem; font-weight: 700; color: #667eea;" id="d-total"></span>
+              <span class="info-value" style="font-size: 1.1rem; font-weight: 700; color: #C8102E;" id="d-total"></span>
             </div>
           </div>
           <div class="status-update-row">
@@ -285,7 +285,7 @@
 
       const rows = (o.items || []).map(i => {
         const nameCell = i.productId
-          ? '<a href="product-form.html?id=' + i.productId + '" style="color:#667eea;text-decoration:none;font-weight:500;">' + esc(i.productName) + ' <i class="fa fa-external-link" style="font-size:10px;opacity:0.6;"></i></a>'
+          ? '<a href="product-form.html?id=' + i.productId + '" style="color:#C8102E;text-decoration:none;font-weight:500;">' + esc(i.productName) + ' <i class="fa fa-external-link" style="font-size:10px;opacity:0.6;"></i></a>'
           : esc(i.productName);
         return '<tr><td>' + nameCell + '</td>' +
           '<td style="text-align:right;">' + formatPrice(i.productPrice) + '</td>' +

@@ -2,9 +2,9 @@
     COMPARE PAGE — compare.css
     Flexbox-based layout. 1 label col + 4 product cols.
     Colors:
-        Primary  : #4274D9
-        Dark     : #293681
-        Grey bg  : #F5F5F5 / #E4E7ED
+        Primary  : #C8102E
+        Dark     : #0A0A0A
+        Grey bg  : #F4F4F4 / #E0E0E0
 =========================================================*/
 
 /* ── Page section ────────────────────────────────────────── */
@@ -30,7 +30,7 @@
 }
 
 .compare-toolbar-info strong {
-    color: #293681;
+    color: #0A0A0A;
     font-weight: 700;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .compare-clear-btn:hover {
-    border-color: #4274D9;
-    color: #4274D9;
+    border-color: #C8102E;
+    color: #C8102E;
     background: rgba(66, 116, 217, 0.03);
 }
 
@@ -66,7 +66,7 @@
 }
 
 .continue-shopping-link:hover {
-    color: #4274D9;
+    color: #C8102E;
     text-decoration: none;
 }
 
@@ -87,13 +87,13 @@
 
 #compare-empty h3 {
     font-size: 20px;
-    color: #293681;
+    color: #0A0A0A;
     margin-bottom: 10px;
     font-weight: 600;
 }
 
 #compare-empty p {
-    color: #8D99AE;
+    color: #777777;
     font-size: 14px;
     max-width: 380px;
     margin: 0 auto 28px;
@@ -102,7 +102,7 @@
 
 #compare-empty .primary-btn {
     display: inline-block;
-    background: #4274D9;
+    background: #C8102E;
     color: #fff;
     padding: 12px 32px;
     border-radius: 6px;
@@ -124,7 +124,7 @@
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    background: #293681;
+    background: #0A0A0A;
     color: #fff;
     padding: 12px 24px;
     border-radius: 6px;
@@ -263,8 +263,8 @@
 }
 
 .cv-card__remove:hover {
-    color: #4274D9;
-    background: #dde5f5;
+    color: #C8102E;
+    background: #F4F4F4;
 }
 
 /* Product image */
@@ -280,9 +280,9 @@
     width: 130px;
     height: 130px;
     object-fit: contain;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #F4F4F4;
     border-radius: 6px;
-    background: #fafafa;
+    background: #FFFFFF;
     display: block;
     transition: transform 0.2s;
 }
@@ -295,7 +295,7 @@
 .cv-card__name {
     font-size: 12px;
     font-weight: 700;
-    color: #293681;
+    color: #0A0A0A;
     line-height: 1.4;
     height: calc(12px * 1.4 * 3); /* 3 lines × font-size × line-height */
     margin-bottom: 8px;
@@ -309,12 +309,12 @@
 }
 
 .cv-card__name a {
-    color: #293681;
+    color: #0A0A0A;
     text-decoration: none;
 }
 
 .cv-card__name a:hover {
-    color: #4274D9;
+    color: #C8102E;
 }
 
 /* Price */
@@ -329,7 +329,7 @@
 .cv-card__price {
     font-size: 17px;
     font-weight: 700;
-    color: #D10024;
+    color: #C8102E;
     margin-bottom: 2px;
 }
 
@@ -356,7 +356,7 @@
 /* Add to cart button */
 .cv-card__cart {
     margin-top: 10px;
-    background: #4274D9;
+    background: #C8102E;
     color: #fff;
     border: none;
     padding: 9px 14px;
@@ -406,7 +406,7 @@
     display: flex;
     align-items: center;
     min-width: 700px;
-    background: #293681;
+    background: #0A0A0A;
     padding: 10px 16px;
     border-bottom: none;
 }
@@ -431,7 +431,7 @@
 }
 
 .cv-row__val--empty {
-    background: #fafbfc;
+    background: #FFFFFF;
 }
 
 /* N/A dash */
@@ -459,14 +459,14 @@
 }
 
 .cv-badge--out {
-    background: #dde5f5;
-    color: #4274D9;
+    background: #F4F4F4;
+    color: #C8102E;
 }
 
 /* ── Hover on rows ───────────────────────────────────────── */
 .cv-row:hover .cv-row__label,
 .cv-row:hover .cv-row__val:not(.cv-row__val--match):not(.cv-row__val--diff):not(.cv-row__val--empty) {
-    background: #fafbfc;
+    background: #FFFFFF;
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
