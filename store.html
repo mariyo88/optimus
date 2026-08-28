@@ -7,6 +7,25 @@
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		<title>Optimus Prodavnica - Kategorije</title>
+		<meta name="description" content="Pregledajte kompletnu ponudu Optimus Systems prodavnice - laptopovi, desktop računari, monitori, mobilni telefoni, bela tehnika i gaming oprema. Povoljne cene i brza dostava širom Srbije.">
+
+		<!-- Canonical — dinamički se ažurira putem store.js -->
+		<link rel="canonical" id="store-canonical" href="https://firstcode.in.rs/store.html">
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="Optimus Systems">
+		<meta property="og:url" id="store-og-url" content="https://firstcode.in.rs/store.html">
+		<meta property="og:title" id="store-og-title" content="Optimus Prodavnica - Kategorije">
+		<meta property="og:description" id="store-og-desc" content="Pregledajte kompletnu ponudu Optimus Systems prodavnice - laptopovi, desktop računari, monitori, mobilni telefoni, bela tehnika i gaming oprema.">
+		<meta property="og:image" content="https://firstcode.in.rs/android-chrome-512x512.png">
+		<meta property="og:locale" content="sr_RS">
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" id="store-tw-title" content="Optimus Prodavnica - Kategorije">
+		<meta name="twitter:description" id="store-tw-desc" content="Pregledajte kompletnu ponudu Optimus Systems prodavnice - laptopovi, desktop računari, monitori, mobilni telefoni, bela tehnika i gaming oprema.">
+		<meta name="twitter:image" content="https://firstcode.in.rs/android-chrome-512x512.png">
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -95,7 +114,7 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="index.html" class="logo">
-									<img src="./img/logo.svg" alt="">
+									<img src="./img/logo.svg" alt="Optimus Systems logo">
 								</a>
 							</div>
 						</div>
@@ -104,9 +123,9 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<input class="input" placeholder="Pretražite proizvode...">
-									<button class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
+								<form action="store.html" method="get" role="search" aria-label="Pretraga proizvoda">
+									<input class="input" type="search" name="search" placeholder="Pretražite proizvode..." aria-label="Unesite pojam za pretragu">
+									<button type="submit" class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
 								</form>
 							</div>
 						</div>
@@ -342,7 +361,7 @@
 		<!-- /BRANDS CAROUSEL -->
 
 		<!-- SEO TEXT (Hidden from users, visible to search engines) -->
-		<div class="sr-only" aria-hidden="true">
+		<div class="sr-only">
 			<h1>Optimus Prodavnica - Kompletna Ponuda po Kategorijama</h1>
 			<p>Dobrodošli u Optimus prodavnicu - vašu destinaciju za kvalitetne proizvode iz svih kategorija računarske opreme, bele tehnike i elektronike.</p>
 			<p>Naše kategorije obuhvataju laptopove, desktop računare, monitore, štampače, mrežnu opremu, fotoaparate, kamere, slušalice, mikrofone i mnogo više. Pregledajte našu bogatu ponudu proizvoda vodećih svetskih brendova.</p>

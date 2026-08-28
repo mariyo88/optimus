@@ -34,14 +34,16 @@
                 }
 
                 // Build navigation items
-                var navHtml = navItem('index.html', 'Početna') +
-                    navItem('offers.html', 'Akcije');
+                var navHtml = navItem('store.html', 'Prodavnica');
 
                 visibleCategories.forEach(function (cat) {
                     // Koristi displayName ako postoji, inače fallback na name
                     var categoryName = cat.displayName || cat.name;
                     navHtml += navItem('store.html?category=' + cat.slug, categoryName);
                 });
+
+                // Add offers, about and contact on the end
+                navHtml += navItem('offers.html', 'Akcije') + navItem('about.html', 'O nama') + navItem('contact.html', 'Kontakt');
 
                 // Update all navigation elements
                 $('.main-nav').html(navHtml);

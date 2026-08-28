@@ -178,9 +178,14 @@
         var productUrl = window.location.origin + '/product.html?slug=' + product.slug;
         var canonicalEl = document.getElementById('canonical-url');
         if (canonicalEl) canonicalEl.setAttribute('href', productUrl);
+
+        var metaDesc = product.shortDescription || product.name;
+        setMeta('description', metaDesc);
         setMeta('og:title', product.name + ' — Optimus');
-        setMeta('og:description', product.shortDescription || product.name);
+        setMeta('og:description', metaDesc);
         setMeta('og:url', productUrl);
+        setMeta('twitter:title', product.name + ' — Optimus');
+        setMeta('twitter:description', metaDesc);
         if (product.mainImageUrl) {
             setMeta('og:image', product.mainImageUrl);
             setMeta('twitter:image', product.mainImageUrl);
@@ -484,9 +489,9 @@
             '      ' + inStockBadge,
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
-            '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>',
+            '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i><span class="tooltipp">dodaj u listu želja</span></button>',
             '        <button class="add-to-compare" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
-            '        <button class="quick-view"><i class="fa fa-eye"></i></button>',
+            '        <button class="quick-view" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>',
             '      </div>',
             '    </div>',
             '    <div class="add-to-cart">',
@@ -555,6 +560,138 @@
                 '</div>' +
             '</div>'
         );
+    }
+
+    /**
+     * Injects a Schema.org BreadcrumbList JSON-LD block into <head>.
+     * Uses real product and category data to build the breadcrumb trail.
+     */
+    function injectBreadcrumbSchema(product) {
+        var siteBase = window.location.origin;
+
+        $('#breadcrumb-jsonld').remove();
+
+        var items = [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                item: { '@id': siteBase + '/', name: 'First Code' }
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                item: { '@id': siteBase + '/store.html', name: 'Prodavnica' }
+            }
+        ];
+
+        if (product.category) {
+            var categoryName = product.category.displayName || product.category.name;
+            items.push({
+                '@type': 'ListItem',
+                position: 3,
+                item: {
+                    '@id': siteBase + '/store.html?category=' + product.category.slug,
+                    name: categoryName
+                }
+            });
+            items.push({
+                '@type': 'ListItem',
+                position: 4,
+                item: {
+                    '@id': siteBase + '/product.html?slug=' + product.slug,
+                    name: product.name
+                }
+            });
+        } else {
+            items.push({
+                '@type': 'ListItem',
+                position: 3,
+                item: {
+                    '@id': siteBase + '/product.html?slug=' + product.slug,
+                    name: product.name
+                }
+            });
+        }
+
+        var schema = {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: items
+        };
+
+        $('<script>')
+            .attr({ id: 'breadcrumb-jsonld', type: 'application/ld+json' })
+            .text(JSON.stringify(schema, null, 2))
+            .appendTo('head');
+    }
+
+    /**
+     * Injects a Schema.org Organization JSON-LD block into <head>.
+     * Provides Google with brand identity, logo, and contact info.
+     */
+    function injectOrganizationSchema() {
+        var siteBase = window.location.origin;
+
+        $('#organization-jsonld').remove();
+
+        var schema = {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            url: siteBase + '/',
+            name: 'Optimus Systems',
+            logo: {
+                '@type': 'ImageObject',
+                url: siteBase + '/android-chrome-512x512.png',
+                caption: 'Optimus Systems logo'
+            },
+            description: 'Optimus Systems - Računarska oprema, laptopovi, desktop računari, bela tehnika i IT servis. Prodajna mesta u Miloševcu i Velikoj Plani. Povoljne cene i brza dostava širom Srbije.',
+            telephone: '+38166243123',
+            email: 'prodaja@optimussystems.rs',
+            address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Momira Gajića 38',
+                addressLocality: 'Velika Plana',
+                postalCode: '11320',
+                addressCountry: 'RS'
+            },
+            sameAs: []
+        };
+
+        $('<script>')
+            .attr({ id: 'organization-jsonld', type: 'application/ld+json' })
+            .text(JSON.stringify(schema, null, 2))
+            .appendTo('head');
+    }
+
+    /**
+     * Injects a Schema.org WebSite JSON-LD block into <head>.
+     * Enables Google Sitelinks Searchbox for the site.
+     */
+    function injectWebSiteSchema() {
+        var siteBase = window.location.origin;
+
+        $('#website-jsonld').remove();
+
+        var schema = {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            url: siteBase + '/',
+            name: 'Optimus Systems',
+            alternateName: ['Optimus', 'Optimus Systems', 'Optimus Srbija'],
+            potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                    '@type': 'EntryPoint',
+                    urlTemplate: siteBase + '/store.html?search={search_term_string}'
+                },
+                'query-input': 'required name=search_term_string'
+            }
+        };
+
+        $('<script>')
+            .attr({ id: 'website-jsonld', type: 'application/ld+json' })
+            .text(JSON.stringify(schema, null, 2))
+            .appendTo('head');
     }
 
     /**
@@ -661,6 +798,9 @@
                 renderImages(product);
                 renderTabs(product);
                 loadRelatedProducts(product);
+                injectWebSiteSchema();
+                injectOrganizationSchema();
+                injectBreadcrumbSchema(product);
                 injectProductSchema(product);
 
                 // Init share buttons (Facebook, WhatsApp, Copy Link, QR Code)

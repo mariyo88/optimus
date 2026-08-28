@@ -66,6 +66,98 @@
     // Expose functions globally for modern category filter
     window.updateStoreBreadcrumb = updateBreadcrumb;
 
+    /**
+     * Dynamically updates page title, meta description, canonical URL,
+     * and Open Graph / Twitter Card tags based on active category or search term.
+     * Called after products load so the label is already resolved.
+     *
+     * @param {string} labelText - Human-readable label for the current view (e.g. "Laptopovi")
+     */
+    function updateStoreSeo(labelText) {
+        var siteBase = window.location.origin;
+        var canonicalUrl = siteBase + '/store.html' + window.location.search;
+
+        var title, description;
+
+        if (state.search) {
+            title       = 'Rezultati pretrage za "' + state.search + '" — Optimus Systems';
+            description = 'Rezultati pretrage za "' + state.search + '" u Optimus Systems prodavnici. Računarska oprema, laptopovi, bela tehnika i još mnogo toga.';
+        } else if (labelText) {
+            title       = labelText + ' — Optimus Systems prodavnica';
+            description = 'Pregledajte ponudu kategorije ' + labelText + ' u Optimus Systems prodavnici. Povoljne cene i brza dostava širom Srbije.';
+        } else {
+            title       = 'Optimus Systems Prodavnica - Kompletna Ponuda';
+            description = 'Pregledajte kompletnu ponudu Optimus Systems prodavnice — laptopovi, desktop računari, monitori, mobilni telefoni, bela tehnika i gaming oprema.';
+        }
+
+        // Update <title>
+        document.title = title;
+
+        // Update meta description
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', description);
+
+        // Update canonical
+        var canonical = document.getElementById('store-canonical');
+        if (canonical) canonical.setAttribute('href', canonicalUrl);
+
+        // Update Open Graph
+        var ogUrl   = document.getElementById('store-og-url');
+        var ogTitle = document.getElementById('store-og-title');
+        var ogDesc  = document.getElementById('store-og-desc');
+        if (ogUrl)   ogUrl.setAttribute('content', canonicalUrl);
+        if (ogTitle) ogTitle.setAttribute('content', title);
+        if (ogDesc)  ogDesc.setAttribute('content', description);
+
+        // Update Twitter Card
+        var twTitle = document.getElementById('store-tw-title');
+        var twDesc  = document.getElementById('store-tw-desc');
+        if (twTitle) twTitle.setAttribute('content', title);
+        if (twDesc)  twDesc.setAttribute('content', description);
+    }
+
+    // Expose globally so store-god-categories.js i store-modern-categories.js mogu da je pozovu
+    window.updateStoreSeo = updateStoreSeo;
+
+    /**
+     * Injects a Schema.org ItemList JSON-LD block into <head> based on the
+     * currently displayed products. Helps Google understand the product listing
+     * and can trigger rich results in search.
+     *
+     * @param {Array}  products  - Array of product objects from the API
+     * @param {string} listName  - Human-readable name of the list (e.g. "Laptopovi")
+     */
+    function injectItemListSchema(products, listName) {
+        var siteBase = window.location.origin;
+
+        $('#store-itemlist-jsonld').remove();
+
+        if (!products || products.length === 0) return;
+
+        var items = products.map(function (p, index) {
+            return {
+                '@type': 'ListItem',
+                position: index + 1,
+                url: siteBase + '/product.html?slug=' + p.slug,
+                name: p.name
+            };
+        });
+
+        var schema = {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: listName || 'Optimus Systems — Ponuda proizvoda',
+            url: siteBase + '/store.html' + window.location.search,
+            numberOfItems: items.length,
+            itemListElement: items
+        };
+
+        $('<script>')
+            .attr({ id: 'store-itemlist-jsonld', type: 'application/ld+json' })
+            .text(JSON.stringify(schema, null, 2))
+            .appendTo('head');
+    }
+
     function buildProductCard(p) {
         var IMG_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23eff2f6'/%3E%3Cpath d='M100 280l100-140 120 140' fill='%23cbd0dd' stroke='%23cbd0dd' stroke-width='2'/%3E%3Ccircle cx='150' cy='120' r='30' fill='%23cbd0dd'/%3E%3Ctext x='200' y='360' font-family='Arial' font-size='16' fill='%23999' text-anchor='middle'%3ESlika nije dostupna%3C/text%3E%3C/svg%3E";
         var imgSrc   = p.mainImageUrl ? p.mainImageUrl : IMG_PLACEHOLDER;
@@ -103,9 +195,9 @@
             '      <h4 class="product-price">' + priceHtml + '</h4>',
             '      <div class="product-rating"></div>',
             '      <div class="product-btns">',
-            '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i></button>',
+            '        <button class="add-to-wishlist" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-heart-o"></i><span class="tooltipp">dodaj u listu želja</span></button>',
             '        <button class="add-to-compare" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-exchange"></i><span class="tooltipp">dodaj za poređenje</span></button>',
-            '        <button class="quick-view"><i class="fa fa-eye"></i></button>',
+            '        <button class="quick-view" data-id="' + p.id + '" data-slug="' + p.slug + '"><i class="fa fa-eye"></i><span class="tooltipp">brzi pregled</span></button>',
             '      </div>',
             '    </div>',
             '    <div class="add-to-cart">',
@@ -375,6 +467,7 @@
                     $grid.html('<div class="col-md-12 text-center" style="padding:40px;"><p>Nema pronađenih proizvoda.</p></div>');
                     $('#store-qty').text('0 products');
                     $('#store-pagination').html('');
+                    updateStoreSeo('');
                     return;
                 }
 
@@ -394,6 +487,39 @@
                 var to   = Math.min(from + products.length - 1, data.totalElements);
                 $('#store-qty').text('Prikaz ' + from + '-' + to + ' od ' + data.totalElements + ' proizvoda');
                 $('#store-pagination').html(buildPagination(data.page, data.totalPages));
+
+                // Update SEO tags based on active filter
+                if (state.search) {
+                    updateStoreSeo(null);
+                    injectItemListSchema(products, 'Rezultati pretrage za "' + state.search + '"');
+                } else if (state.category) {
+                    $.ajax({
+                        url: API_BASE + '/api/categories/public',
+                        success: function (categories) {
+                            function findCategoryBySlug(cats, slug) {
+                                for (var i = 0; i < cats.length; i++) {
+                                    if (cats[i].slug === slug) return cats[i];
+                                    if (cats[i].children && cats[i].children.length > 0) {
+                                        var found = findCategoryBySlug(cats[i].children, slug);
+                                        if (found) return found;
+                                    }
+                                }
+                                return null;
+                            }
+                            var cat = findCategoryBySlug(categories, state.category);
+                            var label = cat ? (cat.displayName || cat.name) : state.category;
+                            updateStoreSeo(label);
+                            injectItemListSchema(products, label);
+                        },
+                        error: function () {
+                            updateStoreSeo(state.category);
+                            injectItemListSchema(products, state.category);
+                        }
+                    });
+                } else {
+                    updateStoreSeo('');
+                    injectItemListSchema(products, 'Optimus Systems — Kompletna ponuda');
+                }
             },
             error: function (xhr, status, error) {
                 console.error('Failed to load products:', status, error);
