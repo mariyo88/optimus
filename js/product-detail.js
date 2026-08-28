@@ -331,13 +331,19 @@
         $mainSlick.css('visibility', 'visible');
         $thumbSlick.css('visibility', 'visible');
 
-        // Fix thumb height to match number of visible thumbnails
+        // Fix thumb height to match number of visible thumbnails (vertical mode only)
         var THUMB_HEIGHT = 155; // px, matches CSS
         var THUMB_MARGIN = 5;   // margin between slides
         function applyThumbHeight() {
-            var thumbHeight = thumbsToShow * (THUMB_HEIGHT + THUMB_MARGIN * 2);
-            $thumbSlick.css('height', thumbHeight + 'px');
-            $thumbSlick.find('.slick-list').css('height', thumbHeight + 'px');
+            if ($(window).width() < 991) {
+                // On mobile the slider is horizontal — remove any inline height
+                $thumbSlick.css('height', '');
+                $thumbSlick.find('.slick-list').css('height', '');
+            } else {
+                var thumbHeight = thumbsToShow * (THUMB_HEIGHT + THUMB_MARGIN * 2);
+                $thumbSlick.css('height', thumbHeight + 'px');
+                $thumbSlick.find('.slick-list').css('height', thumbHeight + 'px');
+            }
         }
         applyThumbHeight();
         // Re-apply on window resize

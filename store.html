@@ -183,6 +183,15 @@
 								</div>
 								<!-- /Cart -->
 
+								<!-- Search Toggle -->
+								<div class="search-toggle">
+									<a href="#" class="search-toggle-btn">
+										<i class="fa fa-search"></i>
+										<span>Pretraga</span>
+									</a>
+								</div>
+								<!-- /Search Toggle -->
+
 								<!-- Menu Toogle -->
 								<div class="menu-toggle">
 									<a href="#">
@@ -246,8 +255,17 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
+
+					<!-- MOBILE FILTER BACKDROP -->
+					<div id="filter-backdrop"></div>
+
 					<!-- ASIDE -->
 					<div id="aside" class="col-md-4">
+						<!-- MOBILE: Zatvori filter drawer -->
+						<button id="filter-close-btn">
+							<span><i class="fa fa-sliders"></i> Filteri</span>
+							<i class="fa fa-times"></i>
+						</button>
 						<!-- aside Widget - GoD Categories or Modern Categories -->
 						<div class="aside">
 							<!-- Toggle between GoD and regular categories -->
@@ -297,6 +315,10 @@
 					<div id="store" class="col-md-8">
 						<!-- store top filter -->
 						<div class="store-filter clearfix">
+							<!-- MOBILE: Filter dugme — vidljivo samo na mobilnom -->
+							<button id="mobile-filter-toggle" class="mobile-filter-btn">
+								<i class="fa fa-sliders"></i> Filteri
+							</button>
 							<div class="store-sort">
 								<label>
 									Sortiraj po:

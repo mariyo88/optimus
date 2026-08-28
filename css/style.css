@@ -641,6 +641,30 @@ textarea.input {
   display: none;
 }
 
+.header-ctn .search-toggle {
+  display: none;
+}
+
+/* Store filter drawer — body scroll lock (ne diramo position:sticky na header-u) */
+html.filter-drawer-open body {
+  overflow: hidden;
+  /* Kompenzujemo nestanak scrollbar-a da ne skače layout */
+  padding-right: 0;
+}
+
+/* Desktop: osiguravamo da .section nema overflow koji kvari sticky */
+#mobile-filter-toggle {
+  display: none;
+}
+
+#filter-close-btn {
+  display: none;
+}
+
+#filter-backdrop {
+  display: none;
+}
+
 .cart-dropdown {
   position: absolute;
   top: 100%;
@@ -2773,6 +2797,223 @@ textarea.input {
 @media only screen and (max-width: 1201px) {}
 
 @media only screen and (max-width: 991px) {
+  /* --- MOBILE HEADER: Opcija A --- */
+
+  /* 1. Sakriti top header traku (telefon/mail/adresa) */
+  #top-header {
+    display: none;
+  }
+
+  /* 2. Sticky header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  /* 3. Kompaktniji main header */
+  #header {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* 4. Header row: gornji red (logo + ikonice) + donji red (search) */
+  #header .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 8px 12px;
+  }
+
+  /* 5. Logo kolona — raste i puni prostor (gura ctn desno) */
+  #header .row > .col-md-3:first-child {
+    flex: 1 1 auto;
+    width: auto;
+    padding: 0;
+    float: none;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Header-ctn kolona — desno, ne raste */
+  #header .row > .col-md-3:last-child {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0;
+    float: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  /* Search kolona — puna širina, drugi red */
+  #header .row > .col-md-6 {
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 0;
+    float: none;
+    order: 3;
+  }
+
+  .header-logo .logo {
+    display: inline-block;
+  }
+
+  .header-logo .logo img {
+    height: 38px;
+    width: auto;
+  }
+
+  /* 7. Search bar — sakriven by default, pokazuje se toggle-om */
+  #header .col-md-6 {
+    order: 2;
+    flex: 0 0 100%;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  }
+
+  #header .col-md-6.search-open {
+    max-height: 60px;
+    padding: 6px 12px 8px 12px;
+    opacity: 1;
+  }
+
+  .header-search {
+    padding: 0;
+  }
+
+  .header-search form {
+    height: 38px;
+    border-radius: 30px;
+  }
+
+  .header-search form .input {
+    font-size: 13px;
+    padding: 0 14px;
+  }
+
+  .header-search form .search-btn {
+    flex: 0 0 44px;
+    width: 44px;
+    border-radius: 0 30px 30px 0;
+  }
+
+  /* Sakriti samo tekst unutar search dugmeta, ikona ostaje */
+  .header-search form .search-btn .btn-text {
+    display: none;
+  }
+
+  .header-search form .search-btn i {
+    font-size: 16px;
+    margin-right: 0;
+  }
+
+  /* Search toggle dugme — vidljiv samo na mobilnom */
+  .header-ctn .search-toggle {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .search-toggle a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .search-toggle a:hover,
+  .search-toggle a.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #4274D9;
+  }
+
+  .search-toggle a > span {
+    display: none;
+  }
+
+  .search-toggle a > i {
+    font-size: 20px;
+  }
+
+  /* 8. Header ctn — desno, samo korpa + hamburger vidljivi */
+  .header-ctn {
+    float: none;
+    padding: 0;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    order: 1;
+  }
+
+  /* Sakriti Želje (1.) i Poređenje (2.) ikonice na mobilnom — vidljivi su u drawer meniju */
+  .header-ctn > div:nth-child(1),
+  .header-ctn > div:nth-child(2) {
+    display: none;
+  }
+
+  /* Kompaktovati korpu i hamburger dugmad */
+  .header-ctn > div > a {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  .header-ctn > div > a:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .header-ctn > div > a > span {
+    display: none; /* sakriti labele "Korpa", "Meni" */
+  }
+
+  .header-ctn > div > a > i {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  /* Badge pozicija za korpu */
+  .header-ctn > div > a > .qty,
+  .header-ctn > div > a > .wishlist-count,
+  .header-ctn > div > a > .compare-count {
+    right: 2px;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 10px;
+  }
+
+  /* 9. Sakriti navigacionu traku ispod headera.
+        VAŽNO: ne koristimo display:none jer bi to sakrilo i #responsive-nav drawer.
+        Koristimo visibility + height trik — drawer ima visibility:visible override. */
+  #navigation {
+    visibility: hidden;
+    height: 0;
+    overflow: visible;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #responsive-nav {
+    visibility: visible;
+  }
+
+  /* Stari float overrides (zadrzavamo zbog kompatibilnosti) */
   #top-header .header-links.pull-left {
     float: none !important;
   }
@@ -2780,13 +3021,7 @@ textarea.input {
     float: none !important;
     margin-top: 5px;
   }
-  .header-logo {
-    float: none;
-    text-align: center;
-  }
-  .header-logo .logo {
-    display: inline-block;
-  }
+
   #product-imgs {
     margin-bottom: 60px;
     margin-top: 15px;
@@ -2798,6 +3033,214 @@ textarea.input {
     margin-top: 30px;
     margin-bottom: 30px;
   }
+
+  /* ============================================================
+     STORE — MOBILE VIEW (max-width: 991px)
+     Artikli su prvi, sidebar je drawer koji se otvara dugmetom
+     ============================================================ */
+
+  /* 1. Store/Aside row — #store prvo, #aside je drawer (position:fixed, izvučen iz flow-a) */
+  #aside.col-md-4,
+  #store.col-md-8 {
+    float: none;
+    width: 100%;
+  }
+
+  #store.col-md-8 {
+    padding: 0;
+  }
+
+  /* 2. Aside — fiksni drawer sa leve strane, sakriven by default */
+  #aside.col-md-4 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100%;
+    height: 100dvh; /* dynamic viewport height — iOS fix */
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    background: #fff;
+    z-index: 200;
+    padding: 20px 16px 80px; /* veći padding-bottom da poslednji filter ne bude isečen */
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+    transform: translateX(-110%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    float: none;
+    order: 2;
+    box-sizing: border-box;
+  }
+
+  #aside.col-md-4.filter-open {
+    transform: translateX(0);
+  }
+
+  /* 3. Backdrop */
+  #filter-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 199;
+    cursor: pointer;
+  }
+
+  #filter-backdrop.active {
+    display: block;
+  }
+
+  /* 4. Mobile filter dugme */
+  #mobile-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    background: #4274D9;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 10px;
+  }
+
+  #mobile-filter-toggle:hover {
+    background: #293681;
+  }
+
+  #mobile-filter-toggle i {
+    font-size: 14px;
+  }
+
+  /* Store filter bar — sve u jedan flex red na mobilnom */
+  .store-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+
+  .section {
+    padding-top: 12px;
+    padding-bottom: 30px;
+  }
+
+  #mobile-filter-toggle {
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .store-sort {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .store-sort label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    font-size: 11px;
+  }
+
+  .store-sort .input-select {
+    min-width: 120px;
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 28px 6px 10px;
+  }
+
+  /* Sortiraj po: label tekst — sakriti na veoma uskom ekranu */
+  @media only screen and (max-width: 480px) {
+    .store-sort label > span,
+    .store-sort label {
+      gap: 0;
+    }
+  }
+
+  .store-grid {
+    float: none;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 0;
+  }
+
+  .store-grid li + li {
+    margin-left: 0;
+  }
+
+  /* Bottom store filter bar — qty + paginacija */
+  .store-filter:last-of-type {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  #store-qty {
+    margin-right: 0;
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    order: 2; /* qty ispod paginacije */
+  }
+
+  .store-pagination {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    order: 1;
+  }
+
+  .store-pagination li {
+    margin-left: 0;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  .store-pagination li + li {
+    margin-left: 0;
+  }
+
+  /* 5. Zatvori dugme unutar drawera */
+  #filter-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #e4e7ed;
+    padding: 0 0 12px 0;
+    margin-bottom: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e2756;
+    cursor: pointer;
+  }
+
+  #filter-close-btn i {
+    font-size: 18px;
+    color: #999;
+  }
+
+  #filter-close-btn:hover i {
+    color: #D10024;
+  }
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -2813,14 +3256,6 @@ textarea.input {
 @media only screen and (max-width: 480px) {
   [class*='col-xs'] {
     width: 100%;
-  }
-  .store-grid {
-    float: none;
-    margin-top: 10px;
-  }
-  .store-pagination {
-    float: none;
-    margin-top: 10px;
   }
 }
 
@@ -3063,10 +3498,31 @@ ul.SpecForm .Notice {
   
   .product.product-list .product-actions {
     flex-wrap: wrap;
+    gap: 8px;
   }
 
   .product.product-list .product-actions .add-to-cart-btn {
     flex: 1 1 100%;
+    justify-content: center;
+    padding: 11px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  /* Lista želja i Poređenje — ravnomjerno u drugi red */
+  .product.product-list .product-actions button:not(.add-to-cart-btn) {
+    flex: 1 1 calc(50% - 4px);
+    justify-content: center;
+    border-radius: 6px;
+    border-color: #e4e7ed;
+    color: #4274D9;
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .product.product-list .product-actions button:not(.add-to-cart-btn):hover {
+    background-color: #f0f4ff;
+    border-color: #4274D9;
   }
   
   /* Fix grid view image height on mobile */

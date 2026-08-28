@@ -13,6 +13,72 @@ function formatPrice(val) {
 		$('#responsive-nav').toggleClass('active');
 	})
 
+	// Mobile Store Filter drawer toggle
+	var _scrollY = 0;
+
+	function openFilterDrawer() {
+		_scrollY = window.scrollY || window.pageYOffset;
+		$('#aside').addClass('filter-open');
+		$('#filter-backdrop').addClass('active');
+		// Koristimo klasu na html elementu — ne diramo body position
+		// (body position:fixed kvari position:sticky na header-u)
+		$('html').addClass('filter-drawer-open');
+		$('html').css('--scroll-y', '-' + _scrollY + 'px');
+	}
+
+	function closeFilterDrawer() {
+		$('#aside').removeClass('filter-open');
+		$('#filter-backdrop').removeClass('active');
+		$('html').removeClass('filter-drawer-open');
+		$('html').css('--scroll-y', '');
+		window.scrollTo(0, _scrollY);
+	}
+
+	$('#mobile-filter-toggle').on('click', function () {
+		openFilterDrawer();
+	});
+
+	$('#filter-close-btn').on('click', function () {
+		closeFilterDrawer();
+	});
+
+	$('#filter-backdrop').on('click', function () {
+		closeFilterDrawer();
+	});
+
+	// Zatvori drawer na ESC
+	$(document).on('keydown', function (e) {
+		if (e.key === 'Escape') {
+			closeFilterDrawer();
+		}
+	});
+
+	// Mobile Search toggle
+	$('.search-toggle-btn').on('click', function (e) {
+		e.preventDefault();
+		var $searchCol = $('#header .col-md-6');
+		var $icon = $(this).find('i');
+		var isOpen = $searchCol.hasClass('search-open');
+
+		$searchCol.toggleClass('search-open');
+		$(this).toggleClass('active');
+
+		if (!isOpen) {
+			// Fokusiraj input kad se otvori
+			setTimeout(function () {
+				$searchCol.find('.input').focus();
+			}, 320);
+		}
+	})
+
+	// Zatvori search bar klikom van headera
+	$(document).on('click', function (e) {
+		if (!$(e.target).closest('header').length) {
+			$('#header .col-md-6').removeClass('search-open');
+			$('.search-toggle-btn').removeClass('active');
+		}
+	})
+
 	// Fix cart dropdown from closing
 	$('.cart-dropdown').on('click', function (e) {
 		e.stopPropagation();
