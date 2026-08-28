@@ -80,14 +80,14 @@
         var title, description;
 
         if (state.search) {
-            title       = 'Rezultati pretrage za "' + state.search + '" — Optimus Systems';
-            description = 'Rezultati pretrage za "' + state.search + '" u Optimus Systems prodavnici. Računarska oprema, laptopovi, bela tehnika i još mnogo toga.';
+            title       = 'Rezultati pretrage za "' + state.search + '" — FirstCode';
+            description = 'Rezultati pretrage za "' + state.search + '" u FirstCode prodavnici. Računarska oprema, laptopovi, bela tehnika i još mnogo toga.';
         } else if (labelText) {
-            title       = labelText + ' — Optimus Systems prodavnica';
-            description = 'Pregledajte ponudu kategorije ' + labelText + ' u Optimus Systems prodavnici. Povoljne cene i brza dostava širom Srbije.';
+            title       = labelText + ' — FirstCode prodavnica';
+            description = 'Pregledajte ponudu kategorije ' + labelText + ' u FirstCode prodavnici. Povoljne cene i brza dostava širom Srbije.';
         } else {
-            title       = 'Optimus Systems Prodavnica - Kompletna Ponuda';
-            description = 'Pregledajte kompletnu ponudu Optimus Systems prodavnice — laptopovi, desktop računari, monitori, mobilni telefoni, bela tehnika i gaming oprema.';
+            title       = 'FirstCode Prodavnica - Kompletna Ponuda';
+            description = 'Pregledajte kompletnu ponudu FirstCode prodavnice — laptopovi, desktop računari, monitori, mobilni telefoni, bela tehnika i gaming oprema.';
         }
 
         // Update <title>
@@ -146,7 +146,7 @@
         var schema = {
             '@context': 'https://schema.org',
             '@type': 'ItemList',
-            name: listName || 'Optimus Systems — Ponuda proizvoda',
+            name: listName || 'FirstCode — Ponuda proizvoda',
             url: siteBase + '/store.html' + window.location.search,
             numberOfItems: items.length,
             itemListElement: items
@@ -518,7 +518,7 @@
                     });
                 } else {
                     updateStoreSeo('');
-                    injectItemListSchema(products, 'Optimus Systems — Kompletna ponuda');
+                    injectItemListSchema(products, 'FirstCode — Kompletna ponuda');
                 }
             },
             error: function (xhr, status, error) {
