@@ -1,6 +1,6 @@
-# Optimus — Frontend
+# FirstCode — Frontend
 
-Statički HTML/CSS/JS frontend za Optimus webshop. Komunicira sa Spring Boot REST API backendom.
+Statički HTML/CSS/JS frontend za FirstCode webshop. Komunicira sa Spring Boot REST API backendom.
 
 ---
 

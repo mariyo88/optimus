@@ -171,7 +171,7 @@
         }
 
         // Page title + breadcrumb
-        document.title = product.name + ' — Optimus';
+        document.title = product.name + ' — FirstCode';
         updateBreadcrumbs(product);
 
         // Update canonical URL and Open Graph meta tags
@@ -181,10 +181,10 @@
 
         var metaDesc = product.shortDescription || product.name;
         setMeta('description', metaDesc);
-        setMeta('og:title', product.name + ' — Optimus');
+        setMeta('og:title', product.name + ' — FirstCode');
         setMeta('og:description', metaDesc);
         setMeta('og:url', productUrl);
-        setMeta('twitter:title', product.name + ' — Optimus');
+        setMeta('twitter:title', product.name + ' — FirstCode');
         setMeta('twitter:description', metaDesc);
         if (product.mainImageUrl) {
             setMeta('og:image', product.mainImageUrl);
@@ -638,15 +638,15 @@
             '@context': 'https://schema.org',
             '@type': 'Organization',
             url: siteBase + '/',
-            name: 'Optimus Systems',
+            name: 'FirstCode',
             logo: {
                 '@type': 'ImageObject',
                 url: siteBase + '/android-chrome-512x512.png',
-                caption: 'Optimus Systems logo'
+                caption: 'FirstCode logo'
             },
-            description: 'Optimus Systems - Računarska oprema, laptopovi, desktop računari, bela tehnika i IT servis. Prodajna mesta u Miloševcu i Velikoj Plani. Povoljne cene i brza dostava širom Srbije.',
-            telephone: '+38166243123',
-            email: 'prodaja@optimussystems.rs',
+            description: 'FirstCode - Računarska oprema, laptopovi, desktop računari, bela tehnika i IT servis. Prodajna mesta u Beogradu i Velikoj Plani. Povoljne cene i brza dostava širom Srbije.',
+            telephone: '+381638558708',
+            email: 'prodaja@firstcode.in.rs',
             address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Momira Gajića 38',
@@ -676,8 +676,8 @@
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             url: siteBase + '/',
-            name: 'Optimus Systems',
-            alternateName: ['Optimus', 'Optimus Systems', 'Optimus Srbija'],
+            name: 'FirstCode',
+            alternateName: ['First Code', 'FirstCode Srbija'],
             potentialAction: {
                 '@type': 'SearchAction',
                 target: {
@@ -721,7 +721,7 @@
             url: productUrl,
             brand: {
                 '@type': 'Brand',
-                name: (product.brand && product.brand.name) ? product.brand.name : 'Optimus'
+                name: (product.brand && product.brand.name) ? product.brand.name : 'FirstCode'
             }
         };
 
@@ -737,7 +737,7 @@
                 itemCondition: 'https://schema.org/NewCondition',
                 seller: {
                     '@type': 'Organization',
-                    name: 'Optimus',
+                    name: 'FirstCode',
                     url: siteBase
                 },
                 shippingDetails: {
