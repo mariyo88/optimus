@@ -79,11 +79,6 @@ function formatPrice(val) {
 		}
 	})
 
-	// Fix cart dropdown from closing
-	$('.cart-dropdown').on('click', function (e) {
-		e.stopPropagation();
-	});
-
 	/////////////////////////////////////////
 
 	// Products Slick

@@ -331,6 +331,17 @@
         $mainSlick.css('visibility', 'visible');
         $thumbSlick.css('visibility', 'visible');
 
+        // Hide thumb container on mobile when there is only one image
+        function applyThumbVisibility() {
+            if ($(window).width() < 991 && imgCount <= 1) {
+                $thumbSlick.closest('#product-imgs').hide();
+            } else {
+                $thumbSlick.closest('#product-imgs').show();
+            }
+        }
+        applyThumbVisibility();
+        $(window).off('resize.productThumbVisibility').on('resize.productThumbVisibility', applyThumbVisibility);
+
         // Fix thumb height to match number of visible thumbnails (vertical mode only)
         var THUMB_HEIGHT = 155; // px, matches CSS
         var THUMB_MARGIN = 5;   // margin between slides
@@ -549,21 +560,21 @@
     }
 
     function showError() {
-        // Sakrij kolonu sa slikama, tabove i slične proizvode
-        $('.product-details').closest('.row').find('.col-md-7').hide();
-        $('.product-details').closest('.col-md-5').removeClass('col-md-5').addClass('col-md-12');
-        $('#product-tab').closest('.col-md-12').hide();
-        $('#related-products-section').hide();
-
-        $('.product-details').html(
-            '<div style="text-align:center; padding: 80px 20px;">' +
-                '<div style="font-size: 80px; margin-bottom: 20px;">🔍</div>' +
-                '<h2 style="font-size: 28px; font-weight: 700; color: #222; margin-bottom: 12px;">Proizvod nije pronađen</h2>' +
-                '<p style="color: #888; font-size: 15px; max-width: 400px; margin: 0 auto 32px auto; line-height: 1.6;">Traženi proizvod ne postoji ili je uklonjen iz ponude. Pokušajte da pretražite nešto drugo.</p>' +
-                '<div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">' +
-                    '<a href="index.html" style="display:inline-block; background:#4274D9; color:#fff; padding:12px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Početna</a>' +
-                    '<a href="store.html" style="display:inline-block; background:#fff; color:#4274D9; border:2px solid #4274D9; padding:10px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Pregledaj prodavnicu</a>' +
-                '</div>' +
+        // Insert error message before the (hidden) product section so no Slick
+        // containers are visible and no stray pagination dots appear.
+        $('#product-main-section').before(
+            '<div id="product-not-found" class="section">' +
+                '<div class="container"><div class="row"><div class="col-md-12">' +
+                    '<div style="text-align:center; padding: 80px 20px;">' +
+                        '<div style="font-size: 80px; margin-bottom: 20px;">🔍</div>' +
+                        '<h2 style="font-size: 28px; font-weight: 700; color: #222; margin-bottom: 12px;">Proizvod nije pronađen</h2>' +
+                        '<p style="color: #888; font-size: 15px; max-width: 400px; margin: 0 auto 32px auto; line-height: 1.6;">Traženi proizvod ne postoji ili je uklonjen iz ponude. Pokušajte da pretražite nešto drugo.</p>' +
+                        '<div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">' +
+                            '<a href="index.html" style="display:inline-block; background:#4274D9; color:#fff; padding:12px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Početna</a>' +
+                            '<a href="store.html" style="display:inline-block; background:#fff; color:#4274D9; border:2px solid #4274D9; padding:10px 28px; border-radius:4px; font-size:14px; font-weight:600; text-decoration:none;">Pregledaj prodavnicu</a>' +
+                        '</div>' +
+                    '</div>' +
+                '</div></div></div>' +
             '</div>'
         );
     }
@@ -655,7 +666,7 @@
             email: 'prodaja@firstcode.in.rs',
             address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Momira Gajića 38',
+                streetAddress: 'Miloša Velikog 42',
                 addressLocality: 'Velika Plana',
                 postalCode: '11320',
                 addressCountry: 'RS'
@@ -820,7 +831,8 @@
             },
             error: function() {
                 $spinner.remove();
-                $('#product-main-section').show();
+                // Keep #product-main-section hidden to prevent Slick from rendering
+                // stray pagination dots on empty image containers.
                 showError();
             }
         });

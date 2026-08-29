@@ -12,7 +12,7 @@
         brand:    getParam('brand')    || '',
         search:   getParam('search')   || '',
         page:     parseInt(getParam('page') || '0', 10),
-        size:     21,  // 3x7 grid (3 columns x 7 rows)
+        size:     24,  // 3x8 grid (3 columns x 8 rows)
         sort:     'id,desc',
         viewMode: 'grid', // 'grid' or 'list'
         minPrice: null,
@@ -230,8 +230,16 @@
         var inStockClass = p.inStock ? '' : ' out-of-stock-disabled';
         var inStockBadge = !p.inStock ? '<span class="out-of-stock-badge">Nema na stanju</span>' : '<span class="in-stock-badge">Na stanju</span>';
         
-        // Use shortDescription for list view; fall back gracefully if empty
-        var description = p.shortDescription ? p.shortDescription : 'Opis nije dostupan.';
+        // Use shortDescription for list view; fall back to category link if empty
+        var description;
+        if (p.shortDescription) {
+            description = p.shortDescription;
+        } else if (p.categorySlug) {
+            var catLabel = p.categoryName || p.categorySlug;
+            description = 'Pogledajte sve proizvode u kategoriji <a href="store.html?category=' + p.categorySlug + '">' + catLabel + '</a>.';
+        } else {
+            description = 'Opis nije dostupan.';
+        }
 
         return [
             '<div class="col-md-12">',
@@ -426,7 +434,7 @@
 
     function loadProducts() {
         var $grid = $('#store-products');
-        $grid.html('<div class="col-md-12 text-center" style="padding:40px;"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
+        $grid.html('<div style="width:100%;padding:40px;text-align:center;"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
 
         // Build filter object for POST request
         var filterData = {
@@ -464,7 +472,7 @@
                 var products = data.content || [];
 
                 if (products.length === 0) {
-                    $grid.html('<div class="col-md-12 text-center" style="padding:40px;"><p>Nema pronađenih proizvoda.</p></div>');
+                    $grid.html('<div style="width:100%;padding:40px;text-align:center;"><p>Nema pronađenih proizvoda.</p></div>');
                     $('#store-qty').text('0 products');
                     $('#store-pagination').html('');
                     updateStoreSeo('');
@@ -526,7 +534,7 @@
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     console.error('Server error:', xhr.responseJSON.message);
                 }
-                $grid.html('<div class="col-md-12 text-center" style="padding:40px;"><p>Nije moguće učitati proizvode. Proverite konzolu za detalje.</p></div>');
+                $grid.html('<div style="width:100%;padding:40px;text-align:center;"><p>Nije moguće učitati proizvode. Proverite konzolu za detalje.</p></div>');
             }
         });
     }

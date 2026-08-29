@@ -51,16 +51,27 @@
                     '  <td class="cart-product-name">',
                     '    <h4><a href="product.html?slug=' + item.product.slug + '" title="' + item.product.name + '">' + item.product.name + '</a></h4>',
                     '    ' + brand,
+                    '    <div class="mobile-bottom-row">',
+                    '      <div class="qty-control">',
+                    '        <button class="qty-down" data-product-id="' + item.product.id + '">&#8722;</button>',
+                    '        <input type="number" value="' + item.quantity + '" min="1"' + (item.product.stock > 0 ? ' max="' + item.product.stock + '"' : '') + ' data-product-id="' + item.product.id + '">',
+                    '        <button class="qty-up" data-product-id="' + item.product.id + '">&#43;</button>',
+                    '      </div>',
+                    '      <span class="cart-mobile-subtotal">' + formatPrice(subtotal) + '</span>',
+                    '    </div>',
+                    '    <button class="cart-mobile-remove-btn delete" data-product-id="' + item.product.id + '" title="Ukloni">',
+                    '      <i class="fa fa-trash-o"></i>',
+                    '    </button>',
                     '  </td>',
-                    '  <td style="width:130px;">',
+                    '  <td class="cart-td-qty" style="width:130px;">',
                     '    <div class="qty-control">',
                     '      <button class="qty-down" data-product-id="' + item.product.id + '">&#8722;</button>',
                     '      <input type="number" value="' + item.quantity + '" min="1"' + (item.product.stock > 0 ? ' max="' + item.product.stock + '"' : '') + ' data-product-id="' + item.product.id + '">',
                     '      <button class="qty-up" data-product-id="' + item.product.id + '">&#43;</button>',
                     '    </div>',
                     '  </td>',
-                    '  <td class="cart-product-subtotal">' + formatPrice(subtotal) + '</td>',
-                    '  <td style="width:50px;text-align:center;">',
+                    '  <td class="cart-product-subtotal cart-td-subtotal">' + formatPrice(subtotal) + '</td>',
+                    '  <td class="cart-td-remove" style="width:50px;text-align:center;">',
                     '    <button class="cart-remove-btn delete" data-product-id="' + item.product.id + '" title="Ukloni">',
                     '      <i class="fa fa-trash-o"></i>',
                     '    </button>',
@@ -129,9 +140,13 @@
         item.quantity = quantity;
         var price = item.product.bestOurWebPrice || item.product.bestRetailPrice || 0;
         var subtotal = price * quantity;
+        var formatted = formatPrice(subtotal);
 
         var $row = $('tr[data-product-id="' + productId + '"]');
-        $row.find('.cart-product-subtotal').text(formatPrice(subtotal));
+        // Desktop subtotal cell
+        $row.find('.cart-product-subtotal').text(formatted);
+        // Mobile subtotal span inside name cell
+        $row.find('.cart-mobile-subtotal').text(formatted);
 
         var total = Cart.calculateTotal(cachedCartItems);
         var itemCount = cachedCartItems.reduce(function(acc, i) { return acc + i.quantity; }, 0);
@@ -144,6 +159,8 @@
         var productId = parseInt($(this).data('product-id'));
         var quantity = parseInt($(this).val());
         if (quantity > 0) {
+            // Sync oba qty inputa (mobilni i desktop) na isti value
+            $('input[type="number"][data-product-id="' + productId + '"]').val(quantity);
             Cart.updateQuantity(productId, quantity);
             updateTotalsInDOM(productId, quantity);
         }
@@ -151,7 +168,9 @@
 
     // Qty +
     $(document).on('click', '#cart-container .qty-up', function() {
-        var $input = $(this).siblings('input[type="number"]');
+        // Uzmi vrednost iz prvog inputa za ovaj product (oba su synced)
+        var productId = $(this).data('product-id');
+        var $input = $('input[type="number"][data-product-id="' + productId + '"]').first();
         var val = (parseInt($input.val()) || 1) + 1;
         var max = parseInt($input.attr('max'));
         if (!isNaN(max) && val > max) val = max;
@@ -160,7 +179,8 @@
 
     // Qty -
     $(document).on('click', '#cart-container .qty-down', function() {
-        var $input = $(this).siblings('input[type="number"]');
+        var productId = $(this).data('product-id');
+        var $input = $('input[type="number"][data-product-id="' + productId + '"]').first();
         var val = (parseInt($input.val()) || 2) - 1;
         if (val >= 1) { $input.val(val).trigger('change'); }
     });
