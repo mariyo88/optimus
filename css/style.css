@@ -3404,6 +3404,20 @@ html.filter-drawer-open body {
 
 }
 
+/* Na ekranima ispod 400px sakriti Poređenje */
+@media only screen and (max-width: 400px) {
+  .header-ctn > div:nth-child(2) {
+    display: none;
+  }
+}
+
+/* Na ekranima ispod 340px sakriti i Želje */
+@media only screen and (max-width: 340px) {
+  .header-ctn > div:nth-child(1) {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .section-title .section-nav {
     float: none;

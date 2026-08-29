@@ -270,7 +270,7 @@
         if (totalPages <= 1) return '';
         
         var html = '';
-        var maxVisible = 7; // Show max 7 page numbers at a time
+        var maxVisible = 4; // Show max 4 page numbers at a time
         var startPage = Math.max(0, current - Math.floor(maxVisible / 2));
         var endPage = Math.min(totalPages - 1, startPage + maxVisible - 1);
         
