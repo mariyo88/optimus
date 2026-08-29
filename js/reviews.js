@@ -61,7 +61,7 @@
         // Show empty state in reviews list
         $('#reviews-list').html(
             '<li style="padding: 40px 20px; text-align: center; list-style: none;">' +
-                '<div style="width: 72px; height: 72px; margin: 0 auto 20px; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center;">' +
+                '<div style="width: 72px; height: 72px; margin: 0 auto 20px; background: #F4F4F4; border-radius: 50%; display: flex; align-items: center; justify-content: center;">' +
                     '<i class="fa fa-commenting-o" style="font-size: 30px; color: #ccc;"></i>' +
                 '</div>' +
                 '<h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">Još nema recenzija</h4>' +
@@ -133,7 +133,7 @@
         if (!reviews || reviews.length === 0) {
             $list.html(
                 '<li style="padding: 40px 20px; text-align: center; list-style: none;">' +
-                    '<div style="width: 72px; height: 72px; margin: 0 auto 20px; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center;">' +
+                    '<div style="width: 72px; height: 72px; margin: 0 auto 20px; background: #F4F4F4; border-radius: 50%; display: flex; align-items: center; justify-content: center;">' +
                         '<i class="fa fa-commenting-o" style="font-size: 30px; color: #ccc;"></i>' +
                     '</div>' +
                     '<h4 style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px;">Još nema recenzija</h4>' +
@@ -285,7 +285,7 @@
     function showFormMsg(text, type) {
         var $msg = $('#review-form-msg');
         $msg.text(text)
-            .css('color', type === 'success' ? '#28a745' : '#4274D9')
+            .css('color', type === 'success' ? '#C8102E' : '#C8102E')
             .show();
         if (type === 'success') {
             setTimeout(function () { $msg.fadeOut(); }, 5000);

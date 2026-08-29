@@ -25,7 +25,7 @@
                         self.initSlick();
                     } else {
                         console.log('No brands found');
-                        $(self.containerSelector).html('<p style="text-align: center; color: #8D99AE;">Trenutno nema dostupnih brendova</p>');
+                        $(self.containerSelector).html('<p style="text-align: center; color: #777777;">Trenutno nema dostupnih brendova</p>');
                     }
                 },
                 error: function(xhr, status, error) {

@@ -73,8 +73,8 @@
                 if (products.length === 0) {
                     $grid.html(
                         '<div class="col-md-12 text-center" style="padding: 60px 0;">' +
-                        '<i class="fa fa-info-circle fa-3x" style="color: #8D99AE;"></i>' +
-                        '<p style="margin-top: 20px; color: #8D99AE; font-size: 18px;">Trenutno nema novih proizvoda u ponudi.</p>' +
+                        '<i class="fa fa-info-circle fa-3x" style="color: #777777;"></i>' +
+                        '<p style="margin-top: 20px; color: #777777; font-size: 18px;">Trenutno nema novih proizvoda u ponudi.</p>' +
                         '<a href="store.html" class="primary-btn" style="margin-top: 20px;">Pogledaj sve proizvode</a>' +
                         '</div>'
                     );
@@ -99,8 +99,8 @@
                 console.error('Error loading newest products:', error, xhr);
                 $grid.html(
                     '<div class="col-md-12 text-center" style="padding: 60px 0;">' +
-                    '<i class="fa fa-exclamation-triangle fa-3x" style="color: #D10024;"></i>' +
-                    '<p style="margin-top: 20px; color: #8D99AE; font-size: 18px;">Došlo je do greške pri učitavanju proizvoda.</p>' +
+                    '<i class="fa fa-exclamation-triangle fa-3x" style="color: #C8102E;"></i>' +
+                    '<p style="margin-top: 20px; color: #777777; font-size: 18px;">Došlo je do greške pri učitavanju proizvoda.</p>' +
                     '<button class="primary-btn" style="margin-top: 20px;" onclick="location.reload()">Pokušaj ponovo</button>' +
                     '</div>'
                 );

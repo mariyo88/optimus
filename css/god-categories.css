@@ -152,12 +152,12 @@
 .god-category-list {
     padding: 0;
     margin: 0;
-    background: #fafbfc;
+    background: #FFFFFF;
 }
 
 /* GoD Category Item */
 .god-category-item {
-    border-bottom: 1px solid #f0f2f5;
+    border-bottom: 1px solid #F4F4F4;
     transition: all 0.2s ease;
 }
 
@@ -194,7 +194,7 @@
 }
 
 .god-category-header.active {
-    background: linear-gradient(90deg, var(--filter-active-bg) 0%, #fafbfc 100%);
+    background: linear-gradient(90deg, var(--filter-active-bg) 0%, #FFFFFF 100%);
     color: var(--filter-accent-blue);
     font-weight: 700;
     border-left: 3px solid var(--filter-accent-blue);
@@ -222,7 +222,7 @@
 /* Image variant - no background tint */
 .god-icon.god-icon--image {
     background: transparent;
-    border: 1px solid #edf0f3;
+    border: 1px solid #F4F4F4;
 }
 
 .god-icon.god-icon--image img {
@@ -243,7 +243,7 @@
 
 /* Don't tint image icons on hover */
 .god-category-header:hover .god-icon.god-icon--image {
-    background: #f0f4ff;
+    background: #F4F4F4;
     border-color: var(--filter-accent-blue);
 }
 
@@ -259,7 +259,7 @@
 
 .god-category-item.expanded > .god-category-header .god-icon.god-icon--image,
 .god-category-header.active .god-icon.god-icon--image {
-    background: #f0f4ff;
+    background: #F4F4F4;
     border-color: var(--filter-accent-blue);
 }
 
@@ -293,14 +293,14 @@
 /* Mapped Categories List */
 .mapped-categories-list {
     display: none;
-    background: #f5f7fa;
+    background: #F4F4F4;
     padding: 0;
 }
 
 /* Mapped Category Item */
 .mapped-category-item {
     position: relative;
-    border-bottom: 1px solid #edf0f3;
+    border-bottom: 1px solid #F4F4F4;
 }
 
 .mapped-category-item:last-child {
@@ -351,7 +351,7 @@
     position: absolute;
     left: 38px;
     font-size: 13px;
-    color: #d0d5db;
+    color: #E0E0E0;
     transition: all 0.2s ease;
 }
 
@@ -414,7 +414,7 @@
 /* Sub-Categories List */
 .sub-categories-list {
     display: none;
-    background: #edf0f3;
+    background: #F4F4F4;
     padding: 0;
 }
 
@@ -430,7 +430,7 @@
     border-left: 3px solid transparent;
     position: relative;
     text-decoration: none;
-    border-bottom: 1px solid #e5e9ed;
+    border-bottom: 1px solid #E0E0E0;
     gap: 0;
 }
 
@@ -459,7 +459,7 @@
     position: absolute;
     left: 52px;
     font-size: 12px;
-    color: #dde1e6;
+    color: #E0E0E0;
     transition: all 0.2s ease;
 }
 

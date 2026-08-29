@@ -207,7 +207,7 @@
         // ── Toast notification ────────────────────────────────────────────────
 
         showToast: function (message, type) {
-            var bgColor = type === 'info' ? '#555' : '#4274D9';
+            var bgColor = type === 'info' ? '#555' : '#C8102E';
             var $toast = $('<div class="wishlist-toast">')
                 .html('<i class="fa fa-heart" style="margin-right:8px;"></i>' + message)
                 .css({
@@ -255,10 +255,10 @@
                 '    animation:slideInModal 0.25s ease;overflow:hidden;">',
 
                 '    <!-- Header -->',
-                '    <div style="background:#293681;color:#fff;padding:14px 20px;',
+                '    <div style="background:#0A0A0A;color:#fff;padding:14px 20px;',
                 '      display:flex;align-items:center;justify-content:space-between;">',
                 '      <div style="display:flex;align-items:center;gap:10px;">',
-                '        <i class="fa fa-heart" style="color:#4274D9;font-size:18px;"></i>',
+                '        <i class="fa fa-heart" style="color:#C8102E;font-size:18px;"></i>',
                 '        <span style="font-size:15px;font-weight:600;">Dodato u listu želja</span>',
                 '      </div>',
                 '      <button id="wl-modal-close" style="background:none;border:none;color:#fff;',
@@ -266,14 +266,14 @@
                 '    </div>',
 
                 '    <!-- Product row -->',
-                '    <div style="padding:20px;display:flex;gap:16px;align-items:center;border-bottom:1px solid #f0f0f0;">',
+                '    <div style="padding:20px;display:flex;gap:16px;align-items:center;border-bottom:1px solid #F4F4F4;">',
                 '      <a href="' + productHref + '" style="flex-shrink:0;">',
                 '        <img src="' + imgSrc + '" alt="' + productName + '" style="',
                 '          width:80px;height:80px;object-fit:contain;',
-                '          border:1px solid #eee;border-radius:4px;background:#fafafa;">',
+                '          border:1px solid #eee;border-radius:4px;background:#FFFFFF;">',
                 '      </a>',
                 '      <div style="flex:1;min-width:0;">',
-                '        <a href="' + productHref + '" style="color:#293681;text-decoration:none;',
+                '        <a href="' + productHref + '" style="color:#0A0A0A;text-decoration:none;',
                 '          font-size:14px;font-weight:600;',
                 '          display:-webkit-box;-webkit-line-clamp:2;',
                 '          -webkit-box-orient:vertical;overflow:hidden;">',
@@ -286,8 +286,8 @@
                 '    <div style="padding:12px 20px;background:#f9f9f9;',
                 '      display:flex;align-items:center;justify-content:space-between;',
                 '      font-size:13px;color:#666;border-bottom:1px solid #eee;">',
-                '      <span><i class="fa fa-heart-o" style="margin-right:6px;color:#4274D9;"></i>',
-                '        Lista želja: <strong style="color:#293681;">' + wishCount + ' ' +
+                '      <span><i class="fa fa-heart-o" style="margin-right:6px;color:#C8102E;"></i>',
+                '        Lista želja: <strong style="color:#0A0A0A;">' + wishCount + ' ' +
                             (wishCount === 1 ? 'artikal' : 'artikala') + '</strong>',
                 '      </span>',
                 '    </div>',
@@ -296,18 +296,18 @@
                 '    <div style="padding:16px 20px;display:flex;gap:10px;">',
                 '      <button id="wl-modal-continue" style="',
                 '        flex:1;padding:11px 16px;',
-                '        border:2px solid #4274D9;background:#fff;',
-                '        color:#4274D9;font-size:13px;font-weight:600;',
+                '        border:2px solid #C8102E;background:#fff;',
+                '        color:#C8102E;font-size:13px;font-weight:600;',
                 '        border-radius:4px;cursor:pointer;transition:all 0.2s;">',
                 '        <i class="fa fa-arrow-left" style="margin-right:6px;"></i>Nastavi kupovinu',
                 '      </button>',
                 '      <a href="wishlist.html" style="',
                 '        flex:1;padding:11px 16px;',
-                '        background:#4274D9;color:#fff;',
+                '        background:#C8102E;color:#fff;',
                 '        font-size:13px;font-weight:600;',
                 '        border-radius:4px;cursor:pointer;',
                 '        text-align:center;text-decoration:none;',
-                '        border:2px solid #4274D9;transition:all 0.2s;display:block;">',
+                '        border:2px solid #C8102E;transition:all 0.2s;display:block;">',
                 '        <i class="fa fa-heart" style="margin-right:6px;"></i>Vidi listu',
                 '      </a>',
                 '    </div>',
@@ -318,9 +318,9 @@
                 '<style>',
                 '@keyframes fadeInOverlay { from{opacity:0} to{opacity:1} }',
                 '@keyframes slideInModal { from{transform:translateY(-20px);opacity:0} to{transform:translateY(0);opacity:1} }',
-                '#wl-modal-continue:hover{background:#4274D9 !important;color:#fff !important;}',
+                '#wl-modal-continue:hover{background:#C8102E !important;color:#fff !important;}',
                 '#wl-modal-close:hover{opacity:1 !important;}',
-                '.add-to-wishlist.wishlisted i{color:#4274D9;}',
+                '.add-to-wishlist.wishlisted i{color:#C8102E;}',
                 '</style>'
             ].join('');
 

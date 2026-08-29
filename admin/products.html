@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
   <style>
     .products-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%);
       color: white;
       padding: 2rem;
       border-radius: 8px;
@@ -74,7 +74,7 @@
     .filter-group input:focus,
     .filter-group select:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #C8102E;
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
@@ -97,7 +97,7 @@
       border-bottom: none;
     }
     .product-list-item:hover {
-      background: #f8f9fa;
+      background: #F4F4F4;
     }
 
     .product-image {
@@ -106,7 +106,7 @@
       min-width: 60px;
       border-radius: 6px;
       overflow: hidden;
-      background: #f8f9fa;
+      background: #F4F4F4;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -252,8 +252,8 @@
     }
 
     .btn-product.edit {
-      color: #667eea;
-      border-color: #667eea;
+      color: #C8102E;
+      border-color: #C8102E;
     }
     .btn-product.edit:hover {
       background: #f0f3ff;
@@ -320,7 +320,7 @@
 
     /* Bulk actions styles */
     .bulk-actions-toolbar {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%);
       padding: 1.2rem 2rem;
       border-radius: 10px;
       margin-bottom: 1.5rem;
@@ -396,7 +396,7 @@
 
     .bulk-actions-buttons .btn-light {
       background: white;
-      color: #667eea;
+      color: #C8102E;
     }
 
     .bulk-actions-buttons .btn-light:hover {
@@ -426,13 +426,13 @@
       width: 20px;
       height: 20px;
       cursor: pointer;
-      accent-color: #667eea;
+      accent-color: #C8102E;
     }
 
     .select-all-container {
       padding: 1rem 1.5rem;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border-bottom: 2px solid #667eea;
+      background: linear-gradient(135deg, #F4F4F4 0%, #e9ecef 100%);
+      border-bottom: 2px solid #C8102E;
       display: flex;
       align-items: center;
       gap: 0.8rem;
@@ -451,7 +451,7 @@
       width: 20px;
       height: 20px;
       cursor: pointer;
-      accent-color: #667eea;
+      accent-color: #C8102E;
     }
 
     /* Page size selector */
@@ -482,12 +482,12 @@
 
     .page-size-selector select:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #C8102E;
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
     .page-size-selector select:hover {
-      border-color: #667eea;
+      border-color: #C8102E;
     }
 
     .list-controls {
@@ -705,7 +705,7 @@
         <p style="margin: 0; color: #555;">Da li ste sigurni da želite da obrišete:</p>
         <p id="delete-product-name" style="margin: 0.8rem 0 0; font-weight: 700; color: #222; font-size: 0.95rem; word-break: break-word;"></p>
       </div>
-      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+      <div class="modal-footer" style="border-top: 1px solid #F4F4F4;">
         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Otkaži</button>
         <button type="button" class="btn btn-danger btn-sm" id="confirm-delete-btn" onclick="confirmDeleteProduct()">
           <i class="fa fa-trash mr-1"></i> Obriši
@@ -728,7 +728,7 @@
       <div class="modal-body" style="padding: 1.5rem;">
         <p id="bulk-status-modal-body" style="margin: 0; color: #555;"></p>
       </div>
-      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+      <div class="modal-footer" style="border-top: 1px solid #F4F4F4;">
         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Otkaži</button>
         <button type="button" class="btn btn-sm" id="bulk-status-confirm-btn">Potvrdi</button>
       </div>
@@ -740,7 +740,7 @@
 <div class="modal fade" id="bulkCategoryModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #C8102E 0%, #0A0A0A 100%); color: white; border: none;">
         <h5 class="modal-title"><i class="fa fa-folder-o mr-2"></i> Promena kategorije</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 0.8;">
           <span aria-hidden="true">&times;</span>
@@ -782,7 +782,7 @@
         <p style="margin: 0 0 1rem; color: #555; font-size: 1rem;">
           Da li ste sigurni da želite da pokrenete optimizovani price update za <strong id="price-update-supplier-name"></strong> ?
         </p>
-        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; border-left: 4px solid #3b82f6;">
+        <div style="background: #F4F4F4; padding: 1rem; border-radius: 6px; border-left: 4px solid #3b82f6;">
           <p style="margin: 0 0 0.5rem; font-weight: 600; color: #333;">Aktivnosti:</p>
           <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
             <li>Preuzeti najnovije cene sa <span id="price-update-supplier-name-2"></span> servera</li>
@@ -793,7 +793,7 @@
           <i class="fa fa-info-circle mr-1"></i> Možete pratiti napredak u Import stranici.
         </p>
       </div>
-      <div class="modal-footer" style="border-top: 1px solid #f0f0f0;">
+      <div class="modal-footer" style="border-top: 1px solid #F4F4F4;">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkaži</button>
         <button type="button" class="btn btn-primary" id="price-update-confirm-btn">
           <i class="fa fa-bolt mr-2"></i> Pokreni
