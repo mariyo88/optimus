@@ -208,8 +208,6 @@
         var $container = $('#price-filter-modern');
         if (!$container.length) return;
 
-        console.log('[Price Filter] Loading price ranges for category:', categorySlug, 'godCategory:', godCategorySlug);
-
         $container.html('<div class="price-loading"><i class="fa fa-spinner fa-spin"></i> Učitavanje cena...</div>');
 
         // Reset price filter in state when changing category
@@ -222,13 +220,10 @@
         if (categorySlug) ajaxData.category = categorySlug;
         if (godCategorySlug) ajaxData.godCategory = godCategorySlug;
 
-        console.log('[Price Filter] AJAX request data:', ajaxData);
-
         $.ajax({
             url: API_BASE + '/api/products/price-range',
             data: ajaxData,
             success: function (data) {
-                console.log('[Price Filter] Received price range:', data);
                 var min = data.min != null ? Math.floor(data.min) : 0;
                 var max = data.max != null ? Math.ceil(data.max) : 100000;
                 
@@ -236,8 +231,6 @@
                 if (min === max) max = min + 1000;
                 if (max - min < 100) max = min + 1000;
 
-                console.log('[Price Filter] Adjusted range - min:', min, 'max:', max);
-                
                 buildPriceFilter(min, max);
             },
             error: function (xhr, status, error) {

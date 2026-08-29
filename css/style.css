@@ -71,6 +71,11 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   color: #333;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -641,6 +646,30 @@ textarea.input {
   display: none;
 }
 
+.header-ctn .search-toggle {
+  display: none;
+}
+
+/* Store filter drawer — body scroll lock (ne diramo position:sticky na header-u) */
+html.filter-drawer-open body {
+  overflow: hidden;
+  /* Kompenzujemo nestanak scrollbar-a da ne skače layout */
+  padding-right: 0;
+}
+
+/* Desktop: osiguravamo da .section nema overflow koji kvari sticky */
+#mobile-filter-toggle {
+  display: none;
+}
+
+#filter-close-btn {
+  display: none;
+}
+
+#filter-backdrop {
+  display: none;
+}
+
 .cart-dropdown {
   position: absolute;
   top: 100%;
@@ -830,7 +859,7 @@ textarea.input {
     width: 0%;
     overflow: hidden;
     z-index: 22;
-    padding-top: 60px;
+    padding-top: 110px;
     -webkit-transform: translateX(-100%);
     -ms-transform: translateX(-100%);
     transform: translateX(-100%);
@@ -1599,45 +1628,38 @@ textarea.input {
   display: inline-block;
 }
 
-.store-sort label {
-  font-weight: 500;
-  font-size: 12px;
-  text-transform: uppercase;
-  margin-right: 15px;
-  color: #293681;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .store-sort .input-select {
-  min-width: 180px;
-  padding: 8px 35px 8px 15px;
+  min-width: 220px;
+  padding: 9px 40px 9px 16px;
   font-size: 14px;
-  font-weight: 400;
-  border-radius: 4px;
+  font-weight: 500;
+  color: #2B2D42;
+  border-radius: 6px;
   border: 2px solid #E4E7ED;
   background-color: #FFF;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232B2D42' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234274D9' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
+  background-position: right 14px center;
   background-size: 12px;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  height: 40px;
+  vertical-align: middle;
 }
 
 .store-sort .input-select:hover {
   border-color: #4274D9;
-  box-shadow: 0 2px 8px rgba(66, 116, 217, 0.1);
+  box-shadow: 0 2px 8px rgba(66, 116, 217, 0.15);
 }
 
 .store-sort .input-select:focus {
   outline: none;
   border-color: #4274D9;
-  box-shadow: 0 0 0 3px rgba(66, 116, 217, 0.1);
+  box-shadow: 0 0 0 3px rgba(66, 116, 217, 0.12);
 }
 
 .store-sort .input-select option {
@@ -2440,10 +2462,12 @@ textarea.input {
   margin-top: 0;
   padding: 30px 0;
   background-color: #FBFBFC;
+  overflow: hidden;
 }
 
 .brands-carousel {
   padding: 20px 0;
+  overflow: hidden;
 }
 
 .brands-carousel .brand-item {
@@ -2501,6 +2525,16 @@ textarea.input {
 .brands-carousel .slick-prev:before,
 .brands-carousel .slick-next:before {
   font-size: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .brands-carousel .slick-prev {
+    left: 0;
+  }
+
+  .brands-carousel .slick-next {
+    right: 0;
+  }
 }
 
 /*=========================================================
@@ -2610,6 +2644,16 @@ textarea.input {
 
 .slick-next {
   right: -20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .slick-prev {
+    left: 5px;
+  }
+
+  .slick-next {
+    right: 5px;
+  }
 }
 
 /*----------------------------*\
@@ -2773,6 +2817,380 @@ textarea.input {
 @media only screen and (max-width: 1201px) {}
 
 @media only screen and (max-width: 991px) {
+  /* --- MOBILE HEADER: Opcija A --- */
+
+  /* 1. Top header — kompaktovan za mobilni, prikazuje telefon i email */
+  #top-header {
+    display: block;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  /* Na mobilnom sakriti adresu, ostaviti samo telefon i email */
+  #top-header .header-links.pull-left li:nth-child(3) {
+    display: none;
+  }
+
+  /* Sakriti desnu stranu (RSD, Moj nalog) — nema smisla na mobilnom */
+  #top-header .header-links.pull-right {
+    display: none;
+  }
+
+  /* Centriraj levu listu */
+  #top-header .container {
+    text-align: center;
+  }
+
+  #top-header .header-links.pull-left {
+    float: none !important;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  #top-header .header-links.pull-left li {
+    margin-right: 0;
+    font-size: 12px;
+  }
+
+  /* 2. Sticky header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  /* 3. Kompaktniji main header */
+  #header {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* 4. Header row: gornji red (logo + ikonice) + donji red (search) */
+  #header .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 8px 12px;
+  }
+
+  /* 5. Logo kolona — raste i puni prostor (gura ctn desno) */
+  #header .row > .col-md-3:first-child {
+    flex: 1 1 auto;
+    width: auto;
+    padding: 0;
+    float: none;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Header-ctn kolona — desno, ne raste */
+  #header .row > .col-md-3:last-child {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0;
+    float: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  /* Search kolona — puna širina, drugi red */
+  #header .row > .col-md-6 {
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 0;
+    float: none;
+    order: 3;
+  }
+
+  .header-logo .logo {
+    display: inline-block;
+  }
+
+  .header-logo .logo img {
+    height: 38px;
+    width: auto;
+  }
+
+  /* 7. Search bar — sakriven by default, pokazuje se toggle-om */
+  #header .col-md-6 {
+    order: 2;
+    flex: 0 0 100%;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  }
+
+  #header .col-md-6.search-open {
+    max-height: 60px;
+    padding: 6px 12px 8px 12px;
+    opacity: 1;
+  }
+
+  .header-search {
+    padding: 0;
+  }
+
+  .header-search form {
+    height: 38px;
+    border-radius: 30px;
+  }
+
+  .header-search form .input {
+    font-size: 13px;
+    padding: 0 14px;
+  }
+
+  .header-search form .search-btn {
+    flex: 0 0 44px;
+    width: 44px;
+    border-radius: 0 30px 30px 0;
+  }
+
+  /* Sakriti samo tekst unutar search dugmeta, ikona ostaje */
+  .header-search form .search-btn .btn-text {
+    display: none;
+  }
+
+  .header-search form .search-btn i {
+    font-size: 16px;
+    margin-right: 0;
+  }
+
+  /* Search toggle dugme — vidljiv samo na mobilnom */
+  .header-ctn .search-toggle {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .search-toggle a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .search-toggle a:hover,
+  .search-toggle a.active {
+    background: transparent;
+    color: #4274D9;
+  }
+
+  .search-toggle a > span {
+    display: none;
+  }
+
+  .search-toggle a > i {
+    font-size: 20px;
+  }
+
+  /* 8. Header ctn — desno, samo korpa + hamburger vidljivi */
+  .header-ctn {
+    float: none;
+    padding: 0;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    order: 1;
+  }
+
+  /* Kompaktovati korpu i hamburger dugmad */
+  .header-ctn > div > a {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    transition: none;
+  }
+
+  .header-ctn > div > a:hover,
+  .header-ctn > div > a:focus,
+  .header-ctn > div > a:active {
+    background: transparent;
+  }
+
+  .header-ctn > div > a > span {
+    display: none; /* sakriti labele "Korpa", "Meni" */
+  }
+
+  .header-ctn > div > a > i {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  /* Badge pozicija za korpu */
+  .header-ctn > div > a > .qty,
+  .header-ctn > div > a > .wishlist-count,
+  .header-ctn > div > a > .compare-count {
+    right: 2px;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 10px;
+  }
+
+  /* Cart dropdown — mobilni prikaz */
+
+  /* Overlay pozadina — pokriva ceo ekran, ispod headera/korpe */
+  .cart-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 99;
+    animation: cartOverlayIn 0.2s ease forwards;
+  }
+
+  .cart-overlay.active {
+    display: block;
+  }
+
+  @keyframes cartOverlayIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes cartSlideDown {
+    from { transform: translateY(-12px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
+  .cart-dropdown {
+    position: fixed;
+    top: 62px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-height: calc(100vh - 62px);
+    overflow: hidden;
+    z-index: 999;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdown.open > .cart-dropdown {
+    animation: cartSlideDown 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* Panel header — naslov "Moja korpa" */
+  .cart-dropdown::before {
+    content: 'Moja korpa';
+    display: block;
+    background: #1e2756;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 11px 16px;
+    flex-shrink: 0;
+  }
+
+  /* Scrollabilna lista */
+  .cart-dropdown .cart-list {
+    max-height: 42vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-shrink: 1;
+    padding-top: 10px;
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #c0c8e8 transparent;
+  }
+
+  .cart-dropdown .cart-list::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .cart-dropdown .cart-list::-webkit-scrollbar-thumb {
+    background: #c0c8e8;
+    border-radius: 2px;
+  }
+
+  /* Summary sekcija */
+  .cart-dropdown .cart-summary {
+    background: #f7f8fc;
+    border-top: 1px solid #e4e7ed;
+    padding: 12px 16px;
+    flex-shrink: 0;
+  }
+
+  .cart-dropdown .cart-summary small {
+    font-size: 12px;
+    color: #888;
+  }
+
+  .cart-dropdown .cart-summary h5 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e2756;
+    margin: 4px 0 0;
+  }
+
+  /* Dugmad — veći touch target, full width na mobilnom */
+  .cart-dropdown .cart-btns {
+    margin: 0;
+    flex-shrink: 0;
+    display: flex !important;
+  }
+
+  .cart-dropdown .cart-btns > a {
+    flex: 1;
+    padding: 16px 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    width: auto;
+  }
+
+  .cart-dropdown .cart-btns > a:first-child {
+    border-radius: 0 0 0 16px;
+  }
+
+  .cart-dropdown .cart-btns > a:last-child {
+    border-radius: 0 0 16px 0;
+  }
+
+  /* cart-summary: jQuery show() stavlja display:block — override za flex layout */
+  .cart-dropdown .cart-summary[style*="display: block"],
+  .cart-dropdown .cart-summary[style*="display:block"] {
+    display: block !important;
+  }
+
+  /* 9. Sakriti navigacionu traku ispod headera.
+        VAŽNO: ne koristimo display:none jer bi to sakrilo i #responsive-nav drawer.
+        Koristimo visibility + height trik — drawer ima visibility:visible override. */
+  #navigation {
+    visibility: hidden;
+    height: 0;
+    overflow: visible;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #responsive-nav {
+    visibility: visible;
+  }
+
+  /* Stari float overrides (zadrzavamo zbog kompatibilnosti) */
   #top-header .header-links.pull-left {
     float: none !important;
   }
@@ -2780,13 +3198,7 @@ textarea.input {
     float: none !important;
     margin-top: 5px;
   }
-  .header-logo {
-    float: none;
-    text-align: center;
-  }
-  .header-logo .logo {
-    display: inline-block;
-  }
+
   #product-imgs {
     margin-bottom: 60px;
     margin-top: 15px;
@@ -2798,6 +3210,198 @@ textarea.input {
     margin-top: 30px;
     margin-bottom: 30px;
   }
+
+  /* ============================================================
+     STORE — MOBILE VIEW (max-width: 991px)
+     Artikli su prvi, sidebar je drawer koji se otvara dugmetom
+     ============================================================ */
+
+  /* 1. Store/Aside row — #store prvo, #aside je drawer (position:fixed, izvučen iz flow-a) */
+  #aside.col-md-4,
+  #store.col-md-8 {
+    float: none;
+    width: 100%;
+  }
+
+  #store.col-md-8 {
+    padding: 0 15px;
+  }
+
+  /* 2. Aside — fiksni drawer sa leve strane, sakriven by default */
+  #aside.col-md-4 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100%;
+    height: 100dvh; /* dynamic viewport height — iOS fix */
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    background: #fff;
+    z-index: 200;
+    padding: 20px 16px 80px; /* veći padding-bottom da poslednji filter ne bude isečen */
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+    transform: translateX(-110%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    float: none;
+    order: 2;
+    box-sizing: border-box;
+  }
+
+  #aside.col-md-4.filter-open {
+    transform: translateX(0);
+  }
+
+  /* 3. Backdrop */
+  #filter-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 199;
+    cursor: pointer;
+  }
+
+  #filter-backdrop.active {
+    display: block;
+  }
+
+  /* 4. Mobile filter dugme */
+  #mobile-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    background: #4274D9;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 10px;
+  }
+
+  #mobile-filter-toggle:hover {
+    background: #293681;
+  }
+
+  #mobile-filter-toggle i {
+    font-size: 14px;
+  }
+
+  /* Store filter bar — sve u jedan flex red na mobilnom */
+  .store-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+
+  .section {
+    padding-top: 12px;
+    padding-bottom: 30px;
+  }
+
+  #mobile-filter-toggle {
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .store-sort {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .store-sort .input-select {
+    min-width: 140px;
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 28px 6px 10px;
+  }
+
+  .store-grid {
+    float: none;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 0;
+  }
+
+  .store-grid li + li {
+    margin-left: 0;
+  }
+
+  /* Bottom store filter bar — qty + paginacija */
+  .store-filter:last-of-type {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  #store-qty {
+    margin-right: 0;
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    order: 2; /* qty ispod paginacije */
+  }
+
+  .store-pagination {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    order: 1;
+  }
+
+  .store-pagination li {
+    margin-left: 0;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  .store-pagination li + li {
+    margin-left: 0;
+  }
+
+  /* 5. Zatvori dugme unutar drawera */
+  #filter-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #e4e7ed;
+    padding: 0 0 12px 0;
+    margin-bottom: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e2756;
+    cursor: pointer;
+  }
+
+  #filter-close-btn i {
+    font-size: 18px;
+    color: #999;
+  }
+
+  #filter-close-btn:hover i {
+    color: #D10024;
+  }
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -2808,19 +3412,168 @@ textarea.input {
   .section-tab-nav li {
     margin-top: 10px;
   }
+
+  /* Breadcrumb — wrap na mobilnom, ne prolazi van viewporta */
+  #breadcrumb .breadcrumb-tree {
+    display: block;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  #breadcrumb .breadcrumb-tree li {
+    display: inline;
+  }
 }
 
 @media only screen and (max-width: 480px) {
   [class*='col-xs'] {
     width: 100%;
   }
-  .store-grid {
-    float: none;
-    margin-top: 10px;
+
+  /* Store grid: 2 kolone, jednaka visina */
+  #store-products.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
   }
-  .store-pagination {
-    float: none;
-    margin-top: 10px;
+
+  #store-products.row [class*='col-xs'] {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Kartica zauzima punu visinu kolone */
+  #store-products .product {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 6px 0;
+  }
+
+  /* Slika — fiksna visina */
+  #store-products .product .product-img {
+    height: 140px;
+    flex-shrink: 0;
+  }
+
+  /* Body raste da popuni prostor */
+  #store-products .product .product-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 6px 0;
+  }
+
+  /* Kategorija (brend) */
+  #store-products .product .product-body .product-category {
+    font-size: 9px;
+    margin-bottom: 2px;
+    flex-shrink: 0;
+  }
+
+  /* Naziv — max 3 linije */
+  #store-products .product .product-body .product-name {
+    font-size: 10px;
+    line-height: 1.35;
+    min-height: 0;
+    max-height: none;
+    -webkit-line-clamp: 3;
+    height: auto;
+    margin-bottom: 4px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    flex-shrink: 0;
+  }
+
+  /* Cena */
+  #store-products .product .product-body .product-price {
+    font-size: 12px;
+    height: auto;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  #store-products .product-price-container .product-price-value {
+    font-size: 12px;
+  }
+
+  #store-products .product-price-container .price-label {
+    font-size: 9px;
+  }
+
+  /* Rating — sakrij */
+  #store-products .product .product-body .product-rating {
+    display: none;
+  }
+
+  /* 3 ikonice (wishlist, compare, quick-view) — prikaži na mobilnom */
+  #store-products .product .product-body .product-btns {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-shrink: 0;
+    border-top: 1px solid #E4E7ED;
+    margin-top: auto;
+    padding-top: 6px;
+  }
+
+  #store-products .product .product-body .product-btns > button {
+    width: 33.333%;
+    height: 34px;
+    line-height: 34px;
+    font-size: 12px;
+    border-right: 1px solid #E4E7ED;
+  }
+
+  #store-products .product .product-body .product-btns > button:last-child {
+    border-right: none;
+  }
+
+  /* Sakrij tooltip na mobilnom */
+  #store-products .product .product-body .product-btns > button .tooltipp {
+    display: none;
+  }
+
+  /* "Dodaj u korpu" dugme — static, uvek vidljiv */
+  #store-products .product .add-to-cart {
+    position: static;
+    transform: none !important;
+    -webkit-transform: none !important;
+    padding: 0;
+    margin-top: 0;
+    background: transparent;
+  }
+
+  #store-products .product:hover .add-to-cart {
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+
+  #store-products .product .add-to-cart .add-to-cart-btn {
+    width: 100%;
+    height: 32px;
+    font-size: 9px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 0;
+    border-top: 1px solid #E4E7ED;
+    background-color: #4274D9;
+    color: #FFF;
+    font-weight: 700;
+  }
+
+  /* Ikonica u "dodaj u korpu" — uvek vidljiva */
+  #store-products .product .add-to-cart .add-to-cart-btn > i {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    margin-right: 2px;
+    font-size: 9px;
   }
 }
 
@@ -3063,10 +3816,31 @@ ul.SpecForm .Notice {
   
   .product.product-list .product-actions {
     flex-wrap: wrap;
+    gap: 8px;
   }
 
   .product.product-list .product-actions .add-to-cart-btn {
     flex: 1 1 100%;
+    justify-content: center;
+    padding: 11px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  /* Lista želja i Poređenje — ravnomjerno u drugi red */
+  .product.product-list .product-actions button:not(.add-to-cart-btn) {
+    flex: 1 1 calc(50% - 4px);
+    justify-content: center;
+    border-radius: 6px;
+    border-color: #e4e7ed;
+    color: #4274D9;
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .product.product-list .product-actions button:not(.add-to-cart-btn):hover {
+    background-color: #f0f4ff;
+    border-color: #4274D9;
   }
   
   /* Fix grid view image height on mobile */

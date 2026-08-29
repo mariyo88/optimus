@@ -574,11 +574,13 @@
             Cart.add(productId, quantity, productSlug);
         });
 
-        // Prevent dropdown from closing when clicking inside — delete dugme je izuzetak
+        // Prevent dropdown from closing when clicking inside
+        // Izuzeci: .delete dugme i linkovi sa href (cart-btns navigacija)
         $('.cart-dropdown').on('click', function(e) {
-            if (!$(e.target).closest('.delete').length) {
-                e.stopPropagation();
+            if ($(e.target).closest('a[href]').length || $(e.target).closest('.delete').length) {
+                return; // dozvoli navigaciju i brisanje
             }
+            e.stopPropagation();
         });
 
         // Remove from cart (in dropdown) — direktno vezano na .cart-dropdown da ne bude blokirano stopPropagation-om
@@ -609,6 +611,14 @@
         $(document).on('click', '.header-ctn .dropdown > a', function() {
             setTimeout(function() {
                 if ($('.header-ctn .dropdown').hasClass('open')) {
+                    // Dodaj overlay na mobilnom
+                    if ($(window).width() <= 991) {
+                        if (!$('.cart-overlay').length) {
+                            $('body').append('<div class="cart-overlay active"></div>');
+                        } else {
+                            $('.cart-overlay').addClass('active');
+                        }
+                    }
                     // Recalculate removes inactive/deleted items, then passes results directly
                     // to updateDropdown to avoid a second round of API calls
                     Cart.recalculate(function(cartItems) {
@@ -616,6 +626,19 @@
                     });
                 }
             }, 50);
+        });
+
+        // Zatvori dropdown i ukloni overlay klikom na overlay
+        $(document).on('click', '.cart-overlay', function() {
+            $('.header-ctn .dropdown').removeClass('open');
+            $('.cart-overlay').removeClass('active').remove();
+        });
+
+        // Ukloni overlay kad se dropdown zatvori (klik van dropdowna)
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.header-ctn .dropdown').length) {
+                $('.cart-overlay').removeClass('active').remove();
+            }
         });
     });
 

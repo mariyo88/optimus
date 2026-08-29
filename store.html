@@ -183,6 +183,15 @@
 								</div>
 								<!-- /Cart -->
 
+								<!-- Search Toggle -->
+								<div class="search-toggle">
+									<a href="#" class="search-toggle-btn">
+										<i class="fa fa-search"></i>
+										<span>Pretraga</span>
+									</a>
+								</div>
+								<!-- /Search Toggle -->
+
 								<!-- Menu Toogle -->
 								<div class="menu-toggle">
 									<a href="#">
@@ -246,8 +255,17 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
+
+					<!-- MOBILE FILTER BACKDROP -->
+					<div id="filter-backdrop"></div>
+
 					<!-- ASIDE -->
 					<div id="aside" class="col-md-4">
+						<!-- MOBILE: Zatvori filter drawer -->
+						<button id="filter-close-btn">
+							<span><i class="fa fa-sliders"></i> Filteri</span>
+							<i class="fa fa-times"></i>
+						</button>
 						<!-- aside Widget - GoD Categories or Modern Categories -->
 						<div class="aside">
 							<!-- Toggle between GoD and regular categories -->
@@ -297,18 +315,19 @@
 					<div id="store" class="col-md-8">
 						<!-- store top filter -->
 						<div class="store-filter clearfix">
+							<!-- MOBILE: Filter dugme — vidljivo samo na mobilnom -->
+							<button id="mobile-filter-toggle" class="mobile-filter-btn">
+								<i class="fa fa-sliders"></i> Filteri
+							</button>
 							<div class="store-sort">
-								<label>
-									Sortiraj po:
-									<select id="sort-select" class="input-select">
-										<option value="name,asc">Naziv A-Z</option>
-										<option value="name,desc">Naziv Z-A</option>
-										<option value="bestOurWebPrice,asc">Cena rastuće</option>
-										<option value="bestOurWebPrice,desc">Cena opadajuće</option>
-										<option value="id,desc" selected>Najnovije</option>
-										<option value="createdAt,desc">Nedavno dodato</option>
-									</select>
-								</label>
+								<select id="sort-select" class="input-select">
+									<option value="name,asc">Naziv A-Z</option>
+									<option value="name,desc">Naziv Z-A</option>
+									<option value="bestOurWebPrice,asc">Cena rastuće</option>
+									<option value="bestOurWebPrice,desc">Cena opadajuće</option>
+									<option value="id,desc" selected>Najnovije</option>
+									<option value="createdAt,desc">Nedavno dodato</option>
+								</select>
 							</div>
 							<ul class="store-grid">
 								<li class="active"><i class="fa fa-th"></i></li>
@@ -319,7 +338,7 @@
 
 						<!-- store products -->
 						<div id="store-products" class="row">
-							<div class="col-md-12 text-center" style="padding:40px;">
+							<div style="width:100%;padding:40px;text-align:center;">
 								<i class="fa fa-spinner fa-spin fa-2x"></i>
 							</div>
 						</div>

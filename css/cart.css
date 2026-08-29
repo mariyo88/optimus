@@ -275,6 +275,13 @@
 	box-shadow: 0 8px 24px rgba(66,116,217,0.5);
 }
 
+/* Desktop: sakrij mobilne elemente unutar name TD-a */
+.cart-product-name .mobile-bottom-row,
+.cart-mobile-remove-btn,
+.cart-mobile-subtotal {
+    display: none;
+}
+
 /* Empty state */
 .cart-empty-wrap {
 	background: #fff;
@@ -302,4 +309,241 @@
 	font-weight: 400;
 	color: #999;
 	margin: 0 0 28px;
+}
+
+
+/* ─────────────────────────────────────────────
+   MOBILE CART  (max-width: 767px)
+   Desktop layout is completely untouched.
+───────────────────────────────────────────── */
+@media (max-width: 767px) {
+
+    .cart-page-section {
+        padding: 16px 0 24px;
+    }
+
+    /* ── Stack page columns ── */
+    .cart-page-section .row {
+        display: flex;
+        flex-direction: column;
+    }
+    .cart-page-section .col-md-9,
+    .cart-page-section .col-md-3 {
+        width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /* ── Remove the desktop table wrapper shadow/border on mobile ── */
+    .cart-table-wrap {
+        box-shadow: none;
+        border-radius: 0;
+        background: transparent;
+        margin-bottom: 8px;
+    }
+    .cart-table-wrap .table-responsive {
+        overflow: visible;
+    }
+
+    /* ── Hide desktop table header ── */
+    .cart-table-wrap .table thead {
+        display: none;
+    }
+
+    /* ── Flatten table elements ── */
+    .cart-table-wrap .table,
+    .cart-table-wrap .table tbody {
+        display: block;
+        width: 100%;
+        background: transparent;
+    }
+
+    /* ── Each <tr> = standalone card ── */
+    .cart-table-wrap .table tbody tr {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        gap: 0;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-bottom: none !important;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        position: relative;
+        overflow: visible;
+    }
+    .cart-table-wrap .table tbody tr:hover {
+        background: #fff;
+    }
+
+    /* ── All td reset ── */
+    .cart-table-wrap .table tbody td {
+        display: block;
+        padding: 0;
+        border: none;
+        box-sizing: border-box;
+        background: transparent;
+    }
+
+    /* ── Slika: leva strana ── */
+    .cart-table-wrap .table tbody td.cart-product-img {
+        width: 80px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cart-product-img a {
+        width: 72px;
+        height: 72px;
+        display: block;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #f0f0f0;
+    }
+    .cart-product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* ── Desna strana: naziv + qty + cena ── */
+    .cart-table-wrap .table tbody td.cart-product-name {
+        flex: 1;
+        min-width: 0;
+        padding-left: 10px;
+        padding-right: 36px; /* prostor za X dugme */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+    }
+    .cart-product-name h4 {
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.4;
+        margin: 0;
+        white-space: normal;
+        word-break: break-word;
+        color: #293681;
+    }
+    .cart-product-name .brand-tag {
+        font-size: 10px;
+    }
+
+    /* ── Qty i subtotal unutar name kolone na mobilnom ── */
+    .cart-product-name .mobile-bottom-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    /* ── Mobilni remove btn: prikaži ── */
+    .cart-mobile-remove-btn {
+        display: flex;
+    }
+
+    /* ── Mobilni subtotal: prikaži ── */
+    .cart-mobile-subtotal {
+        display: inline;
+    }
+
+    /* ── Qty, Subtotal i Remove: sakrijemo ih kao zasebne td ── */
+    .cart-table-wrap .table tbody td.cart-td-qty,
+    .cart-table-wrap .table tbody td.cart-td-subtotal,
+    .cart-table-wrap .table tbody td.cart-td-remove {
+        display: none;
+    }
+
+    /* ── Qty control sizing ── */
+    .qty-control {
+        border-radius: 6px;
+    }
+    .qty-control button {
+        width: 30px;
+        height: 32px;
+        font-size: 15px;
+    }
+    .qty-control input[type="number"] {
+        width: 38px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    /* ── Remove btn: apsolutan, gornji desni ugao ── */
+    .cart-mobile-remove-btn {
+        position: absolute;
+        top: 22px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
+        border: 1.5px solid #e0e0e0;
+        border-radius: 6px;
+        background: #fff;
+        color: #bbb;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        outline: none;
+        padding: 0;
+        line-height: 1;
+        font-size: 13px;
+        transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .cart-mobile-remove-btn:hover {
+        background: #4274D9;
+        border-color: #4274D9;
+        color: #fff;
+    }
+
+    /* ── Subtotal u kartici ── */
+    .cart-mobile-subtotal {
+        font-size: 15px;
+        font-weight: 700;
+        color: #D10024;
+        white-space: nowrap;
+    }
+
+    /* ── Summary panel ── */
+    .cart-summary-panel {
+        position: static;
+        margin-top: 8px;
+        border-radius: 12px;
+        padding: 18px 16px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+    }
+    .cart-summary-panel h4 {
+        font-size: 13px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+    }
+    .cart-summary-row {
+        font-size: 13px;
+        padding: 8px 0;
+    }
+    .cart-summary-row.total {
+        font-size: 15px;
+        padding-top: 12px;
+    }
+    .cart-summary-row.total span:last-child {
+        font-size: 20px;
+    }
+
+    /* ── Checkout btn ── */
+    .cart-checkout-btn {
+        padding: 14px;
+        font-size: 15px;
+        margin-top: 16px;
+    }
+
+    /* ── Continue link ── */
+    .cart-continue-link {
+        font-size: 13px;
+        padding: 10px 0 4px;
+        display: inline-flex;
+    }
 }
