@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Prijava - FirstCode</title>
+	<meta name="description" content="Prijavite se na vaš FirstCode nalog.">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+	<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="manifest" href="site.webmanifest">
+	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+	<style>
+		.auth-section { padding: 60px 0 80px; background: #f5f7fa; min-height: calc(100vh - 200px); }
+		.auth-card {
+			background: #fff;
+			border-radius: 8px;
+			box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+			padding: 40px 40px 36px;
+			max-width: 440px;
+			margin: 0 auto;
+		}
+		.auth-card h2 { font-size: 22px; font-weight: 700; color: #293681; margin: 0 0 6px; }
+		.auth-card .auth-subtitle { color: #888; font-size: 14px; margin-bottom: 28px; }
+		.auth-card .form-group { margin-bottom: 18px; }
+		.auth-card label { font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; display: block; }
+		.auth-card .form-control {
+			height: 44px; border-radius: 4px;
+			border: 1px solid #ddd; font-size: 14px;
+			padding: 0 14px; width: 100%; box-sizing: border-box;
+			transition: border-color .2s;
+		}
+		.auth-card .form-control:focus { border-color: #4274D9; outline: none; box-shadow: 0 0 0 3px rgba(66,116,217,0.1); }
+		.auth-btn {
+			width: 100%; height: 46px; background: #293681; color: #fff;
+			border: none; border-radius: 4px; font-size: 15px; font-weight: 600;
+			cursor: pointer; margin-top: 6px; transition: background .2s;
+		}
+		.auth-btn:hover { background: #1e2756; }
+		.auth-btn:disabled { opacity: .6; cursor: not-allowed; }
+		.auth-links { text-align: center; margin-top: 20px; font-size: 13px; color: #666; }
+		.auth-links a { color: #4274D9; text-decoration: none; font-weight: 600; }
+		.auth-links a:hover { text-decoration: underline; }
+		.auth-divider { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+		.auth-alert {
+			padding: 12px 14px; border-radius: 4px; font-size: 13px;
+			margin-bottom: 18px; display: none;
+		}
+		.auth-alert.error { background: #fff0f0; border: 1px solid #ffcccc; color: #c0392b; }
+		.auth-alert.success { background: #f0fff4; border: 1px solid #b2dfdb; color: #1a6b4a; }
+		.auth-alert.warning { background: #fffbf0; border: 1px solid #ffe082; color: #856404; }
+		.forgot-link { float: right; font-size: 12px; color: #4274D9; text-decoration: none; font-weight: 600; margin-top: 2px; }
+		.forgot-link:hover { text-decoration: underline; }
+		.pass-wrap { position: relative; }
+		.pass-toggle {
+			position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+			background: none; border: none; cursor: pointer; color: #999; padding: 0;
+		}
+		.pass-toggle:hover { color: #4274D9; }
+		@media(max-width:480px) { .auth-card { padding: 28px 18px 24px; } }
+	</style>
+</head>
+<body>
+	<!-- HEADER -->
+	<header>
+		<div id="top-header">
+			<div class="container">
+				<ul class="header-links pull-left">
+					<li><a href="tel:+381638558708"><i class="fa fa-phone"></i>+381 (0)63 8558708</a></li>
+					<li><a href="mailto:prodaja@firstcode.in.rs"><i class="fa fa-envelope-o"></i>prodaja@firstcode.in.rs</a></li>
+					<li><a href="https://maps.app.goo.gl/fjSYmDWZfABE9jyM9" target="_blank"><i class="fa fa-map-marker"></i> Miloša Velikog 42, Velika Plana, Srbija</a></li>
+				</ul>
+				<ul class="header-links pull-right">
+					<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
+					<li><a href="login.html" id="nav-account-link"><i class="fa fa-user-o"></i> <span id="nav-account-label">Moj nalog</span></a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="header-logo">
+							<a href="index.html" class="logo"><img src="./img/logo.svg" alt="FirstCode"></a>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="header-search">
+							<form action="store.html" method="get">
+								<input class="input" name="q" placeholder="Pretražite proizvode...">
+								<button type="submit" class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
+							</form>
+						</div>
+					</div>
+					<div class="col-md-3 clearfix">
+						<div class="header-ctn">
+							<div>
+								<a href="wishlist.html" class="wishlist-link">
+									<i class="fa fa-heart-o"></i><span>Želje</span>
+									<div class="wishlist-count">0</div>
+								</a>
+							</div>
+							<div class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									<i class="fa fa-shopping-cart"></i><span>Korpa</span>
+									<div class="qty"></div>
+								</a>
+								<div class="cart-dropdown">
+									<div class="cart-list"></div>
+									<div class="cart-summary"><small>Ukupno:</small><h5></h5></div>
+									<div class="cart-btns">
+										<a href="cart.html">Prikaži korpu</a>
+										<a href="checkout.html">Naručivanje <i class="fa fa-arrow-circle-right"></i></a>
+									</div>
+								</div>
+							</div>
+							<div class="menu-toggle"><a href="#"><i class="fa fa-bars"></i><span>Meni</span></a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- /HEADER -->
+
+	<div class="auth-section">
+		<div class="container">
+			<div class="auth-card">
+				<h2><i class="fa fa-sign-in" style="color:#4274D9;margin-right:8px;"></i>Prijava</h2>
+				<p class="auth-subtitle">Prijavite se na vaš nalog</p>
+
+				<div id="auth-alert" class="auth-alert"></div>
+
+				<form id="login-form" novalidate>
+					<div class="form-group">
+						<label for="email">Email adresa</label>
+						<input type="email" class="form-control" id="email" placeholder="vas@email.com" autocomplete="email" required>
+					</div>
+					<div class="form-group">
+						<label for="password">
+							Lozinka
+							<a href="forgot-password.html" class="forgot-link">Zaboravili ste lozinku?</a>
+						</label>
+						<div class="pass-wrap">
+							<input type="password" class="form-control" id="password" placeholder="Vaša lozinka" autocomplete="current-password" required>
+							<button type="button" class="pass-toggle" data-target="password" tabindex="-1">
+								<i class="fa fa-eye"></i>
+							</button>
+						</div>
+					</div>
+					<button type="submit" class="auth-btn" id="login-btn">
+						<i class="fa fa-sign-in"></i> Prijavi se
+					</button>
+				</form>
+
+				<hr class="auth-divider">
+				<div class="auth-links">
+					Nemate nalog? <a href="register.html">Registrujte se</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<footer id="footer">
+		<div id="bottom-footer" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="copyright">© 2026 FirstCode. Sva prava zadržana.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/auth.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/cart.js"></script>
+	<script src="js/wishlist.js"></script>
+	<script>
+	(function ($) {
+		'use strict';
+
+		// Redirect if already logged in
+		$(document).ready(function () {
+			if (AuthService.isLoggedIn()) {
+				window.location.href = 'account.html';
+				return;
+			}
+
+			// Read ?next= param for post-login redirect
+			var nextUrl = new URLSearchParams(window.location.search).get('next') || 'account.html';
+
+			// Password visibility toggle
+			$(document).on('click', '.pass-toggle', function () {
+				var targetId = $(this).data('target');
+				var $input = $('#' + targetId);
+				var isPass = $input.attr('type') === 'password';
+				$input.attr('type', isPass ? 'text' : 'password');
+				$(this).find('i').toggleClass('fa-eye fa-eye-slash');
+			});
+
+			$('#login-form').on('submit', function (e) {
+				e.preventDefault();
+				var email    = $('#email').val().trim();
+				var password = $('#password').val();
+
+				if (!email || !password) {
+					showAlert('Molimo unesite email i lozinku.', 'error');
+					return;
+				}
+
+				var $btn = $('#login-btn').prop('disabled', true).text('Prijava...');
+
+				AuthService.login(email, password)
+					.then(function () {
+						window.location.href = nextUrl;
+					})
+					.catch(function (err) {
+						$btn.prop('disabled', false).html('<i class="fa fa-sign-in"></i> Prijavi se');
+						var msg = err.message || 'Greška pri prijavi.';
+						if (msg === 'EMAIL_NOT_VERIFIED') {
+							showAlert(
+								'Email adresa nije potvrđena. ' +
+								'<a href="#" id="resend-link">Pošalji ponovo verifikacijski email.</a>',
+								'warning'
+							);
+							$('#resend-link').on('click', function (e) {
+								e.preventDefault();
+								AuthService.resendVerification(email)
+									.then(function () { showAlert('Verifikacijski email je ponovo poslan.', 'success'); })
+									.catch(function () { showAlert('Greška pri slanju emaila.', 'error'); });
+							});
+						} else {
+							showAlert(msg, 'error');
+						}
+					});
+			});
+		});
+
+		function showAlert(msg, type) {
+			$('#auth-alert').removeClass('error success warning').addClass(type).html(msg).show();
+		}
+	})(jQuery);
+	</script>
+</body>
+</html>

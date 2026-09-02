@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Moj nalog - FirstCode</title>
+	<meta name="description" content="Upravljajte vašim FirstCode nalogom, pratite narudžbe i ažurirajte profil.">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+	<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="manifest" href="site.webmanifest">
+	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+	<style>
+		.account-section { padding: 40px 0 70px; background: #f5f7fa; min-height: calc(100vh - 200px); }
+
+		/* Sidebar */
+		.account-sidebar {
+			background: #fff; border-radius: 8px;
+			box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+			overflow: hidden; margin-bottom: 24px;
+		}
+		.account-user-header {
+			background: linear-gradient(135deg, #293681 0%, #4274D9 100%);
+			padding: 24px 20px; text-align: center; color: #fff;
+		}
+		.account-avatar {
+			width: 64px; height: 64px; border-radius: 50%;
+			background: rgba(255,255,255,0.2); margin: 0 auto 12px;
+			display: flex; align-items: center; justify-content: center;
+			font-size: 26px; font-weight: 700; color: #fff;
+		}
+		.account-user-name { font-size: 16px; font-weight: 700; margin: 0 0 2px; }
+		.account-user-email { font-size: 12px; opacity: .8; margin: 0; }
+		.account-nav { list-style: none; margin: 0; padding: 8px 0; }
+		.account-nav li a {
+			display: flex; align-items: center; gap: 10px;
+			padding: 12px 20px; color: #444; font-size: 14px;
+			text-decoration: none; transition: all .15s;
+		}
+		.account-nav li a:hover { background: #f5f7fa; color: #293681; }
+		.account-nav li a.active { background: #f0f4ff; color: #293681; font-weight: 600; border-left: 3px solid #4274D9; }
+		.account-nav li a i { width: 18px; text-align: center; font-size: 15px; }
+		.account-nav li.nav-divider { border-top: 1px solid #f0f0f0; margin: 4px 0; }
+
+		/* Content panels */
+		.account-panel { display: none; }
+		.account-panel.active { display: block; }
+		.account-card {
+			background: #fff; border-radius: 8px;
+			box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+			padding: 28px 28px 24px; margin-bottom: 20px;
+		}
+		.account-card h3 {
+			font-size: 17px; font-weight: 700; color: #293681;
+			margin: 0 0 20px; padding-bottom: 12px;
+			border-bottom: 2px solid #f0f0f0;
+		}
+		.account-card h3 i { margin-right: 8px; color: #4274D9; }
+
+		/* Form */
+		.account-form .form-group { margin-bottom: 16px; }
+		.account-form label { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 5px; display: block; }
+		.account-form .form-control {
+			height: 42px; border-radius: 4px; border: 1px solid #ddd;
+			font-size: 14px; padding: 0 12px; width: 100%; box-sizing: border-box; transition: border-color .2s;
+		}
+		.account-form .form-control:focus { border-color: #4274D9; outline: none; box-shadow: 0 0 0 3px rgba(66,116,217,0.1); }
+		.account-form .form-control[readonly] { background: #f8f9fa; cursor: default; }
+		.save-btn {
+			background: #293681; color: #fff; border: none; border-radius: 4px;
+			padding: 10px 28px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .2s;
+		}
+		.save-btn:hover { background: #1e2756; }
+		.save-btn:disabled { opacity: .6; cursor: not-allowed; }
+		.pass-wrap { position: relative; }
+		.pass-toggle {
+			position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+			background: none; border: none; cursor: pointer; color: #999; padding: 0;
+		}
+		.pass-toggle:hover { color: #4274D9; }
+
+		/* Alert */
+		.account-alert {
+			padding: 10px 14px; border-radius: 4px; font-size: 13px;
+			margin-bottom: 16px; display: none;
+		}
+		.account-alert.error   { background: #fff0f0; border: 1px solid #ffcccc; color: #c0392b; }
+		.account-alert.success { background: #f0fff4; border: 1px solid #b2dfdb; color: #1a6b4a; }
+
+		/* Orders table */
+		.orders-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+		.orders-table th {
+			background: #f8f9fa; padding: 10px 12px;
+			text-align: left; font-size: 12px; font-weight: 700;
+			color: #666; text-transform: uppercase; letter-spacing: .5px;
+			border-bottom: 2px solid #eee;
+		}
+		.orders-table td { padding: 12px 12px; border-bottom: 1px solid #f0f0f0; color: #444; vertical-align: middle; }
+		.orders-table tr:last-child td { border-bottom: none; }
+		.orders-table tr:hover td { background: #fafbff; }
+		.order-status-badge {
+			display: inline-block; padding: 3px 10px; border-radius: 12px;
+			font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+		}
+		.status-CREATED    { background: #e3f2fd; color: #1565c0; }
+		.status-CONFIRMED  { background: #e8f5e9; color: #2e7d32; }
+		.status-PROCESSING { background: #fff3e0; color: #e65100; }
+		.status-SHIPPED    { background: #f3e5f5; color: #6a1b9a; }
+		.status-DELIVERED  { background: #e8f5e9; color: #1b5e20; }
+		.status-CANCELLED  { background: #fce4ec; color: #b71c1c; }
+		.order-detail-btn {
+			color: #4274D9; font-size: 13px; font-weight: 600;
+			text-decoration: none; cursor: pointer; background: none; border: none; padding: 0;
+		}
+		.order-detail-btn:hover { text-decoration: underline; }
+
+		/* Order detail modal */
+		.order-detail-overlay {
+			display: none; position: fixed; inset: 0;
+			background: rgba(0,0,0,.45); z-index: 10000;
+			align-items: center; justify-content: center;
+		}
+		.order-detail-overlay.open { display: flex; }
+		.order-detail-modal {
+			background: #fff; border-radius: 8px; max-width: 600px; width: 94%;
+			max-height: 90vh; overflow-y: auto;
+			box-shadow: 0 10px 40px rgba(0,0,0,.2); padding: 28px;
+		}
+		.order-detail-modal h4 { font-size: 17px; color: #293681; margin: 0 0 16px; font-weight: 700; }
+		.order-info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+		.order-info-row:last-child { border-bottom: none; }
+		.order-info-row .label { color: #888; }
+		.order-info-row .value { font-weight: 600; color: #333; text-align: right; }
+		.modal-close-btn {
+			float: right; background: none; border: none; font-size: 22px;
+			cursor: pointer; color: #999; line-height: 1; margin-top: -4px;
+		}
+		.modal-close-btn:hover { color: #333; }
+		.order-items-list { margin-top: 16px; }
+		.order-item-row {
+			display: flex; align-items: center; gap: 12px;
+			padding: 10px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px;
+		}
+		.order-item-row:last-child { border-bottom: none; }
+		.order-item-name { flex: 1; color: #333; }
+		.order-item-qty  { color: #888; white-space: nowrap; }
+		.order-item-price { font-weight: 700; color: #293681; white-space: nowrap; }
+
+		/* Pagination */
+		.orders-pagination { margin-top: 16px; display: flex; justify-content: center; gap: 6px; }
+		.page-btn {
+			width: 34px; height: 34px; border: 1px solid #ddd; background: #fff;
+			border-radius: 4px; cursor: pointer; font-size: 13px; transition: all .15s;
+		}
+		.page-btn:hover { border-color: #4274D9; color: #4274D9; }
+		.page-btn.active { background: #293681; color: #fff; border-color: #293681; }
+		.page-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+		/* Empty state */
+		.empty-state { text-align: center; padding: 40px 20px; color: #999; }
+		.empty-state i { font-size: 48px; display: block; margin-bottom: 12px; color: #ddd; }
+		.empty-state p { font-size: 14px; }
+
+		/* Loader */
+		.spinner { text-align: center; padding: 30px; color: #999; font-size: 14px; }
+
+		@media(max-width:767px) {
+			.account-sidebar { margin-bottom: 16px; }
+			.account-card { padding: 20px 16px; }
+			.orders-table { font-size: 12px; }
+			.orders-table th, .orders-table td { padding: 8px 6px; }
+		}
+	</style>
+</head>
+<body>
+	<!-- HEADER -->
+	<header>
+		<div id="top-header">
+			<div class="container">
+				<ul class="header-links pull-left">
+					<li><a href="tel:+381638558708"><i class="fa fa-phone"></i>+381 (0)63 8558708</a></li>
+					<li><a href="mailto:prodaja@firstcode.in.rs"><i class="fa fa-envelope-o"></i>prodaja@firstcode.in.rs</a></li>
+					<li><a href="https://maps.app.goo.gl/fjSYmDWZfABE9jyM9" target="_blank"><i class="fa fa-map-marker"></i> Miloša Velikog 42, Velika Plana, Srbija</a></li>
+				</ul>
+				<ul class="header-links pull-right">
+					<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
+					<li><a href="login.html" id="nav-account-link"><i class="fa fa-user-o"></i> <span id="nav-account-label">Moj nalog</span></a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="header-logo">
+							<a href="index.html" class="logo"><img src="./img/logo.svg" alt="FirstCode"></a>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="header-search">
+							<form action="store.html" method="get">
+								<input class="input" name="q" placeholder="Pretražite proizvode...">
+								<button type="submit" class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
+							</form>
+						</div>
+					</div>
+					<div class="col-md-3 clearfix">
+						<div class="header-ctn">
+							<div>
+								<a href="wishlist.html" class="wishlist-link">
+									<i class="fa fa-heart-o"></i><span>Želje</span>
+									<div class="wishlist-count">0</div>
+								</a>
+							</div>
+							<div class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									<i class="fa fa-shopping-cart"></i><span>Korpa</span>
+									<div class="qty"></div>
+								</a>
+								<div class="cart-dropdown">
+									<div class="cart-list"></div>
+									<div class="cart-summary"><small>Ukupno:</small><h5></h5></div>
+									<div class="cart-btns">
+										<a href="cart.html">Prikaži korpu</a>
+										<a href="checkout.html">Naručivanje <i class="fa fa-arrow-circle-right"></i></a>
+									</div>
+								</div>
+							</div>
+							<div class="menu-toggle"><a href="#"><i class="fa fa-bars"></i><span>Meni</span></a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- /HEADER -->
+
+	<!-- ORDER DETAIL MODAL -->
+	<div id="order-detail-overlay" class="order-detail-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
+		<div class="order-detail-modal">
+			<button class="modal-close-btn" id="modal-close" aria-label="Zatvori">&times;</button>
+			<h4 id="modal-order-title">Detalji narudžbe</h4>
+			<div id="modal-order-body"></div>
+		</div>
+	</div>
+
+	<div class="account-section">
+		<div class="container">
+			<div class="row">
+
+				<!-- Sidebar -->
+				<div class="col-md-3">
+					<div class="account-sidebar">
+						<div class="account-user-header">
+							<div class="account-avatar" id="sidebar-avatar">?</div>
+							<p class="account-user-name" id="sidebar-name">Učitavanje...</p>
+							<p class="account-user-email" id="sidebar-email"></p>
+						</div>
+						<ul class="account-nav">
+							<li><a href="#" class="active" data-tab="profile">
+								<i class="fa fa-user"></i> Moj profil
+							</a></li>
+							<li><a href="#" data-tab="orders">
+								<i class="fa fa-list-alt"></i> Moje narudžbe
+							</a></li>
+							<li><a href="#" data-tab="password">
+								<i class="fa fa-lock"></i> Promjena lozinke
+							</a></li>
+							<li class="nav-divider"></li>
+							<li><a href="#" id="account-logout-btn">
+								<i class="fa fa-sign-out" style="color:#e74c3c;"></i>
+								<span style="color:#e74c3c;">Odjavi se</span>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Main content -->
+				<div class="col-md-9">
+
+					<!-- Profile panel -->
+					<div id="panel-profile" class="account-panel active">
+						<div class="account-card">
+							<h3><i class="fa fa-user"></i>Moj profil</h3>
+							<div id="profile-alert" class="account-alert"></div>
+							<form id="profile-form" class="account-form" novalidate>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="prof-firstName">Ime</label>
+											<input type="text" class="form-control" id="prof-firstName" autocomplete="given-name">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="prof-lastName">Prezime</label>
+											<input type="text" class="form-control" id="prof-lastName" autocomplete="family-name">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="prof-email">Email adresa</label>
+									<input type="email" class="form-control" id="prof-email" readonly>
+									<small style="color:#999;font-size:12px;">Email adresa se ne može mijenjati.</small>
+								</div>
+								<div class="form-group">
+									<label for="prof-phone">Telefon</label>
+									<input type="tel" class="form-control" id="prof-phone" autocomplete="tel" placeholder="npr. +381638558708">
+								</div>
+								<button type="submit" class="save-btn" id="profile-save-btn">
+									<i class="fa fa-save"></i> Sačuvaj promjene
+								</button>
+							</form>
+						</div>
+					</div>
+
+					<!-- Orders panel -->
+					<div id="panel-orders" class="account-panel">
+						<div class="account-card">
+							<h3><i class="fa fa-list-alt"></i>Moje narudžbe</h3>
+							<div id="orders-container">
+								<div class="spinner"><i class="fa fa-spinner fa-spin"></i> Učitavanje narudžbi...</div>
+							</div>
+							<div id="orders-pagination" class="orders-pagination"></div>
+						</div>
+					</div>
+
+					<!-- Password panel -->
+					<div id="panel-password" class="account-panel">
+						<div class="account-card">
+							<h3><i class="fa fa-lock"></i>Promjena lozinke</h3>
+							<div id="password-alert" class="account-alert"></div>
+							<form id="password-form" class="account-form" novalidate style="max-width:420px;">
+								<div class="form-group">
+									<label for="curr-password">Trenutna lozinka</label>
+									<div class="pass-wrap">
+										<input type="password" class="form-control" id="curr-password" autocomplete="current-password">
+										<button type="button" class="pass-toggle" data-target="curr-password" tabindex="-1"><i class="fa fa-eye"></i></button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="new-password">Nova lozinka <small style="color:#999;font-weight:400;">(min. 8 znakova)</small></label>
+									<div class="pass-wrap">
+										<input type="password" class="form-control" id="new-password" autocomplete="new-password">
+										<button type="button" class="pass-toggle" data-target="new-password" tabindex="-1"><i class="fa fa-eye"></i></button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="confirm-password">Potvrda nove lozinke</label>
+									<div class="pass-wrap">
+										<input type="password" class="form-control" id="confirm-password" autocomplete="new-password">
+										<button type="button" class="pass-toggle" data-target="confirm-password" tabindex="-1"><i class="fa fa-eye"></i></button>
+									</div>
+								</div>
+								<button type="submit" class="save-btn" id="password-save-btn">
+									<i class="fa fa-save"></i> Promijeni lozinku
+								</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<footer id="footer">
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Informacije</h3>
+							<ul class="footer-links">
+								<li><a href="about.html">O nama</a></li>
+								<li><a href="contact.html">Kontakt</a></li>
+								<li><a href="help.html">Pomoć</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Usluge</h3>
+							<ul class="footer-links">
+								<li><a href="cart.html">Prikaži korpu</a></li>
+								<li><a href="wishlist.html">Lista želja</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="bottom-footer" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="copyright">© 2026 FirstCode. Sva prava zadržana.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/auth.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/main-nav.js"></script>
+	<script src="js/cart.js"></script>
+	<script src="js/wishlist.js"></script>
+	<script>
+	(function ($) {
+		'use strict';
+
+		var API_BASE = window.APP_CONFIG.API_BASE;
+		var currentOrderPage = 0;
+
+		// ── Auth guard ────────────────────────────────────────────────────────
+		$(document).ready(function () {
+			if (!AuthService.requireAuth()) return;
+
+			// Check hash for direct tab navigation (e.g. account.html#orders)
+			var hash = window.location.hash.replace('#', '');
+			if (hash && $('#panel-' + hash).length) {
+				switchTab(hash);
+			}
+
+			loadProfile();
+
+			// ── Tab navigation ────────────────────────────────────────────────
+			$(document).on('click', '.account-nav a[data-tab]', function (e) {
+				e.preventDefault();
+				var tab = $(this).data('tab');
+				switchTab(tab);
+				window.location.hash = tab;
+			});
+
+			// ── Logout ────────────────────────────────────────────────────────
+			$('#account-logout-btn').on('click', function (e) {
+				e.preventDefault();
+				AuthService.logout().then(function () {
+					window.location.href = 'index.html';
+				});
+			});
+
+			// ── Profile form ─────────────────────────────────────────────────
+			$('#profile-form').on('submit', function (e) {
+				e.preventDefault();
+				var $btn = $('#profile-save-btn').prop('disabled', true).text('Čuvanje...');
+
+				AuthService.authFetch('/api/account/me', {
+					method: 'PUT',
+					data: JSON.stringify({
+						firstName: $('#prof-firstName').val().trim(),
+						lastName:  $('#prof-lastName').val().trim(),
+						phone:     $('#prof-phone').val().trim() || null
+					})
+				}).then(function (data) {
+					$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Sačuvaj promjene');
+					updateSidebar(data);
+					showPanelAlert('profile', 'Profil je uspješno ažuriran.', 'success');
+				}).catch(function (err) {
+					$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Sačuvaj promjene');
+					showPanelAlert('profile', err.message || 'Greška pri čuvanju.', 'error');
+				});
+			});
+
+			// ── Password form ─────────────────────────────────────────────────
+			$('#password-form').on('submit', function (e) {
+				e.preventDefault();
+				var curr    = $('#curr-password').val();
+				var newPass = $('#new-password').val();
+				var confirm = $('#confirm-password').val();
+
+				if (!curr || !newPass || !confirm) {
+					showPanelAlert('password', 'Popunite sva polja.', 'error');
+					return;
+				}
+				if (newPass.length < 8) {
+					showPanelAlert('password', 'Nova lozinka mora imati najmanje 8 znakova.', 'error');
+					return;
+				}
+				if (newPass !== confirm) {
+					showPanelAlert('password', 'Lozinke se ne podudaraju.', 'error');
+					return;
+				}
+
+				var $btn = $('#password-save-btn').prop('disabled', true).text('Čuvanje...');
+
+				AuthService.authFetch('/api/account/me/password', {
+					method: 'PUT',
+					data: JSON.stringify({ currentPassword: curr, newPassword: newPass })
+				}).then(function () {
+					$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Promijeni lozinku');
+					$('#password-form')[0].reset();
+					showPanelAlert('password', 'Lozinka je uspješno promijenjena.', 'success');
+				}).catch(function (err) {
+					$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Promijeni lozinku');
+					showPanelAlert('password', err.message || 'Greška pri promjeni lozinke.', 'error');
+				});
+			});
+
+			// ── Password toggle ───────────────────────────────────────────────
+			$(document).on('click', '.pass-toggle', function () {
+				var id = $(this).data('target');
+				var $inp = $('#' + id);
+				$inp.attr('type', $inp.attr('type') === 'password' ? 'text' : 'password');
+				$(this).find('i').toggleClass('fa-eye fa-eye-slash');
+			});
+
+			// ── Order detail modal ────────────────────────────────────────────
+			$(document).on('click', '.order-detail-btn', function () {
+				var orderId = $(this).data('id');
+				loadOrderDetail(orderId);
+			});
+
+			$('#modal-close, #order-detail-overlay').on('click', function (e) {
+				if (e.target === this) $('#order-detail-overlay').removeClass('open');
+			});
+
+			$(document).on('keydown', function (e) {
+				if (e.key === 'Escape') $('#order-detail-overlay').removeClass('open');
+			});
+		});
+
+		// ── Tab switch ────────────────────────────────────────────────────────
+		function switchTab(tab) {
+			$('.account-nav a').removeClass('active');
+			$('.account-nav a[data-tab="' + tab + '"]').addClass('active');
+			$('.account-panel').removeClass('active');
+			$('#panel-' + tab).addClass('active');
+
+			if (tab === 'orders' && $('#orders-container .spinner').length) {
+				loadOrders(0);
+			}
+		}
+
+		// ── Load profile ──────────────────────────────────────────────────────
+		function loadProfile() {
+			AuthService.authFetch('/api/account/me').then(function (data) {
+				$('#prof-firstName').val(data.firstName);
+				$('#prof-lastName').val(data.lastName);
+				$('#prof-email').val(data.email);
+				$('#prof-phone').val(data.phone || '');
+				updateSidebar(data);
+			}).catch(function () {
+				showPanelAlert('profile', 'Greška pri učitavanju profila.', 'error');
+			});
+		}
+
+		function updateSidebar(data) {
+			var initials = ((data.firstName || '?')[0] + (data.lastName || '')[0]).toUpperCase();
+			$('#sidebar-avatar').text(initials);
+			$('#sidebar-name').text(data.firstName + ' ' + data.lastName);
+			$('#sidebar-email').text(data.email);
+		}
+
+		// ── Load orders ───────────────────────────────────────────────────────
+		function loadOrders(page) {
+			currentOrderPage = page;
+			$('#orders-container').html('<div class="spinner"><i class="fa fa-spinner fa-spin"></i> Učitavanje...</div>');
+
+			AuthService.authFetch('/api/account/orders?page=' + page + '&size=10').then(function (data) {
+				if (!data.content || data.content.length === 0) {
+					$('#orders-container').html(
+						'<div class="empty-state"><i class="fa fa-inbox"></i><p>Nemate narudžbi.</p>' +
+						'<a href="store.html" class="save-btn" style="display:inline-block;text-decoration:none;padding:10px 24px;">Idite u prodavnicu</a></div>'
+					);
+					$('#orders-pagination').html('');
+					return;
+				}
+
+				var rows = data.content.map(function (o) {
+					return [
+						'<tr>',
+						'  <td><strong>#' + o.orderNumber + '</strong></td>',
+						'  <td>' + formatDate(o.createdAt) + '</td>',
+						'  <td><span class="order-status-badge status-' + o.orderStatus + '">' + statusLabel(o.orderStatus) + '</span></td>',
+						'  <td style="font-weight:700;color:#293681;">' + formatPrice(o.totalPrice) + '</td>',
+						'  <td><button class="order-detail-btn" data-id="' + o.id + '"><i class="fa fa-eye"></i> Detalji</button></td>',
+						'</tr>'
+					].join('');
+				}).join('');
+
+				var table = [
+					'<div style="overflow-x:auto;">',
+					'<table class="orders-table">',
+					'<thead><tr><th>Broj</th><th>Datum</th><th>Status</th><th>Ukupno</th><th></th></tr></thead>',
+					'<tbody>' + rows + '</tbody>',
+					'</table></div>'
+				].join('');
+				$('#orders-container').html(table);
+
+				renderPagination(data.page, data.totalPages);
+			}).catch(function () {
+				$('#orders-container').html('<div class="empty-state"><i class="fa fa-exclamation-circle"></i><p>Greška pri učitavanju narudžbi.</p></div>');
+			});
+		}
+
+		function renderPagination(page, totalPages) {
+			if (totalPages <= 1) { $('#orders-pagination').html(''); return; }
+			var btns = '';
+			btns += '<button class="page-btn" ' + (page === 0 ? 'disabled' : '') + ' data-page="' + (page - 1) + '"><i class="fa fa-chevron-left"></i></button>';
+			for (var i = 0; i < totalPages; i++) {
+				btns += '<button class="page-btn ' + (i === page ? 'active' : '') + '" data-page="' + i + '">' + (i + 1) + '</button>';
+			}
+			btns += '<button class="page-btn" ' + (page >= totalPages - 1 ? 'disabled' : '') + ' data-page="' + (page + 1) + '"><i class="fa fa-chevron-right"></i></button>';
+			$('#orders-pagination').html(btns);
+
+			$('#orders-pagination').on('click', '.page-btn:not(:disabled):not(.active)', function () {
+				loadOrders(parseInt($(this).data('page')));
+			});
+		}
+
+		// ── Order detail ──────────────────────────────────────────────────────
+		function loadOrderDetail(orderId) {
+			$('#modal-order-body').html('<div class="spinner"><i class="fa fa-spinner fa-spin"></i></div>');
+			$('#order-detail-overlay').addClass('open');
+
+			AuthService.authFetch('/api/account/orders/' + orderId).then(function (o) {
+				var infoHtml = [
+					'<div class="order-info-row"><span class="label">Broj narudžbe</span><span class="value">#' + o.orderNumber + '</span></div>',
+					'<div class="order-info-row"><span class="label">Datum</span><span class="value">' + formatDate(o.createdAt) + '</span></div>',
+					'<div class="order-info-row"><span class="label">Status</span><span class="value"><span class="order-status-badge status-' + o.orderStatus + '">' + statusLabel(o.orderStatus) + '</span></span></div>',
+					'<div class="order-info-row"><span class="label">Adresa dostave</span><span class="value" style="max-width:280px;word-break:break-word;">' + o.deliveryAddress + '</span></div>',
+					'<div class="order-info-row"><span class="label">Ukupno</span><span class="value" style="color:#293681;font-size:16px;">' + formatPrice(o.totalPrice) + '</span></div>'
+				].join('');
+
+				var itemsHtml = (o.items || []).map(function (item) {
+					return [
+						'<div class="order-item-row">',
+						'  <span class="order-item-name">' + item.productName + '</span>',
+						'  <span class="order-item-qty">x' + item.quantity + '</span>',
+						'  <span class="order-item-price">' + formatPrice(item.totalPrice) + '</span>',
+						'</div>'
+					].join('');
+				}).join('');
+
+				$('#modal-order-title').text('Narudžba #' + o.orderNumber);
+				$('#modal-order-body').html(
+					'<div>' + infoHtml + '</div>' +
+					'<div class="order-items-list"><strong style="font-size:13px;color:#666;display:block;margin:16px 0 8px;">Stavke narudžbe</strong>' + itemsHtml + '</div>'
+				);
+			}).catch(function () {
+				$('#modal-order-body').html('<p style="color:#c0392b;font-size:13px;">Greška pri učitavanju narudžbe.</p>');
+			});
+		}
+
+		// ── Alert helper ──────────────────────────────────────────────────────
+		function showPanelAlert(panel, msg, type) {
+			var $el = $('#' + panel + '-alert');
+			$el.removeClass('error success').addClass(type).text(msg).show();
+			setTimeout(function () { $el.fadeOut(); }, 5000);
+		}
+
+		// ── Formatters ────────────────────────────────────────────────────────
+		function formatPrice(val) {
+			if (val == null) return '—';
+			return Number(val).toLocaleString('sr-RS', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' RSD';
+		}
+
+		function formatDate(iso) {
+			if (!iso) return '—';
+			var d = new Date(iso);
+			return d.toLocaleDateString('sr-RS', { day: '2-digit', month: '2-digit', year: 'numeric' });
+		}
+
+		function statusLabel(s) {
+			var map = {
+				CREATED: 'Kreirana', CONFIRMED: 'Potvrđena', PROCESSING: 'Obrađuje se',
+				SHIPPED: 'Poslata', DELIVERED: 'Isporučena', CANCELLED: 'Otkazana'
+			};
+			return map[s] || s;
+		}
+
+	})(jQuery);
+	</script>
+</body>
+</html>

@@ -4,6 +4,84 @@ function formatPrice(val) {
 	return Number(val).toLocaleString('sr-RS', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' RSD';
 }
 
+// ─── Auth header integration ──────────────────────────────────────────────────
+// Runs on every page that includes main.js. Updates #nav-account-link based on
+// login state. AuthService is loaded via auth.js which must be included before
+// main.js in the page.
+
+(function () {
+    function initAuthHeader() {
+        var $link  = $('#nav-account-link');
+        var $label = $('#nav-account-label');
+        if (!$link.length) return;
+
+        if (typeof window.AuthService === 'undefined' || !window.AuthService.isLoggedIn()) {
+            // Not logged in — link to login page (already set as default href)
+            $link.attr('href', 'login.html');
+            $label.text('Moj nalog');
+            return;
+        }
+
+        // Logged in — show first name and account link, add logout option
+        var user = window.AuthService.getUser();
+        var firstName = user && user.firstName ? user.firstName : 'Nalog';
+        $link.attr('href', 'account.html');
+        $label.html(firstName + ' <span style="color:#ccc;font-size:11px;">&#9660;</span>');
+
+        // Wrap in a mini-dropdown if not already done
+        var $li = $link.closest('li');
+        if (!$li.hasClass('auth-dropdown-init')) {
+            $li.addClass('auth-dropdown-init').css('position', 'relative');
+
+            var $dropdown = $([
+                '<ul class="auth-user-dropdown" style="',
+                '  display:none;position:absolute;right:0;top:100%;',
+                '  background:#293681;min-width:160px;z-index:9999;',
+                '  border-radius:0 0 4px 4px;list-style:none;margin:0;padding:4px 0;',
+                '  box-shadow:0 4px 12px rgba(0,0,0,0.2);">',
+                '  <li><a href="account.html" style="display:block;padding:9px 16px;color:#fff;font-size:13px;text-decoration:none;white-space:nowrap;">',
+                '    <i class="fa fa-user" style="margin-right:7px;"></i>Moj profil',
+                '  </a></li>',
+                '  <li><a href="account.html#orders" style="display:block;padding:9px 16px;color:#fff;font-size:13px;text-decoration:none;white-space:nowrap;">',
+                '    <i class="fa fa-list-alt" style="margin-right:7px;"></i>Moje narudžbe',
+                '  </a></li>',
+                '  <li style="border-top:1px solid rgba(255,255,255,0.15);margin-top:4px;padding-top:4px;">',
+                '    <a href="#" id="nav-logout-btn" style="display:block;padding:9px 16px;color:#ff9999;font-size:13px;text-decoration:none;white-space:nowrap;">',
+                '      <i class="fa fa-sign-out" style="margin-right:7px;"></i>Odjavi se',
+                '    </a>',
+                '  </li>',
+                '</ul>'
+            ].join(''));
+
+            $li.append($dropdown);
+
+            // Toggle dropdown on link click
+            $link.on('click', function (e) {
+                e.preventDefault();
+                $dropdown.toggle();
+            });
+
+            // Close on outside click
+            $(document).on('click.authdropdown', function (e) {
+                if (!$li.is(e.target) && !$li.has(e.target).length) {
+                    $dropdown.hide();
+                }
+            });
+
+            // Logout
+            $dropdown.on('click', '#nav-logout-btn', function (e) {
+                e.preventDefault();
+                window.AuthService.logout().then(function () {
+                    window.location.href = 'index.html';
+                });
+            });
+        }
+    }
+
+    // Run after DOM ready — AuthService must be available by then
+    document.addEventListener('DOMContentLoaded', initAuthHeader);
+})();
+
 (function($) {
 	"use strict"
 
