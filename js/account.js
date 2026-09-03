@@ -45,11 +45,11 @@
 					phone:     $('#prof-phone').val().trim() || null
 				})
 			}).then(function (data) {
-				$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Sačuvaj promjene');
+				$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Sačuvaj promene');
 				updateSidebar(data);
 				showPanelAlert('profile', 'Profil je uspješno ažuriran.', 'success');
 			}).catch(function (err) {
-				$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Sačuvaj promjene');
+				$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Sačuvaj promene');
 				showPanelAlert('profile', err.message || 'Greška pri čuvanju.', 'error');
 			});
 		});
@@ -82,10 +82,10 @@
 			}).then(function () {
 				$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Promijeni lozinku');
 				$('#password-form')[0].reset();
-				showPanelAlert('password', 'Lozinka je uspješno promijenjena.', 'success');
+				showPanelAlert('password', 'Lozinka je uspješno promenjena.', 'success');
 			}).catch(function (err) {
 				$btn.prop('disabled', false).html('<i class="fa fa-save"></i> Promijeni lozinku');
-				showPanelAlert('password', err.message || 'Greška pri promjeni lozinke.', 'error');
+				showPanelAlert('password', err.message || 'Greška pri promeni lozinke.', 'error');
 			});
 		});
 
@@ -152,7 +152,7 @@
 		AuthService.authFetch('/api/account/orders?page=' + page + '&size=10').then(function (data) {
 			if (!data.content || data.content.length === 0) {
 				$('#orders-container').html(
-					'<div class="empty-state"><i class="fa fa-inbox"></i><p>Nemate narudžbi.</p>' +
+					'<div class="empty-state"><i class="fa fa-inbox"></i><p>Nemate narudžbine.</p>' +
 					'<a href="store.html" class="save-btn" style="display:inline-block;text-decoration:none;padding:10px 24px;">Idite u prodavnicu</a></div>'
 				);
 				$('#orders-pagination').html('');
@@ -182,7 +182,7 @@
 
 			renderPagination(data.page, data.totalPages);
 		}).catch(function () {
-			$('#orders-container').html('<div class="empty-state"><i class="fa fa-exclamation-circle"></i><p>Greška pri učitavanju narudžbi.</p></div>');
+			$('#orders-container').html('<div class="empty-state"><i class="fa fa-exclamation-circle"></i><p>Greška pri učitavanju narudžbina.</p></div>');
 		});
 	}
 
@@ -208,7 +208,7 @@
 
 		AuthService.authFetch('/api/account/orders/' + orderId).then(function (o) {
 			var infoHtml = [
-				'<div class="order-info-row"><span class="label">Broj narudžbe</span><span class="value">#' + o.orderNumber + '</span></div>',
+				'<div class="order-info-row"><span class="label">Broj narudžbine</span><span class="value">#' + o.orderNumber + '</span></div>',
 				'<div class="order-info-row"><span class="label">Datum</span><span class="value">' + formatDate(o.createdAt) + '</span></div>',
 				'<div class="order-info-row"><span class="label">Status</span><span class="value"><span class="order-status-badge status-' + o.orderStatus + '">' + statusLabel(o.orderStatus) + '</span></span></div>',
 				'<div class="order-info-row"><span class="label">Adresa dostave</span><span class="value" style="max-width:280px;word-break:break-word;">' + o.deliveryAddress + '</span></div>',
@@ -228,10 +228,10 @@
 			$('#modal-order-title').text('Narudžba #' + o.orderNumber);
 			$('#modal-order-body').html(
 				'<div>' + infoHtml + '</div>' +
-				'<div class="order-items-list"><strong style="font-size:13px;color:#666;display:block;margin:16px 0 8px;">Stavke narudžbe</strong>' + itemsHtml + '</div>'
+				'<div class="order-items-list"><strong style="font-size:13px;color:#666;display:block;margin:16px 0 8px;">Stavke narudžbine</strong>' + itemsHtml + '</div>'
 			);
 		}).catch(function () {
-			$('#modal-order-body').html('<p style="color:#c0392b;font-size:13px;">Greška pri učitavanju narudžbe.</p>');
+			$('#modal-order-body').html('<p style="color:#c0392b;font-size:13px;">Greška pri učitavanju narudžbine.</p>');
 		});
 	}
 

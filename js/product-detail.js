@@ -297,71 +297,115 @@
         var imgCount = images.length;
         var thumbsToShow = Math.min(3, imgCount);
         var useInfinite = imgCount > 3;
+        var isMobile = $(window).width() < 991;
 
-        // Init thumb first, then main (asNavFor requires both to exist)
-        $thumbSlick.slick({
-            slidesToShow: thumbsToShow,
-            slidesToScroll: 1,
-            arrows: imgCount > thumbsToShow,
-            infinite: useInfinite,
-            centerMode: false,
-            focusOnSelect: true,
-            centerPadding: 0,
-            vertical: true,
-            verticalSwiping: true,
-            adaptiveHeight: false,
-            asNavFor: '#product-main-img',
-            responsive: [{ breakpoint: 991, settings: { vertical: false, arrows: false, dots: imgCount > 1, centerMode: false, infinite: useInfinite } }]
+        // ── MOBILE: native horizontal scroll for thumbnails ──────────────────
+        // Slick intercepts touch events and prevents vertical page scroll when
+        // the user has 4+ thumbnails. On mobile we skip Slick entirely for the
+        // thumb rail and use a plain scrollable flex container instead.
+        if (isMobile) {
+            // Wrap all .product-preview elements inside a native scroll rail
+            $thumbSlick.addClass('product-imgs-native-scroll');
+
+            // Clicking a thumb syncs the main Slick slider
+            $thumbSlick.on('click.nativeThumb', '.product-preview', function () {
+                var idx = $(this).index();
+                $mainSlick.slick('slickGoTo', idx);
+                $thumbSlick.find('.product-preview').removeClass('slick-current');
+                $(this).addClass('slick-current');
+            });
+
+            // Init only the main slider (no asNavFor on mobile)
+            $mainSlick.slick({
+                infinite: useInfinite,
+                speed: 300,
+                dots: false,
+                arrows: false,
+                swipe: true,
+                draggable: true,
+                touchMove: true,
+                fade: false,
+                adaptiveHeight: false
+            });
+
+            // Keep thumb highlight in sync when main slider changes
+            $mainSlick.on('afterChange.nativeThumb', function (e, slick, currentSlide) {
+                $thumbSlick.find('.product-preview').removeClass('slick-current');
+                $thumbSlick.find('.product-preview').eq(currentSlide).addClass('slick-current');
+                // Scroll active thumb into view
+                var $active = $thumbSlick.find('.product-preview').eq(currentSlide);
+                if ($active.length) {
+                    var rail = $thumbSlick[0];
+                    var thumbLeft = $active[0].offsetLeft;
+                    var thumbWidth = $active[0].offsetWidth;
+                    var railWidth = rail.offsetWidth;
+                    var scrollTarget = thumbLeft - (railWidth / 2) + (thumbWidth / 2);
+                    rail.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+                }
+            });
+
+            // Mark first thumb as active
+            $thumbSlick.find('.product-preview').first().addClass('slick-current');
+
+            // Hide thumb rail when only one image
+            if (imgCount <= 1) {
+                $thumbSlick.hide();
+            }
+
+        // ── DESKTOP: Slick vertical thumbnail slider ─────────────────────────
+        } else {
+            $thumbSlick.slick({
+                slidesToShow: thumbsToShow,
+                slidesToScroll: 1,
+                arrows: imgCount > thumbsToShow,
+                infinite: useInfinite,
+                centerMode: false,
+                focusOnSelect: true,
+                centerPadding: 0,
+                vertical: true,
+                verticalSwiping: true,
+                adaptiveHeight: false,
+                asNavFor: '#product-main-img'
+            });
+
+            $mainSlick.slick({
+                infinite: imgCount > 3,
+                speed: 300,
+                dots: false,
+                arrows: false,
+                swipe: false,
+                draggable: false,
+                touchMove: false,
+                fade: true,
+                adaptiveHeight: false,
+                asNavFor: '#product-imgs'
+            });
+
+            // Fix thumb height to match number of visible thumbnails
+            var THUMB_HEIGHT = 155; // px, matches CSS
+            var THUMB_MARGIN = 5;
+            var thumbHeight = thumbsToShow * (THUMB_HEIGHT + THUMB_MARGIN * 2);
+            $thumbSlick.css('height', thumbHeight + 'px');
+            $thumbSlick.find('.slick-list').css('height', thumbHeight + 'px');
+        }
+
+        // Re-init slider layout on orientation/resize crossing the breakpoint
+        $(window).off('resize.productImgs').on('resize.productImgs', function () {
+            var nowMobile = $(window).width() < 991;
+            if (nowMobile !== isMobile) {
+                // Re-render to rebuild correct slider type
+                renderImages(product);
+            }
         });
 
-        $mainSlick.slick({
-            infinite: imgCount > 3,
-            speed: 300,
-            dots: false,
-            arrows: false,
-            swipe: false,
-            draggable: false,
-            touchMove: false,
-            fade: true,
-            adaptiveHeight: false,
-            asNavFor: '#product-imgs'
-        });
-
-        // Reveal both containers now that Slick is ready
+        // Reveal both containers now that everything is ready
         $mainSlick.css('visibility', 'visible');
         $thumbSlick.css('visibility', 'visible');
 
-        // Hide thumb container on mobile when there is only one image
-        function applyThumbVisibility() {
-            if ($(window).width() < 991 && imgCount <= 1) {
-                $thumbSlick.closest('#product-imgs').hide();
-            } else {
-                $thumbSlick.closest('#product-imgs').show();
-            }
+        // Re-init zoom on new slides (desktop only — zoom on mobile is awkward)
+        if (!isMobile) {
+            $mainSlick.find('.product-preview').zoom();
         }
-        applyThumbVisibility();
-        $(window).off('resize.productThumbVisibility').on('resize.productThumbVisibility', applyThumbVisibility);
-
-        // Fix thumb height to match number of visible thumbnails (vertical mode only)
-        var THUMB_HEIGHT = 155; // px, matches CSS
-        var THUMB_MARGIN = 5;   // margin between slides
-        function applyThumbHeight() {
-            if ($(window).width() < 991) {
-                // On mobile the slider is horizontal — remove any inline height
-                $thumbSlick.css('height', '');
-                $thumbSlick.find('.slick-list').css('height', '');
-            } else {
-                var thumbHeight = thumbsToShow * (THUMB_HEIGHT + THUMB_MARGIN * 2);
-                $thumbSlick.css('height', thumbHeight + 'px');
-                $thumbSlick.find('.slick-list').css('height', thumbHeight + 'px');
-            }
-        }
-        applyThumbHeight();
-        // Re-apply on window resize
-        $(window).off('resize.productImgs').on('resize.productImgs', applyThumbHeight);
-
-        // Re-init zoom on new slides
-        $mainSlick.find('.product-preview').zoom();
     }
 
     function generateBarcodeVisualization(ean) {

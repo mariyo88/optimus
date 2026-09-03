@@ -15,18 +15,29 @@ function formatPrice(val) {
         var $label = $('#nav-account-label');
         if (!$link.length) return;
 
+        // Update all static footer "Moj nalog" links based on login state
+        var $footerAccountLinks = $('footer a[href="account.html"], footer a[href="login.html"]').filter(function () {
+            return $(this).text().trim() === 'Moj nalog';
+        });
+
         if (typeof window.AuthService === 'undefined' || !window.AuthService.isLoggedIn()) {
             // Not logged in — link to login page (already set as default href)
             $link.attr('href', 'login.html');
             $label.text('Moj nalog');
+            $footerAccountLinks.attr('href', 'login.html');
             return;
         }
+
+        // Logged in — footer links go to account
+        $footerAccountLinks.attr('href', 'account.html');
 
         // Logged in — show first name and account link, add logout option
         var user = window.AuthService.getUser();
         var firstName = user && user.firstName ? user.firstName : 'Nalog';
+        var lastName = user && user.lastName ? user.lastName : '';
+        var displayName = lastName ? firstName + ' ' + lastName : firstName;
         $link.attr('href', 'account.html');
-        $label.html(firstName + ' <span style="color:#ccc;font-size:11px;">&#9660;</span>');
+        $label.html(displayName + ' <span style="color:#ccc;font-size:11px;">&#9660;</span>');
 
         // Wrap in a mini-dropdown if not already done
         var $li = $link.closest('li');
@@ -43,7 +54,7 @@ function formatPrice(val) {
                 '    <i class="fa fa-user" style="margin-right:7px;"></i>Moj profil',
                 '  </a></li>',
                 '  <li><a href="account.html#orders" style="display:block;padding:9px 16px;color:#fff;font-size:13px;text-decoration:none;white-space:nowrap;">',
-                '    <i class="fa fa-list-alt" style="margin-right:7px;"></i>Moje narudžbe',
+                '    <i class="fa fa-list-alt" style="margin-right:7px;"></i>Moje narudžbine',
                 '  </a></li>',
                 '  <li style="border-top:1px solid rgba(255,255,255,0.15);margin-top:4px;padding-top:4px;">',
                 '    <a href="#" id="nav-logout-btn" style="display:block;padding:9px 16px;color:#ff9999;font-size:13px;text-decoration:none;white-space:nowrap;">',

@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Moj nalog - FirstCode</title>
-	<meta name="description" content="Upravljajte vašim FirstCode nalogom, pratite narudžbe i ažurirajte profil.">
+	<meta name="description" content="Upravljajte vašim FirstCode nalogom, pratite narudžbine i ažurirajte profil.">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link type="text/css" rel="stylesheet" href="css/slick.css"/>
@@ -147,12 +147,28 @@
 	</header>
 	<!-- /HEADER -->
 
+	<!-- NAVIGATION -->
+	<nav id="navigation">
+		<!-- container -->
+		<div class="container">
+			<!-- responsive-nav -->
+			<div id="responsive-nav">
+				<!-- NAV -->
+				<!-- Static nav links for search engine crawlers; JS overwrites with full mega-menu at runtime -->
+				<ul class="main-nav nav navbar-nav"></ul>
+				<!-- /NAV -->
+			</div>
+			<!-- /responsive-nav -->
+		</div>
+		<!-- /container -->
+	</nav>
+	<!-- /NAVIGATION -->
 
 	<!-- ORDER DETAIL MODAL -->
 	<div id="order-detail-overlay" class="order-detail-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
 		<div class="order-detail-modal">
 			<button class="modal-close-btn" id="modal-close" aria-label="Zatvori">&times;</button>
-			<h4 id="modal-order-title">Detalji narudžbe</h4>
+			<h4 id="modal-order-title">Detalji narudžbine</h4>
 			<div id="modal-order-body"></div>
 		</div>
 	</div>
@@ -174,10 +190,10 @@
 								<i class="fa fa-user"></i> Moj profil
 							</a></li>
 							<li><a href="#" data-tab="orders">
-								<i class="fa fa-list-alt"></i> Moje narudžbe
+								<i class="fa fa-list-alt"></i> Moje narudžbine
 							</a></li>
 							<li><a href="#" data-tab="password">
-								<i class="fa fa-lock"></i> Promjena lozinke
+								<i class="fa fa-lock"></i> Promena lozinke
 							</a></li>
 							<li class="nav-divider"></li>
 							<li><a href="#" id="account-logout-btn">
@@ -214,7 +230,7 @@
 								<div class="form-group">
 									<label for="prof-email">Email adresa</label>
 									<input type="email" class="form-control" id="prof-email" readonly>
-									<small style="color:#999;font-size:12px;">Email adresa se ne može mijenjati.</small>
+									<small style="color:#999;font-size:12px;">Email adresa se ne može menjati.</small>
 								</div>
 								<div class="form-group">
 									<label for="prof-phone">Telefon</label>
@@ -230,9 +246,9 @@
 					<!-- Orders panel -->
 					<div id="panel-orders" class="account-panel">
 						<div class="account-card">
-							<h3><i class="fa fa-list-alt"></i>Moje narudžbe</h3>
+							<h3><i class="fa fa-list-alt"></i>Moje narudžbine</h3>
 							<div id="orders-container">
-								<div class="spinner"><i class="fa fa-spinner fa-spin"></i> Učitavanje narudžbi...</div>
+								<div class="spinner"><i class="fa fa-spinner fa-spin"></i> Učitavanje narudžbina...</div>
 							</div>
 							<div id="orders-pagination" class="orders-pagination"></div>
 						</div>
@@ -241,7 +257,7 @@
 					<!-- Password panel -->
 					<div id="panel-password" class="account-panel">
 						<div class="account-card">
-							<h3><i class="fa fa-lock"></i>Promjena lozinke</h3>
+							<h3><i class="fa fa-lock"></i>Promena lozinke</h3>
 							<div id="password-alert" class="account-alert"></div>
 							<form id="password-form" class="account-form" novalidate style="max-width:420px;">
 								<div class="form-group">
@@ -329,7 +345,7 @@
 						<div class="footer">
 							<h3 class="footer-title">Usluge</h3>
 							<ul class="footer-links">
-								<li><a href="under-construction.html">Moj nalog</a></li>
+								<li><a href="login.html">Moj nalog</a></li>
 								<li><a href="cart.html">Prikaži korpu</a></li>
 								<li><a href="wishlist.html">Lista želja</a></li>
 								<li><a href="under-construction.html">Prati porudžbinu</a></li>
@@ -378,6 +394,8 @@
 	<script src="js/main.js"></script>
 	<script src="js/main-nav.js"></script>
 	<script src="js/cart.js"></script>
+	<script src="js/main-nav.js"></script>
+	<script src="js/header-search.js"></script>
 	<script src="js/wishlist.js"></script>
 	<script src="js/account.js"></script>
 </body>
