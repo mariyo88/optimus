@@ -24,7 +24,7 @@
 
  		<!-- Font Awesome Icon -->
  		<link rel="stylesheet" href="css/font-awesome.min.css">
- 		
+
 		<!-- Favicon -->
 		<link rel="icon" type="image/x-icon" href="favicon.ico">
 		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -39,14 +39,6 @@
 		<link type="text/css" rel="stylesheet" href="css/page-hero.css"/>
 		<!-- Checkout stylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/checkout.css"/>
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
     </head>
 	<body>
 		<!-- HEADER -->
@@ -62,7 +54,7 @@
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> Moj nalog</a></li>
+						<li><a href="login.html" id="nav-account-link"><i class="fa fa-user-o"></i> <span id="nav-account-label">Moj nalog</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -238,8 +230,8 @@
 										Kreirati nalog?
 									</label>
 									<div class="caption">
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-										<input class="input" type="password" name="password" placeholder="Unesite lozinku">
+										<p>Kreiranjem naloga možete pratiti status narudžbine, upravljati adresama za isporuku i brže obavljati buduće kupovine.</p>
+										<input class="input" type="password" name="password" id="account-password" placeholder="Unesite lozinku" autocomplete="new-password" value="">
 									</div>
 								</div>
 							</div>
@@ -500,8 +492,9 @@
 		<script src="js/slick.min.js"></script>
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/main.js"></script>
 		<script src="js/config.js"></script>
+        <script src="js/auth.js"></script>
+        <script src="js/main.js"></script>
 		<script src="js/main-nav.js"></script>
 		<script src="js/header-search.js"></script>
 		<script src="js/cart.js"></script>

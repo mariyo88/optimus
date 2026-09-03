@@ -104,6 +104,44 @@
         ].join(''));
     }
 
+    function renderAccountNotice() {
+        var accountCreated = getParam('accountCreated');
+        var accountError   = getParam('accountError');
+
+        if (!accountCreated && !accountError) return;
+
+        var noticeHtml;
+        if (accountCreated === 'true') {
+            noticeHtml = [
+                '<div style="',
+                '    background:#d4edda;border:1px solid #c3e6cb;border-radius:4px;',
+                '    padding:16px 20px;margin-top:20px;text-align:left;',
+                '">',
+                '  <i class="fa fa-envelope" style="color:#28a745;margin-right:8px;"></i>',
+                '  <strong>Nalog je kreiran!</strong> Poslali smo vam email za verifikaciju. ',
+                '  Aktivirajte nalog klikom na link u emailu da biste se mogli prijaviti.',
+                '</div>'
+            ].join('');
+        } else {
+            var errMsg = decodeURIComponent(accountError || '');
+            var isEmailTaken = errMsg.toLowerCase().indexOf('već postoji') !== -1 ||
+                               errMsg.toLowerCase().indexOf('email') !== -1;
+            noticeHtml = [
+                '<div style="',
+                '    background:#fff3cd;border:1px solid #ffeeba;border-radius:4px;',
+                '    padding:16px 20px;margin-top:20px;text-align:left;',
+                '">',
+                '  <i class="fa fa-exclamation-triangle" style="color:#856404;margin-right:8px;"></i>',
+                isEmailTaken
+                    ? '<strong>Nalog nije kreiran.</strong> Korisnik sa ovim emailom već postoji. <a href="login.html">Prijavite se</a>.'
+                    : '<strong>Nalog nije kreiran.</strong> Porudžbina je uspješno primljena, ali kreiranje naloga nije uspjelo. Pokušajte da se <a href="register.html">registrujete</a> ručno.',
+                '</div>'
+            ].join('');
+        }
+
+        $('#confirmation-content').append(noticeHtml);
+    }
+
     $(document).ready(function() {
         var orderId = getParam('orderId');
         var orderNumber = getParam('orderNumber');
@@ -124,6 +162,7 @@
             } else {
                 renderError();
             }
+            renderAccountNotice();
             return;
         }
 
@@ -132,6 +171,7 @@
             method: 'GET',
             success: function(order) {
                 renderConfirmation(order);
+                renderAccountNotice();
             },
             error: function() {
                 renderError();

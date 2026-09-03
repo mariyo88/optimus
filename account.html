@@ -4,38 +4,21 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>U izradi - FirstCode</title>
-	<meta name="description" content="Ova stranica je trenutno u izradi. Uskoro dostupno.">
-
-	<!-- Google font -->
+	<title>Moj nalog - FirstCode</title>
+	<meta name="description" content="Upravljajte vašim FirstCode nalogom, pratite narudžbe i ažurirajte profil.">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
-	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
-	<!-- Slick -->
 	<link type="text/css" rel="stylesheet" href="css/slick.css"/>
 	<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
-
-	<!-- nouislider -->
 	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
-
-	<!-- Font Awesome Icon -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-
-	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 	<link rel="manifest" href="site.webmanifest">
-
-	<!-- Custom stylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css"/>
-
-	<!-- Under Construction stylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/under-construction.css"/>
+	<link type="text/css" rel="stylesheet" href="css/account.css"/>
 </head>
 <body>
 	<!-- HEADER -->
@@ -59,13 +42,15 @@
 
 		<!-- MAIN HEADER -->
 		<div id="header">
+			<!-- container -->
 			<div class="container">
+				<!-- row -->
 				<div class="row">
 					<!-- LOGO -->
 					<div class="col-md-3">
 						<div class="header-logo">
 							<a href="index.html" class="logo">
-								<img src="./img/logo.svg" alt="">
+								<img src="./img/logo.svg" alt="FirstCode logo">
 							</a>
 						</div>
 					</div>
@@ -74,9 +59,9 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-							<form>
-								<input class="input" placeholder="Pretražite proizvode...">
-								<button class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
+							<form action="store.html" method="get" role="search" aria-label="Pretraga proizvoda">
+								<input class="input" type="search" name="search" placeholder="Pretražite proizvode..." aria-label="Unesite pojam za pretragu">
+								<button type="submit" class="search-btn"><i class="fa fa-search"></i> Pretraži</button>
 							</form>
 						</div>
 					</div>
@@ -111,21 +96,23 @@
 								<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 									<i class="fa fa-shopping-cart"></i>
 									<span>Korpa</span>
-									<div class="qty">0</div>
+									<div class="qty">3</div>
 								</a>
 								<div class="cart-dropdown">
 									<div class="cart-list">
-										<div class="cart-empty-state" style="padding:50px 20px;text-align:center;">
-											<div style="width:70px;height:70px;margin:0 auto 20px;background:#f8f9fa;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-												<i class="fa fa-shopping-cart" style="font-size:32px;color:#ccc;"></i>
+										<div class="cart-empty-state">
+											<div class="cart-empty-icon">
+												<i class="fa fa-shopping-cart"></i>
 											</div>
-											<p style="color:#999;font-size:14px;margin:0;">Korpa je prazna</p>
-										</div>
+											<p>Korpa je prazna</p>
+										</div></div>
+									<div class="cart-summary">
+										<small></small>
+										<h5></h5>
 									</div>
-									<div class="cart-summary"><small></small><h5></h5></div>
 									<div class="cart-btns">
 										<a href="cart.html">Prikaži korpu</a>
-										<a href="checkout.html">Naručivanje <i class="fa fa-arrow-circle-right"></i></a>
+										<a href="checkout.html">Naručivanje  <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 							</div>
@@ -140,146 +127,176 @@
 							</div>
 							<!-- /Search Toggle -->
 
-							<!-- Menu Toggle -->
+							<!-- Menu Toogle -->
 							<div class="menu-toggle">
 								<a href="#">
 									<i class="fa fa-bars"></i>
 									<span>Meni</span>
 								</a>
 							</div>
-							<!-- /Menu Toggle -->
+							<!-- /Menu Toogle -->
 						</div>
 					</div>
 					<!-- /ACCOUNT -->
 				</div>
+				<!-- row -->
 			</div>
+			<!-- container -->
 		</div>
 		<!-- /MAIN HEADER -->
 	</header>
 	<!-- /HEADER -->
 
-	<!-- NAVIGATION -->
-	<nav id="navigation">
-		<div class="container">
-			<div id="responsive-nav">
-				<ul class="main-nav nav navbar-nav"></ul>
-			</div>
-		</div>
-	</nav>
-	<!-- /NAVIGATION -->
 
-	<!-- HERO SECTION -->
-	<div class="wip-hero">
-		<div class="container text-center">
-			<div class="wip-icon-wrap">
-				<i class="fa fa-wrench"></i>
-			</div>
-			<span class="wip-badge"><i class="fa fa-clock-o"></i> &nbsp;Uskoro dostupno</span>
-			<h1>Stranica je <span>u izradi</span></h1>
-			<p class="wip-lead">
-				Radimo na ovoj stranici i uskoro će biti dostupna. Hvala vam na strpljenju — trudimu se da isporučimo što bolje iskustvo.
-			</p>
-
-			<!-- Progress bar -->
-			<div class="wip-progress-wrap">
-				<div class="wip-progress-label">
-					<span>Napredak</span>
-					<span id="wip-percent">0%</span>
-				</div>
-				<div class="wip-progress">
-					<div class="wip-progress-bar" id="wip-progress-bar"></div>
-				</div>
-			</div>
-
-			<div class="wip-actions">
-				<a href="index.html" class="btn-wip-primary">
-					<i class="fa fa-home"></i> Idi na početnu
-				</a>
-				<a href="contact.html" class="btn-wip-outline">
-					<i class="fa fa-paper-plane"></i> Kontaktirajte nas
-				</a>
-			</div>
+	<!-- ORDER DETAIL MODAL -->
+	<div id="order-detail-overlay" class="order-detail-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
+		<div class="order-detail-modal">
+			<button class="modal-close-btn" id="modal-close" aria-label="Zatvori">&times;</button>
+			<h4 id="modal-order-title">Detalji narudžbe</h4>
+			<div id="modal-order-body"></div>
 		</div>
 	</div>
-	<!-- /HERO SECTION -->
 
-	<!-- INFO CARDS -->
-	<div class="wip-info-section">
+	<div class="account-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="wip-card">
-						<div class="wip-card-icon">
-							<i class="fa fa-shopping-cart"></i>
+
+				<!-- Sidebar -->
+				<div class="col-md-3">
+					<div class="account-sidebar">
+						<div class="account-user-header">
+							<div class="account-avatar" id="sidebar-avatar">?</div>
+							<p class="account-user-name" id="sidebar-name">Učitavanje...</p>
+							<p class="account-user-email" id="sidebar-email"></p>
 						</div>
-						<h4>Prodavnica radi</h4>
-						<p>Dok čekate ovu stranicu, naša prodavnica je u punom pogonu. Pregledajte sve kategorije i pronađite ono što tražite.</p>
-						<a href="store.html" style="display:inline-block;margin-top:14px;color:#4274D9;font-weight:700;font-size:13px;text-decoration:none;">
-							Idi na prodavnicu <i class="fa fa-arrow-right"></i>
-						</a>
+						<ul class="account-nav">
+							<li><a href="#" class="active" data-tab="profile">
+								<i class="fa fa-user"></i> Moj profil
+							</a></li>
+							<li><a href="#" data-tab="orders">
+								<i class="fa fa-list-alt"></i> Moje narudžbe
+							</a></li>
+							<li><a href="#" data-tab="password">
+								<i class="fa fa-lock"></i> Promjena lozinke
+							</a></li>
+							<li class="nav-divider"></li>
+							<li><a href="#" id="account-logout-btn">
+								<i class="fa fa-sign-out logout-icon"></i>
+								<span class="logout-text">Odjavi se</span>
+							</a></li>
+						</ul>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="wip-card">
-						<div class="wip-card-icon">
-							<i class="fa fa-phone"></i>
+
+				<!-- Main content -->
+				<div class="col-md-9">
+
+					<!-- Profile panel -->
+					<div id="panel-profile" class="account-panel active">
+						<div class="account-card">
+							<h3><i class="fa fa-user"></i>Moj profil</h3>
+							<div id="profile-alert" class="account-alert"></div>
+							<form id="profile-form" class="account-form" novalidate>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="prof-firstName">Ime</label>
+											<input type="text" class="form-control" id="prof-firstName" autocomplete="given-name">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="prof-lastName">Prezime</label>
+											<input type="text" class="form-control" id="prof-lastName" autocomplete="family-name">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="prof-email">Email adresa</label>
+									<input type="email" class="form-control" id="prof-email" readonly>
+									<small style="color:#999;font-size:12px;">Email adresa se ne može mijenjati.</small>
+								</div>
+								<div class="form-group">
+									<label for="prof-phone">Telefon</label>
+									<input type="tel" class="form-control" id="prof-phone" autocomplete="tel" placeholder="npr. +381638558708">
+								</div>
+								<button type="submit" class="save-btn" id="profile-save-btn">
+									<i class="fa fa-save"></i> Sačuvaj promjene
+								</button>
+							</form>
 						</div>
-						<h4>Pozovite nas direktno</h4>
-						<p>Imate pitanje ili vam treba nešto konkretno? Naš tim je dostupan radnim danima od 09:00 do 17:00.</p>
-						<a href="tel:+381638558708" style="display:inline-block;margin-top:14px;color:#4274D9;font-weight:700;font-size:13px;text-decoration:none;">
-							+381 (0)63 8558708 <i class="fa fa-arrow-right"></i>
-						</a>
 					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="wip-card">
-						<div class="wip-card-icon">
-							<i class="fa fa-envelope-o"></i>
+
+					<!-- Orders panel -->
+					<div id="panel-orders" class="account-panel">
+						<div class="account-card">
+							<h3><i class="fa fa-list-alt"></i>Moje narudžbe</h3>
+							<div id="orders-container">
+								<div class="spinner"><i class="fa fa-spinner fa-spin"></i> Učitavanje narudžbi...</div>
+							</div>
+							<div id="orders-pagination" class="orders-pagination"></div>
 						</div>
-						<h4>Pišite nam</h4>
-						<p>Ako niste u mogućnosti da nas pozovete, pošaljite nam poruku i javićemo vam se u što kraćem roku.</p>
-						<a href="mailto:prodaja@firstcode.in.rs" style="display:inline-block;margin-top:14px;color:#4274D9;font-weight:700;font-size:13px;text-decoration:none;">
-							prodaja@firstcode.in.rs <i class="fa fa-arrow-right"></i>
-						</a>
 					</div>
+
+					<!-- Password panel -->
+					<div id="panel-password" class="account-panel">
+						<div class="account-card">
+							<h3><i class="fa fa-lock"></i>Promjena lozinke</h3>
+							<div id="password-alert" class="account-alert"></div>
+							<form id="password-form" class="account-form" novalidate style="max-width:420px;">
+								<div class="form-group">
+									<label for="curr-password">Trenutna lozinka</label>
+									<div class="pass-wrap">
+										<input type="password" class="form-control" id="curr-password" autocomplete="current-password">
+										<button type="button" class="pass-toggle" data-target="curr-password" tabindex="-1"><i class="fa fa-eye"></i></button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="new-password">Nova lozinka <small style="color:#999;font-weight:400;">(min. 8 znakova)</small></label>
+									<div class="pass-wrap">
+										<input type="password" class="form-control" id="new-password" autocomplete="new-password">
+										<button type="button" class="pass-toggle" data-target="new-password" tabindex="-1"><i class="fa fa-eye"></i></button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="confirm-password">Potvrda nove lozinke</label>
+									<div class="pass-wrap">
+										<input type="password" class="form-control" id="confirm-password" autocomplete="new-password">
+										<button type="button" class="pass-toggle" data-target="confirm-password" tabindex="-1"><i class="fa fa-eye"></i></button>
+									</div>
+								</div>
+								<button type="submit" class="save-btn" id="password-save-btn">
+									<i class="fa fa-save"></i> Promijeni lozinku
+								</button>
+							</form>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- /INFO CARDS -->
-
-	<!-- CONTACT STRIP -->
-	<div class="wip-contact-strip">
-		<div class="container">
-			<h3>Ostanite u kontaktu</h3>
-			<p>Pratite nas ili nam se obratite — uvek smo tu za vas.</p>
-			<a href="tel:+381638558708" class="wip-contact-link">
-				<i class="fa fa-phone"></i> +381 (0)63 8558708
-			</a>
-			<a href="mailto:prodaja@firstcode.in.rs" class="wip-contact-link">
-				<i class="fa fa-envelope-o"></i> prodaja@firstcode.in.rs
-			</a>
-			<a href="contact.html" class="wip-contact-link">
-				<i class="fa fa-map-marker"></i> Pronađite nas
-			</a>
-		</div>
-	</div>
-	<!-- /CONTACT STRIP -->
 
 	<!-- FOOTER -->
 	<footer id="footer">
+		<!-- top footer -->
 		<div class="section">
+			<!-- container -->
 			<div class="container">
+				<!-- row -->
 				<div class="row">
 					<div class="col-md-3 col-xs-6">
 						<div class="footer">
 							<h3 class="footer-title">O nama</h3>
-							<p>FirstCode je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
+							<p>FirstCode je vaš IT centar u Velikoj Plani. Spajamo prodaju moderne tehnologije, pouzdan servis
+								i vrhunsko gejming iskustvo u našoj PC igraonici sa najnovijom opremom. Naš cilj je
+								kvalitetna usluga i bezuslovna podrška za sve vaše digitalne potrebe.</p>
 							<ul class="footer-links">
 								<li><a href="https://maps.app.goo.gl/fjSYmDWZfABE9jyM9" target="_blank"><i
 										class="fa fa-map-marker"></i> Miloša Velikog 42, Velika Plana, Srbija</a></li>
 								<li><a href="tel:+381638558708"><i class="fa fa-phone"></i>+381 (0)63 8558708</a></li>
 								<li><a href="mailto:prodaja@firstcode.in.rs"><i class="fa fa-envelope-o"></i>prodaja@firstcode.in.rs</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -321,11 +338,16 @@
 						</div>
 					</div>
 				</div>
+				<!-- /row -->
 			</div>
+			<!-- /container -->
 		</div>
+		<!-- /top footer -->
 
+		<!-- bottom footer -->
 		<div id="bottom-footer" class="section">
 			<div class="container">
+				<!-- row -->
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<ul class="footer-payments">
@@ -337,30 +359,26 @@
 							<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 						</ul>
 						<span class="copyright">
-							© 2026 FirstCode. Sva prava zadržana.
-						</span>
+								© 2026 FirstCode. Sva prava zadržana.
+							</span>
 					</div>
 				</div>
+				<!-- /row -->
 			</div>
+			<!-- /container -->
 		</div>
+		<!-- /bottom footer -->
 	</footer>
 	<!-- /FOOTER -->
 
-	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/config.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/main.js"></script>
+	<script src="js/auth.js"></script>
+	<script src="js/main.js"></script>
 	<script src="js/main-nav.js"></script>
-	<script src="js/header-search.js"></script>
 	<script src="js/cart.js"></script>
 	<script src="js/wishlist.js"></script>
-	<script src="js/compare.js"></script>
-
-	<script src="js/under-construction.js"></script>
+	<script src="js/account.js"></script>
 </body>
 </html>

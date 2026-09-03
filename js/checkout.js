@@ -7,6 +7,52 @@
     var API_BASE = window.APP_CONFIG.API_BASE;
     var Cart = window.OptimusCart;
 
+    // ─── Pre-fill forme ako je korisnik prijavljen ────────────────────────────
+
+    function prefillFromProfile() {
+        if (typeof window.AuthService === 'undefined' || !window.AuthService.isLoggedIn()) {
+            return;
+        }
+
+        // Sakrij "Kreirati nalog?" sekciju — nema smisla ako je već prijavljen
+        var $createAccWrap = $('#create-account').closest('.form-group');
+        if (!$createAccWrap.length) {
+            $createAccWrap = $('#create-account').closest('.input-checkbox').parent();
+        }
+        $createAccWrap.hide();
+
+        // Pokušaj brzi pre-fill iz localStorage usera (bez API poziva)
+        var user = window.AuthService.getUser();
+        if (user) {
+            applyUserToForm(user);
+        }
+
+        // Dopuni telefonom i eventualnim updateom iz API-ja
+        window.AuthService.authFetch('/api/account/me')
+            .then(function (profile) {
+                applyUserToForm(profile);
+            })
+            .catch(function () {
+                // neuspjeh API-ja nije bloker — forma ostaje popunjena iz localStorage-a
+            });
+    }
+
+    function applyUserToForm(profile) {
+        // Popuni samo prazna polja da ne overridujemo ono što je korisnik već unio
+        if (profile.firstName && !$('input[name="first-name"]').first().val()) {
+            $('input[name="first-name"]').first().val(profile.firstName);
+        }
+        if (profile.lastName && !$('input[name="last-name"]').first().val()) {
+            $('input[name="last-name"]').first().val(profile.lastName);
+        }
+        if (profile.email && !$('input[name="email"]').first().val()) {
+            $('input[name="email"]').first().val(profile.email);
+        }
+        if (profile.phone && !$('input[name="tel"]').first().val()) {
+            $('input[name="tel"]').first().val(profile.phone);
+        }
+    }
+
     function renderOrderSummary() {
         Cart.loadDetails(function(cartItems) {
             if (cartItems.length === 0) {
@@ -104,11 +150,11 @@
     function validateForm() {
         var errors = [];
 
-        var firstName = $('input[name="first-name"]').val().trim();
-        var lastName  = $('input[name="last-name"]').val().trim();
-        var email     = $('input[name="email"]').val().trim();
-        var address   = $('input[name="address"]').val().trim();
-        var city      = $('input[name="city"]').val().trim();
+        var firstName = $('input[name="first-name"]').first().val().trim();
+        var lastName  = $('input[name="last-name"]').first().val().trim();
+        var email     = $('input[name="email"]').first().val().trim();
+        var address   = $('input[name="address"]').first().val().trim();
+        var city      = $('input[name="city"]').first().val().trim();
 
         if (!firstName) errors.push('Ime je obavezno.');
         if (!lastName)  errors.push('Prezime je obavezno.');
@@ -121,15 +167,25 @@
             errors.push('Molimo vas da prihvatite uslove korišćenja.');
         }
 
+        // Validacija lozinke ako je čekiran "Kreirati nalog?"
+        if ($('#create-account').is(':checked')) {
+            var password = $('#account-password').val();
+            if (!password) {
+                errors.push('Lozinka je obavezna za kreiranje naloga.');
+            } else if (password.length < 8) {
+                errors.push('Lozinka mora imati najmanje 8 znakova.');
+            }
+        }
+
         return errors;
     }
 
     function buildDeliveryAddress() {
         var parts = [
-            $('input[name="address"]').val().trim(),
-            $('input[name="city"]').val().trim(),
-            $('input[name="zip-code"]').val().trim(),
-            $('input[name="country"]').val().trim()
+            $('input[name="address"]').first().val().trim(),
+            $('input[name="city"]').first().val().trim(),
+            $('input[name="zip-code"]').first().val().trim(),
+            $('input[name="country"]').first().val().trim()
         ].filter(Boolean);
         return parts.join(', ');
     }
@@ -147,13 +203,13 @@
                 return;
             }
 
-            var firstName = $('input[name="first-name"]').val().trim();
-            var lastName  = $('input[name="last-name"]').val().trim();
-            var phone     = $('input[name="tel"]').val().trim();
+            var firstName = $('input[name="first-name"]').first().val().trim();
+            var lastName  = $('input[name="last-name"]').first().val().trim();
+            var phone     = $('input[name="tel"]').first().val().trim();
 
             var payload = {
                 customerName:    firstName + ' ' + lastName,
-                customerEmail:   $('input[name="email"]').val().trim(),
+                customerEmail:   $('input[name="email"]').first().val().trim(),
                 customerPhone:   phone || null,
                 deliveryAddress: buildDeliveryAddress(),
                 items: cartItems.map(function(item) {
@@ -168,29 +224,74 @@
             $btn.prop('disabled', true).text('Slanje...');
             hideFormError();
 
-            $.ajax({
-                url: API_BASE + '/api/orders',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(payload),
-                success: function(response) {
-                    Cart.clear();
-                    window.location.href = 'order-confirmation.html?orderId=' + response.id + '&orderNumber=' + encodeURIComponent(response.orderNumber);
-                },
-                error: function(xhr) {
-                    $btn.prop('disabled', false).text('Pošalji porudžbinu');
-                    var msg = 'Greška pri slanju porudžbine. Pokušajte ponovo.';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        msg = xhr.responseJSON.message;
-                    } else if (xhr.status === 400 && xhr.responseJSON) {
-                        // Validation errors from BE
-                        var details = xhr.responseJSON;
-                        if (details.errors) {
-                            msg = Object.values(details.errors).join('\n');
+            // Ako je korisnik prijavljen — šalji Authorization header
+            var isLoggedIn = typeof window.AuthService !== 'undefined' && window.AuthService.isLoggedIn();
+            var sendRequest = isLoggedIn
+                ? window.AuthService.getValidAuthHeader()
+                : Promise.resolve({});
+
+            sendRequest.then(function (authHeaders) {
+                $.ajax({
+                    url: API_BASE + '/api/orders',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    headers: authHeaders,
+                    data: JSON.stringify(payload),
+                    success: function(response) {
+                        Cart.clear();
+
+                        var confirmUrl = 'order-confirmation.html?orderId=' + response.id + '&orderNumber=' + encodeURIComponent(response.orderNumber);
+
+                        // Ako je čekiran "Kreirati nalog?" — registruj korisnika, pa redirect
+                        if ($('#create-account').is(':checked')) {
+                            var registerPayload = {
+                                firstName: firstName,
+                                lastName:  lastName,
+                                email:     payload.customerEmail,
+                                password:  $('#account-password').val()
+                            };
+
+                            $.ajax({
+                                url: API_BASE + '/api/auth/register',
+                                method: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify(registerPayload),
+                                success: function() {
+                                    // Nalog kreiran — redirect sa flagom da se prikaže poruka o verifikaciji
+                                    window.location.href = confirmUrl + '&accountCreated=true';
+                                },
+                                error: function(xhr) {
+                                    // Narudžbina je uspjela — samo redirect bez kreiranja naloga
+                                    // Email možda već postoji — svejedno idemo na potvrdu
+                                    var hint = '';
+                                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                                        hint = xhr.responseJSON.message;
+                                    }
+                                    window.location.href = confirmUrl + '&accountError=' + encodeURIComponent(hint || 'unknown');
+                                }
+                            });
+                        } else {
+                            window.location.href = confirmUrl;
                         }
+                    },
+                    error: function(xhr) {
+                        $btn.prop('disabled', false).text('Pošalji porudžbinu');
+                        var msg = 'Greška pri slanju porudžbine. Pokušajte ponovo.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        } else if (xhr.status === 400 && xhr.responseJSON) {
+                            var details = xhr.responseJSON;
+                            if (details.errors) {
+                                msg = Object.values(details.errors).join('\n');
+                            }
+                        }
+                        showFormError(msg);
                     }
-                    showFormError(msg);
-                }
+                });
+            }).catch(function () {
+                // Refresh tokena nije uspio — šalji kao gost
+                $btn.prop('disabled', false).text('Pošalji porudžbinu');
+                showFormError('Sesija je istekla. Osvježite stranicu i pokušajte ponovo.');
             });
         });
     }
@@ -222,8 +323,28 @@
         window.location.href = 'terms-and-conditions.html';
     });
 
+    // ─── "Kreirati nalog?" checkbox — kontrola password polja ────────────────
+
+    function initCreateAccountToggle() {
+        var $checkbox = $('#create-account');
+        var $passwordInput = $('#account-password');
+
+        // Inicijalno stanje: polje prazno i nije obavezno
+        $passwordInput.val('').removeAttr('required');
+
+        $checkbox.on('change', function () {
+            if ($(this).is(':checked')) {
+                $passwordInput.attr('required', 'required').focus();
+            } else {
+                $passwordInput.removeAttr('required').val('');
+            }
+        });
+    }
+
     $(document).ready(function() {
         renderOrderSummary();
+        prefillFromProfile();
+        initCreateAccountToggle();
     });
 
 })(jQuery);

@@ -54,7 +54,7 @@
 				</ul>
 				<ul class="header-links pull-right">
 					<li><a href="#"><i class="fa fa-dollar"></i> RSD</a></li>
-					<li><a href="#"><i class="fa fa-user-o"></i> Moj nalog</a></li>
+					<li><a href="login.html" id="nav-account-link"><i class="fa fa-user-o"></i> <span id="nav-account-label">Moj nalog</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -646,41 +646,14 @@
 	<script src="js/slick.min.js"></script>
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
 	<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
 	<script src="js/main-nav.js"></script>
 	<script src="js/header-search.js"></script>
 	<script src="js/wishlist.js"></script>
 	<script src="js/compare.js"></script>
 	<script src="js/cart.js"></script>
-
-	<!-- Smooth scrolling for anchor links -->
-	<script>
-		$(document).ready(function() {
-			// Smooth scroll to sections
-			$('.smooth-scroll').on('click', function(e) {
-				e.preventDefault();
-				var target = $(this).attr('href');
-				if ($(target).length) {
-					$('html, body').animate({
-						scrollTop: $(target).offset().top - 100
-					}, 800);
-				}
-			});
-
-			// Highlight active section in sidebar
-			$(window).on('scroll', function() {
-				var scrollPos = $(window).scrollTop() + 150;
-				$('.terms-article').each(function() {
-					var currLink = $(this);
-					var refElement = currLink;
-					if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-						$('.terms-nav a').removeClass('active');
-						$('.terms-nav a[href="#' + currLink.attr('id') + '"]').addClass('active');
-					}
-				});
-			});
-		});
-	</script>
+	<script src="js/terms-and-conditions.js"></script>
 </body>
 </html>
