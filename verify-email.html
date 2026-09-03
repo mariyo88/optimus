@@ -4,21 +4,15 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Prijava - FirstCode</title>
-	<meta name="description" content="Prijavite se na vaš FirstCode nalog.">
+	<title>Verifikacija email adrese - FirstCode</title>
+	<meta name="description" content="Potvrdite vašu email adresu za FirstCode nalog.">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link type="text/css" rel="stylesheet" href="css/slick.css"/>
-	<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
-	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 	<link rel="manifest" href="site.webmanifest">
 	<link type="text/css" rel="stylesheet" href="css/style.css"/>
-	<link type="text/css" rel="stylesheet" href="css/login.css"/>
+	<link type="text/css" rel="stylesheet" href="css/verify-email.css"/>
 </head>
 <body>
 	<!-- HEADER -->
@@ -147,43 +141,37 @@
 	</header>
 	<!-- /HEADER -->
 
-	<div class="auth-section">
+	<!-- VERIFY SECTION -->
+	<div class="verify-section">
 		<div class="container">
-			<div class="auth-card">
-				<h2><i class="fa fa-sign-in" style="color:#4274D9;margin-right:8px;"></i>Prijava</h2>
-				<p class="auth-subtitle">Prijavite se na vaš nalog</p>
 
-				<div id="auth-alert" class="auth-alert"></div>
-
-				<form id="login-form" novalidate>
-					<div class="form-group">
-						<label for="email">Email adresa</label>
-						<input type="email" class="form-control" id="email" placeholder="vas@email.com" autocomplete="email" required>
-					</div>
-					<div class="form-group">
-						<label for="password">
-							Lozinka
-							<a href="forgot-password.html" class="forgot-link">Zaboravili ste lozinku?</a>
-						</label>
-						<div class="pass-wrap">
-							<input type="password" class="form-control" id="password" placeholder="Vaša lozinka" autocomplete="current-password" required>
-							<button type="button" class="pass-toggle" data-target="password" tabindex="-1">
-								<i class="fa fa-eye"></i>
-							</button>
-						</div>
-					</div>
-					<button type="submit" class="auth-btn" id="login-btn">
-						<i class="fa fa-sign-in"></i> Prijavi se
-					</button>
-				</form>
-
-				<hr class="auth-divider">
-				<div class="auth-links">
-					Nemate nalog? <a href="register.html">Registrujte se</a>
-				</div>
+			<!-- Loading state -->
+			<div class="verify-card" id="state-loading">
+				<div class="spinner"></div>
+				<h2>Verifikacija u toku...</h2>
+				<p>Molimo sačekajte dok potvrđujemo vašu email adresu.</p>
 			</div>
+
+			<!-- Success state -->
+			<div class="verify-card" id="state-success" style="display:none;">
+				<i class="fa fa-check-circle verify-icon success"></i>
+				<h2>Email adresa potvrđena!</h2>
+				<p>Vaša email adresa je uspešno verifikovana. Sada se možete prijaviti na vaš nalog.</p>
+				<a href="login.html" class="verify-btn">Prijavi se</a>
+			</div>
+
+			<!-- Error state -->
+			<div class="verify-card" id="state-error" style="display:none;">
+				<i class="fa fa-times-circle verify-icon error"></i>
+				<h2>Verifikacija nije uspela</h2>
+				<p id="error-message">Link za verifikaciju je nevažeći ili je istekao.</p>
+				<a href="register.html" class="verify-btn">Registruj se ponovo</a>
+				<a href="#" class="verify-btn secondary" id="resend-btn">Pošalji ponovo</a>
+			</div>
+
 		</div>
 	</div>
+	<!-- /VERIFY SECTION -->
 
 	<!-- FOOTER -->
 	<footer id="footer">
@@ -284,8 +272,7 @@
 	<script src="js/config.js"></script>
 	<script src="js/auth.js"></script>
 	<script src="js/main.js"></script>
-	<script src="js/cart.js"></script>
-	<script src="js/wishlist.js"></script>
-	<script src="js/login.js"></script>
+	<script src="js/main-nav.js"></script>
+	<script src="js/verify-email.js"></script>
 </body>
 </html>
