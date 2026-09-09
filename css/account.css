@@ -3,7 +3,7 @@
     color: #e74c3c;
 }
 
-.account-section { padding: 40px 0 70px; background: #f5f7fa; min-height: calc(100vh - 200px); }
+.account-section { padding: 40px 0 70px; background: #F8F0DC; min-height: calc(100vh - 200px); }
 
 /* Sidebar */
 .account-sidebar {
@@ -12,7 +12,7 @@
 	overflow: hidden; margin-bottom: 24px;
 }
 .account-user-header {
-	background: linear-gradient(135deg, #293681 0%, #4274D9 100%);
+	background: linear-gradient(135deg, #0D3B1A 0%, #1A5C2A 100%);
 	padding: 24px 20px; text-align: center; color: #fff;
 }
 .account-avatar {
@@ -29,10 +29,10 @@
 	padding: 12px 20px; color: #444; font-size: 14px;
 	text-decoration: none; transition: all .15s;
 }
-.account-nav li a:hover { background: #f5f7fa; color: #293681; }
-.account-nav li a.active { background: #f0f4ff; color: #293681; font-weight: 600; border-left: 3px solid #4274D9; }
+.account-nav li a:hover { background: #F8F0DC; color: #0D3B1A; }
+.account-nav li a.active { background: #F8F0DC; color: #0D3B1A; font-weight: 600; border-left: 3px solid #1A5C2A; }
 .account-nav li a i { width: 18px; text-align: center; font-size: 15px; }
-.account-nav li.nav-divider { border-top: 1px solid #f0f0f0; margin: 4px 0; }
+.account-nav li.nav-divider { border-top: 1px solid #F8F0DC; margin: 4px 0; }
 
 /* Content panels */
 .account-panel { display: none; }
@@ -43,11 +43,11 @@
 	padding: 28px 28px 24px; margin-bottom: 20px;
 }
 .account-card h3 {
-	font-size: 17px; font-weight: 700; color: #293681;
+	font-size: 17px; font-weight: 700; color: #0D3B1A;
 	margin: 0 0 20px; padding-bottom: 12px;
-	border-bottom: 2px solid #f0f0f0;
+	border-bottom: 2px solid #F8F0DC;
 }
-.account-card h3 i { margin-right: 8px; color: #4274D9; }
+.account-card h3 i { margin-right: 8px; color: #1A5C2A; }
 
 /* Form */
 .account-form .form-group { margin-bottom: 16px; }
@@ -56,20 +56,20 @@
 	height: 42px; border-radius: 4px; border: 1px solid #ddd;
 	font-size: 14px; padding: 0 12px; width: 100%; box-sizing: border-box; transition: border-color .2s;
 }
-.account-form .form-control:focus { border-color: #4274D9; outline: none; box-shadow: 0 0 0 3px rgba(66,116,217,0.1); }
-.account-form .form-control[readonly] { background: #f8f9fa; cursor: default; }
+.account-form .form-control:focus { border-color: #1A5C2A; outline: none; box-shadow: 0 0 0 3px rgba(66,116,217,0.1); }
+.account-form .form-control[readonly] { background: #F8F0DC; cursor: default; }
 .save-btn {
-	background: #293681; color: #fff; border: none; border-radius: 4px;
+	background: #0D3B1A; color: #fff; border: none; border-radius: 4px;
 	padding: 10px 28px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .2s;
 }
-.save-btn:hover { background: #1e2756; }
+.save-btn:hover { background: #0D3B1A; }
 .save-btn:disabled { opacity: .6; cursor: not-allowed; }
 .pass-wrap { position: relative; }
 .pass-toggle {
 	position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
 	background: none; border: none; cursor: pointer; color: #999; padding: 0;
 }
-.pass-toggle:hover { color: #4274D9; }
+.pass-toggle:hover { color: #1A5C2A; }
 
 /* Alert */
 .account-alert {
@@ -82,12 +82,12 @@
 /* Orders table */
 .orders-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .orders-table th {
-	background: #f8f9fa; padding: 10px 12px;
+	background: #F8F0DC; padding: 10px 12px;
 	text-align: left; font-size: 12px; font-weight: 700;
 	color: #666; text-transform: uppercase; letter-spacing: .5px;
 	border-bottom: 2px solid #eee;
 }
-.orders-table td { padding: 12px 12px; border-bottom: 1px solid #f0f0f0; color: #444; vertical-align: middle; }
+.orders-table td { padding: 12px 12px; border-bottom: 1px solid #F8F0DC; color: #444; vertical-align: middle; }
 .orders-table tr:last-child td { border-bottom: none; }
 .orders-table tr:hover td { background: #fafbff; }
 .order-status-badge {
@@ -101,7 +101,7 @@
 .status-DELIVERED  { background: #e8f5e9; color: #1b5e20; }
 .status-CANCELLED  { background: #fce4ec; color: #b71c1c; }
 .order-detail-btn {
-	color: #4274D9; font-size: 13px; font-weight: 600;
+	color: #1A5C2A; font-size: 13px; font-weight: 600;
 	text-decoration: none; cursor: pointer; background: none; border: none; padding: 0;
 }
 .order-detail-btn:hover { text-decoration: underline; }
@@ -118,8 +118,8 @@
 	max-height: 90vh; overflow-y: auto;
 	box-shadow: 0 10px 40px rgba(0,0,0,.2); padding: 28px;
 }
-.order-detail-modal h4 { font-size: 17px; color: #293681; margin: 0 0 16px; font-weight: 700; }
-.order-info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+.order-detail-modal h4 { font-size: 17px; color: #0D3B1A; margin: 0 0 16px; font-weight: 700; }
+.order-info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F8F0DC; font-size: 13px; }
 .order-info-row:last-child { border-bottom: none; }
 .order-info-row .label { color: #888; }
 .order-info-row .value { font-weight: 600; color: #333; text-align: right; }
@@ -131,12 +131,12 @@
 .order-items-list { margin-top: 16px; }
 .order-item-row {
 	display: flex; align-items: center; gap: 12px;
-	padding: 10px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px;
+	padding: 10px 0; border-bottom: 1px solid #F8F0DC; font-size: 13px;
 }
 .order-item-row:last-child { border-bottom: none; }
 .order-item-name { flex: 1; color: #333; }
 .order-item-qty  { color: #888; white-space: nowrap; }
-.order-item-price { font-weight: 700; color: #293681; white-space: nowrap; }
+.order-item-price { font-weight: 700; color: #0D3B1A; white-space: nowrap; }
 
 /* Pagination */
 .orders-pagination { margin-top: 16px; display: flex; justify-content: center; gap: 6px; }
@@ -144,8 +144,8 @@
 	width: 34px; height: 34px; border: 1px solid #ddd; background: #fff;
 	border-radius: 4px; cursor: pointer; font-size: 13px; transition: all .15s;
 }
-.page-btn:hover { border-color: #4274D9; color: #4274D9; }
-.page-btn.active { background: #293681; color: #fff; border-color: #293681; }
+.page-btn:hover { border-color: #1A5C2A; color: #1A5C2A; }
+.page-btn.active { background: #0D3B1A; color: #fff; border-color: #0D3B1A; }
 .page-btn:disabled { opacity: .4; cursor: not-allowed; }
 
 /* Empty state */

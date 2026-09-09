@@ -15,7 +15,7 @@
 
   /* Surfaces */
   --surface:        #ffffff;
-  --bg:             #f5f7fa;
+  --bg:             #F8F0DC;
   --bg-alt:         #eff2f6;
 
   /* Text */
@@ -24,7 +24,7 @@
   --text-muted:     #6e7891;
 
   /* Borders & shadows */
-  --border:         #cbd0dd;
+  --border:         #E8D8B0;
   --border-light:   #e3e6ed;
   --radius:         8px;
   --radius-lg:      12px;

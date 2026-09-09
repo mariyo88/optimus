@@ -2,9 +2,9 @@
     COMPARE PAGE — compare.css
     Flexbox-based layout. 1 label col + 4 product cols.
     Colors:
-        Primary  : #4274D9
-        Dark     : #293681
-        Grey bg  : #F5F5F5 / #E4E7ED
+        Primary  : #1A5C2A
+        Dark     : #0D3B1A
+        Grey bg  : #F8F0DC / #E8D8B0
 =========================================================*/
 
 /* ── Page section ────────────────────────────────────────── */
@@ -30,13 +30,13 @@
 }
 
 .compare-toolbar-info strong {
-    color: #293681;
+    color: #0D3B1A;
     font-weight: 700;
 }
 
 .compare-clear-btn {
     background: transparent;
-    border: 1.5px solid #e0e0e0;
+    border: 1.5px solid #E8D8B0;
     color: #999;
     padding: 9px 20px;
     border-radius: 6px;
@@ -50,8 +50,8 @@
 }
 
 .compare-clear-btn:hover {
-    border-color: #4274D9;
-    color: #4274D9;
+    border-color: #1A5C2A;
+    color: #1A5C2A;
     background: rgba(66, 116, 217, 0.03);
 }
 
@@ -66,7 +66,7 @@
 }
 
 .continue-shopping-link:hover {
-    color: #4274D9;
+    color: #1A5C2A;
     text-decoration: none;
 }
 
@@ -87,13 +87,13 @@
 
 #compare-empty h3 {
     font-size: 20px;
-    color: #293681;
+    color: #0D3B1A;
     margin-bottom: 10px;
     font-weight: 600;
 }
 
 #compare-empty p {
-    color: #8D99AE;
+    color: #5A7A5E;
     font-size: 14px;
     max-width: 380px;
     margin: 0 auto 28px;
@@ -102,7 +102,7 @@
 
 #compare-empty .primary-btn {
     display: inline-block;
-    background: #4274D9;
+    background: #1A5C2A;
     color: #fff;
     padding: 12px 32px;
     border-radius: 6px;
@@ -124,7 +124,7 @@
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    background: #293681;
+    background: #0D3B1A;
     color: #fff;
     padding: 12px 24px;
     border-radius: 6px;
@@ -263,8 +263,8 @@
 }
 
 .cv-card__remove:hover {
-    color: #4274D9;
-    background: #dde5f5;
+    color: #1A5C2A;
+    background: #F8F0DC;
 }
 
 /* Product image */
@@ -280,9 +280,9 @@
     width: 130px;
     height: 130px;
     object-fit: contain;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #F8F0DC;
     border-radius: 6px;
-    background: #fafafa;
+    background: #FFFFFF;
     display: block;
     transition: transform 0.2s;
 }
@@ -295,7 +295,7 @@
 .cv-card__name {
     font-size: 12px;
     font-weight: 700;
-    color: #293681;
+    color: #0D3B1A;
     line-height: 1.4;
     height: calc(12px * 1.4 * 3); /* 3 lines × font-size × line-height */
     margin-bottom: 8px;
@@ -309,12 +309,12 @@
 }
 
 .cv-card__name a {
-    color: #293681;
+    color: #0D3B1A;
     text-decoration: none;
 }
 
 .cv-card__name a:hover {
-    color: #4274D9;
+    color: #1A5C2A;
 }
 
 /* Price */
@@ -329,7 +329,7 @@
 .cv-card__price {
     font-size: 17px;
     font-weight: 700;
-    color: #D10024;
+    color: #1A5C2A;
     margin-bottom: 2px;
 }
 
@@ -356,7 +356,7 @@
 /* Add to cart button */
 .cv-card__cart {
     margin-top: 10px;
-    background: #4274D9;
+    background: #1A5C2A;
     color: #fff;
     border: none;
     padding: 9px 14px;
@@ -406,7 +406,7 @@
     display: flex;
     align-items: center;
     min-width: 700px;
-    background: #293681;
+    background: #0D3B1A;
     padding: 10px 16px;
     border-bottom: none;
 }
@@ -431,7 +431,7 @@
 }
 
 .cv-row__val--empty {
-    background: #fafbfc;
+    background: #FFFFFF;
 }
 
 /* N/A dash */
@@ -459,14 +459,14 @@
 }
 
 .cv-badge--out {
-    background: #dde5f5;
-    color: #4274D9;
+    background: #F8F0DC;
+    color: #1A5C2A;
 }
 
 /* ── Hover on rows ───────────────────────────────────────── */
 .cv-row:hover .cv-row__label,
 .cv-row:hover .cv-row__val:not(.cv-row__val--match):not(.cv-row__val--diff):not(.cv-row__val--empty) {
-    background: #fafbfc;
+    background: #FFFFFF;
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
@@ -497,7 +497,7 @@
 
 /* ── Hero Banner ── */
 .page-hero {
-	background: linear-gradient(135deg, #293681 0%, #1a1b2e 60%, #4274D9 100%);
+	background: linear-gradient(135deg, #0D3B1A 0%, #1a1b2e 60%, #1A5C2A 100%);
 	color: #fff;
 	padding: 0 0 50px;
 	position: relative;
@@ -550,7 +550,7 @@
 	margin-bottom: 12px;
 	color: #fff;
 }
-.page-hero h1 span { color: #4274D9; }
+.page-hero h1 span { color: #1A5C2A; }
 .page-hero p {
 	font-size: 17px;
 	color: rgba(255,255,255,0.75);
@@ -585,12 +585,12 @@
 	color: #666;
 }
 .compare-toolbar-info strong {
-	color: #293681;
+	color: #0D3B1A;
 	font-weight: 700;
 }
 .compare-clear-btn {
 	background: transparent;
-	border: 1.5px solid #e0e0e0;
+	border: 1.5px solid #E8D8B0;
 	color: #999;
 	padding: 9px 20px;
 	border-radius: 6px;
@@ -603,8 +603,8 @@
 	gap: 7px;
 }
 .compare-clear-btn:hover {
-	border-color: #4274D9;
-	color: #4274D9;
+	border-color: #1A5C2A;
+	color: #1A5C2A;
 	background: rgba(66,116,217,0.03);
 }
 .continue-shopping-link {
@@ -616,7 +616,7 @@
 	text-decoration: none;
 	transition: color 0.15s;
 }
-.continue-shopping-link:hover { color: #4274D9; text-decoration: none; }
+.continue-shopping-link:hover { color: #1A5C2A; text-decoration: none; }
 
 /* ── Confirmation Modal ── */
 .cmp-confirm-modal {
@@ -642,7 +642,7 @@
 	border: 1px solid rgba(0,0,0,0.1);
 }
 .cmp-confirm-header {
-	background: #293681;
+	background: #0D3B1A;
 	color: #fff;
 	padding: 14px 20px;
 	display: flex;
@@ -654,7 +654,7 @@
 	align-items: center;
 	gap: 10px;
 }
-.cmp-confirm-header i { color: #4274D9; font-size: 20px; }
+.cmp-confirm-header i { color: #1A5C2A; font-size: 20px; }
 .cmp-confirm-header h3 { margin: 0; font-size: 15px; font-weight: 600; color: #fff; }
 .cmp-confirm-close {
 	background: none; border: none; color: #fff;
@@ -664,10 +664,10 @@
 .cmp-confirm-close:hover { opacity: 1; }
 .cmp-confirm-body {
 	padding: 24px 20px;
-	border-bottom: 1px solid #f0f0f0;
+	border-bottom: 1px solid #F8F0DC;
 }
 .cmp-confirm-body p { margin: 0; font-size: 14px; color: #555; line-height: 1.6; }
-.cmp-confirm-body strong { color: #293681; }
+.cmp-confirm-body strong { color: #0D3B1A; }
 .cmp-confirm-footer { padding: 16px 20px; display: flex; gap: 10px; }
 .cmp-confirm-btn {
 	flex: 1; padding: 11px 16px; border-radius: 4px;
@@ -676,8 +676,8 @@
 	display: inline-flex; align-items: center; justify-content: center; gap: 6px;
 }
 .cmp-confirm-btn-cancel { background: #fff; color: #666; border-color: #ddd; }
-.cmp-confirm-btn-cancel:hover { background: #f5f5f5; border-color: #bbb; color: #333; }
-.cmp-confirm-btn-confirm { background: #4274D9; color: #fff; border-color: #4274D9; }
-.cmp-confirm-btn-confirm:hover { background: #293681; border-color: #293681; }
+.cmp-confirm-btn-cancel:hover { background: #F8F0DC; border-color: #bbb; color: #333; }
+.cmp-confirm-btn-confirm { background: #1A5C2A; color: #fff; border-color: #1A5C2A; }
+.cmp-confirm-btn-confirm:hover { background: #0D3B1A; border-color: #0D3B1A; }
 @keyframes cmpFadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes cmpSlideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }

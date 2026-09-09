@@ -1,0 +1,114 @@
+/*
+ * FIRSTCODE - Color Variables
+ * Paleta bazirana na logu: tamno zelena + krem/bež + zlatna
+ * Inspirisano hemijskim elementima (Breaking Bad stil)
+ */
+
+:root {
+  /* ===== Primarne Boje ===== */
+  --color-green-dark:    #0D3B1A;   /* Tamno zelena — pozadina kvadrata u logu */
+  --color-green:         #1A5C2A;   /* Zelena — hover, akcenti */
+  --color-green-medium:  #2E7D42;   /* Srednja zelena — sekundarni akcenti */
+  --color-cream:         #F0E2C0;   /* Krem — slova u logu, naslovi */
+  --color-cream-light:   #F8F0DC;   /* Světla krem — pozadine sekcija */
+  --color-gold:          #C8A84B;   /* Zlatna — borderi, okviri, detalji */
+  --color-gold-dark:     #A8882B;   /* Tamna zlatna — hover na zlatnoj */
+  --color-dark:          #0A1F0D;   /* Skoro crna zelena — outline teksta, footer */
+
+  /* ===== RGB vrednosti (za transparentnost) ===== */
+  --rgb-green-dark:      13, 59, 26;
+  --rgb-green:           26, 92, 42;
+  --rgb-cream:           240, 226, 192;
+  --rgb-gold:            200, 168, 75;
+  --rgb-dark:            10, 31, 13;
+
+  /* ===== Semantička Upotreba ===== */
+  --color-primary:       #1A5C2A;   /* Glavni akcent — zelena */
+  --color-primary-dark:  #0D3B1A;   /* Tamna varijanta primarnog */
+  --color-secondary:     #C8A84B;   /* Sekundarni akcent — zlatna */
+  --color-accent:        #2E7D42;   /* Hover/highlight — srednja zelena */
+
+  /* ===== Tipografija ===== */
+  --color-text-main:     #0A1F0D;   /* Glavni tekst — skoro crna */
+  --color-text:          #0A1F0D;   /* Alias za kompatibilnost */
+  --color-text-muted:    #5A7A5E;   /* Prigušen tekst — mid zelena */
+  --color-heading:       #0D3B1A;   /* Naslovi — tamno zelena */
+  --color-text-on-dark:  #F0E2C0;   /* Tekst na tamnoj pozadini — krem */
+  --color-text-on-green: #F0E2C0;   /* Tekst na zelenoj — krem */
+
+  /* ===== Pozadine ===== */
+  --color-bg-main:       #FFFFFF;   /* Glavna pozadina — bijela */
+  --color-bg-card:       #FFFFFF;   /* Kartica pozadina */
+  --color-bg-alt:        #F8F0DC;   /* Alternativne sekcije — svjetla krem */
+  --color-bg-dark:       #0D3B1A;   /* Tamna pozadina — zelena iz loga */
+  --color-light:         #F8F0DC;   /* Alias za kompatibilnost */
+
+  /* ===== UI Elementi ===== */
+  --color-border:        #C8A84B;   /* Granice — zlatna */
+  --color-border-light:  #E8D8B0;   /* Světle granice */
+  --color-hover:         #2E7D42;   /* Hover stanje */
+  --color-active:        #1A5C2A;   /* Aktivno stanje */
+
+  /* ===== Gumbovi ===== */
+  --btn-primary-bg:      #1A5C2A;   /* Zelena */
+  --btn-primary-color:   #F0E2C0;   /* Krem tekst */
+  --btn-primary-hover:   #0D3B1A;   /* Tamno zelena hover */
+  --btn-secondary-bg:    #C8A84B;   /* Zlatna */
+  --btn-secondary-color: #0A1F0D;   /* Tamni tekst */
+  --btn-secondary-hover: #A8882B;   /* Tamna zlatna hover */
+
+  /* ===== Header & Navigation ===== */
+  --header-bg:           #FFFFFF;   /* Nav — bijela */
+  --header-top-bg:       #0D3B1A;   /* Top info bar — tamno zelena */
+  --nav-bg:              #FFFFFF;
+  --nav-text:            #0A1F0D;
+  --nav-border:          #E8D8B0;
+  --nav-link-hover:      #1A5C2A;
+
+  /* ===== Produkt Kartice ===== */
+  --product-border:      #E8D8B0;
+  --product-hover:       #1A5C2A;
+  --product-label-new:   #1A5C2A;
+  --product-price:       #0D3B1A;
+
+  /* ===== Footer ===== */
+  --footer-bg:           #0D3B1A;   /* Tamno zelena — kao kvadrat u logu */
+  --footer-bottom-bg:    #0A1F0D;   /* Još tamnija */
+  --footer-text:         #F0E2C0;   /* Krem tekst */
+  --footer-link-hover:   #C8A84B;   /* Zlatna hover */
+
+  /* ===== Senke ===== */
+  --shadow-sm:           0 2px 8px rgba(13, 59, 26, 0.08);
+  --shadow-md:           0 4px 16px rgba(13, 59, 26, 0.14);
+  --shadow-lg:           0 8px 32px rgba(13, 59, 26, 0.20);
+  --shadow-gold:         0 2px 12px rgba(200, 168, 75, 0.30);  /* Zlatna sjenka za specijalne elemente */
+}
+
+/*
+ * Paleta boja — vizuelni pregled:
+ *
+ * Tamno zelena:   #0D3B1A  ████  (pozadina kvadrata u logu)
+ * Zelena:         #1A5C2A  ████  (primarni akcent, CTA dugmad)
+ * Srednja zelena: #2E7D42  ████  (hover stanja)
+ * Zlatna:         #C8A84B  ████  (okviri, borderi, detalji)
+ * Krem:           #F0E2C0  ████  (slova u logu, tekst na tamnom)
+ * Světla krem:    #F8F0DC  ████  (alternativne sekcije)
+ * Skoro crna:     #0A1F0D  ████  (outline, footer, naslovi)
+ *
+ * Primeri Upotrebe:
+ *
+ * .btn-primary {
+ *   background: var(--btn-primary-bg);
+ *   color: var(--btn-primary-color);
+ * }
+ *
+ * .footer {
+ *   background: var(--footer-bg);
+ *   color: var(--footer-text);
+ * }
+ *
+ * .card {
+ *   border: 1px solid var(--color-border);
+ *   box-shadow: var(--shadow-md);
+ * }
+ */

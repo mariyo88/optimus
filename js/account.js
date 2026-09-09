@@ -165,7 +165,7 @@
 					'  <td><strong>#' + o.orderNumber + '</strong></td>',
 					'  <td>' + formatDate(o.createdAt) + '</td>',
 					'  <td><span class="order-status-badge status-' + o.orderStatus + '">' + statusLabel(o.orderStatus) + '</span></td>',
-					'  <td style="font-weight:700;color:#293681;">' + formatPrice(o.totalPrice) + '</td>',
+					'  <td style="font-weight:700;color:#0D3B1A;">' + formatPrice(o.totalPrice) + '</td>',
 					'  <td><button class="order-detail-btn" data-id="' + o.id + '"><i class="fa fa-eye"></i> Detalji</button></td>',
 					'</tr>'
 				].join('');
@@ -212,7 +212,7 @@
 				'<div class="order-info-row"><span class="label">Datum</span><span class="value">' + formatDate(o.createdAt) + '</span></div>',
 				'<div class="order-info-row"><span class="label">Status</span><span class="value"><span class="order-status-badge status-' + o.orderStatus + '">' + statusLabel(o.orderStatus) + '</span></span></div>',
 				'<div class="order-info-row"><span class="label">Adresa dostave</span><span class="value" style="max-width:280px;word-break:break-word;">' + o.deliveryAddress + '</span></div>',
-				'<div class="order-info-row"><span class="label">Ukupno</span><span class="value" style="color:#293681;font-size:16px;">' + formatPrice(o.totalPrice) + '</span></div>'
+				'<div class="order-info-row"><span class="label">Ukupno</span><span class="value" style="color:#0D3B1A;font-size:16px;">' + formatPrice(o.totalPrice) + '</span></div>'
 			].join('');
 
 			var itemsHtml = (o.items || []).map(function (item) {

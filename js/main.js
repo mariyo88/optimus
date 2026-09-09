@@ -47,7 +47,7 @@ function formatPrice(val) {
             var $dropdown = $([
                 '<ul class="auth-user-dropdown" style="',
                 '  display:none;position:absolute;right:0;top:100%;',
-                '  background:#293681;min-width:160px;z-index:9999;',
+                '  background:#0D3B1A;min-width:160px;z-index:9999;',
                 '  border-radius:0 0 4px 4px;list-style:none;margin:0;padding:4px 0;',
                 '  box-shadow:0 4px 12px rgba(0,0,0,0.2);">',
                 '  <li><a href="account.html" style="display:block;padding:9px 16px;color:#fff;font-size:13px;text-decoration:none;white-space:nowrap;">',
